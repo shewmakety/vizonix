@@ -1,0 +1,88 @@
+{
+  "segment": "legal",
+  "date": "2026-10-14",
+  "sample": true,
+  "subject": "Sample: a first-pass review tool, and what it would have to earn",
+  "preheader": "Sample issue for the legal section. The products and the sponsor below are fictional.",
+  "lead": {
+    "kicker": "Sample lead",
+    "title": "A first-pass review tool only pays if a lawyer still owns the file",
+    "summary": "This sample lead is about how a small practice would judge an AI contract tool. The product named later in the issue, ClauseHarbor, is not real. The point of the sample is the shape of the briefing: one lead, a few tools, a playbook, a short link list, and labeled sponsor slots.",
+    "whyItMatters": "A practice makes money on this category only when the tool shortens a first pass that a lawyer would have billed anyway, and when a human still checks the work before it reaches a client. If the check takes as long as the original review, the subscription is a cost, not a gain.",
+    "sourceName": "Vizonix sample desk",
+    "sourceUrl": "https://example.com/vizonix-sample-lead"
+  },
+  "tools": [
+    {
+      "name": "ClauseHarbor",
+      "slug": "clauseharbor",
+      "summary": "Fictional sample. A first-pass contract review desk that flags missing clauses and odd dates in a closed file.",
+      "whyItMatters": "Used on last year's closed matters, it can show whether a first pass gets shorter before anyone risks a live draft.",
+      "url": "/legal/tools/clauseharbor",
+      "pricing": "Sample pricing, not a live offer."
+    },
+    {
+      "name": "Docketline",
+      "slug": "docketline",
+      "summary": "Fictional sample. Intake questions and a conflict checklist for a new matter, before a person opens the file.",
+      "whyItMatters": "Cleaner intake means fewer unpaid hours spent chasing facts the client could have given on day one.",
+      "url": "/legal/tools/docketline",
+      "pricing": "Sample pricing, not a live offer."
+    },
+    {
+      "name": "Precedent North",
+      "slug": "precedent-north",
+      "summary": "Fictional sample. Drafts a research memo outline from authorities the firm already trusts.",
+      "whyItMatters": "The gain is a faster outline, not a memo that goes out unsigned. The lawyer still writes the conclusion.",
+      "url": "/legal/tools/precedent-north",
+      "pricing": "Sample pricing, not a live offer."
+    }
+  ],
+  "playbook": {
+    "title": "How a 12-lawyer firm would trial a review tool",
+    "intro": "This playbook is sample guidance for the format. It is not advice for any firm or any matter.",
+    "steps": [
+      "Pick one matter type, not the whole practice.",
+      "Run the tool on closed files first.",
+      "Have a lawyer check every suggestion before it touches a live draft.",
+      "Track time saved against the subscription for two weeks.",
+      "Keep the tool only if the recovered time covers the cost twice over."
+    ]
+  },
+  "quickLinks": [
+    {
+      "title": "ClauseHarbor sample listing",
+      "url": "/legal/tools/clauseharbor",
+      "note": "Fictional directory page."
+    },
+    {
+      "title": "Docketline sample listing",
+      "url": "/legal/tools/docketline",
+      "note": "Fictional directory page."
+    },
+    {
+      "title": "Sponsor rate card",
+      "url": "/sponsor",
+      "note": "Launch prices for the legal section."
+    },
+    {
+      "title": "Privacy",
+      "url": "/privacy",
+      "note": "What the list stores, and how to leave."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Northline Systems",
+      "url": "/sponsor",
+      "copy": "Northline Systems is a fictional company used to show the primary sponsor slot. A real sponsor in this slot gets a logo, about 100 words, and two links. The same note stays in the web archive. This is sample data, not a paid placement.",
+      "cta": "See the sponsor page",
+      "ctaUrl": "/sponsor",
+      "ctaSecondary": "Read the sample issue",
+      "ctaSecondaryUrl": "/legal/issues/2026-10-14",
+      "sample": true
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

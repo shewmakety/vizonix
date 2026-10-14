@@ -1,0 +1,16 @@
+{
+  "slug": "dutyline",
+  "segment": "aviation",
+  "name": "Dutyline",
+  "sample": true,
+  "category": "Maintenance control",
+  "summary": "A fictional maintenance-control log. Sample data for a tool that is not in the sample issue.",
+  "paragraphs": [
+    "Dutyline, in this sample, drafts the shift handoff from defects, MEL items, and parts calls a controller already logged. The listing exists so the directory is not only the tools named in one issue.",
+    "A real handoff tool would need the operator's control manual, and a person would still approve every note. This page does not offer that product."
+  ],
+  "whyItMatters": "A missed defect at shift change is work the next crew starts late. A clean handoff can return those hours to the aircraft instead of the log.",
+  "pricing": "Sample pricing, not a live offer.",
+  "bestFor": "Readers comparing a directory page with the issue archive.",
+  "url": "https://example.com/dutyline"
+}
