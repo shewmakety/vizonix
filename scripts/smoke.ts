@@ -21,7 +21,7 @@ const pages: Array<[string, string]> = [
   ["/legal/tools/clauseharbor", "Sample listing"],
   ["/warehousing", "not publishing yet"],
   ["/marketing-sales", "not publishing yet"],
-  ["/sponsor", "aviation briefing"],
+  ["/sponsor", "Aviation is the first list"],
   ["/sponsor/confirmed", "Payment received"],
   ["/about", "rate card"],
   ["/privacy", "Resend"],
