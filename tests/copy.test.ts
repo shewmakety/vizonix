@@ -5,7 +5,7 @@ import { sitemapPaths } from "@/lib/site-index";
 import { buildLlmsTxt } from "@/lib/llms";
 
 const roots = ["app", "components", "content", "lib", "scripts", "tests"];
-const files = ["README.md", ".env.example", ".github/workflows/ci.yml"];
+const files = ["README.md", ".env.example", ".github/workflows/ci.yml", "vercel.json"];
 
 function walk(dir: string, found: string[]) {
   if (!fs.existsSync(dir)) return;
@@ -31,6 +31,15 @@ describe("site copy", () => {
   );
     const offenders = found.filter((file) => bad.test(fs.readFileSync(file, "utf8")));
     expect(offenders).toEqual([]);
+  });
+
+  it("forces the Vercel project onto the Next.js builder", () => {
+    const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "vercel.json"), "utf8")) as {
+      framework?: string;
+      outputDirectory?: string | null;
+    };
+    expect(config.framework).toBe("nextjs");
+    expect(config.outputDirectory).toBeNull();
   });
 
   it("keeps sample pages out of the sitemap and names them in llms.txt", () => {

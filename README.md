@@ -96,22 +96,33 @@ Unsubscribe is `/unsubscribe`. The broadcast footer also includes Resend's `{{{R
 
 ## Vercel
 
-1. Import this GitHub repo as a Next.js project. Framework preset: Next.js. Root directory: the repo root.
-2. Set the env vars from `.env.example`. `NEXT_PUBLIC_SITE_URL` must be set before the production build so the sitemap and email links use the real domain.
-3. Hobby is enough until you take payment. Move to Pro when the project is commercial.
-4. Add `vizonix.com` and `www.vizonix.com` on the Vercel project.
-5. In Cloudflare (or wherever DNS lives), point the apex and `www` at Vercel. Keep the domain on a free DNS plan.
+`vercel.json` sets `"framework": "nextjs"` and clears `outputDirectory`. That overrides a project imported while the repo was empty. Vercel had saved the preset as Other, finished `next build`, and then looked for a static `public` folder. Next.js does not publish that way. Do not set the output directory to `public` or to `.next`.
+
+The file overrides the dashboard for each deployment. Still check the project once, because a stuck production override can keep demanding `public`:
+
+1. Open the Vercel project, then Project Settings, then Build and Deployment.
+2. Framework Preset: Next.js.
+3. Build Command: leave the override off. The repo script is `next build`.
+4. Output Directory: leave the override off. If the field says `public`, clear it.
+5. Root Directory: leave it empty. The app is at the repo root.
+6. If Production Overrides still shows `public`, reset those overrides, then redeploy with the build cache off.
+
+Then:
+
+1. Set the env vars from `.env.example`. `NEXT_PUBLIC_SITE_URL` must be set before the production build so the sitemap and email links use the real domain.
+2. Hobby is enough until you take payment. Move to Pro when the project is commercial.
+3. Add `vizonix.com` and `www.vizonix.com` on the Vercel project.
+4. Point the apex and `www` at Vercel in DNS. Keep the domain on a free DNS plan.
 
 Vercel redeploys when `main` changes. Issue pages and tool pages are generated from the JSON in that deploy.
 
-## Resend domain verification
+## Resend
 
-1. Add the sending domain in Resend.
-2. Resend shows SPF, DKIM, and DMARC records. Add them on Cloudflare. Do not turn on a proxy for those TXT records.
-3. Wait until Resend marks the domain verified.
-4. Set `EMAIL_FROM` to an address on that domain.
-5. Create a segment for each section (Legal, Warehousing, Marketing and sales). Copy each segment id into `RESEND_SEGMENT_ID_*`.
-6. Send a test: `npm run publish-issue -- content/legal/issues/2026-10-14.json --send --test-to you@firm.com --allow-sample --no-write`
+`vizonix.com` is already verified in Resend. Do not add the SPF, DKIM, or DMARC records again.
+
+1. Set `EMAIL_FROM` to an address on that domain, for example `Vizonix <news@vizonix.com>`.
+2. Create a segment for each section (Legal, Warehousing, Marketing and sales). Copy each segment id into `RESEND_SEGMENT_ID_*`.
+3. Send a test: `npm run publish-issue -- content/legal/issues/2026-10-14.json --send --test-to you@firm.com --allow-sample --no-write`
 
 Resend's free tier covers the list while it is small. The broadcast path uses segments, which replaced audiences.
 
@@ -165,7 +176,7 @@ GitHub Actions runs `npm test`, `npm run build`, and `npm run smoke` on every pu
 These are outside the repo:
 
 1. Set the env vars in Vercel. The list Ty must set is the table above. Minimum for a public deploy of the sample site: `NEXT_PUBLIC_SITE_URL`. Minimum before collecting emails: `TOKEN_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, and `RESEND_SEGMENT_ID_LEGAL`. Minimum before charging a sponsor: the Stripe keys, the Price ids, `STRIPE_WEBHOOK_SECRET`, and `GITHUB_TOKEN` plus `GITHUB_REPO` so bookings are saved.
-2. Verify the sending domain in Resend (SPF, DKIM, DMARC on Cloudflare).
+2. The Resend domain `vizonix.com` is already verified. Create the segments, then set `RESEND_API_KEY` and `EMAIL_FROM`.
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.
 5. Create `hello@`, `sponsors@`, and `privacy@` on the domain, or change the addresses in `lib/site.ts`.
