@@ -1,10 +1,12 @@
 import { ImageResponse } from "next/og";
+import { featuredSegment } from "@/lib/segments";
 
 export const alt = "Vizonix";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpenGraphImage() {
+  const featured = featuredSegment();
   return new ImageResponse(
     (
       <div
@@ -25,7 +27,7 @@ export default function OpenGraphImage() {
         <div style={{ display: "flex", fontSize: 64, lineHeight: 1.15, maxWidth: 920 }}>
           AI tools that make a specific business more profitable.
         </div>
-        <div style={{ display: "flex", fontSize: 28 }}>Legal is live. The briefing is free.</div>
+        <div style={{ display: "flex", fontSize: 28 }}>{featured.name} is the launch section. The briefing is free.</div>
       </div>
     ),
     { ...size },

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { segments } from "@/lib/segments";
+import { featuredSegment, segments } from "@/lib/segments";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
 
 export function SignupForm({
-  defaultSegment = "legal",
+  defaultSegment = featuredSegment().slug,
   showSegment = true,
   heading = "Get the briefing",
 }: {

@@ -38,6 +38,7 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
 
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
+  const payoff = segment?.payoffLabel ?? "Why it matters";
   return (
     <article>
       <p className="crumbs">
@@ -51,7 +52,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </p>
       ) : null}
       <p className="kicker">
-        {segment?.name} · {formatLongDate(issue.date)}
+        {segment?.name} - {formatLongDate(issue.date)}
       </p>
       <h1>{issue.subject}</h1>
       <p className="lede">{issue.preheader}</p>
@@ -61,7 +62,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <h2>{issue.lead.title}</h2>
         <p>{issue.lead.summary}</p>
         <p>
-          <strong>Why it can make the practice money.</strong> {issue.lead.whyItMatters}
+          <strong>{payoff}.</strong> {issue.lead.whyItMatters}
         </p>
         <p className="meta">
           Source: <a href={publicHref(issue.lead.sourceUrl)}>{issue.lead.sourceName}</a>
@@ -77,7 +78,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
               </h3>
               <p>{tool.summary}</p>
               <p>
-                <strong>Why it can make the practice money.</strong> {tool.whyItMatters}
+                <strong>{payoff}.</strong> {tool.whyItMatters}
               </p>
               <p className="meta">{tool.pricing}</p>
             </li>

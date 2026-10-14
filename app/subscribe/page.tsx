@@ -19,8 +19,9 @@ export default function SubscribePage() {
             section you picked arrives on weekday mornings.
           </p>
           <p>
-            Legal is the live section. Warehousing and marketing and sales are in preparation. You can
-            join those lists now. They will not send a daily issue until the section opens.
+            Aviation is the launch section. Legal is also live. Warehousing and marketing and sales are
+            in preparation. You can join those lists now. They will not send a daily issue until the
+            section opens.
           </p>
           <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
         </div>

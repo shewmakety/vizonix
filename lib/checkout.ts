@@ -5,7 +5,7 @@ import {
 } from "@/lib/bookings";
 import { addDays, isIsoDate, isMonday, todayInNewYork } from "@/lib/dates";
 import { getPlacement, placements, type Placement } from "@/lib/rate-card";
-import { getSegment } from "@/lib/segments";
+import { featuredSegment, getSegment } from "@/lib/segments";
 
 const emailSchema = z.string().trim().email();
 
@@ -62,7 +62,7 @@ export function parseCheckoutRequest(
     return {
       ok: true,
       value: {
-        segment: "legal",
+        segment: featuredSegment().slug,
         placement: "primary",
         startDate: "2099-01-05",
         endDate: "2099-01-09",

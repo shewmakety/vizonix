@@ -7,7 +7,13 @@ const port = 3456;
 const base = `http://127.0.0.1:${port}`;
 
 const pages: Array<[string, string]> = [
-  ["/", "Vizonix"],
+  ["/", "Aviation"],
+  ["/aviation", "maintenance and AOG teams"],
+  ["/aviation/issues", "Sample issue"],
+  ["/aviation/issues/2026-10-14", "Sample issue"],
+  ["/aviation/tools", "AOGLine"],
+  ["/aviation/tools/aogline", "Sample listing"],
+  ["/aviation/tools/dutyline", "Sample listing"],
   ["/legal", "Lawyers and law practices"],
   ["/legal/issues", "Sample issue"],
   ["/legal/issues/2026-10-14", "Sample issue"],
@@ -15,17 +21,17 @@ const pages: Array<[string, string]> = [
   ["/legal/tools/clauseharbor", "Sample listing"],
   ["/warehousing", "not publishing yet"],
   ["/marketing-sales", "not publishing yet"],
-  ["/sponsor", "Primary sponsor"],
+  ["/sponsor", "aviation briefing"],
   ["/sponsor/confirmed", "Payment received"],
   ["/about", "rate card"],
   ["/privacy", "Resend"],
   ["/terms", "not legal advice"],
-  ["/subscribe", "confirmation"],
+  ["/subscribe", "Aviation is the launch section"],
   ["/confirm", "confirmation"],
   ["/unsubscribe", "Unsubscribe"],
-  ["/llms.txt", "Vizonix"],
-  ["/llms-full.txt", "Legal"],
-  ["/sitemap.xml", "/legal"],
+  ["/llms.txt", "Aviation"],
+  ["/llms-full.txt", "Why it can make the operation money"],
+  ["/sitemap.xml", "/aviation"],
   ["/robots.txt", "GPTBot"],
 ];
 
@@ -102,7 +108,7 @@ async function main() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           email: "reader@example.com",
-          segment: "legal",
+          segment: "aviation",
           company_website: "https://spam.example",
         }),
       },
@@ -115,7 +121,7 @@ async function main() {
     await expectStatus("/api/stripe/webhook", { method: "POST", body: "{}" }, 400);
 
     const issue = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), "content/legal/issues/2026-10-14.json"), "utf8"),
+      fs.readFileSync(path.join(process.cwd(), "content/aviation/issues/2026-10-14.json"), "utf8"),
     );
     await expectStatus(
       "/api/publish",

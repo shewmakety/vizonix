@@ -18,9 +18,10 @@ export default function AboutPage() {
         <h2>What we cover</h2>
         <p>
           Vizonix reports emerging AI tools, bots, models, and resources. The test for inclusion is
-          specific: could this change revenue, cost, or speed for the section&apos;s reader. Legal is the
-          first section, written for lawyers and law practices. Warehousing, then marketing and sales,
-          use the same format when they open.
+          specific: could this change revenue, cost, or speed for the section&apos;s reader. Aviation is
+          the first section, written for airlines, MROs, parts suppliers, operators, and maintenance and
+          AOG teams. Legal is the second live section, for lawyers and law practices. Warehousing, then
+          marketing and sales, use the same format when they open.
         </p>
         <h2>How a section is organized</h2>
         <p>
@@ -36,8 +37,9 @@ export default function AboutPage() {
         </p>
         <h2>What the sample data is</h2>
         <p>
-          The first legal issue and the first tool pages are sample data. The company names on those
-          pages are fictional. They show the format. They are not recommendations.
+          The first aviation issue, the first legal issue, and the tool pages in both directories are
+          sample data. The company names on those pages are fictional. They show the format. They are
+          not recommendations.
         </p>
         <h2>Contact</h2>
         <p>

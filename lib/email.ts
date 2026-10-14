@@ -98,6 +98,7 @@ export function renderIssueEmail(
 ): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const payoff = segment?.payoffLabel ?? "Why it matters";
   const absolute = true;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const unsubscribe =
@@ -115,7 +116,7 @@ export function renderIssueEmail(
         <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
           <p style="margin:0 0 4px;font-size:18px;"><a href="${escapeHtml(href(tool.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(tool.name)}</a></p>
           <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(tool.summary)}</p>
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>Why it can make the practice money.</strong> ${escapeHtml(tool.whyItMatters)}</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(tool.whyItMatters)}</p>
           <p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.pricing)}</p>
         </td>
       </tr>`,
@@ -163,7 +164,7 @@ export function renderIssueEmail(
               <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#5f584e;">${escapeHtml(issue.lead.kicker)}</p>
               <h1 style="margin:8px 0;font-size:28px;line-height:1.2;font-weight:normal;">${escapeHtml(issue.lead.title)}</h1>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;">${escapeHtml(issue.lead.summary)}</p>
-              <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;"><strong>Why it can make the practice money.</strong> ${escapeHtml(issue.lead.whyItMatters)}</p>
+              <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(issue.lead.whyItMatters)}</p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(issue.lead.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(issue.lead.sourceName)}</a></p>
             </td>
           </tr>
@@ -206,6 +207,7 @@ export function renderIssueEmail(
 export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "test" }): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const unsubscribe =
     options.mode === "broadcast"
@@ -229,14 +231,14 @@ export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "te
     issue.lead.kicker.toUpperCase(),
     issue.lead.title,
     issue.lead.summary,
-    `Why it can make the practice money. ${issue.lead.whyItMatters}`,
+    `${payoff}. ${issue.lead.whyItMatters}`,
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     "",
     "NEW TOOLS",
     ...issue.tools.flatMap((tool) => [
       tool.name,
       tool.summary,
-      `Why it can make the practice money. ${tool.whyItMatters}`,
+      `${payoff}. ${tool.whyItMatters}`,
       tool.pricing,
       href(tool.url, true),
       "",

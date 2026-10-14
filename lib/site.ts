@@ -1,7 +1,7 @@
 export const site = {
   name: "Vizonix",
   description:
-    "A free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Legal practices first.",
+    "A free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Aviation first.",
   emailHello: "hello@vizonix.com",
   emailSponsors: "sponsors@vizonix.com",
   emailPrivacy: "privacy@vizonix.com",

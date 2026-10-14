@@ -12,7 +12,7 @@ async function main() {
   const file = process.argv.slice(2).find((arg) => !arg.startsWith("--"));
   if (!file) {
     console.error(
-      "Usage: npm run publish-issue -- content/drafts/example-legal.json [--send] [--allow-sample] [--test-to you@firm.com] [--no-write]",
+      "Usage: npm run publish-issue -- content/drafts/example-aviation.json [--send] [--allow-sample] [--test-to you@example.com] [--no-write]",
     );
     process.exit(1);
   }

@@ -19,7 +19,7 @@ import {
   secondaryRatio,
   stripeLinkEnvKey,
 } from "@/lib/rate-card";
-import { segments } from "@/lib/segments";
+import { featuredSegment, segments } from "@/lib/segments";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -27,7 +27,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Sponsor",
   description:
-    "Vizonix launch rate card for the legal briefing: primary, secondary, and classified sponsorships, plus the founding offer.",
+    "Vizonix launch rate card. Aviation is the first list. Primary, secondary, and classified sponsorships, plus the founding offer.",
   alternates: { canonical: "/sponsor" },
 };
 
@@ -37,25 +37,40 @@ export default async function SponsorPage({
   searchParams: Promise<{ status?: string }>;
 }) {
   const { status } = await searchParams;
+  const featured = featuredSegment();
+  const otherLive = segments.filter(
+    (segment) => segment.status === "active" && segment.slug !== featured.slug,
+  );
   const reserved = publicReservations(await loadReservations());
-  const links = launchPlacements
-    .map((placement) => {
-      const href = process.env[stripeLinkEnvKey("legal", placement.id)];
-      return href ? { placement, href } : null;
-    })
-    .filter((item): item is { placement: (typeof launchPlacements)[number]; href: string } =>
-      Boolean(item),
+  const links = segments
+    .filter((segment) => segment.status === "active")
+    .flatMap((segment) =>
+      launchPlacements.map((placement) => {
+        const href = process.env[stripeLinkEnvKey(segment.slug, placement.id)];
+        return href ? { segment, placement, href } : null;
+      }),
+    )
+    .filter(
+      (item): item is { segment: (typeof segments)[number]; placement: (typeof launchPlacements)[number]; href: string } =>
+        Boolean(item),
     );
 
   return (
     <section className="hero">
       <div className="wrap">
         <p className="kicker">Rate card</p>
-        <h1>Sponsor the legal briefing.</h1>
+        <h1>Sponsor the {featured.name.toLowerCase()} briefing.</h1>
         <p className="lede">
-          A week is five weekday issues, Monday through Friday, of one section. Launch prices below are
-          for a section with 0-2,500 subscribers. The archive listing stays on the site.
+          A week is five weekday issues, Monday through Friday, of one section. {featured.name} is the
+          launch list. Launch prices below are for a section with 0-2,500 subscribers. The archive
+          listing stays on the site.
         </p>
+        {otherLive.length > 0 ? (
+          <p>
+            The same launch prices apply to {otherLive.map((segment) => segment.name).join(" and ")},
+            which {otherLive.length === 1 ? "is" : "are"} also live. Pick the section in checkout.
+          </p>
+        ) : null}
         {status === "cancelled" ? (
           <p className="notice">Checkout was cancelled. No charge was made.</p>
         ) : null}
@@ -114,8 +129,9 @@ export default async function SponsorPage({
         <p>
           Primary slot, per week. Secondary is {secondaryRatio * 100}% of primary. Classified is{" "}
           {classifiedRatio * 100}% of primary. The 0-1,000 row is a floor, so the per-subscriber figure
-          is not meaningful there. Open rate and audience makeup (firm size and role) will be published
-          on this page once a month of legal issues has been sent. Those figures are not published yet.
+          is not meaningful there. Open rate and audience makeup will be published on this page once a
+          month of {featured.name.toLowerCase()} issues has been sent. Those figures are not published
+          yet.
         </p>
         <div className="table-wrap">
           <table>
@@ -178,8 +194,10 @@ export default async function SponsorPage({
                 </p>
                 <ul className="link-list">
                   {links.map((item) => (
-                    <li key={item.placement.id}>
-                      <a href={item.href}>{item.placement.name}</a>
+                    <li key={`${item.segment.slug}-${item.placement.id}`}>
+                      <a href={item.href}>
+                        {item.segment.name}: {item.placement.name}
+                      </a>
                     </li>
                   ))}
                 </ul>

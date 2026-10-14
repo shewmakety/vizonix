@@ -66,7 +66,7 @@ export const launchPlacements: LaunchPlacement[] = [
   {
     id: "banner",
     name: "Section site banner",
-    description: "Banner on vizonix.com/legal and its article pages for 7 days.",
+    description: "Banner on the section home and its article pages for 7 days.",
     price: 100,
     founding: 50,
     unit: "week",

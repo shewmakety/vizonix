@@ -44,8 +44,11 @@ describe("site copy", () => {
 
   it("keeps sample pages out of the sitemap and names them in llms.txt", () => {
     const paths = sitemapPaths();
+    expect(paths).toContain("/aviation");
     expect(paths).toContain("/legal");
     expect(paths).toContain("/sponsor");
+    expect(paths).not.toContain("/aviation/issues/2026-10-14");
+    expect(paths).not.toContain("/aviation/tools/aogline");
     expect(paths).not.toContain("/legal/issues/2026-10-14");
     expect(paths).not.toContain("/legal/tools/clauseharbor");
     const llms = buildLlmsTxt();

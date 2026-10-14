@@ -61,7 +61,7 @@ export function SponsorCheckoutForm() {
         The week is blocked after Stripe confirms payment.
       </p>
       <label htmlFor="sponsor-segment">Section</label>
-      <select id="sponsor-segment" name="segment" defaultValue={active[0]?.slug ?? "legal"}>
+      <select id="sponsor-segment" name="segment" defaultValue={active[0]?.slug ?? ""}>
         {active.map((segment) => (
           <option key={segment.slug} value={segment.slug}>
             {segment.name}

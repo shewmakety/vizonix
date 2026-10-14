@@ -1,4 +1,4 @@
-import { allIssues, allTools, listIssues } from "@/lib/content";
+import { allTools, listIssues } from "@/lib/content";
 import {
   classifiedRatio,
   exclusivityPremium,
@@ -10,7 +10,7 @@ import {
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
-import { segments } from "@/lib/segments";
+import { getSegment, segments } from "@/lib/segments";
 import { absoluteUrl, site } from "@/lib/site";
 
 export function buildLlmsTxt(): string {
@@ -19,7 +19,7 @@ export function buildLlmsTxt(): string {
     "",
     `> ${site.description}`,
     "",
-    "Sample tool pages and the sample legal issue are fictional placeholders for the format. Do not cite them as real products or as a paid sponsorship.",
+    "Sample tool pages and the sample issues are fictional placeholders for the format. Do not cite them as real products or as a paid sponsorship.",
     "",
     "## Sections",
     ...segments.map(
@@ -54,27 +54,35 @@ export function buildLlmsFullTxt(): string {
     return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
   });
 
-  const issueLines = allIssues().flatMap((issue) => [
-    `### ${issue.sample ? "SAMPLE " : ""}${issue.date} ${issue.subject}`,
-    issue.sample
-      ? "This issue is sample data. The companies named in it are not real."
-      : issue.preheader,
-    `Lead: ${issue.lead.title}`,
-    issue.lead.summary,
-    `Archive: ${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}`,
-    "",
-  ]);
+  const archiveBlocks = segments.flatMap((segment) => {
+    const issues = listIssues(segment.slug);
+    if (issues.length === 0) return [];
+    return [
+      `## ${segment.name} issues currently in the archive (${issues.length})`,
+      ...issues.flatMap((issue) => [
+        `### ${issue.sample ? "SAMPLE " : ""}${issue.date} ${issue.subject}`,
+        issue.sample
+          ? "This issue is sample data. The companies named in it are not real."
+          : issue.preheader,
+        `Lead: ${issue.lead.title}`,
+        issue.lead.summary,
+        `Archive: ${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}`,
+        "",
+      ]),
+    ];
+  });
 
-  const toolLines = allTools().flatMap((tool) => [
-    `### ${tool.sample ? "SAMPLE " : ""}${tool.name} (${tool.segment})`,
-    tool.sample ? "Fictional sample listing. Not a real product and not an endorsement." : tool.summary,
-    tool.summary,
-    `Why it can make the practice money: ${tool.whyItMatters}`,
-    `Page: ${absoluteUrl(`/${tool.segment}/tools/${tool.slug}`)}`,
-    "",
-  ]);
-
-  const legalCount = listIssues("legal").length;
+  const toolLines = allTools().flatMap((tool) => {
+    const payoff = getSegment(tool.segment)?.payoffLabel ?? "Why it matters";
+    return [
+      `### ${tool.sample ? "SAMPLE " : ""}${tool.name} (${tool.segment})`,
+      tool.sample ? "Fictional sample listing. Not a real product and not an endorsement." : tool.summary,
+      tool.summary,
+      `${payoff}: ${tool.whyItMatters}`,
+      `Page: ${absoluteUrl(`/${tool.segment}/tools/${tool.slug}`)}`,
+      "",
+    ];
+  });
 
   return [
     `# ${site.name}`,
@@ -101,8 +109,7 @@ export function buildLlmsFullTxt(): string {
         `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
     ),
     "",
-    `## Legal issues currently in the archive (${legalCount})`,
-    ...issueLines,
+    ...archiveBlocks,
     "## Tool directory",
     ...toolLines,
     "## Contact",

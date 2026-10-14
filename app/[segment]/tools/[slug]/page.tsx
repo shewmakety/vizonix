@@ -57,7 +57,7 @@ export default async function ToolPage({ params }: Props) {
           {tool.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-          <h2>Why it can make the practice money</h2>
+          <h2>{segment.payoffLabel}</h2>
           <p>{tool.whyItMatters}</p>
           <dl className="facts">
             <dt>Best for</dt>

@@ -170,7 +170,7 @@ main { padding-bottom: 4.5rem; }
 }
 .cards, .tool-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 }
 .card, .panel, .slot, .notice, .form-card {
@@ -191,6 +191,7 @@ main { padding-bottom: 4.5rem; }
   text-transform: uppercase;
   color: var(--muted);
 }
+.pill.launch { border-color: var(--navy); color: var(--navy); background: #e7eef6; }
 .pill.live { border-color: var(--pine); color: var(--pine); }
 .pill.sample { border-color: var(--brass); color: var(--brass); }
 
