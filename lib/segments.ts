@@ -26,9 +26,9 @@ export const segments: Segment[] = [
     slug: "aviation",
     name: "Aviation",
     status: "active",
-    audience: "Airlines, MROs, parts suppliers, operators, and maintenance and AOG teams",
+    audience: "Airlines, MROs, parts suppliers, operators, and maintenance / AOG teams",
     summary:
-      "A weekday briefing on AI tools, bots, models, and resources for airlines, MROs, parts suppliers, operators, and maintenance and AOG teams.",
+      "A weekday briefing on AI tools, bots, models, and resources for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams.",
     promise:
       "What is new, and how it could put an aircraft back in service sooner, fill a bay, or cut a premium parts buy.",
     payoffLabel: "Why it can make the operation money",

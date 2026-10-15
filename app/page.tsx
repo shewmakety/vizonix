@@ -27,9 +27,6 @@ export default function HomePage() {
               <Link className="button" href={`/${featured.slug}`}>
                 Read the {featured.name.toLowerCase()} section
               </Link>
-              <Link className="button secondary" href="/sponsor">
-                Sponsor a week
-              </Link>
             </div>
           </div>
           <SignupForm heading="Subscribe" />
@@ -115,7 +112,7 @@ export default function HomePage() {
             <h3>What a section publishes</h3>
             <ol className="steps">
               <li>One lead story.</li>
-              <li>Three to five tools, each with a reason it could change the money.</li>
+              <li>Tools, each with a reason it could change the money.</li>
               <li>One short playbook.</li>
               <li>A quick link list.</li>
               <li>Primary, secondary, and classified sponsor slots.</li>

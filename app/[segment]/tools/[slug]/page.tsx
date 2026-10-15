@@ -43,7 +43,7 @@ export default async function ToolPage({ params }: Props) {
         <div className="wrap prose">
           <p className="crumbs">
             <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
-            <Link href={`/${segment.slug}/tools`}>Tools</Link> / {tool.name}
+            <Link href={`/${segment.slug}/tools`}>Tool directory</Link> / {tool.name}
           </p>
           {tool.sample ? (
             <p className="notice">
@@ -53,15 +53,22 @@ export default async function ToolPage({ params }: Props) {
           ) : null}
           <p className="kicker">{tool.category}</p>
           <h1>{tool.name}</h1>
+          {tool.company ? <p className="meta">{tool.company}</p> : null}
           <p className="lede">{tool.summary}</p>
-          {tool.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+          {tool.paragraphs
+            .filter((paragraph) => paragraph !== tool.summary)
+            .map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           <h2>{segment.payoffLabel}</h2>
           <p>{tool.whyItMatters}</p>
           <dl className="facts">
-            <dt>Best for</dt>
-            <dd>{tool.bestFor}</dd>
+            {tool.bestFor ? (
+              <>
+                <dt>Best for</dt>
+                <dd>{tool.bestFor}</dd>
+              </>
+            ) : null}
             <dt>Pricing</dt>
             <dd>{tool.pricing}</dd>
             <dt>External link</dt>
@@ -70,6 +77,16 @@ export default async function ToolPage({ params }: Props) {
                 {tool.url}
               </a>
             </dd>
+            {tool.sourceUrl && tool.sourceUrl !== tool.url ? (
+              <>
+                <dt>Source</dt>
+                <dd>
+                  <a href={tool.sourceUrl} rel="noopener noreferrer">
+                    {tool.sourceUrl}
+                  </a>
+                </dd>
+              </>
+            ) : null}
           </dl>
           <p>
             <Link href={`/${segment.slug}/tools`}>Back to the {segment.name} directory</Link>
@@ -82,7 +99,7 @@ export default async function ToolPage({ params }: Props) {
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: segment.name, path: `/${segment.slug}` },
-            { name: "Tools", path: `/${segment.slug}/tools` },
+            { name: "Tool directory", path: `/${segment.slug}/tools` },
             { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
           ]),
         ]}

@@ -31,6 +31,8 @@ export const sponsorSchema = z
     ctaUrl: href,
     ctaSecondary: z.string().trim().min(1).max(80).optional(),
     ctaSecondaryUrl: href.optional(),
+    /** House ad, not a paid placement. Renders without a sponsored relationship. */
+    house: z.boolean().optional(),
     sample: z.boolean().optional(),
   })
   .superRefine((sponsor, ctx) => {
@@ -47,6 +49,31 @@ export const sponsorSchema = z
 
 export type SponsorCreative = z.infer<typeof sponsorSchema>;
 
+const issueToolSchema = z.object({
+  name: z.string().trim().min(1).max(120),
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  company: z.string().trim().min(1).max(160).optional(),
+  summary: z.string().trim().min(1).max(1200),
+  whyItMatters: z.string().trim().min(1).max(1200),
+  url: href,
+  sourceUrl: href.optional(),
+  pricing: z.string().trim().min(1).max(200),
+  /** Set on a flat tools list so the page can group blurbs that share a topic. */
+  topic: z.string().trim().min(1).max(120).optional(),
+});
+
+export type IssueTool = z.infer<typeof issueToolSchema>;
+
+const issueSectionSchema = z.object({
+  topic: z.string().trim().min(1).max(120),
+  intro: z.string().trim().min(1).max(1200).optional(),
+  introSourceUrl: href.optional(),
+  coverageNote: z.string().trim().min(1).max(500).optional(),
+  tools: z.array(issueToolSchema).min(1).max(8),
+});
+
+export type IssueSection = z.infer<typeof issueSectionSchema>;
+
 export const issueSchema = z
   .object({
     segment: z.string().trim().min(1),
@@ -61,20 +88,15 @@ export const issueSchema = z
       whyItMatters: z.string().trim().min(1).max(1200),
       sourceName: z.string().trim().min(1).max(120),
       sourceUrl: href,
+      productUrl: href.optional(),
     }),
-    tools: z
-      .array(
-        z.object({
-          name: z.string().trim().min(1).max(120),
-          slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
-          summary: z.string().trim().min(1).max(600),
-          whyItMatters: z.string().trim().min(1).max(800),
-          url: href,
-          pricing: z.string().trim().min(1).max(200),
-        }),
-      )
-      .min(1)
-      .max(8),
+    /**
+     * Flat list. Required unless `sections` is set.
+     * A sectioned issue can omit this and keep the tools inside sections.
+     */
+    tools: z.array(issueToolSchema).max(16).optional(),
+    /** Topic groups. When present, these are what the page and the email render. */
+    sections: z.array(issueSectionSchema).min(1).max(12).optional(),
     playbook: z.object({
       title: z.string().trim().min(1).max(180),
       intro: z.string().trim().min(1).max(1200),
@@ -105,6 +127,23 @@ export const issueSchema = z
       });
     }
 
+    const sectionCount = issue.sections?.reduce((sum, section) => sum + section.tools.length, 0) ?? 0;
+    const flatCount = issue.tools?.length ?? 0;
+    if (sectionCount + flatCount < 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["tools"],
+        message: "Add at least one tool, either in tools or in sections.",
+      });
+    }
+    if (sectionCount > 16) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["sections"],
+        message: "An issue can list at most 16 tools across its sections.",
+      });
+    }
+
     const slots: Array<["primary" | "secondary" | "classified", SponsorCreative | null]> = [
       ["primary", issue.sponsors.primary],
       ["secondary", issue.sponsors.secondary],
@@ -128,18 +167,53 @@ export const issueSchema = z
 
 export type Issue = z.infer<typeof issueSchema>;
 
+/** Tools the page and email should show. Sections win when both are present. */
+export function issueTools(issue: Issue): IssueTool[] {
+  if (issue.sections && issue.sections.length > 0) {
+    return issue.sections.flatMap((section) => section.tools);
+  }
+  return issue.tools ?? [];
+}
+
+export type IssueSectionView = {
+  topic?: string;
+  intro?: string;
+  introSourceUrl?: string;
+  coverageNote?: string;
+  tools: IssueTool[];
+};
+
+/** Topic groups for rendering. A flat tools list with no topics is one untitled group. */
+export function issueSections(issue: Issue): IssueSectionView[] {
+  if (issue.sections && issue.sections.length > 0) return issue.sections;
+  const tools = issue.tools ?? [];
+  if (!tools.some((tool) => tool.topic)) {
+    return tools.length > 0 ? [{ tools }] : [];
+  }
+  const groups: IssueSectionView[] = [];
+  for (const tool of tools) {
+    const topic = tool.topic ?? "Tool Highlights";
+    const current = groups[groups.length - 1];
+    if (current?.topic === topic) current.tools.push(tool);
+    else groups.push({ topic, tools: [tool] });
+  }
+  return groups;
+}
+
 export const toolSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   segment: z.string().trim().min(1),
   name: z.string().trim().min(1).max(120),
   sample: z.boolean(),
-  category: z.string().trim().min(1).max(80),
-  summary: z.string().trim().min(1).max(400),
+  category: z.string().trim().min(1).max(120),
+  company: z.string().trim().min(1).max(160).optional(),
+  summary: z.string().trim().min(1).max(1200),
   paragraphs: z.array(z.string().trim().min(1).max(1200)).min(1).max(6),
-  whyItMatters: z.string().trim().min(1).max(800),
+  whyItMatters: z.string().trim().min(1).max(1200),
   pricing: z.string().trim().min(1).max(200),
-  bestFor: z.string().trim().min(1).max(240),
+  bestFor: z.string().trim().min(1).max(240).optional(),
   url: httpUrl,
+  sourceUrl: httpUrl.optional(),
 });
 
 export type ToolEntry = z.infer<typeof toolSchema>;

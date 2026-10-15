@@ -1,4 +1,4 @@
-import type { Issue, SponsorCreative } from "@/lib/schema";
+import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
@@ -30,10 +30,11 @@ const houseCopy: Record<SlotName, { copy: string; cta: string }> = {
 
 export function resolveSlot(name: SlotName, creative: SponsorCreative | null): ResolvedSlot {
   if (creative) {
+    const house = Boolean(creative.house);
     return {
       name,
-      label: slotLabel(name),
-      house: false,
+      label: house ? `${slotLabel(name)} - open` : slotLabel(name),
+      house,
       creative,
     };
   }
@@ -62,6 +63,68 @@ function slotLabel(name: SlotName): string {
 function href(value: string, absolute: boolean): string {
   const safe = publicHref(value);
   return absolute ? (safe.startsWith("/") ? absoluteUrl(safe) : safe) : safe;
+}
+
+function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean): string {
+  const heading = section.topic ?? "Tool Highlights";
+  const note = section.coverageNote
+    ? `<p style="margin:8px 0 0;padding:10px 12px;background:#f7efe2;border:1px solid #e0cfae;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${escapeHtml(section.coverageNote)}</p>`
+    : "";
+  const intro = section.intro
+    ? `<p style="margin:8px 0 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(section.intro)}${
+        section.introSourceUrl
+          ? ` Source: <a href="${escapeHtml(href(section.introSourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(section.introSourceUrl)}</a>`
+          : ""
+      }</p>`
+    : "";
+  const tools = section.tools
+    .map((tool) => {
+      const company = tool.company
+        ? `<p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.company)}</p>`
+        : "";
+      const source = tool.sourceUrl
+        ? `<p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(tool.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(tool.sourceUrl)}</a></p>`
+        : "";
+      return `
+      <tr>
+        <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
+          <p style="margin:0 0 4px;font-size:18px;"><a href="${escapeHtml(href(tool.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(tool.name)}</a></p>
+          ${company}
+          <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(tool.summary)}</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(tool.whyItMatters)}</p>
+          <p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.pricing)}</p>
+          ${source}
+        </td>
+      </tr>`;
+    })
+    .join("");
+  return `
+          <tr>
+            <td style="padding:22px 28px 0;font-family:Georgia,serif;color:#1c1915;">
+              <h2 style="margin:0;font-size:22px;font-weight:normal;">${escapeHtml(heading)}</h2>
+              ${note}
+              ${intro}
+            </td>
+          </tr>
+          ${tools}`;
+}
+
+function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
+  const lines = [section.topic ? section.topic.toUpperCase() : "TOOL HIGHLIGHTS"];
+  if (section.coverageNote) lines.push(section.coverageNote);
+  if (section.intro) {
+    lines.push(section.intro);
+    if (section.introSourceUrl) lines.push(`Source: ${href(section.introSourceUrl, true)}`);
+  }
+  lines.push("");
+  for (const tool of section.tools) {
+    lines.push(tool.name);
+    if (tool.company) lines.push(tool.company);
+    lines.push(tool.summary, `${payoff}. ${tool.whyItMatters}`, tool.pricing, href(tool.url, true));
+    if (tool.sourceUrl) lines.push(`Source: ${href(tool.sourceUrl, true)}`);
+    lines.push("");
+  }
+  return lines;
 }
 
 function slotHtml(slot: ResolvedSlot, absolute: boolean): string {
@@ -109,18 +172,8 @@ export function renderIssueEmail(
   const secondary = resolveSlot("secondary", issue.sponsors.secondary);
   const classified = resolveSlot("classified", issue.sponsors.classified);
 
-  const tools = issue.tools
-    .map(
-      (tool) => `
-      <tr>
-        <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
-          <p style="margin:0 0 4px;font-size:18px;"><a href="${escapeHtml(href(tool.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(tool.name)}</a></p>
-          <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(tool.summary)}</p>
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(tool.whyItMatters)}</p>
-          <p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.pricing)}</p>
-        </td>
-      </tr>`,
-    )
+  const tools = issueSections(issue)
+    .map((section) => sectionEmailHtml(section, payoff, absolute))
     .join("");
 
   const steps = issue.playbook.steps
@@ -166,11 +219,11 @@ export function renderIssueEmail(
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;">${escapeHtml(issue.lead.summary)}</p>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(issue.lead.whyItMatters)}</p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(issue.lead.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(issue.lead.sourceName)}</a></p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:22px 28px 0;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0;font-size:22px;font-weight:normal;">New tools</h2>
+              ${
+                issue.lead.productUrl
+                  ? `<p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Product: <a href="${escapeHtml(href(issue.lead.productUrl, absolute))}" style="color:#1e4636;">${escapeHtml(issue.lead.productUrl)}</a></p>`
+                  : ""
+              }
             </td>
           </tr>
           ${tools}
@@ -233,16 +286,9 @@ export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "te
     issue.lead.summary,
     `${payoff}. ${issue.lead.whyItMatters}`,
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
+    ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
-    "NEW TOOLS",
-    ...issue.tools.flatMap((tool) => [
-      tool.name,
-      tool.summary,
-      `${payoff}. ${tool.whyItMatters}`,
-      tool.pricing,
-      href(tool.url, true),
-      "",
-    ]),
+    ...issueSections(issue).flatMap((section) => sectionEmailText(section, payoff)),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
     issue.playbook.intro,

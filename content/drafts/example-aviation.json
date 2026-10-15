@@ -14,12 +14,12 @@
   },
   "tools": [
     {
-      "name": "AOGLine",
-      "slug": "aogline",
-      "summary": "Fictional sample tool, carried into the draft so the file validates.",
+      "name": "Replace this tool",
+      "slug": "replace-this-tool",
+      "summary": "Placeholder so the draft file validates. It is not a product and it is not published until you replace it.",
       "whyItMatters": "Swap this for a real tool before a public send.",
-      "url": "/aviation/tools/aogline",
-      "pricing": "Sample pricing, not a live offer."
+      "url": "/aviation",
+      "pricing": "Contact the vendor"
     }
   ],
   "playbook": {

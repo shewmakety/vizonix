@@ -1,0 +1,16 @@
+{
+  "slug": "talentvista",
+  "segment": "aviation",
+  "name": "TalentVista",
+  "sample": false,
+  "category": "Recruiting pilots and technicians",
+  "company": "TalentVista",
+  "summary": "AI screening and interview platform for aviation recruiting. It parses pilot, engineer and mechanic CVs, ranks candidates against the role, and runs role-specific structured interviews with AI-generated reports. Backed by an Innovate UK grant.",
+  "paragraphs": [
+    "AI screening and interview platform for aviation recruiting. It parses pilot, engineer and mechanic CVs, ranks candidates against the role, and runs role-specific structured interviews with AI-generated reports. Backed by an Innovate UK grant."
+  ],
+  "whyItMatters": "Useful when a posting pulls in hundreds of applications and your one recruiter cannot screen them all. Keep a human on the final shortlist and check how it scores certifications before you rely on it.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://talentvista.ai/",
+  "url": "https://talentvista.ai/"
+}

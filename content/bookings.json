@@ -1,14 +1,1 @@
-[
-  {
-    "id": "cs_test_b1kQLvrD7T10DOcwdKCdVtHP6ra3q7jZGQ1rfQCH3QBMjt2yiC4XN2b4oD",
-    "stripeSessionId": "cs_test_b1kQLvrD7T10DOcwdKCdVtHP6ra3q7jZGQ1rfQCH3QBMjt2yiC4XN2b4oD",
-    "segment": "aviation",
-    "placement": "primary",
-    "startDate": "2026-10-19",
-    "endDate": "2026-10-23",
-    "founding": true,
-    "exclusivityRequested": false,
-    "status": "paid",
-    "createdAt": "2026-10-15T09:51:50.000Z"
-  }
-]
+[]

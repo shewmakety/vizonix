@@ -19,8 +19,8 @@ export default function AboutPage() {
         <p>
           Vizonix reports emerging AI tools, bots, models, and resources. The test for inclusion is
           specific: could this change revenue, cost, or speed for the section&apos;s reader. Aviation is
-          the first section, written for airlines, MROs, parts suppliers, operators, and maintenance and
-          AOG teams. Legal is the second live section, for lawyers and law practices. Warehousing, then
+          the first section, written for airlines, MROs, parts suppliers, operators, and maintenance / AOG
+          teams. Legal is the second live section, for lawyers and law practices. Warehousing, then
           marketing and sales, use the same format when they open.
         </p>
         <h2>How a section is organized</h2>
@@ -37,9 +37,9 @@ export default function AboutPage() {
         </p>
         <h2>What the sample data is</h2>
         <p>
-          The first aviation issue, the first legal issue, and the tool pages in both directories are
-          sample data. The company names on those pages are fictional. They show the format. They are
-          not recommendations.
+          The legal issue and the legal tool pages are sample data. The company names on those pages are
+          fictional. They show the format. They are not recommendations. The aviation issue is a
+          published briefing, and each item on it names a source.
         </p>
         <h2>Contact</h2>
         <p>

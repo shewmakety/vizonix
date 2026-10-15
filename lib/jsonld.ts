@@ -54,6 +54,7 @@ export function toolJsonLd(tool: ToolEntry) {
       ? `Sample listing. ${tool.summary} This is fictional and not a real product.`
       : tool.summary,
     url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
+    ...(tool.sample ? {} : { sameAs: tool.url }),
     offers: {
       "@type": "Offer",
       description: tool.pricing,

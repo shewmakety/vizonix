@@ -1,0 +1,16 @@
+{
+  "slug": "skyselect",
+  "segment": "aviation",
+  "name": "SkySelect",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "company": "SkySelect",
+  "summary": "AI procurement platform that matches part requests to suppliers across thousands of vendors and automates quoting through PO. It raised $9 million in March 2026, reports more than $6 billion in transactions processed, and lists JetBlue, Sun Country Airlines, ATSG, Wideroe and Vueling among recent clients.",
+  "paragraphs": [
+    "AI procurement platform that matches part requests to suppliers across thousands of vendors and automates quoting through PO. It raised $9 million in March 2026, reports more than $6 billion in transactions processed, and lists JetBlue, Sun Country Airlines, ATSG, Wideroe and Vueling among recent clients."
+  ],
+  "whyItMatters": "A vendor-neutral way to cut both AOG chase time and safety stock. Compare its recommendations against your buyers' picks on last quarter's AOG buys before you switch workflows.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://avm-mag.com/skyselect-raises-9m-to-modernize-aircraft-parts-procurement-with-ai",
+  "url": "https://www.skyselect.com/"
+}

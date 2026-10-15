@@ -1,0 +1,16 @@
+{
+  "slug": "aismartplan",
+  "segment": "aviation",
+  "name": "AISmartPlan",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "company": "AISmartPlan",
+  "summary": "AI maintenance production planning that matches engineers to aircraft and tasks using flight schedules, aircraft availability and workforce constraints, with drag-and-drop visual plans. Aer Lingus signed a multi-year agreement after a trial in IAG's accelerator (May 28, 2026).",
+  "paragraphs": [
+    "AI maintenance production planning that matches engineers to aircraft and tasks using flight schedules, aircraft availability and workforce constraints, with drag-and-drop visual plans. Aer Lingus signed a multi-year agreement after a trial in IAG's accelerator (May 28, 2026)."
+  ],
+  "whyItMatters": "Aer Lingus's planning manager said what used to take hours each day can now be done in minutes. If your planners still allocate tasks by spreadsheet, this is the category to price out.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.iairgroup.com/press-releases/2026/international-airlines-group-iag-strengthens-operational-innovation-with-aismartplan-deployment-at-aer-lingus/",
+  "url": "https://aismartplan.com/"
+}

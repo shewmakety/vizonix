@@ -1,0 +1,240 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-16",
+  "sample": false,
+  "subject": "AI moves into the hangar workflow, plus 7 places to put it to work",
+  "preheader": "Veryon brings agentic AI to business aviation maintenance, and our first pass at AI for recruiting, sales, predictive maintenance, planning, troubleshooting, warehousing and AOG.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Veryon puts an AI assistant inside the business aviation maintenance record",
+    "summary": "On October 13, Veryon launched Veryon for Business Aviation, one platform that combines maintenance tracking, MRO management, defect analysis and technical publications for charter operators, management companies, MROs and flight departments. It ships with Veryon AIRE, an AI engine that a director of maintenance can query by text or voice to see whether a fault is showing up across the fleet, with matching history across tails and the associated part. Veryon says AIRE checks fleet history as a discrepancy is logged and shows what fixed the same issue on the same type elsewhere, while the certified mechanic still makes the call. Veryon will show it at NBAA-BACE in Las Vegas, October 20-22, booth 645.",
+    "whyItMatters": "Most biz-av shops run tracking, MRO, reliability and publications in separate systems, and the cost shows up as re-keyed data and slow repeat-defect detection. If the fleet-wide fault check really happens at the moment the squawk is written up, the payoff is fewer repeat write-ups and less time an aircraft sits. If you are at NBAA, ask to see it run against one of your own chronic squawks, not a demo tail.",
+    "sourceName": "Veryon press release, October 13, 2026",
+    "sourceUrl": "https://pubt.io/view/70BF9BDB3956CE0D9800CFEF0C266E427A42C55B",
+    "productUrl": "https://veryon.com/"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting pilots and technicians",
+      "intro": "Context first: the 2026 ATEC and Oliver Wyman Pipeline Report (September 24) projects a North American shortfall of about 25,000 aviation technical personnel this year, including 9,100 certificated mechanics, even after the FAA issued a record 11,103 new mechanic certificates in 2025.",
+      "introSourceUrl": "https://www.atec-amt.org/news/aviation-technical-workforce-expansion-continues-amid-strong-demand",
+      "coverageNote": "Thin this week: we did not find a verified, aviation-specific AI recruiting launch in the last three months, so these are established tools.",
+      "tools": [
+        {
+          "name": "SmartMatch",
+          "slug": "aviation-job-search-smartmatch",
+          "company": "Aviation Job Search",
+          "summary": "AI candidate matching built for aviation hiring. It reads licences, aircraft types, recency and approvals instead of generic CV keywords, across an audience of more than 150,000 registered aviation professionals.",
+          "whyItMatters": "Search and shortlist for free, and pay only when you decide to contact someone. Run your hardest open req (say, a B1 or A&P with a specific type) through it before you pay an agency fee.",
+          "url": "/aviation/tools/aviation-job-search-smartmatch",
+          "sourceUrl": "https://recruiting.aviationjobsearch.com/smartmatch",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "TalentVista",
+          "slug": "talentvista",
+          "company": "TalentVista",
+          "summary": "AI screening and interview platform for aviation recruiting. It parses pilot, engineer and mechanic CVs, ranks candidates against the role, and runs role-specific structured interviews with AI-generated reports. Backed by an Innovate UK grant.",
+          "whyItMatters": "Useful when a posting pulls in hundreds of applications and your one recruiter cannot screen them all. Keep a human on the final shortlist and check how it scores certifications before you rely on it.",
+          "url": "/aviation/tools/talentvista",
+          "sourceUrl": "https://talentvista.ai/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "Flight Leads",
+          "slug": "levo-flight-leads",
+          "company": "Levo",
+          "summary": "An AI sales dashboard for charter operators, launched July 2, 2026. It matches inbound inbox and aggregator requests to available aircraft, prices them on the operator's own rules, and pre-fills a quote ready to send by email or SMS.",
+          "whyItMatters": "In charter, the first competitive quote usually wins the trip. If your sales desk is juggling several screens per request, measure your current request-to-quote time first, then trial it on retail requests only.",
+          "url": "/aviation/tools/levo-flight-leads",
+          "sourceUrl": "https://www.corporatejetinvestor.com/news/levo-launches-ai-powered-charter-sales-platform/",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "AI Sales Intelligence",
+          "slug": "camp-aviate-ai-sales-intelligence",
+          "company": "CAMP Aviate (formerly Component Control's Quantum Control)",
+          "summary": "AI price guidance for aviation parts and MRO sales teams. It recommends a price for each part from your past quote outcomes, win rates and ILS marketplace data, sends weekly opportunity reports, and includes a plain-language AI analyst, all inside SalesEdge Quoting.",
+          "whyItMatters": "For a parts seller, small pricing misses on thousands of RFQs add up. Ask it which customers bring the highest margin and which parts are not moving, then compare against what your reps believe.",
+          "url": "/aviation/tools/camp-aviate-ai-sales-intelligence",
+          "sourceUrl": "https://blog.componentcontrol.com/2026/04/09/quantum-control-camp-aviate-aviation-aftermarket-ai-power/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "Defect Analysis (next generation)",
+          "slug": "veryon-defect-analysis",
+          "company": "Veryon",
+          "summary": "Announced September 9, 2026. Adds aircraft fault data and part failures to every chronic, with AI chronic detection, rogue-parts detection that flags components statistically linked to recurring defects, AI chronic summaries and a conversational Fix Agent. Every AI suggestion goes through operator review.",
+          "whyItMatters": "Repeat defects drive delays and wasted parts and labor. The rogue-parts view is the one to test: if it points at the part behind a chronic before the next removal, it pays for itself.",
+          "url": "/aviation/tools/veryon-defect-analysis",
+          "sourceUrl": "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "Maintenance Insight",
+          "slug": "standardaero-maintenance-insight",
+          "company": "StandardAero",
+          "summary": "Predictive maintenance and reliability tools that use AI, machine learning and digital twins to analyze engine failure modes and inform work scoping. On October 6, 2026, the USAF awarded StandardAero work to apply it to the F100-220 engine, its fifth USAF engine type.",
+          "whyItMatters": "This is military today, but StandardAero says it stands ready to expand the solution to commercial fleets. Engine shops and lessors should watch it as a signal that predictive work scoping is moving from pilots into contracts.",
+          "url": "/aviation/tools/standardaero-maintenance-insight",
+          "sourceUrl": "https://standardaero.com/standardaero-wins-predictive-engine-maintenance-contract-supporting-the-united-states-air-forces-f100-220-engine-program/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "tools": [
+        {
+          "name": "Tailsight",
+          "slug": "tailsight",
+          "company": "Tailsight",
+          "summary": "AI maintenance planning and optimization for airline tech ops. It pulls together maintenance systems, flight schedules, staffing, station capability and parts availability to build plans that respect real constraints. Alaska Airlines is the first major airline to deploy it and invested in the company (April 16, 2026).",
+          "whyItMatters": "Plans that ignore labor, parts or station capability fall apart overnight. Tailsight is aimed at labor and parts utilization and at reducing AOG time, the KPIs a VP of maintenance actually reports.",
+          "url": "/aviation/tools/tailsight",
+          "sourceUrl": "https://news.alaskaair.com/innovation/alaska-airlines-and-tailsight-launch-ai-powered-maintenance-planning-solution/",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "AISmartPlan",
+          "slug": "aismartplan",
+          "company": "AISmartPlan",
+          "summary": "AI maintenance production planning that matches engineers to aircraft and tasks using flight schedules, aircraft availability and workforce constraints, with drag-and-drop visual plans. Aer Lingus signed a multi-year agreement after a trial in IAG's accelerator (May 28, 2026).",
+          "whyItMatters": "Aer Lingus's planning manager said what used to take hours each day can now be done in minutes. If your planners still allocate tasks by spreadsheet, this is the category to price out.",
+          "url": "/aviation/tools/aismartplan",
+          "sourceUrl": "https://www.iairgroup.com/press-releases/2026/international-airlines-group-iag-strengthens-operational-innovation-with-aismartplan-deployment-at-aer-lingus/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "One standout this week.",
+      "tools": [
+        {
+          "name": "webAI Frontline",
+          "slug": "webai-frontline",
+          "company": "webAI",
+          "summary": "On-device AI that answers plain-language questions across your own approved technical documentation, with the cited source page for every answer and no internet connection. Launched August 26, 2026; webAI says it ran a regional jet fleet's roughly 34,000-page manual set on one iPad and cut documentation search during an engine change by at least 66% at a European regional maintenance operation.",
+          "whyItMatters": "Works where connectivity is poor or cloud AI is not allowed, and the cited page keeps the tech in the approved data. It is sold through co-development engagements; recommended hardware is an iPad Pro (M4 or M5, 12 GB RAM or more).",
+          "url": "/aviation/tools/webai-frontline",
+          "sourceUrl": "https://www.webai.com/blog/webai-frontline-cuts-aircraft-manual-search-from-16-hours-to-20-minutes-offline-on-a-single-ipad",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin this week: little aviation-specific AI warehousing news we could verify, so one established item.",
+      "tools": [
+        {
+          "name": "RGIS Vision",
+          "slug": "rgis-vision",
+          "company": "RGIS",
+          "summary": "AI optical character recognition added to RGIS inventory scanners, so counters read alphanumeric part numbers straight off parts and bin labels instead of writing them down. RGIS says a major carrier reported 98.9% inventory accuracy across four warehouses, and the count found more than 2,000 parts not recorded in the airline's system (Aviation Week, January 12, 2026).",
+          "whyItMatters": "Aviation stores often have missing or no barcodes, and every hand-keyed part number is a chance for error. Better counts mean fewer phantom stock records and fewer emergency buys of parts you already own.",
+          "url": "/aviation/tools/rgis-vision",
+          "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/ai-powered-optical-tech-targets-aerospace-inventory-accuracy",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "coverageNote": "Parts sourcing is well covered. For AOG technician sourcing we did not find a verified AI tool this week; the closest option we found is a non-AI dispatch network, noted in quick hits.",
+      "tools": [
+        {
+          "name": "Airvoyant",
+          "slug": "airvoyant",
+          "company": "AAR",
+          "summary": "AI parts procurement for airlines and MROs, launched April 21, 2026. It searches inventory, requests and consolidates quotes and recommends a purchase, integrates with Trax and other ERPs, and connects to Aeroxchange's network of more than 5,000 suppliers. Launch partners include Air Europa, Allegiant, Atlas Air, JetBlue, Thai Airways and Virgin Atlantic.",
+          "whyItMatters": "Email-driven RFQs and manual quote comparison are where AOG hours disappear. AAR says agents for demand consolidation, vendor optimization and automated negotiation are expected later this year.",
+          "url": "/aviation/tools/airvoyant",
+          "sourceUrl": "https://www.aarcorp.com/en/newsroom/press-releases/2026/aar-launches-airvoyant-sm--an-ai-driven-procurement-platform-for-airlines-and--mros/",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "SkySelect",
+          "slug": "skyselect",
+          "company": "SkySelect",
+          "summary": "AI procurement platform that matches part requests to suppliers across thousands of vendors and automates quoting through PO. It raised $9 million in March 2026, reports more than $6 billion in transactions processed, and lists JetBlue, Sun Country Airlines, ATSG, Wideroe and Vueling among recent clients.",
+          "whyItMatters": "A vendor-neutral way to cut both AOG chase time and safety stock. Compare its recommendations against your buyers' picks on last quarter's AOG buys before you switch workflows.",
+          "url": "/aviation/tools/skyselect",
+          "sourceUrl": "https://avm-mag.com/skyselect-raises-9m-to-modernize-aircraft-parts-procurement-with-ai",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    }
+  ],
+  "playbook": {
+    "title": "Run a 30-day AI trial without betting the hangar",
+    "intro": "A simple way to test any tool in this issue. Practical guidance, not regulatory advice; your approved data and procedures still rule.",
+    "steps": [
+      "Pick one problem with a number attached: request-to-quote time, AOG hours, repeat write-ups or count accuracy.",
+      "Pull 60 to 90 days of your own history as the baseline before the vendor demo.",
+      "Run the tool on that past data first and see whether its answers match what actually happened.",
+      "Keep a certified person approving every output that touches a work order, a release or a purchase.",
+      "Keep it only if the measured gain covers the subscription at least twice."
+    ]
+  },
+  "quickLinks": [
+    {
+      "title": "Jeppesen ForeFlight debuts its first Airflow AI agents for airlines",
+      "url": "https://www.jeppesenforeflight.com/news/jeppesen-foreflight-airflow-agents-debut-for-commercial-aviation",
+      "note": "October 6: trip trading, crew pairing targets and disruption recovery, with business and military aviation agents coming."
+    },
+    {
+      "title": "Korean Air launches a generative AI defect analysis system",
+      "url": "https://www.asiae.co.kr/en/article/2026081408450904926",
+      "note": "Built with LG CNS and AWS; engineers search millions of maintenance records in plain language."
+    },
+    {
+      "title": "MRO-PRO adds AI workpack import, signs Airhub Aviation",
+      "url": "https://www.aviationpros.com/aircraft-maintenance-technology/mros-repair-shops/press-release/55410487/mro-pro-announces-new-line-maintenance-improvement-contract-with-airhub-aviation",
+      "note": "October 8: AI document processing pulls check paperwork into the digital workflow."
+    },
+    {
+      "title": "FL3XX AI: Quote turns charter request emails into quotes",
+      "url": "https://www.fl3xx.com/fl3xx-ai-quote",
+      "note": "Forward the customer email; the quote is pre-populated in the FL3XX Sales module."
+    },
+    {
+      "title": "Locatory.com marketplace with Amber A.I. sourcing",
+      "url": "https://www.locatory.com/aviation-marketplace/",
+      "note": "Parts marketplace with an AI sourcing tool and 24/7 AOG support."
+    },
+    {
+      "title": "Alpha Wingman for AOG technician sourcing (not AI)",
+      "url": "https://alphawingman.aero/",
+      "note": "App that connects operators with nearby maintenance providers for AOG requests. Listed because AOG tech sourcing had no verified AI option this week."
+    },
+    {
+      "title": "Become a founding sponsor",
+      "url": "/sponsor",
+      "note": "Founding rates for the first 10 sponsors, locked for 3 months."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI tools for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months, with no more than three sponsors in any issue. If you build AI for aviation, this is your seat at the table.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

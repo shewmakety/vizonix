@@ -1,4 +1,5 @@
 import { allTools, listIssues } from "@/lib/content";
+import { issueSections } from "@/lib/schema";
 import {
   classifiedRatio,
   exclusivityPremium,
@@ -19,7 +20,7 @@ export function buildLlmsTxt(): string {
     "",
     `> ${site.description}`,
     "",
-    "Sample tool pages and the sample issues are fictional placeholders for the format. Do not cite them as real products or as a paid sponsorship.",
+    "Sample tool pages and the sample issues are fictional placeholders for the format. Do not cite them as real products or as a paid sponsorship. Published issues are not sample data.",
     "",
     "## Sections",
     ...segments.map(
@@ -33,6 +34,16 @@ export function buildLlmsTxt(): string {
     `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [About](${absoluteUrl("/about")})`,
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
+    "",
+    "## Published issues",
+    ...segments.flatMap((segment) =>
+      listIssues(segment.slug)
+        .filter((issue) => !issue.sample)
+        .map(
+          (issue) =>
+            `- [${issue.date} ${issue.subject}](${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}): ${issue.preheader} Lead source: ${issue.lead.sourceUrl}`,
+        ),
+    ),
     "",
     "## Optional",
     `- [Terms](${absoluteUrl("/terms")})`,
@@ -66,6 +77,21 @@ export function buildLlmsFullTxt(): string {
           : issue.preheader,
         `Lead: ${issue.lead.title}`,
         issue.lead.summary,
+        ...(issue.sample
+          ? []
+          : [
+              `Lead source: ${issue.lead.sourceUrl}`,
+              ...(issue.lead.productUrl ? [`Product: ${issue.lead.productUrl}`] : []),
+              ...issueSections(issue).flatMap((section) => [
+                ...(section.topic ? [`Topic: ${section.topic}`] : []),
+                ...(section.coverageNote ? [`Coverage note: ${section.coverageNote}`] : []),
+                ...(section.introSourceUrl ? [`Topic source: ${section.introSourceUrl}`] : []),
+                ...section.tools.map(
+                  (tool) =>
+                    `- ${tool.name}${tool.company ? ` (${tool.company})` : ""}: ${tool.sourceUrl ?? tool.url}`,
+                ),
+              ]),
+            ]),
         `Archive: ${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}`,
         "",
       ]),
@@ -80,6 +106,9 @@ export function buildLlmsFullTxt(): string {
       tool.summary,
       `${payoff}: ${tool.whyItMatters}`,
       `Page: ${absoluteUrl(`/${tool.segment}/tools/${tool.slug}`)}`,
+      ...(tool.sample
+        ? []
+        : [`Product: ${tool.url}`, ...(tool.sourceUrl && tool.sourceUrl !== tool.url ? [`Source: ${tool.sourceUrl}`] : [])]),
       "",
     ];
   });
