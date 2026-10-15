@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Crumbs } from "@/components/Crumbs";
 import { JsonLd } from "@/components/JsonLd";
-import { SiteBanner } from "@/components/SiteBanner";
-import { allTools, getTool } from "@/lib/content";
+import { allTools, getTool, listTools } from "@/lib/content";
 import { configuredTopicsForTool } from "@/lib/directory";
 import { breadcrumbJsonLd, toolJsonLd } from "@/lib/jsonld";
+import { pageMeta } from "@/lib/meta";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 import { getSegment, segmentTopics, topicPagePath } from "@/lib/segments";
+import { issuesMentioningTool, relatedTools, toolPageTitle } from "@/lib/tool-page";
 
 type Props = { params: Promise<{ segment: string; slug: string }> };
 
@@ -14,21 +16,19 @@ export function generateStaticParams() {
   return allTools().map((tool) => ({ segment: tool.segment, slug: tool.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { segment: slug, slug: toolSlug } = await params;
   const tool = getTool(slug, toolSlug);
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned" || !tool) return { robots: { index: false, follow: false } };
-  const description = tool.sample
-    ? `Sample listing. ${tool.summary}`
-    : tool.summary;
-  return {
-    title: tool.name,
+  const title = toolPageTitle(tool, segment, listTools(slug));
+  const description = tool.sample ? `Sample listing. ${tool.summary}` : tool.summary;
+  return pageMeta({
+    title,
     description,
-    alternates: { canonical: `/${slug}/tools/${tool.slug}` },
-    robots: tool.sample ? { index: false, follow: true } : { index: true, follow: true },
-    openGraph: { title: tool.name, description, url: `/${slug}/tools/${tool.slug}` },
-  };
+    canonical: `/${slug}/tools/${tool.slug}`,
+    robots: tool.sample ? { index: false, follow: true } : undefined,
+  });
 }
 
 export default async function ToolPage({ params }: Props) {
@@ -38,23 +38,27 @@ export default async function ToolPage({ params }: Props) {
   if (!segment || segment.status !== "active" || !tool || toolSlug === "topic") notFound();
   const topics = configuredTopicsForTool(segmentTopics(segment), tool);
   const topicCrumb = topics.length === 1 ? topics[0] : undefined;
+  const peers = listTools(segment.slug);
+  const related = relatedTools(tool, peers);
+  const mentioned = issuesMentioningTool(segment.slug, tool.slug);
+  const crumbs = [
+    { name: "Vizonix", path: "/" },
+    { name: segment.name, path: `/${segment.slug}` },
+    { name: "Tool directory", path: `/${segment.slug}/tools` },
+    ...(topicCrumb ? [{ name: topicCrumb.label, path: topicPagePath(segment.slug, topicCrumb.key) }] : []),
+    { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
+  ];
 
   return (
     <>
-      {segment.status === "active" ? <SiteBanner sectionName={segment.name} /> : null}
       <section className="hero">
         <div className="wrap prose">
-          <p className="crumbs">
-            <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
-            <Link href={`/${segment.slug}/tools`}>Tool directory</Link>
-            {topicCrumb ? (
-              <>
-                {" / "}
-                <Link href={topicPagePath(segment.slug, topicCrumb.key)}>{topicCrumb.label}</Link>
-              </>
-            ) : null}{" "}
-            / {tool.name}
-          </p>
+          <Crumbs
+            items={crumbs.map((crumb, index) => ({
+              name: crumb.name,
+              href: index === crumbs.length - 1 ? undefined : crumb.path,
+            }))}
+          />
           {tool.sample ? (
             <p className="notice">
               <strong>Sample listing.</strong> {tool.name} is fictional. It is here so the directory
@@ -109,25 +113,38 @@ export default async function ToolPage({ params }: Props) {
               </>
             ) : null}
           </dl>
+          {related.length > 0 ? (
+            <section>
+              <h2>Related tools</h2>
+              <ul className="link-list">
+                {related.map((item) => (
+                  <li key={item.slug}>
+                    <Link href={`/${segment.slug}/tools/${item.slug}`}>{item.name}</Link>
+                    {item.company ? <span className="meta"> {item.company}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {mentioned.length > 0 ? (
+            <section>
+              <h2>Mentioned in</h2>
+              <ul className="link-list">
+                {mentioned.map((issue) => (
+                  <li key={issue.date}>
+                    <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
+                    <div className="meta">{formatPublishedInstant(issuePublishedInstant(issue))}</div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
           <p>
             <Link href={`/${segment.slug}/tools`}>Back to the {segment.name} directory</Link>
           </p>
         </div>
       </section>
-      <JsonLd
-        data={[
-          toolJsonLd(tool),
-          breadcrumbJsonLd([
-            { name: "Home", path: `/${segment.slug}` },
-            { name: segment.name, path: `/${segment.slug}` },
-            { name: "Tool directory", path: `/${segment.slug}/tools` },
-            ...(topicCrumb
-              ? [{ name: topicCrumb.label, path: topicPagePath(segment.slug, topicCrumb.key) }]
-              : []),
-            { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
-          ]),
-        ]}
-      />
+      <JsonLd data={[toolJsonLd(tool), breadcrumbJsonLd(crumbs)]} />
     </>
   );
 }

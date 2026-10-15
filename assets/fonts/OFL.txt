@@ -1,0 +1,5 @@
+Libre Baskerville
+Copyright 2012 The Libre Baskerville Project Authors
+Licensed under the SIL Open Font License, Version 1.1.
+https://openfontlicense.org
+The file in this folder is the Latin subset used for generated social images.

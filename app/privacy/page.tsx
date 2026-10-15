@@ -1,18 +1,14 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { cookies } from "next/headers";
-import { SEGMENT_COOKIE, segmentUnsubscribeHref } from "@/lib/segment-memory";
+import { RememberedUnsubscribeLink } from "@/components/RememberedLinks";
+import { pageMeta } from "@/lib/meta";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Privacy",
   description: "What Vizonix collects, why, and how to leave the list.",
-  alternates: { canonical: "/privacy" },
-};
+  canonical: "/privacy",
+});
 
-export default async function PrivacyPage() {
-  const cookieStore = await cookies();
-  const unsubscribeHref = segmentUnsubscribeHref("/privacy", cookieStore.get(SEGMENT_COOKIE)?.value);
+export default function PrivacyPage() {
   return (
     <section className="hero">
       <div className="wrap prose">
@@ -32,7 +28,7 @@ export default async function PrivacyPage() {
         <h2>Unsubscribe</h2>
         <p>
           Every issue includes an unsubscribe link. You can also request one from the{" "}
-          <Link href={unsubscribeHref}>unsubscribe page</Link>. Unsubscribing stops the briefing. Resend
+          <RememberedUnsubscribeLink />. Unsubscribing stops the briefing. Resend
           stores the contact so we do not keep mailing you by mistake.
         </p>
         <h2>Sponsorship checkout</h2>

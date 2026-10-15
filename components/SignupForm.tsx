@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { featuredSegment, segments } from "@/lib/segments";
+import { useEffect, useState } from "react";
+import { useRememberedSlug } from "@/components/useRememberedSlug";
+import { featuredSegment, getSegment, segments } from "@/lib/segments";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
 
@@ -14,7 +15,15 @@ export function SignupForm({
   showSegment?: boolean;
   heading?: string;
 }) {
+  const remembered = useRememberedSlug();
+  const [segment, setSegment] = useState(defaultSegment);
+  const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
+
+  useEffect(() => {
+    if (!showSegment || touched || !remembered || !getSegment(remembered)) return;
+    setSegment(remembered);
+  }, [remembered, showSegment, touched]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -56,7 +65,15 @@ export function SignupForm({
       {showSegment ? (
         <>
           <label htmlFor="segment">Section</label>
-          <select id="segment" name="segment" defaultValue={defaultSegment}>
+          <select
+            id="segment"
+            name="segment"
+            value={segment}
+            onChange={(event) => {
+              setTouched(true);
+              setSegment(event.target.value);
+            }}
+          >
             {segments.map((segment) => (
               <option key={segment.slug} value={segment.slug}>
                 {segment.name}

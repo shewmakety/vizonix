@@ -1,6 +1,12 @@
+import { issueModifiedInstant } from "@/lib/content";
+import { issuePublishedInstant } from "@/lib/dates";
 import type { Issue, ToolEntry } from "@/lib/schema";
-import { absoluteUrl, site, siteUrl } from "@/lib/site";
+import { absoluteUrl, editor, organizationSameAs, site, siteUrl } from "@/lib/site";
 import { getSegment } from "@/lib/segments";
+
+function hasPublicPrice(pricing: string): boolean {
+  return /\d/.test(pricing);
+}
 
 export function organizationJsonLd() {
   return {
@@ -10,6 +16,14 @@ export function organizationJsonLd() {
     url: siteUrl(),
     description: site.description,
     email: site.emailHello,
+    logo: absoluteUrl("/logo.png"),
+    sameAs: organizationSameAs,
+    founder: {
+      "@type": "Person",
+      name: editor.name,
+      jobTitle: editor.jobTitle,
+      url: absoluteUrl(editor.path),
+    },
   };
 }
 
@@ -20,25 +34,44 @@ export function websiteJsonLd() {
     name: site.name,
     url: siteUrl(),
     description: site.description,
-    publisher: { "@type": "Organization", name: site.name },
+    publisher: { "@type": "Organization", name: site.name, url: siteUrl() },
   };
 }
 
-export function issueJsonLd(issue: Issue) {
+export function personAuthorJsonLd() {
+  return {
+    "@type": "Person",
+    name: editor.name,
+    jobTitle: editor.jobTitle,
+    url: absoluteUrl(editor.path),
+  };
+}
+
+export function issueJsonLd(issue: Issue, now = new Date()) {
   const segment = getSegment(issue.segment);
+  const published = issuePublishedInstant(issue, now);
+  const modified = issueModifiedInstant(issue, now);
+  const path = `/${issue.segment}/issues/${issue.date}`;
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: issue.subject,
-    datePublished: issue.date,
+    datePublished: published.toISOString(),
+    dateModified: modified.toISOString(),
     description: issue.preheader,
+    image: absoluteUrl(`${path}/opengraph-image`),
     articleSection: segment?.name ?? issue.segment,
-    mainEntityOfPage: absoluteUrl(`/${issue.segment}/issues/${issue.date}`),
-    author: { "@type": "Organization", name: site.name },
+    mainEntityOfPage: absoluteUrl(path),
+    author: personAuthorJsonLd(),
+    editor: personAuthorJsonLd(),
     publisher: {
       "@type": "Organization",
       name: site.name,
       url: siteUrl(),
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/logo.png"),
+      },
     },
     isAccessibleForFree: true,
   };
@@ -55,9 +88,33 @@ export function toolJsonLd(tool: ToolEntry) {
       : tool.summary,
     url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
     ...(tool.sample ? {} : { sameAs: tool.url }),
-    offers: {
-      "@type": "Offer",
-      description: tool.pricing,
+    ...(tool.company ? { provider: { "@type": "Organization", name: tool.company } } : {}),
+    ...(hasPublicPrice(tool.pricing)
+      ? { offers: { "@type": "Offer", description: tool.pricing } }
+      : {}),
+  };
+}
+
+export function collectionJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  tools: Array<Pick<ToolEntry, "name" | "segment" | "slug">>;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: input.name,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: input.tools.map((tool, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: tool.name,
+        url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
+      })),
     },
   };
 }

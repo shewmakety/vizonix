@@ -6,6 +6,7 @@ import {
   segmentAliasRewrite,
   segmentCookieAttributes,
 } from "@/lib/segment-memory";
+import { indexNowRewritePath } from "@/lib/indexnow";
 import { getSegment } from "@/lib/segments";
 
 function withSegmentHeader(request: NextRequest, slug: string | null): Headers {
@@ -17,6 +18,12 @@ function withSegmentHeader(request: NextRequest, slug: string | null): Headers {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const indexNowPath = indexNowRewritePath(pathname);
+  if (indexNowPath) {
+    const url = request.nextUrl.clone();
+    url.pathname = indexNowPath;
+    return NextResponse.rewrite(url);
+  }
   const slug = pathname.split("/").filter(Boolean)[0];
   const segment = slug ? getSegment(slug) : undefined;
 
@@ -43,7 +50,9 @@ export function middleware(request: NextRequest) {
     ? NextResponse.rewrite(url, { request: { headers } })
     : NextResponse.next({ request: { headers } });
 
-  response.cookies.set(SEGMENT_COOKIE, segment.slug, segmentCookieAttributes());
+  if (request.cookies.get(SEGMENT_COOKIE)?.value !== segment.slug) {
+    response.cookies.set(SEGMENT_COOKIE, segment.slug, segmentCookieAttributes());
+  }
   return response;
 }
 

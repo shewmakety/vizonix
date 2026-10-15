@@ -111,7 +111,10 @@ describe("tool directory topics", () => {
     if (!topic) return;
     expect(topicPageHeading(aviation.name, topic)).toBe("AI tools for predictive maintenance in aviation");
     expect(topicPagePath("aviation", topic.key)).toBe("/aviation/tools/topic/predictive-maintenance");
-    expect(topicPageDescription(aviation.name, topic)).toContain(topic.intro);
+    expect(topicPageDescription(aviation.name, topic).length).toBeLessThanOrEqual(160);
+    expect(topicPageHeading(aviation.name, topics.find((item) => item.key === "general-ai")!)).toBe(
+      "General AI assistants for aviation teams",
+    );
     const paths = sitemapPaths();
     for (const item of topics) {
       expect(paths).toContain(topicPagePath("aviation", item.key));

@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { formatLongDate } from "@/lib/dates";
+import { Crumbs } from "@/components/Crumbs";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
+import { editor } from "@/lib/site";
 
 function ToolSection({ section, payoff }: { section: IssueSectionView; payoff: string }) {
   return (
@@ -53,11 +55,11 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
         {slot.label}
         {slot.creative.sample ? " - Sample" : ""}
       </p>
-      <h3>
+      <p className="slot-name">
         <a href={publicHref(slot.creative.url)} rel={slot.house ? undefined : "sponsored"}>
           {slot.creative.name}
         </a>
-      </h3>
+      </p>
       <p>{slot.creative.copy}</p>
       {slot.creative.sample ? (
         <p className="meta">Sample sponsor. Not a paid placement.</p>
@@ -79,12 +81,17 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const payoff = segment?.payoffLabel ?? "Why it matters";
+  const publishedLabel = formatPublishedInstant(issuePublishedInstant(issue));
   return (
     <article>
-      <p className="crumbs">
-        <Link href={`/${issue.segment}`}>Home</Link> / <Link href={`/${issue.segment}`}>{segment?.name}</Link> /{" "}
-        <Link href={`/${issue.segment}/issues`}>Issues</Link> / {formatLongDate(issue.date)}
-      </p>
+      <Crumbs
+        items={[
+          { name: "Vizonix", href: "/" },
+          { name: segment?.name ?? issue.segment, href: `/${issue.segment}` },
+          { name: "Issues", href: `/${issue.segment}/issues` },
+          { name: publishedLabel },
+        ]}
+      />
       {issue.sample ? (
         <p className="notice">
           <strong>Sample issue.</strong> The tools and sponsor below are fictional placeholders so the
@@ -92,9 +99,12 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </p>
       ) : null}
       <p className="kicker">
-        {segment?.name} - {formatLongDate(issue.date)}
+        {segment?.name} - {publishedLabel}
       </p>
       <h1>{issue.subject}</h1>
+      <p className="meta">
+        <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
+      </p>
       <p className="lede">{issue.preheader}</p>
       <SlotView name="primary" creative={issue.sponsors.primary} />
       <section>

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { SocialLinks } from "@/components/SocialLinks";
+import { pageMeta } from "@/lib/meta";
+import { editor, site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "About",
-  description: "What Vizonix covers, how a section is organized, and how the briefing is funded.",
-  alternates: { canonical: "/about" },
-};
+  description: "What Vizonix covers, who publishes it, and how the briefing is funded.",
+  canonical: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -15,6 +17,14 @@ export default function AboutPage() {
         <p className="kicker">About</p>
         <h1>A briefing with a narrow job.</h1>
         <p className="lede">{site.description}</p>
+        <h2 id="editor">Who publishes Vizonix</h2>
+        <p>
+          {editor.name} is the founder and editor. He has an aviation industry background and is the
+          founder of AOG Alerts and MRO List.
+        </p>
+        <p>
+          Follow Vizonix on <SocialLinks separator=" and " />.
+        </p>
         <h2>What we cover</h2>
         <p>
           Vizonix reports emerging AI tools, bots, models, and resources. The test for inclusion is
@@ -45,7 +55,7 @@ export default function AboutPage() {
         <p>
           Readers: <a href={`mailto:${site.emailHello}`}>{site.emailHello}</a>
           <br />
-          Sponsors: <a href={`mailto:${site.emailSponsors}`}>{site.emailSponsors}</a>
+          Sponsor inquiries: <Link href="/sponsor">the sponsor page</Link>
         </p>
       </div>
     </section>

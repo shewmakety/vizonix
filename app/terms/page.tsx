@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMeta } from "@/lib/meta";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Terms",
   description: "Terms for reading Vizonix and for reserving a sponsorship.",
-  alternates: { canonical: "/terms" },
-};
+  canonical: "/terms",
+});
 
 export default function TermsPage() {
   return (
@@ -17,11 +17,6 @@ export default function TermsPage() {
           The briefing is information for operators. It is not legal advice, and it is not advice about
           any particular matter, client, or firm. Tools change. Check the current product yourself
           before you buy it or put it on a live file.
-        </p>
-        <h2>Sample data</h2>
-        <p>
-          Pages marked as sample data use fictional names. They are not offers, reviews, or
-          endorsements.
         </p>
         <h2>Sponsorships</h2>
         <p>

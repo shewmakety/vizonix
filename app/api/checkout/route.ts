@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     const stripe = stripeClient();
     if (!stripe) {
       return NextResponse.json(
-        { error: "Stripe is not configured yet. Email sponsors@vizonix.com with the week you want." },
+        { error: "Stripe is not configured yet. Request the week from the sponsor page." },
         { status: 503 },
       );
     }
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     if (!priceId) {
       return NextResponse.json(
         {
-          error: `No Stripe price is set for this placement. Add ${order.founding ? foundingKey : standardKey} or email sponsors@vizonix.com.`,
+          error: `No Stripe price is set for this placement. Add ${order.founding ? foundingKey : standardKey}, or request the week from the sponsor page.`,
         },
         { status: 503 },
       );

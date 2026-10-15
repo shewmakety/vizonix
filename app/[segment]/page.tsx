@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SignupForm } from "@/components/SignupForm";
-import { SiteBanner } from "@/components/SiteBanner";
 import { listIssues, listTools } from "@/lib/content";
-import { formatLongDate } from "@/lib/dates";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { pageMeta } from "@/lib/meta";
 import { featuredSegment, getSegment, segments } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
@@ -13,24 +12,27 @@ export function generateStaticParams() {
   return segments.map((segment) => ({ segment: segment.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
   if (!segment) return {};
   if (segment.status === "planned") {
-    return {
+    return pageMeta({
       title: segment.name,
       description: "This section is not publishing yet.",
-      alternates: { canonical: `/${segment.slug}` },
-      robots: { index: false, follow: false },
-    };
+      canonical: `/${segment.slug}`,
+      robots: { index: false, follow: true },
+    });
   }
-  return {
-    title: segment.name,
+  const title =
+    segment.slug === "aviation"
+      ? "AI in Aviation - Free Daily Briefing for MROs, Airlines and AOG Teams"
+      : segment.name;
+  return pageMeta({
+    title,
     description: segment.summary,
-    alternates: { canonical: `/${segment.slug}` },
-    openGraph: { title: segment.name, description: segment.summary, url: `/${segment.slug}` },
-  };
+    canonical: `/${segment.slug}`,
+  });
 }
 
 export default async function SegmentPage({ params }: Props) {
@@ -57,12 +59,13 @@ export default async function SegmentPage({ params }: Props) {
 
   return (
     <>
-      <SiteBanner sectionName={segment.name} />
       <section className="hero">
         <div className="wrap hero-grid">
           <div>
             <p className="kicker">{segment.audience}</p>
-            <h1>{segment.name}</h1>
+            <h1>
+              {segment.slug === "aviation" ? "AI for Aviation: the free daily briefing" : segment.name}
+            </h1>
             <p className="lede">{segment.summary}</p>
             <p>{segment.promise}</p>
             <p>
@@ -94,7 +97,7 @@ export default async function SegmentPage({ params }: Props) {
             {issues.slice(0, 3).map((issue) => (
               <article className="card" key={issue.date}>
                 {issue.sample ? <p className="pill sample">Sample issue</p> : null}
-                <p className="meta">{formatLongDate(issue.date)}</p>
+                <p className="meta">{formatPublishedInstant(issuePublishedInstant(issue))}</p>
                 <h3>
                   <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
                 </h3>

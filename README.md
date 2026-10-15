@@ -54,6 +54,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `GITHUB_TOKEN` | Vercel publish and bookings | Fine-grained token, Contents read and write, this repo only. |
 | `GITHUB_REPO` | Same | `owner/name`. |
 | `GITHUB_BRANCH` | Same | Defaults to `main`. |
+| `INDEXNOW_KEY` | IndexNow | Hex key, 8 to 128 characters. The public file is `/{key}.txt`. Set this in Vercel. Do not commit the value. |
 
 Ty needs to set every row marked required before that feature works. The site still builds if they are empty.
 
@@ -210,7 +211,7 @@ These are outside the repo:
 2. The Resend domain `vizonix.com` is already verified. Create the segments, starting with Aviation, then set `RESEND_API_KEY` and `EMAIL_FROM`.
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.
-5. Create `hello@`, `sponsors@`, and `privacy@` on the domain, or change the addresses in `lib/site.ts`.
+5. Create `hello@` and `privacy@` on the domain, or change the addresses in `lib/site.ts`. Sponsor inquiries go to the sponsor page. There is no sponsors mailbox.
 6. Add a real legal issue and set that section to `active` before announcing the legal list. There is no sample legal issue or tool page. The aviation issue is `content/aviation/issues/2026-10-16.json`.
 7. Submit the sitemap to Google and Bing.
 8. Have the terms page reviewed before you rely on it in a dispute.
