@@ -46,7 +46,7 @@ export default async function SegmentPage({ params }: Props) {
           <h1>Coming soon</h1>
           <p>This section is not publishing yet.</p>
           <p>
-            <Link href={`/${featured.slug}`}>Back to the {featured.name.toLowerCase()} section</Link>.
+            <Link href={`/${featured.slug}`}>{`Back to the ${featured.name.toLowerCase()} section`}</Link>.
           </p>
         </div>
       </section>

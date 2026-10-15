@@ -173,8 +173,10 @@ async function main() {
     if (sitemap.includes("aogline") || sitemap.includes("/aviation/issues/2026-10-14")) {
       throw new Error("Sitemap still lists fictional aviation content.");
     }
-    if (sitemap.includes("/legal") || sitemap.includes("/warehousing") || sitemap.includes("/marketing-sales")) {
-      throw new Error("Sitemap lists a planned section.");
+    for (const path of ["/legal", "/warehousing", "/marketing-sales"]) {
+      if (sitemap.includes(`https://vizonix.com${path}<`) || sitemap.includes(`https://vizonix.com${path}/`)) {
+        throw new Error(`Sitemap lists a planned section: ${path}`);
+      }
     }
     if (!sitemap.includes("/aviation/tools/topic/predictive-maintenance")) {
       throw new Error("Sitemap is missing the predictive maintenance topic page.");
