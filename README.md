@@ -1,6 +1,6 @@
 # Vizonix
 
-Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams. Legal is in preparation: the legal issue and tool pages are sample data, not a launch. Warehousing and marketing and sales are in the same app and stay planned until you add a real issue and flip their status.
+Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams. Legal, warehousing, and marketing and sales stay planned until a real issue ships. A planned section shows a coming soon page and is not indexed.
 
 The email is free. Revenue is weekly sponsorship from AI companies. Launch prices live in `lib/rate-card.ts` and on [/sponsor](https://vizonix.com/sponsor). The first active entry in `lib/segments.ts` is the featured section on the home page and the default list for signup.
 
@@ -14,7 +14,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. The aviation section and its first real issue, the legal section and its sample issue, and the tool pages render without API keys. Signup, sending, and checkout need the env vars below.
+Open http://localhost:3000. The aviation section, its first real issue, and the tool pages render without API keys. Planned sections show a coming soon page. Signup, sending, and checkout need the env vars below.
 
 ```bash
 npm test
@@ -55,7 +55,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `GITHUB_REPO` | Same | `owner/name`. |
 | `GITHUB_BRANCH` | Same | Defaults to `main`. |
 
-Ty needs to set every row marked required before that feature works. The site still builds and the sample pages still render if they are empty.
+Ty needs to set every row marked required before that feature works. The site still builds if they are empty.
 
 ## Content format
 
@@ -68,14 +68,13 @@ Issues and tools are JSON in the repo.
 
 An issue has one lead, tool blurbs, one playbook, quick links, and three sponsor slots: `primary`, `secondary`, and `classified`. Tools can sit in a flat `tools` array or in `sections`, which group them by topic and can carry an intro and a coverage note. Empty slots render as house ads. A sponsor object with `"house": true` is also a house ad and is not marked as a paid placement. Word ceilings match the rate card: primary 110, secondary 60, classified 35.
 
-The aviation issue (`2026-10-16`) is the first real issue. It is indexable and listed in the sitemap. The legal issue (`2026-10-14`) and its four tool pages are still sample data. They are labeled on the page, excluded from the sitemap, and marked `noindex`.
+The aviation issue (`2026-10-16`) is the first real issue. It is indexable and listed in the sitemap. Planned sections have no issue or tool pages. Their coming soon page is `noindex` and is left out of the sitemap.
 
 Publish from a draft file:
 
 ```bash
 npm run publish-issue -- content/drafts/example-aviation.json
 npm run publish-issue -- content/drafts/example-aviation.json --send --test-to you@example.com
-npm run publish-issue -- content/drafts/example-legal.json
 ```
 
 The script writes `content/{segment}/issues/{date}.json`. Commit and push that file so Vercel deploys the archive page. Then send.
@@ -163,7 +162,7 @@ The app ships metadata, Open Graph (including a generated image), `sitemap.xml`,
 
 `robots.txt` allows `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `PerplexityBot`, `Google-Extended`, and the other agents listed in `app/robots.ts`. `/api/` is disallowed.
 
-After DNS is live, submit `https://vizonix.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools. Sample pages are `noindex` and are left out of the sitemap on purpose.
+After DNS is live, submit `https://vizonix.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools. Planned section pages are `noindex` and are left out of the sitemap on purpose.
 
 ## Adding a section
 
@@ -179,7 +178,7 @@ Warehousing is already in the config as `status: "planned"`. To open it:
 4. Use the warehousing payoff line already on the config object: `Why it can make the warehouse money`. The issue page, the tool page, and the email print that label. Do not hardcode it in a component.
 5. In Resend, create a segment and set `RESEND_SEGMENT_ID_WAREHOUSING` (legacy alias `RESEND_AUDIENCE_ID_WAREHOUSING`).
 6. In Stripe, create the placement Prices and set `STRIPE_PRICE_WAREHOUSING_PRIMARY` and the matching keys in `.env.example`. Optional Payment Links use `NEXT_PUBLIC_STRIPE_LINK_WAREHOUSING_*`.
-7. Commit the JSON. The next deploy publishes `/warehousing`, its archive, and its directory. Signup and checkout already offer every slug in the config. Planned sections accept signups. Checkout only offers `status: "active"` sections.
+7. Commit the JSON. The next deploy publishes `/warehousing`, its archive, and its directory. Until `status` is `active`, the section URL is a coming soon page, and issue and tool URLs 404. Signup already offers every slug in the config. Checkout only offers `status: "active"` sections.
 
 ### Add a brand-new slug
 
@@ -212,6 +211,6 @@ These are outside the repo:
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.
 5. Create `hello@`, `sponsors@`, and `privacy@` on the domain, or change the addresses in `lib/site.ts`.
-6. Replace the legal sample issue and sample tools before announcing that list. The aviation sample issue has been replaced by `content/aviation/issues/2026-10-16.json`.
+6. Add a real legal issue and set that section to `active` before announcing the legal list. There is no sample legal issue or tool page. The aviation issue is `content/aviation/issues/2026-10-16.json`.
 7. Submit the sitemap to Google and Bing.
 8. Have the terms page reviewed before you rely on it in a dispute.

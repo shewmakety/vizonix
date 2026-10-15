@@ -35,11 +35,11 @@ export default function AboutPage() {
           mention that was not paid is not dressed up as a sponsor. Prices are on the{" "}
           <Link href="/sponsor">rate card</Link>.
         </p>
-        <h2>What the sample data is</h2>
+        <h2>Sections that are not open</h2>
         <p>
-          The legal issue and the legal tool pages are sample data. The company names on those pages are
-          fictional. They show the format. They are not recommendations. The aviation issue is a
-          published briefing, and each item on it names a source.
+          Legal, warehousing, and marketing and sales are in preparation. Those pages say coming soon.
+          They are not indexed, and they do not list issues or tools. The aviation issue is a published
+          briefing, and each item on it names a source.
         </p>
         <h2>Contact</h2>
         <p>

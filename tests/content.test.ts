@@ -51,8 +51,8 @@ describe("segment config and sample content", () => {
     expect(toolDirectoryHref("/subscribe")).toBe("/aviation/tools");
     expect(toolDirectoryHref("/aviation")).toBe("/aviation/tools");
     expect(toolDirectoryHref("/aviation/issues/2026-10-16")).toBe("/aviation/tools");
-    expect(toolDirectoryHref("/legal/tools/clauseharbor")).toBe("/legal/tools");
-    expect(toolDirectoryHref("/warehousing")).toBe("/warehousing/tools");
+    expect(toolDirectoryHref("/legal/tools/clauseharbor")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/warehousing")).toBe("/aviation/tools");
     expect(toolDirectoryHref("/about", "/tools")).toBe("/tools");
     expect(isToolDirectoryPath("/aviation/tools")).toBe(true);
     expect(isToolDirectoryPath("/aviation/tools/airvoyant")).toBe(true);
@@ -101,23 +101,20 @@ describe("segment config and sample content", () => {
     expect(getIssue("aviation", "2026-10-14")).toBeUndefined();
   });
 
-  it("keeps the legal sample issue and tools", () => {
-    const issues = listIssues("legal");
-    expect(issues).toHaveLength(1);
-    expect(issues[0].sample).toBe(true);
-    expect(issues[0].sponsors.primary?.sample).toBe(true);
-    const tools = listTools("legal");
-    expect(tools.length).toBeGreaterThanOrEqual(4);
-    expect(tools.every((tool) => tool.sample)).toBe(true);
-    expect(getIssue("legal", "2026-10-14")?.tools?.map((tool) => tool.slug)).toContain("clauseharbor");
+  it("publishes no legal issues or tools while the section is planned", () => {
+    expect(listIssues("legal")).toEqual([]);
+    expect(listTools("legal")).toEqual([]);
+    expect(getIssue("legal", "2026-10-14")).toBeUndefined();
+    for (const slug of ["clauseharbor", "docketline", "billwise-counsel", "precedent-north"]) {
+      expect(getTool("legal", slug)).toBeUndefined();
+    }
   });
 
   it("renders each section with its own payoff line and the three sponsor slots", () => {
     const aviation = getIssue("aviation", "2026-10-16");
-    const legal = getIssue("legal", "2026-10-14");
     expect(aviation).toBeTruthy();
-    expect(legal).toBeTruthy();
-    if (!aviation || !legal) return;
+    if (!aviation) return;
+    const legal = { ...aviation, segment: "legal" };
 
     const html = renderIssueEmail(aviation, { mode: "broadcast" });
     const text = renderIssueText(aviation, { mode: "test" });
@@ -162,9 +159,9 @@ describe("segment config and sample content", () => {
     expect(legalText).toContain(`Tool Directory: ${absoluteUrl("/legal/tools")}`);
     expect(legalText).toContain(absoluteUrl("/legal/unsubscribe"));
     expect(legalHtml).toContain("Why it can make the practice money.");
-    expect(legalHtml).toContain("Northline Systems");
-    expect(legalHtml).toContain("Tool Highlights");
-    expect(legalText).toContain("TOOL HIGHLIGHTS");
+    expect(legalHtml).not.toContain("Why it can make the operation money.");
+    expect(legalHtml).not.toContain("Northline Systems");
+    expect(legalHtml).not.toContain("ClauseHarbor");
   });
 
   it("rejects sponsor copy that is longer than the rate card ceiling", () => {

@@ -234,11 +234,12 @@ export function segmentFromPathname(pathname: string): Segment | undefined {
 
 /**
  * Header target for Tool Directory.
- * Segment pages link to that section. Other pages use the cross-segment index, or the first launched section.
+ * An open section links to its own directory. A planned section has no directory yet, so the link
+ * goes to the cross-segment index, or the first launched section.
  */
 export function toolDirectoryHref(pathname: string, indexPath: string | null = toolsIndexPath): string {
   const segment = segmentFromPathname(pathname);
-  if (segment) return toolDirectoryPath(segment);
+  if (segment?.status === "active") return toolDirectoryPath(segment);
   if (indexPath) return indexPath;
   return toolDirectoryPath(featuredSegment());
 }

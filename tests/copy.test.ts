@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { sitemapPaths } from "@/lib/site-index";
-import { buildLlmsTxt } from "@/lib/llms";
+import { buildLlmsFullTxt, buildLlmsTxt } from "@/lib/llms";
 
 const roots = ["app", "components", "content", "lib", "scripts", "tests"];
 const files = ["README.md", ".env.example", ".github/workflows/ci.yml", "vercel.json"];
@@ -45,8 +45,12 @@ describe("site copy", () => {
   it("keeps sample pages out of the sitemap and names them in llms.txt", () => {
     const paths = sitemapPaths();
     expect(paths).toContain("/aviation");
-    expect(paths).toContain("/legal");
     expect(paths).toContain("/sponsor");
+    expect(paths).not.toContain("/legal");
+    expect(paths).not.toContain("/legal/issues");
+    expect(paths).not.toContain("/legal/tools");
+    expect(paths).not.toContain("/warehousing");
+    expect(paths).not.toContain("/marketing-sales");
     expect(paths).toContain("/aviation/issues/2026-10-16");
     expect(paths).toContain("/aviation/tools/airvoyant");
     expect(paths).toContain("/aviation/tools/topic/predictive-maintenance");
@@ -60,8 +64,12 @@ describe("site copy", () => {
     expect(paths).not.toContain("/legal/issues/2026-10-14");
     expect(paths).not.toContain("/legal/tools/clauseharbor");
     const llms = buildLlmsTxt();
-    expect(llms).toContain("Sample tool pages");
-    expect(llms).toContain("fictional");
+    const full = buildLlmsFullTxt();
+    expect(llms).toContain("not published");
+    expect(llms).not.toContain("/legal");
+    expect(full).not.toContain("/legal/issues");
+    expect(full).not.toContain("/legal/tools");
+    expect(full).not.toContain("ClauseHarbor");
     expect(llms).toContain("/aviation/issues/2026-10-16");
     expect(llms).toContain("https://pubt.io/view/70BF9BDB3956CE0D9800CFEF0C266E427A42C55B");
     expect(llms).not.toContain("aogline");

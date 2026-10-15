@@ -1,7 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { cookies, headers } from "next/headers";
 import { SEGMENT_COOKIE, SEGMENT_HEADER, resolveRememberedSlug, segmentHomeHref } from "@/lib/segment-memory";
 import { featuredSegment, getSegment } from "@/lib/segments";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function NotFound() {
   const headerStore = await headers();

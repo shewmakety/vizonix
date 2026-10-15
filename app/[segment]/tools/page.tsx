@@ -13,14 +13,14 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return segments.map((segment) => ({ segment: segment.slug }));
+  return segments.filter((segment) => segment.status === "active").map((segment) => ({ segment: segment.slug }));
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { segment: slug } = await params;
   const query = await searchParams;
   const segment = getSegment(slug);
-  if (!segment) return {};
+  if (!segment || segment.status === "planned") return { robots: { index: false, follow: false } };
   const topicKey = firstQueryValue(query.topic);
   const q = firstQueryValue(query.q);
   const known = topicKey === otherTopicKey || !topicKey || Boolean(getSegmentTopic(segment, topicKey));
@@ -38,7 +38,7 @@ export default async function ToolsPage({ params, searchParams }: Props) {
   const { segment: slug } = await params;
   const query = await searchParams;
   const segment = getSegment(slug);
-  if (!segment) notFound();
+  if (!segment || segment.status === "planned") notFound();
   const topicKey = firstQueryValue(query.topic);
   if (topicKey && topicKey !== otherTopicKey && !getSegmentTopic(segment, topicKey)) notFound();
   const tools = listTools(segment.slug);

@@ -30,14 +30,14 @@ describe("section memory", () => {
     expect(segmentHomeHref("/aviation/tools/topic/general-ai")).toBe("/aviation");
     expect(segmentHomeHref("/legal/issues/2026-10-14", "aviation")).toBe("/legal");
     expect(segmentDirectoryHref("/aviation/issues/2026-10-16", "legal")).toBe("/aviation/tools");
-    expect(segmentDirectoryHref("/legal/tools/clauseharbor")).toBe("/legal/tools");
+    expect(segmentDirectoryHref("/legal/tools/clauseharbor")).toBe("/aviation/tools");
 
     expect(segmentHomeHref("/about")).toBe("/aviation");
     expect(segmentHomeHref("/", "aviation")).toBe("/aviation");
     expect(segmentHomeHref("/about", "legal")).toBe("/legal");
     expect(segmentHomeHref("/sponsor", "bogus")).toBe("/aviation");
     expect(segmentDirectoryHref("/about")).toBe("/aviation/tools");
-    expect(segmentDirectoryHref("/privacy", "warehousing")).toBe("/warehousing/tools");
+    expect(segmentDirectoryHref("/privacy", "warehousing")).toBe("/aviation/tools");
     expect(segmentSubscribeHref("/aviation")).toBe("/aviation/subscribe");
     expect(segmentSubscribeHref("/about", "legal")).toBe("/legal/subscribe");
     expect(segmentSubscribeHref("/subscribe")).toBe("/aviation/subscribe");

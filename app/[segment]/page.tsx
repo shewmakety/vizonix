@@ -5,7 +5,7 @@ import { SignupForm } from "@/components/SignupForm";
 import { SiteBanner } from "@/components/SiteBanner";
 import { listIssues, listTools } from "@/lib/content";
 import { formatLongDate } from "@/lib/dates";
-import { getSegment, segments } from "@/lib/segments";
+import { featuredSegment, getSegment, segments } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
 
@@ -17,6 +17,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
   if (!segment) return {};
+  if (segment.status === "planned") {
+    return {
+      title: segment.name,
+      description: "This section is not publishing yet.",
+      alternates: { canonical: `/${segment.slug}` },
+      robots: { index: false, follow: false },
+    };
+  }
   return {
     title: segment.name,
     description: segment.summary,
@@ -29,12 +37,27 @@ export default async function SegmentPage({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
   if (!segment) notFound();
+  if (segment.status === "planned") {
+    const featured = featuredSegment();
+    return (
+      <section className="hero">
+        <div className="wrap prose">
+          <p className="kicker">{segment.name}</p>
+          <h1>Coming soon</h1>
+          <p>This section is not publishing yet.</p>
+          <p>
+            <Link href={`/${featured.slug}`}>{`Back to the ${featured.name.toLowerCase()} section`}</Link>.
+          </p>
+        </div>
+      </section>
+    );
+  }
   const issues = listIssues(segment.slug);
   const tools = listTools(segment.slug);
 
   return (
     <>
-      {segment.status === "active" ? <SiteBanner sectionName={segment.name} /> : null}
+      <SiteBanner sectionName={segment.name} />
       <section className="hero">
         <div className="wrap hero-grid">
           <div>
@@ -42,17 +65,10 @@ export default async function SegmentPage({ params }: Props) {
             <h1>{segment.name}</h1>
             <p className="lede">{segment.summary}</p>
             <p>{segment.promise}</p>
-            {segment.status === "planned" ? (
-              <p className="notice">
-                This section is not publishing yet. Leave an email if you want the first issue. The same
-                confirmation step applies: you are not on the list until you click it.
-              </p>
-            ) : (
-              <p>
-                Issues stay on the site, one page per day, so a tool you saw in the morning is still
-                there later. The directory is the longer record.
-              </p>
-            )}
+            <p>
+              Issues stay on the site, one page per day, so a tool you saw in the morning is still
+              there later. The directory is the longer record.
+            </p>
             <div className="actions">
               <Link className="button" href={`/${segment.slug}/issues`}>
                 Issue archive
