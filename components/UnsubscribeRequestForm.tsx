@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { featuredSegment, segments } from "@/lib/segments";
 
-export function UnsubscribeRequestForm() {
+export function UnsubscribeRequestForm({
+  defaultSegment = featuredSegment().slug,
+}: {
+  defaultSegment?: string;
+}) {
   const [message, setMessage] = useState("");
   const [kind, setKind] = useState<"idle" | "working" | "ok" | "error">("idle");
 
@@ -35,7 +39,7 @@ export function UnsubscribeRequestForm() {
       <label htmlFor="unsub-email">Email</label>
       <input id="unsub-email" name="email" type="email" required autoComplete="email" />
       <label htmlFor="unsub-segment">Section</label>
-      <select id="unsub-segment" name="segment" defaultValue={featuredSegment().slug}>
+      <select id="unsub-segment" name="segment" defaultValue={defaultSegment}>
         {segments.map((segment) => (
           <option key={segment.slug} value={segment.slug}>
             {segment.name}

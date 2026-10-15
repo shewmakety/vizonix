@@ -58,7 +58,7 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
     <section className="hero">
       <div className="wrap">
         <p className="crumbs">
-          <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
+          <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
           <Link href={`/${segment.slug}/tools`}>Tool directory</Link> / {topic.label}
         </p>
         <p className="kicker">{segment.name}</p>

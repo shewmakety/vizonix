@@ -42,7 +42,7 @@ export default async function IssuePage({ params }: Props) {
 
   return (
     <>
-      <SiteBanner sectionName={segment.name} />
+      {segment.status === "active" ? <SiteBanner sectionName={segment.name} /> : null}
       <section className="hero">
         <div className="wrap issue-layout">
           <IssueBody issue={issue} />
@@ -62,7 +62,7 @@ export default async function IssuePage({ params }: Props) {
         data={[
           issueJsonLd(issue),
           breadcrumbJsonLd([
-            { name: "Home", path: "/" },
+            { name: "Home", path: `/${segment.slug}` },
             { name: segment.name, path: `/${segment.slug}` },
             { name: "Issues", path: `/${segment.slug}/issues` },
             { name: issue.date, path: `/${segment.slug}/issues/${issue.date}` },

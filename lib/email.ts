@@ -1,4 +1,5 @@
 import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
+import { unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl, site } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
@@ -166,9 +167,9 @@ export type IssueRenderOptions = {
   unsubscribeUrl?: string;
 };
 
-function issueUnsubscribe(options: IssueRenderOptions): string {
+function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): string {
   if (options.unsubscribeUrl) return options.unsubscribeUrl;
-  return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl("/unsubscribe");
+  return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl(unsubscribePath(segmentSlug));
 }
 
 export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, string> {
@@ -183,7 +184,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const absolute = true;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
-  const unsubscribe = issueUnsubscribe(options);
+  const unsubscribe = issueUnsubscribe(issue.segment, options);
   const preview = options.preheader ?? issue.preheader;
   const intro = options.introHtml
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">${options.introHtml}</td></tr>`
@@ -301,7 +302,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const directory = absoluteUrl(`/${issue.segment}/tools`);
-  const unsubscribe = issueUnsubscribe(options);
+  const unsubscribe = issueUnsubscribe(issue.segment, options);
 
   function slotLines(label: string, creative: SponsorCreative | null, name: SlotName): string[] {
     const resolved = resolveSlot(name, creative);

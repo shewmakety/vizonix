@@ -41,11 +41,11 @@ export default async function ToolPage({ params }: Props) {
 
   return (
     <>
-      <SiteBanner sectionName={segment.name} />
+      {segment.status === "active" ? <SiteBanner sectionName={segment.name} /> : null}
       <section className="hero">
         <div className="wrap prose">
           <p className="crumbs">
-            <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
+            <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
             <Link href={`/${segment.slug}/tools`}>Tool directory</Link>
             {topicCrumb ? (
               <>
@@ -118,7 +118,7 @@ export default async function ToolPage({ params }: Props) {
         data={[
           toolJsonLd(tool),
           breadcrumbJsonLd([
-            { name: "Home", path: "/" },
+            { name: "Home", path: `/${segment.slug}` },
             { name: segment.name, path: `/${segment.slug}` },
             { name: "Tool directory", path: `/${segment.slug}/tools` },
             ...(topicCrumb

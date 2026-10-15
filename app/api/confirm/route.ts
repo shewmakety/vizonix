@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { SEGMENT_COOKIE, segmentCookieAttributes } from "@/lib/segment-memory";
 import { confirmSubscription } from "@/lib/subscribe";
 
 export const runtime = "nodejs";
@@ -17,5 +18,7 @@ export async function POST(request: Request) {
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: result.status });
   }
-  return NextResponse.json({ ok: true, message: result.message });
+  const response = NextResponse.json({ ok: true, message: result.message });
+  response.cookies.set(SEGMENT_COOKIE, result.segment, segmentCookieAttributes());
+  return response;
 }

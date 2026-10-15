@@ -82,7 +82,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
   return (
     <article>
       <p className="crumbs">
-        <Link href="/">Home</Link> / <Link href={`/${issue.segment}`}>{segment?.name}</Link> /{" "}
+        <Link href={`/${issue.segment}`}>Home</Link> / <Link href={`/${issue.segment}`}>{segment?.name}</Link> /{" "}
         <Link href={`/${issue.segment}/issues`}>Issues</Link> / {formatLongDate(issue.date)}
       </p>
       {issue.sample ? (

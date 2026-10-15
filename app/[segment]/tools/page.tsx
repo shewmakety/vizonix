@@ -48,7 +48,7 @@ export default async function ToolsPage({ params, searchParams }: Props) {
     <section className="hero">
       <div className="wrap">
         <p className="crumbs">
-          <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Tool directory
+          <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Tool directory
         </p>
         <p className="kicker">{segment.name}</p>
         <h1>Tool directory</h1>

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { SEGMENT_COOKIE, segmentUnsubscribeHref } from "@/lib/segment-memory";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -8,7 +10,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const cookieStore = await cookies();
+  const unsubscribeHref = segmentUnsubscribeHref("/privacy", cookieStore.get(SEGMENT_COOKIE)?.value);
   return (
     <section className="hero">
       <div className="wrap prose">
@@ -28,7 +32,7 @@ export default function PrivacyPage() {
         <h2>Unsubscribe</h2>
         <p>
           Every issue includes an unsubscribe link. You can also request one from the{" "}
-          <Link href="/unsubscribe">unsubscribe page</Link>. Unsubscribing stops the briefing. Resend
+          <Link href={unsubscribeHref}>unsubscribe page</Link>. Unsubscribing stops the briefing. Resend
           stores the contact so we do not keep mailing you by mistake.
         </p>
         <h2>Sponsorship checkout</h2>

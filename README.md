@@ -1,6 +1,6 @@
 # Vizonix
 
-Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams. Legal is the second live section. Warehousing and marketing and sales are in the same app and stay planned until you add content and flip their status.
+Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams. Legal is in preparation: the legal issue and tool pages are sample data, not a launch. Warehousing and marketing and sales are in the same app and stay planned until you add a real issue and flip their status.
 
 The email is free. Revenue is weekly sponsorship from AI companies. Launch prices live in `lib/rate-card.ts` and on [/sponsor](https://vizonix.com/sponsor). The first active entry in `lib/segments.ts` is the featured section on the home page and the default list for signup.
 
@@ -36,7 +36,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `RESEND_API_KEY` | Email and the list | Resend API key. |
 | `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <news@vizonix.com>`. |
 | `RESEND_SEGMENT_ID_AVIATION` | Aviation list | Resend segment id for the launch section. Audiences were renamed to Segments in November 2025. |
-| `RESEND_SEGMENT_ID_LEGAL` | Legal list | Same, for the second live section. |
+| `RESEND_SEGMENT_ID_LEGAL` | Legal list | Same, for the legal list. The section stays in preparation until a real issue ships. |
 | `RESEND_SEGMENT_ID_WAREHOUSING` | That list | Same, when the section opens. |
 | `RESEND_SEGMENT_ID_MARKETING_SALES` | That list | Same. Hyphens in the slug become underscores. |
 | `RESEND_AUDIENCE_ID_*` | Legacy alias | Used only if the matching segment id is empty. |
@@ -46,7 +46,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `STRIPE_WEBHOOK_SECRET` | Webhook | Signing secret for `/api/stripe/webhook`. |
 | `STRIPE_PRICE_AVIATION_*` | Aviation checkout | One-time Price id per placement. See `.env.example`. |
 | `STRIPE_PRICE_AVIATION_*_FOUNDING` | Aviation founding rate | Optional Price at the founding amount. |
-| `STRIPE_PRICE_LEGAL_*` | Legal checkout | Same pattern for the second live section. |
+| `STRIPE_PRICE_LEGAL_*` | Legal checkout | Same pattern for legal, when that section opens. |
 | `STRIPE_PRICE_LEGAL_*_FOUNDING` | Legal founding rate | Optional. |
 | `STRIPE_FOUNDING_PROMOTION_CODE` | Founding coupon | `promo_` id, used when the founding Price is unset. |
 | `NEXT_PUBLIC_STRIPE_LINK_AVIATION_*` | Optional | Payment Link URLs for the launch section. |

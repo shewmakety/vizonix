@@ -128,7 +128,7 @@ export const segments: Segment[] = [
   {
     slug: "legal",
     name: "Legal",
-    status: "active",
+    status: "planned",
     audience: "Lawyers and law practices",
     summary:
       "A weekday briefing on AI tools, bots, models, and resources for lawyers and law practices.",
@@ -193,6 +193,20 @@ export function topicPageDescription(segmentName: string, topic: SegmentTopic): 
 /** First active section. Home, signup, and the launch newsletter use this. */
 export function featuredSegment(): Segment {
   return segments.find((segment) => segment.status === "active") ?? segments[0];
+}
+
+/** Home-page card status. Planned sections are not labeled live. */
+export function segmentCardLabel(segment: Segment): "In preparation" | "Launch" | "Live" {
+  if (segment.status === "planned") return "In preparation";
+  if (segment.slug === featuredSegment().slug) return "Launch";
+  return "Live";
+}
+
+export function segmentCardPillClass(segment: Segment): string {
+  const label = segmentCardLabel(segment);
+  if (label === "In preparation") return "pill";
+  if (label === "Launch") return "pill launch";
+  return "pill live";
 }
 
 /**

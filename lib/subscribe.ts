@@ -4,6 +4,7 @@ import { z } from "zod";
 import { latestPublishedIssue } from "@/lib/content";
 import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePlainMessage } from "@/lib/email";
 import { AppError } from "@/lib/errors";
+import { confirmPath, unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl } from "@/lib/site";
 import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
 import { signToken, tokenSecret, verifyToken } from "@/lib/tokens";
@@ -76,7 +77,7 @@ export async function startDoubleOptIn(input: {
   await resend.contacts.segments.add({ email, segmentId });
 
   const token = signToken({ email, segment: segment.slug, purpose: "confirm" }, secret);
-  const confirmUrl = absoluteUrl(`/confirm?token=${encodeURIComponent(token)}`);
+  const confirmUrl = absoluteUrl(confirmPath(segment.slug, token));
   const message = confirmationEmail({ sectionName: segment.name, confirmUrl });
   const sent = await resend.emails.send({
     from,
@@ -116,11 +117,12 @@ async function sendWelcomeEmail(
   const secret = tokenSecret();
   const unsubscribeUrl = secret
     ? absoluteUrl(
-        `/unsubscribe?token=${encodeURIComponent(
+        unsubscribePath(
+          input.segment.slug,
           signToken({ email: input.email, segment: input.segment.slug, purpose: "unsubscribe" }, secret),
-        )}`,
+        ),
       )
-    : absoluteUrl("/unsubscribe");
+    : absoluteUrl(unsubscribePath(input.segment.slug));
   const issue = latestPublishedIssue(input.segment.slug);
   const message = issue
     ? welcomeIssueMessage(issue, unsubscribeUrl)
@@ -149,6 +151,7 @@ async function sendWelcomeEmail(
 export async function confirmSubscription(token: string): Promise<{
   ok: true;
   message: string;
+  segment: string;
 } | { ok: false; status: number; error: string }> {
   const secret = tokenSecret();
   if (!secret) {
@@ -204,6 +207,7 @@ export async function confirmSubscription(token: string): Promise<{
   return {
     ok: true,
     message: `${payload.email} is confirmed for the ${segment.name} briefing.`,
+    segment: segment.slug,
   };
 }
 
@@ -224,7 +228,7 @@ export async function requestUnsubscribeLink(input: {
     return { ok: false, status: 503, error: "Unsubscribe email is not configured yet." };
   }
   const token = signToken({ email, segment: segment.slug, purpose: "unsubscribe" }, secret);
-  const unsubscribeUrl = absoluteUrl(`/unsubscribe?token=${encodeURIComponent(token)}`);
+  const unsubscribeUrl = absoluteUrl(unsubscribePath(segment.slug, token));
   const message = unsubscribeLinkEmail({ sectionName: segment.name, unsubscribeUrl });
   const resend = new Resend(apiKey);
   const sent = await resend.emails.send({

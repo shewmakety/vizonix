@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { cookies, headers } from "next/headers";
 import { SignupForm } from "@/components/SignupForm";
+import { SEGMENT_COOKIE, SEGMENT_HEADER, resolveRememberedSlug } from "@/lib/segment-memory";
+import { featuredSegment } from "@/lib/segments";
 
 export const metadata: Metadata = {
   title: "Subscribe",
@@ -7,7 +10,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/subscribe" },
 };
 
-export default function SubscribePage() {
+export default async function SubscribePage() {
+  const headerStore = await headers();
+  const cookieStore = await cookies();
+  const rememberedSlug = resolveRememberedSlug(
+    headerStore.get(SEGMENT_HEADER),
+    cookieStore.get(SEGMENT_COOKIE)?.value,
+  );
+  const defaultSegment = rememberedSlug ?? featuredSegment().slug;
+
   return (
     <section className="hero">
       <div className="wrap split">
@@ -19,13 +30,13 @@ export default function SubscribePage() {
             section you picked arrives on weekday mornings.
           </p>
           <p>
-            Aviation is the launch section. Legal is also live. Warehousing and marketing and sales are
-            in preparation. You can join those lists now. They will not send a daily issue until the
+            Aviation is the launch section. Legal, warehousing, and marketing and sales are in
+            preparation. You can join those lists now. They will not send a daily issue until the
             section opens.
           </p>
           <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
         </div>
-        <SignupForm />
+        <SignupForm defaultSegment={defaultSegment} />
       </div>
     </section>
   );

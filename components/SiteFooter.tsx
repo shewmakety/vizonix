@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { segmentUnsubscribeHref } from "@/lib/segment-memory";
 import { site } from "@/lib/site";
 
-export function SiteFooter() {
+export function SiteFooter({ rememberedSlug }: { rememberedSlug?: string }) {
+  const pathname = usePathname() || "/";
   return (
     <footer className="site-footer">
       <div className="wrap footer-inner">
@@ -11,7 +16,7 @@ export function SiteFooter() {
         <nav className="footer-links" aria-label="Footer">
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
-          <Link href="/unsubscribe">Unsubscribe</Link>
+          <Link href={segmentUnsubscribeHref(pathname, rememberedSlug)}>Unsubscribe</Link>
           <Link href="/sponsor">Sponsor</Link>
           <Link href="/llms.txt">llms.txt</Link>
         </nav>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatLongDate } from "@/lib/dates";
-import { featuredSegment, segments } from "@/lib/segments";
+import { featuredSegment, segmentCardLabel, segmentCardPillClass, segments } from "@/lib/segments";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
@@ -39,11 +39,8 @@ export default function HomePage() {
         </div>
         <div className="cards">
           {segments.map((segment) => {
-            const launch = segment.slug === featured.slug;
-            const label =
-              segment.status === "planned" ? "In preparation" : launch ? "Launch" : "Live";
-            const pillClass =
-              segment.status === "planned" ? "pill" : launch ? "pill launch" : "pill live";
+            const label = segmentCardLabel(segment);
+            const pillClass = segmentCardPillClass(segment);
             return (
               <article className="card" key={segment.slug}>
                 <p className={pillClass}>{label}</p>

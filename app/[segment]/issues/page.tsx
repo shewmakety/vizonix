@@ -32,7 +32,7 @@ export default async function IssuesPage({ params }: Props) {
     <section className="hero">
       <div className="wrap prose">
         <p className="crumbs">
-          <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Issues
+          <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Issues
         </p>
         <p className="kicker">{segment.name}</p>
         <h1>Issue archive</h1>
