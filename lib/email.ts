@@ -210,6 +210,22 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const sample = issue.sample
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
+  const directory = absoluteUrl(`/${issue.segment}/tools`);
+  const linkRow = `<tr>
+            <td style="padding:12px 28px 0;">
+              <table role="presentation" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
+                    <a href="${escapeHtml(directory)}" style="color:#1e4636;text-decoration:underline;">Tool Directory</a>
+                  </td>
+                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;color:#8a8175;padding:0 8px;">|</td>
+                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
+                    <a href="${escapeHtml(archive)}" style="color:#1e4636;text-decoration:underline;">Read on the web</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -230,6 +246,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatLongDate(issue.date))}</p>
             </td>
           </tr>
+          ${linkRow}
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
@@ -283,6 +300,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const sectionName = segment?.name ?? issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
+  const directory = absoluteUrl(`/${issue.segment}/tools`);
   const unsubscribe = issueUnsubscribe(options);
 
   function slotLines(label: string, creative: SponsorCreative | null, name: SlotName): string[] {
@@ -294,6 +312,9 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const lines = [
     `Vizonix ${sectionName}`,
     formatLongDate(issue.date),
+    "",
+    `Tool Directory: ${directory}`,
+    `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),
     ...(issue.sample

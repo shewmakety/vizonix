@@ -100,6 +100,11 @@ p { margin: 0 0 0.9rem; }
   font-size: 0.95rem;
 }
 .site-nav a:hover { color: #f3ead8; }
+.site-nav a[aria-current="page"] {
+  color: #f3ead8;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
 .nav-soon {
   color: #c8bfb2;
   font-size: 0.72rem;
@@ -114,7 +119,8 @@ p { margin: 0 0 0.9rem; }
   padding: 0.35rem 0.7rem;
   font-size: 0.92rem;
 }
-.header-cta:hover { background: var(--navy-2); color: white; }
+.header-cta:hover,
+.header-cta[aria-current="page"] { background: var(--navy-2); color: white; }
 
 main { padding-bottom: 4.5rem; }
 .hero { padding: 3.2rem 0 2.2rem; }
