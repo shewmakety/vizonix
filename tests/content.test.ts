@@ -3,7 +3,14 @@ import { getIssue, listIssues, listTools } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { featuredSegment, segments } from "@/lib/segments";
+import { absoluteUrl } from "@/lib/site";
+import {
+  featuredSegment,
+  isToolDirectoryPath,
+  segments,
+  toolDirectoryHref,
+  toolsIndexPath,
+} from "@/lib/segments";
 
 describe("segment config and sample content", () => {
   it("lists aviation first, with legal live and two sections still planned", () => {
@@ -37,6 +44,21 @@ describe("segment config and sample content", () => {
     expect(directoryViewFromQuery("list")).toBe("list");
     expect(directoryViewFromQuery(["list"])).toBe("list");
     expect(directoryViewFromQuery("grid")).toBe("cards");
+    expect(toolsIndexPath).toBeNull();
+    expect(toolDirectoryHref("/")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/about")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/sponsor")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/subscribe")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/aviation")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/aviation/issues/2026-10-16")).toBe("/aviation/tools");
+    expect(toolDirectoryHref("/legal/tools/clauseharbor")).toBe("/legal/tools");
+    expect(toolDirectoryHref("/warehousing")).toBe("/warehousing/tools");
+    expect(toolDirectoryHref("/about", "/tools")).toBe("/tools");
+    expect(isToolDirectoryPath("/aviation/tools")).toBe(true);
+    expect(isToolDirectoryPath("/aviation/tools/airvoyant")).toBe(true);
+    expect(isToolDirectoryPath("/aviation")).toBe(false);
+    expect(isToolDirectoryPath("/")).toBe(false);
+    expect(isToolDirectoryPath("/tools", "/tools")).toBe(true);
   });
 
   it("loads the first real aviation issue and real tool pages", () => {
@@ -95,6 +117,17 @@ describe("segment config and sample content", () => {
     expect(html).toContain("Recruiting pilots and technicians");
     expect(html).toContain("Thin this week: we did not find a verified, aviation-specific AI recruiting launch");
     expect(html).toContain("https://www.atec-amt.org/news/aviation-technical-workforce-expansion-continues-amid-strong-demand");
+    const directory = absoluteUrl("/aviation/tools");
+    const issueUrl = absoluteUrl("/aviation/issues/2026-10-16");
+    expect(html).toContain(`href="${directory}"`);
+    expect(html).toContain("Tool Directory");
+    expect(html).toContain("Read on the web");
+    expect(html).toContain(`href="${issueUrl}"`);
+    expect(html.indexOf("Vizonix Aviation")).toBeLessThan(html.indexOf("Tool Directory"));
+    expect(html.indexOf("Tool Directory")).toBeLessThan(html.indexOf(aviation.lead.title));
+    expect(text).toContain(`Tool Directory: ${directory}`);
+    expect(text).toContain(`Read on the web: ${issueUrl}`);
+    expect(text.indexOf("Tool Directory:")).toBeLessThan(text.indexOf(aviation.lead.title));
     expect(html).toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
     expect(html).not.toContain("Holdshort Systems");
@@ -111,6 +144,8 @@ describe("segment config and sample content", () => {
 
     const legalHtml = renderIssueEmail(legal, { mode: "test" });
     const legalText = renderIssueText(legal, { mode: "test" });
+    expect(legalHtml).toContain(`href="${absoluteUrl("/legal/tools")}"`);
+    expect(legalText).toContain(`Tool Directory: ${absoluteUrl("/legal/tools")}`);
     expect(legalHtml).toContain("Why it can make the practice money.");
     expect(legalHtml).toContain("Northline Systems");
     expect(legalHtml).toContain("Tool Highlights");

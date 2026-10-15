@@ -167,6 +167,14 @@ async function main() {
     if (home.includes("nav-soon") || home.includes(">Soon<")) {
       throw new Error("Segment links are still in the header.");
     }
+    if (!home.includes("Tool Directory") || !home.includes('href="/aviation/tools"')) {
+      throw new Error("Home header is missing the Tool Directory link.");
+    }
+
+    const about = await fetch(`${base}/about`).then((response) => response.text());
+    if (!about.includes("Tool Directory") || !about.includes('href="/aviation/tools"')) {
+      throw new Error("About header is missing the default Tool Directory link.");
+    }
 
     const aviation = await fetch(`${base}/aviation`).then((response) => response.text());
     if (!aviation.includes("Subscribe to Vizonix") || aviation.includes("Subscribe to Aviation")) {
@@ -175,15 +183,24 @@ async function main() {
     if (!aviation.includes("Tool Highlights")) {
       throw new Error("Aviation page is missing Tool Highlights.");
     }
+    if (!aviation.includes("Tool Directory") || !aviation.includes('href="/aviation/tools"')) {
+      throw new Error("Aviation header is missing its Tool Directory link.");
+    }
 
     const legal = await fetch(`${base}/legal`).then((response) => response.text());
     if (!legal.includes("Subscribe to Vizonix") || legal.includes("Subscribe to Legal")) {
       throw new Error("Legal signup heading was not renamed.");
     }
+    if (!legal.includes('href="/legal/tools"') || !legal.includes("Tool Directory")) {
+      throw new Error("Legal header is missing its Tool Directory link.");
+    }
 
     const directory = await fetch(`${base}/aviation/tools`).then((response) => response.text());
     if (!directory.includes("Tool directory") || !directory.includes('aria-pressed="true"')) {
       throw new Error("Tool directory is missing the view toggle.");
+    }
+    if (!directory.includes('aria-current="page"') || !directory.includes("Tool Directory")) {
+      throw new Error("Tool Directory is not marked active on the directory page.");
     }
     if (!directory.includes("tool-grid") || directory.includes("tool-directory-list")) {
       throw new Error("The default directory view is not cards.");

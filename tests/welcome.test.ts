@@ -89,6 +89,11 @@ describe("welcome email on confirm", () => {
     expect(payload.html).toContain("hello@vizonix.com");
     expect(payload.html).toContain("Veryon puts an AI assistant inside the business aviation maintenance record");
     expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-10-16");
+    expect(payload.html).toContain("https://vizonix.com/aviation/tools");
+    expect(payload.html).toContain("Tool Directory");
+    expect(payload.html).toContain("Read on the web");
+    expect(payload.text).toContain("Tool Directory: https://vizonix.com/aviation/tools");
+    expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-16");
     expect(payload.html).toContain("/unsubscribe?token=");
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");

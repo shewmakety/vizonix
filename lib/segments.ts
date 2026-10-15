@@ -85,6 +85,51 @@ export function featuredSegment(): Segment {
   return segments.find((segment) => segment.status === "active") ?? segments[0];
 }
 
+/**
+ * Cross-segment tools index, when one is published.
+ * Null sends non-segment pages to the first launched section's directory.
+ */
+export const toolsIndexPath: string | null = null;
+
+export function toolDirectoryPath(segment: Segment): string {
+  return `/${segment.slug}/tools`;
+}
+
+function normalizePath(pathname: string): string {
+  const path = pathname.split(/[?#]/)[0] || "/";
+  const withSlash = path.startsWith("/") ? path : `/${path}`;
+  if (withSlash.length > 1 && withSlash.endsWith("/")) return withSlash.slice(0, -1);
+  return withSlash;
+}
+
+/** Section that owns this path, including its issues and tool directory. */
+export function segmentFromPathname(pathname: string): Segment | undefined {
+  const slug = normalizePath(pathname).split("/").filter(Boolean)[0];
+  return slug ? getSegment(slug) : undefined;
+}
+
+/**
+ * Header target for Tool Directory.
+ * Segment pages link to that section. Other pages use the cross-segment index, or the first launched section.
+ */
+export function toolDirectoryHref(pathname: string, indexPath: string | null = toolsIndexPath): string {
+  const segment = segmentFromPathname(pathname);
+  if (segment) return toolDirectoryPath(segment);
+  if (indexPath) return indexPath;
+  return toolDirectoryPath(featuredSegment());
+}
+
+/** True on a section directory, a tool page, or the cross-segment tools index. */
+export function isToolDirectoryPath(pathname: string, indexPath: string | null = toolsIndexPath): boolean {
+  const path = normalizePath(pathname);
+  if (indexPath) {
+    const index = normalizePath(indexPath);
+    if (path === index || path.startsWith(`${index}/`)) return true;
+  }
+  const [slug, section] = path.split("/").filter(Boolean);
+  return Boolean(slug && section === "tools" && getSegment(slug));
+}
+
 export function segmentResendId(segment: Segment): string | undefined {
   const current = process.env[segment.resendSegmentEnv];
   if (current) return current;
