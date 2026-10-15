@@ -24,6 +24,11 @@ export function listIssues(segment: string): Issue[] {
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+/** Newest issue that is not marked sample. Sample issues are not mailed as the welcome. */
+export function latestPublishedIssue(segment: string): Issue | undefined {
+  return listIssues(segment).find((issue) => !issue.sample);
+}
+
 export function getIssue(segment: string, date: string): Issue | undefined {
   const file = path.join(issuesDir(segment), `${date}.json`);
   if (!fs.existsSync(file)) return undefined;

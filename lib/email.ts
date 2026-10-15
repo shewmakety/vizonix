@@ -1,5 +1,5 @@
 import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, site } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
 import { formatLongDate } from "@/lib/dates";
@@ -155,19 +155,39 @@ function slotHtml(slot: ResolvedSlot, absolute: boolean): string {
     </tr>`;
 }
 
-export function renderIssueEmail(
-  issue: Issue,
-  options: { mode: "broadcast" | "test" },
-): string {
+export type IssueRenderOptions = {
+  mode: "broadcast" | "test";
+  /** HTML inserted under the masthead. Caller must escape any untrusted text. */
+  introHtml?: string;
+  /** Plain-text block inserted under the masthead. */
+  introText?: string;
+  preheader?: string;
+  /** Overrides the footer unsubscribe link. Broadcast issues keep the Resend placeholder. */
+  unsubscribeUrl?: string;
+};
+
+function issueUnsubscribe(options: IssueRenderOptions): string {
+  if (options.unsubscribeUrl) return options.unsubscribeUrl;
+  return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl("/unsubscribe");
+}
+
+export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, string> {
+  return {
+    "List-Unsubscribe": `<${unsubscribeUrl}>`,
+  };
+}
+
+export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const absolute = true;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
-  const unsubscribe =
-    options.mode === "broadcast"
-      ? "{{{RESEND_UNSUBSCRIBE_URL}}}"
-      : absoluteUrl("/unsubscribe");
+  const unsubscribe = issueUnsubscribe(options);
+  const preview = options.preheader ?? issue.preheader;
+  const intro = options.introHtml
+    ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">${options.introHtml}</td></tr>`
+    : "";
   const primary = resolveSlot("primary", issue.sponsors.primary);
   const secondary = resolveSlot("secondary", issue.sponsors.secondary);
   const classified = resolveSlot("classified", issue.sponsors.classified);
@@ -199,7 +219,7 @@ export function renderIssueEmail(
   <title>${escapeHtml(issue.subject)}</title>
 </head>
 <body style="margin:0;padding:0;background:#f4f1ea;">
-  <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(issue.preheader)}</div>
+  <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(preview)}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
     <tr>
       <td align="center">
@@ -210,6 +230,7 @@ export function renderIssueEmail(
               <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatLongDate(issue.date))}</p>
             </td>
           </tr>
+          ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
           <tr>
@@ -257,15 +278,12 @@ export function renderIssueEmail(
 </html>`;
 }
 
-export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "test" }): string {
+export function renderIssueText(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
-  const unsubscribe =
-    options.mode === "broadcast"
-      ? "{{{RESEND_UNSUBSCRIBE_URL}}}"
-      : absoluteUrl("/unsubscribe");
+  const unsubscribe = issueUnsubscribe(options);
 
   function slotLines(label: string, creative: SponsorCreative | null, name: SlotName): string[] {
     const resolved = resolveSlot(name, creative);
@@ -277,6 +295,7 @@ export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "te
     `Vizonix ${sectionName}`,
     formatLongDate(issue.date),
     "",
+    ...(options.introText ? [options.introText, ""] : []),
     ...(issue.sample
       ? ["Sample issue. The tools and sponsor in this edition are fictional placeholders.", ""]
       : []),
@@ -302,6 +321,110 @@ export function renderIssueText(issue: Issue, options: { mode: "broadcast" | "te
     `Unsubscribe: ${unsubscribe}`,
   ];
   return `${lines.join("\n")}\n`;
+}
+
+const welcomeParagraphStyle =
+  "margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;";
+
+export function welcomeParagraphs(sectionName: string, issueUrl?: string): string[] {
+  return [
+    `Thanks for confirming. You are on the Vizonix ${sectionName} list.`,
+    `Expect a short AI briefing every weekday morning for ${sectionName}.`,
+    `Add ${site.emailHello} to your contacts, or reply to this email to say hi. That helps the briefing reach your inbox.`,
+    issueUrl
+      ? `Read this issue on the web: ${issueUrl}`
+      : "No issue is in the archive yet. You will get the first one on a weekday morning.",
+  ];
+}
+
+function welcomeIntroHtml(sectionName: string, issueUrl?: string): string {
+  const paragraphs = welcomeParagraphs(sectionName, issueUrl);
+  return paragraphs
+    .map((paragraph, index) => {
+      if (issueUrl && index === paragraphs.length - 1) {
+        return `<p style="${welcomeParagraphStyle}">Read this issue on the web: <a href="${escapeHtml(issueUrl)}" style="color:#1e4636;">${escapeHtml(issueUrl)}</a></p>`;
+      }
+      return `<p style="${welcomeParagraphStyle}">${escapeHtml(paragraph)}</p>`;
+    })
+    .join("");
+}
+
+export type WelcomeMessage = {
+  subject: string;
+  html: string;
+  text: string;
+  headers: Record<string, string>;
+};
+
+/** Daily-issue layout with a short welcome above it. */
+export function welcomeIssueMessage(issue: Issue, unsubscribeUrl: string): WelcomeMessage {
+  const sectionName = getSegment(issue.segment)?.name ?? issue.segment;
+  const issueUrl = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
+  const paragraphs = welcomeParagraphs(sectionName, issueUrl);
+  return {
+    subject: `Welcome to Vizonix - here's the latest ${sectionName} issue`,
+    html: renderIssueEmail(issue, {
+      mode: "test",
+      introHtml: welcomeIntroHtml(sectionName, issueUrl),
+      preheader: paragraphs[0],
+      unsubscribeUrl,
+    }),
+    text: renderIssueText(issue, {
+      mode: "test",
+      introText: paragraphs.join("\n\n"),
+      unsubscribeUrl,
+    }),
+    headers: listUnsubscribeHeaders(unsubscribeUrl),
+  };
+}
+
+/** Used when the segment has no non-sample issue yet. */
+export function welcomePlainMessage(
+  sectionName: string,
+  sectionUrl: string,
+  unsubscribeUrl: string,
+): WelcomeMessage {
+  const paragraphs = welcomeParagraphs(sectionName);
+  const text = [...paragraphs, `Section: ${sectionUrl}`, `Unsubscribe: ${unsubscribeUrl}`].join("\n\n");
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to Vizonix</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f1ea;">
+  <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(paragraphs[0] ?? "")}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
+          <tr>
+            <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
+              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:22px 28px 8px;">${welcomeIntroHtml(sectionName)}</td>
+          </tr>
+          <tr>
+            <td style="padding:0 28px 28px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">
+              <p style="margin:0 0 12px;"><a href="${escapeHtml(sectionUrl)}" style="color:#1e4636;">Visit the ${escapeHtml(sectionName)} section</a></p>
+              <p style="margin:0;font-size:13px;color:#5f584e;"><a href="${escapeHtml(unsubscribeUrl)}" style="color:#1e4636;">Unsubscribe</a></p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+  return {
+    subject: `Welcome to Vizonix - ${sectionName}`,
+    html,
+    text: `${text}\n`,
+    headers: listUnsubscribeHeaders(unsubscribeUrl),
+  };
 }
 
 export function confirmationEmail(input: {
