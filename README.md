@@ -14,7 +14,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000. The aviation section, the legal section, both sample issues, and the sample tool pages render without API keys. Signup, sending, and checkout need the env vars below.
+Open http://localhost:3000. The aviation section and its first real issue, the legal section and its sample issue, and the tool pages render without API keys. Signup, sending, and checkout need the env vars below.
 
 ```bash
 npm test
@@ -66,9 +66,9 @@ Issues and tools are JSON in the repo.
 - `content/drafts/` is not published until the script copies a file into `issues/`
 - `content/bookings.json` stores paid reservations with no email address and no card data
 
-An issue has one lead, 3 to 8 tool blurbs, one playbook, quick links, and three sponsor slots: `primary`, `secondary`, and `classified`. Empty slots render as house ads. Word ceilings match the rate card: primary 110, secondary 60, classified 35.
+An issue has one lead, tool blurbs, one playbook, quick links, and three sponsor slots: `primary`, `secondary`, and `classified`. Tools can sit in a flat `tools` array or in `sections`, which group them by topic and can carry an intro and a coverage note. Empty slots render as house ads. A sponsor object with `"house": true` is also a house ad and is not marked as a paid placement. Word ceilings match the rate card: primary 110, secondary 60, classified 35.
 
-The seeded aviation issue (`2026-10-14`) and its four tool pages are the launch sample. The legal issue on the same date, and its four tool pages, are the second sample. Both are labeled on the page, excluded from the sitemap, and marked `noindex`. Delete them before a public launch, or leave them until the first real issue replaces the archive.
+The aviation issue (`2026-10-16`) is the first real issue. It is indexable and listed in the sitemap. The legal issue (`2026-10-14`) and its four tool pages are still sample data. They are labeled on the page, excluded from the sitemap, and marked `noindex`.
 
 Publish from a draft file:
 
@@ -127,7 +127,7 @@ Vercel redeploys when `main` changes. Issue pages and tool pages are generated f
 
 1. Set `EMAIL_FROM` to an address on that domain, for example `Vizonix <news@vizonix.com>`.
 2. Create a segment for each section (Aviation, Legal, Warehousing, Marketing and sales). Copy each segment id into `RESEND_SEGMENT_ID_*`. Aviation is the launch list.
-3. Send a test: `npm run publish-issue -- content/aviation/issues/2026-10-14.json --send --test-to you@example.com --allow-sample --no-write`
+3. Send a test: `npm run publish-issue -- content/aviation/issues/2026-10-16.json --send --test-to you@example.com --no-write`
 
 Resend's free tier covers the list while it is small. The broadcast path uses segments, which replaced audiences.
 
@@ -212,6 +212,6 @@ These are outside the repo:
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.
 5. Create `hello@`, `sponsors@`, and `privacy@` on the domain, or change the addresses in `lib/site.ts`.
-6. Replace the aviation and legal sample issues and sample tools before announcing the lists.
+6. Replace the legal sample issue and sample tools before announcing that list. The aviation sample issue has been replaced by `content/aviation/issues/2026-10-16.json`.
 7. Submit the sitemap to Google and Bing.
 8. Have the terms page reviewed before you rely on it in a dispute.

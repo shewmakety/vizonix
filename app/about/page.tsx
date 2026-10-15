@@ -37,9 +37,9 @@ export default function AboutPage() {
         </p>
         <h2>What the sample data is</h2>
         <p>
-          The first aviation issue, the first legal issue, and the tool pages in both directories are
-          sample data. The company names on those pages are fictional. They show the format. They are
-          not recommendations.
+          The legal issue and the legal tool pages are sample data. The company names on those pages are
+          fictional. They show the format. They are not recommendations. The aviation issue is a
+          published briefing, and each item on it names a source.
         </p>
         <h2>Contact</h2>
         <p>

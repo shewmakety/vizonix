@@ -1,0 +1,16 @@
+{
+  "slug": "veryon-defect-analysis",
+  "segment": "aviation",
+  "name": "Defect Analysis (next generation)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "company": "Veryon",
+  "summary": "Announced September 9, 2026. Adds aircraft fault data and part failures to every chronic, with AI chronic detection, rogue-parts detection that flags components statistically linked to recurring defects, AI chronic summaries and a conversational Fix Agent. Every AI suggestion goes through operator review.",
+  "paragraphs": [
+    "Announced September 9, 2026. Adds aircraft fault data and part failures to every chronic, with AI chronic detection, rogue-parts detection that flags components statistically linked to recurring defects, AI chronic summaries and a conversational Fix Agent. Every AI suggestion goes through operator review."
+  ],
+  "whyItMatters": "Repeat defects drive delays and wasted parts and labor. The rogue-parts view is the one to test: if it points at the part behind a chronic before the next removal, it pays for itself.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis",
+  "url": "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"
+}

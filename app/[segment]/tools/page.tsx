@@ -52,7 +52,8 @@ export default async function ToolsPage({ params }: Props) {
                   <Link href={`/${segment.slug}/tools/${tool.slug}`}>{tool.name}</Link>
                 </h2>
                 <p>{tool.summary}</p>
-                <p className="meta">{tool.bestFor}</p>
+                {tool.company ? <p className="meta">{tool.company}</p> : null}
+                {tool.bestFor ? <p className="meta">{tool.bestFor}</p> : null}
               </article>
             ))}
           </div>
