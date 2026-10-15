@@ -4,6 +4,7 @@
   "name": "Tailsight",
   "sample": false,
   "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
   "company": "Tailsight",
   "summary": "AI maintenance planning and optimization for airline tech ops. It pulls together maintenance systems, flight schedules, staffing, station capability and parts availability to build plans that respect real constraints. Alaska Airlines is the first major airline to deploy it and invested in the company (April 16, 2026).",
   "paragraphs": [

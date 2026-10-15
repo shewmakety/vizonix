@@ -1,28 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ToolDirectory } from "@/components/ToolDirectory";
-import { directoryViewFromQuery } from "@/lib/directory-view";
+import { DirectoryBrowser } from "@/components/DirectoryBrowser";
 import { listTools } from "@/lib/content";
-import { getSegment, segments } from "@/lib/segments";
+import { directoryCanonical, firstQueryValue, otherTopicKey } from "@/lib/directory";
+import { directoryViewFromQuery } from "@/lib/directory-view";
+import { getSegment, getSegmentTopic, segments } from "@/lib/segments";
 
 type Props = {
   params: Promise<{ segment: string }>;
-  searchParams: Promise<{ view?: string | string[] }>;
+  searchParams: Promise<{ view?: string | string[]; topic?: string | string[]; q?: string | string[] }>;
 };
 
 export function generateStaticParams() {
   return segments.map((segment) => ({ segment: segment.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { segment: slug } = await params;
+  const query = await searchParams;
   const segment = getSegment(slug);
   if (!segment) return {};
+  const topicKey = firstQueryValue(query.topic);
+  const q = firstQueryValue(query.q);
+  const known = topicKey === otherTopicKey || !topicKey || Boolean(getSegmentTopic(segment, topicKey));
   return {
     title: `${segment.name} tool directory`,
     description: `AI tools covered by the Vizonix ${segment.name} briefing. Sample listings are labeled.`,
-    alternates: { canonical: `/${segment.slug}/tools` },
+    alternates: {
+      canonical: known ? directoryCanonical(segment, topicKey || undefined) : `/${segment.slug}/tools`,
+    },
+    robots: q ? { index: false, follow: true } : { index: true, follow: true },
   };
 }
 
@@ -31,8 +39,10 @@ export default async function ToolsPage({ params, searchParams }: Props) {
   const query = await searchParams;
   const segment = getSegment(slug);
   if (!segment) notFound();
+  const topicKey = firstQueryValue(query.topic);
+  if (topicKey && topicKey !== otherTopicKey && !getSegmentTopic(segment, topicKey)) notFound();
   const tools = listTools(segment.slug);
-  const initialView = directoryViewFromQuery(query.view);
+  const q = firstQueryValue(query.q);
 
   return (
     <section className="hero">
@@ -50,7 +60,13 @@ export default async function ToolsPage({ params, searchParams }: Props) {
         {tools.length === 0 ? (
           <p className="notice">No tool listings yet. This section is not publishing yet.</p>
         ) : (
-          <ToolDirectory segmentSlug={segment.slug} tools={tools} initialView={initialView} />
+          <DirectoryBrowser
+            segment={segment}
+            view={directoryViewFromQuery(query.view)}
+            query={q}
+            activeTopic={topicKey || undefined}
+            linkMode="query"
+          />
         )}
       </div>
     </section>

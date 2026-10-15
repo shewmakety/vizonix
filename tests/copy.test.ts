@@ -49,6 +49,8 @@ describe("site copy", () => {
     expect(paths).toContain("/sponsor");
     expect(paths).toContain("/aviation/issues/2026-10-16");
     expect(paths).toContain("/aviation/tools/airvoyant");
+    expect(paths).toContain("/aviation/tools/topic/predictive-maintenance");
+    expect(paths).toContain("/aviation/tools/topic/aog-support");
     expect(paths).toContain("/aviation/tools/tailsight");
     expect(paths).not.toContain("/aviation/issues/2026-10-14");
     expect(paths).not.toContain("/aviation/tools/aogline");

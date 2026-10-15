@@ -4,6 +4,7 @@
   "name": "TalentVista",
   "sample": false,
   "category": "Recruiting pilots and technicians",
+  "topic": "recruiting-pilots-and-technicians",
   "company": "TalentVista",
   "summary": "AI screening and interview platform for aviation recruiting. It parses pilot, engineer and mechanic CVs, ranks candidates against the role, and runs role-specific structured interviews with AI-generated reports. Backed by an Innovate UK grant.",
   "paragraphs": [

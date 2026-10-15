@@ -4,6 +4,7 @@
   "name": "AI Sales Intelligence",
   "sample": false,
   "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
   "company": "CAMP Aviate (formerly Component Control's Quantum Control)",
   "summary": "AI price guidance for aviation parts and MRO sales teams. It recommends a price for each part from your past quote outcomes, win rates and ILS marketplace data, sends weekly opportunity reports, and includes a plain-language AI analyst, all inside SalesEdge Quoting.",
   "paragraphs": [

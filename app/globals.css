@@ -270,6 +270,49 @@ input:focus, select:focus, textarea:focus {
 .prose h2 { margin-top: 1.8rem; }
 .issue-layout { display: grid; grid-template-columns: minmax(0, 42rem) 16rem; gap: 2rem; }
 .side-card { position: sticky; top: 1rem; }
+.topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+.topic-chips a {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.92rem;
+}
+.topic-chips a[aria-pressed="true"] {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #f7f4ee;
+}
+.topic-count { color: inherit; }
+.directory-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  margin: 0 0 1rem;
+}
+.directory-search label { font-size: 0.92rem; }
+.directory-search input[type="search"] {
+  font: inherit;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--line);
+  background: white;
+  min-width: min(100%, 16rem);
+  color: var(--ink);
+}
+.directory-search button {
+  font: inherit;
+  padding: 0.4rem 0.75rem;
+  background: var(--navy);
+  color: #f7f4ee;
+  border: 1px solid var(--navy);
+  cursor: pointer;
+}
 .view-toggle {
   display: flex;
   gap: 0.4rem;

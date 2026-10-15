@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteBanner } from "@/components/SiteBanner";
 import { allTools, getTool } from "@/lib/content";
+import { configuredTopicsForTool } from "@/lib/directory";
 import { breadcrumbJsonLd, toolJsonLd } from "@/lib/jsonld";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentTopics, topicPagePath } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string; slug: string }> };
 
@@ -34,7 +35,9 @@ export default async function ToolPage({ params }: Props) {
   const { segment: slug, slug: toolSlug } = await params;
   const segment = getSegment(slug);
   const tool = segment ? getTool(slug, toolSlug) : undefined;
-  if (!segment || !tool) notFound();
+  if (!segment || !tool || toolSlug === "topic") notFound();
+  const topics = configuredTopicsForTool(segmentTopics(segment), tool);
+  const topicCrumb = topics.length === 1 ? topics[0] : undefined;
 
   return (
     <>
@@ -43,7 +46,14 @@ export default async function ToolPage({ params }: Props) {
         <div className="wrap prose">
           <p className="crumbs">
             <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
-            <Link href={`/${segment.slug}/tools`}>Tool directory</Link> / {tool.name}
+            <Link href={`/${segment.slug}/tools`}>Tool directory</Link>
+            {topicCrumb ? (
+              <>
+                {" / "}
+                <Link href={topicPagePath(segment.slug, topicCrumb.key)}>{topicCrumb.label}</Link>
+              </>
+            ) : null}{" "}
+            / {tool.name}
           </p>
           {tool.sample ? (
             <p className="notice">
@@ -54,6 +64,17 @@ export default async function ToolPage({ params }: Props) {
           <p className="kicker">{tool.category}</p>
           <h1>{tool.name}</h1>
           {tool.company ? <p className="meta">{tool.company}</p> : null}
+          {topics.length > 0 ? (
+            <p className="meta">
+              Topic:{" "}
+              {topics.map((topic, index) => (
+                <span key={topic.key}>
+                  {index > 0 ? ", " : null}
+                  <Link href={topicPagePath(segment.slug, topic.key)}>{topic.label}</Link>
+                </span>
+              ))}
+            </p>
+          ) : null}
           <p className="lede">{tool.summary}</p>
           {tool.paragraphs
             .filter((paragraph) => paragraph !== tool.summary)
@@ -100,6 +121,9 @@ export default async function ToolPage({ params }: Props) {
             { name: "Home", path: "/" },
             { name: segment.name, path: `/${segment.slug}` },
             { name: "Tool directory", path: `/${segment.slug}/tools` },
+            ...(topicCrumb
+              ? [{ name: topicCrumb.label, path: topicPagePath(segment.slug, topicCrumb.key) }]
+              : []),
             { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
           ]),
         ]}

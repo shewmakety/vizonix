@@ -4,6 +4,7 @@
   "name": "Flight Leads",
   "sample": false,
   "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
   "company": "Levo",
   "summary": "An AI sales dashboard for charter operators, launched July 2, 2026. It matches inbound inbox and aggregator requests to available aircraft, prices them on the operator's own rules, and pre-fills a quote ready to send by email or SMS.",
   "paragraphs": [

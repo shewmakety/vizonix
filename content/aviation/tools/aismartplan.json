@@ -4,6 +4,7 @@
   "name": "AISmartPlan",
   "sample": false,
   "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
   "company": "AISmartPlan",
   "summary": "AI maintenance production planning that matches engineers to aircraft and tasks using flight schedules, aircraft availability and workforce constraints, with drag-and-drop visual plans. Aer Lingus signed a multi-year agreement after a trial in IAG's accelerator (May 28, 2026).",
   "paragraphs": [

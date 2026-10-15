@@ -4,6 +4,7 @@
   "name": "RGIS Vision",
   "sample": false,
   "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
   "company": "RGIS",
   "summary": "AI optical character recognition added to RGIS inventory scanners, so counters read alphanumeric part numbers straight off parts and bin labels instead of writing them down. RGIS says a major carrier reported 98.9% inventory accuracy across four warehouses, and the count found more than 2,000 parts not recorded in the airline's system (Aviation Week, January 12, 2026).",
   "paragraphs": [

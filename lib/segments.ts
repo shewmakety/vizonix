@@ -1,5 +1,21 @@
 export type SegmentStatus = "active" | "planned";
 
+export type SegmentTopic = {
+  /** URL and tool key, for example predictive-maintenance. */
+  key: string;
+  /** Chip label. */
+  label: string;
+  /** Lowercase phrase used in the topic page heading. */
+  phrase: string;
+  /** One line under the topic page heading. */
+  intro: string;
+  /**
+   * Issue section topic this key belongs to.
+   * Aviation keys follow the Oct 16 issue sections so directory tools map onto those groups.
+   */
+  issueTopic?: string;
+};
+
 export type Segment = {
   slug: string;
   name: string;
@@ -13,6 +29,8 @@ export type Segment = {
   resendSegmentEnv: string;
   /** Legacy alias. Used when the segment env var is unset. */
   resendAudienceEnv: string;
+  /** Directory topics. Omit when the section is not grouping tools yet. */
+  topics?: SegmentTopic[];
 };
 
 /**
@@ -34,6 +52,57 @@ export const segments: Segment[] = [
     payoffLabel: "Why it can make the operation money",
     resendSegmentEnv: "RESEND_SEGMENT_ID_AVIATION",
     resendAudienceEnv: "RESEND_AUDIENCE_ID_AVIATION",
+    topics: [
+      {
+        key: "recruiting-pilots-and-technicians",
+        label: "Recruiting (pilots & technicians)",
+        phrase: "recruiting pilots and technicians",
+        intro: "Tools for hiring pilots and technicians.",
+        issueTopic: "Recruiting pilots and technicians",
+      },
+      {
+        key: "sales-and-marketing",
+        label: "Sales & Marketing",
+        phrase: "sales and marketing",
+        intro: "Tools for charter sales and parts pricing.",
+        issueTopic: "Sales and marketing",
+      },
+      {
+        key: "predictive-maintenance",
+        label: "Predictive Maintenance",
+        phrase: "predictive maintenance",
+        intro: "Tools that flag repeat defects and engine risk before the next removal.",
+        issueTopic: "Predictive maintenance",
+      },
+      {
+        key: "maintenance-optimization",
+        label: "Maintenance Optimization",
+        phrase: "maintenance optimization",
+        intro: "Tools that plan maintenance around labor, parts, and station limits.",
+        issueTopic: "Maintenance activity optimization",
+      },
+      {
+        key: "troubleshooting",
+        label: "Troubleshooting",
+        phrase: "troubleshooting",
+        intro: "Tools that answer questions from approved technical documents.",
+        issueTopic: "Troubleshooting support",
+      },
+      {
+        key: "warehousing-and-inventory",
+        label: "Warehousing & Inventory",
+        phrase: "warehousing and inventory",
+        intro: "Tools for counting and tracking parts in aviation stores.",
+        issueTopic: "Warehousing",
+      },
+      {
+        key: "aog-support",
+        label: "AOG Support",
+        phrase: "AOG support",
+        intro: "Tools for sourcing parts when an aircraft is on the ground.",
+        issueTopic: "AOG support: parts, rotables and technicians",
+      },
+    ],
   },
   {
     slug: "legal",
@@ -78,6 +147,26 @@ export const segments: Segment[] = [
 
 export function getSegment(slug: string): Segment | undefined {
   return segments.find((segment) => segment.slug === slug);
+}
+
+export function segmentTopics(segment: Segment | undefined): SegmentTopic[] {
+  return segment?.topics ?? [];
+}
+
+export function getSegmentTopic(segment: Segment | undefined, key: string): SegmentTopic | undefined {
+  return segmentTopics(segment).find((topic) => topic.key === key);
+}
+
+export function topicPagePath(segmentSlug: string, topicKey: string): string {
+  return `/${segmentSlug}/tools/topic/${topicKey}`;
+}
+
+export function topicPageHeading(segmentName: string, topic: SegmentTopic): string {
+  return `AI tools for ${topic.phrase} in ${segmentName.toLowerCase()}`;
+}
+
+export function topicPageDescription(segmentName: string, topic: SegmentTopic): string {
+  return `${topicPageHeading(segmentName, topic)}. ${topic.intro}`;
 }
 
 /** First active section. Home, signup, and the launch newsletter use this. */

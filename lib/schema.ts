@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { getPlacement, wordCount } from "@/lib/rate-card";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentTopics } from "@/lib/segments";
 
 const httpUrl = z
   .string()
@@ -200,21 +200,57 @@ export function issueSections(issue: Issue): IssueSectionView[] {
   return groups;
 }
 
-export const toolSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
-  segment: z.string().trim().min(1),
-  name: z.string().trim().min(1).max(120),
-  sample: z.boolean(),
-  category: z.string().trim().min(1).max(120),
-  company: z.string().trim().min(1).max(160).optional(),
-  summary: z.string().trim().min(1).max(1200),
-  paragraphs: z.array(z.string().trim().min(1).max(1200)).min(1).max(6),
-  whyItMatters: z.string().trim().min(1).max(1200),
-  pricing: z.string().trim().min(1).max(200),
-  bestFor: z.string().trim().min(1).max(240).optional(),
-  url: httpUrl,
-  sourceUrl: httpUrl.optional(),
-});
+const topicKey = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+
+export const toolSchema = z
+  .object({
+    slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    segment: z.string().trim().min(1),
+    name: z.string().trim().min(1).max(120),
+    sample: z.boolean(),
+    category: z.string().trim().min(1).max(120),
+    company: z.string().trim().min(1).max(160).optional(),
+    summary: z.string().trim().min(1).max(1200),
+    paragraphs: z.array(z.string().trim().min(1).max(1200)).min(1).max(6),
+    whyItMatters: z.string().trim().min(1).max(1200),
+    pricing: z.string().trim().min(1).max(200),
+    bestFor: z.string().trim().min(1).max(240).optional(),
+    url: httpUrl,
+    sourceUrl: httpUrl.optional(),
+    /** Directory topic key. Optional so sections that have no topics still parse. */
+    topic: topicKey.optional(),
+    /** Use when a tool belongs in more than one directory topic. */
+    topics: z.array(topicKey).min(1).max(6).optional(),
+  })
+  .superRefine((tool, ctx) => {
+    if (tool.slug === "topic") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["slug"],
+        message: "The slug topic is reserved for directory topic pages.",
+      });
+    }
+    const keys = [...(tool.topics ?? []), ...(tool.topic ? [tool.topic] : [])];
+    if (keys.length === 0) return;
+    const allowed = new Set(segmentTopics(getSegment(tool.segment)).map((topic) => topic.key));
+    if (allowed.size === 0) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["topic"],
+        message: "This section has no directory topics yet.",
+      });
+      return;
+    }
+    for (const key of keys) {
+      if (!allowed.has(key)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["topic"],
+          message: `Unknown directory topic: ${key}.`,
+        });
+      }
+    }
+  });
 
 export type ToolEntry = z.infer<typeof toolSchema>;
 

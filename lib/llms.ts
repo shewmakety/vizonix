@@ -11,7 +11,7 @@ import {
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
-import { getSegment, segments } from "@/lib/segments";
+import { getSegment, segments, topicPageDescription, topicPagePath } from "@/lib/segments";
 import { absoluteUrl, site } from "@/lib/site";
 
 export function buildLlmsTxt(): string {
@@ -34,6 +34,14 @@ export function buildLlmsTxt(): string {
     `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [About](${absoluteUrl("/about")})`,
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
+    "",
+    "## Tool topics",
+    ...segments.flatMap((segment) =>
+      (segment.topics ?? []).map(
+        (topic) =>
+          `- [${topic.label}](${absoluteUrl(topicPagePath(segment.slug, topic.key))}): ${topicPageDescription(segment.name, topic)}`,
+      ),
+    ),
     "",
     "## Published issues",
     ...segments.flatMap((segment) =>
@@ -139,6 +147,14 @@ export function buildLlmsFullTxt(): string {
     ),
     "",
     ...archiveBlocks,
+    "## Tool topics",
+    ...segments.flatMap((segment) =>
+      (segment.topics ?? []).map(
+        (topic) =>
+          `- ${topic.label}: ${absoluteUrl(topicPagePath(segment.slug, topic.key))}. ${topic.intro}`,
+      ),
+    ),
+    "",
     "## Tool directory",
     ...toolLines,
     "## Contact",
