@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segment: slug, slug: toolSlug } = await params;
   const tool = getTool(slug, toolSlug);
   const segment = getSegment(slug);
-  if (!tool || !segment) return {};
+  if (!segment || segment.status === "planned" || !tool) return { robots: { index: false, follow: false } };
   const description = tool.sample
     ? `Sample listing. ${tool.summary}`
     : tool.summary;
@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ToolPage({ params }: Props) {
   const { segment: slug, slug: toolSlug } = await params;
   const segment = getSegment(slug);
-  const tool = segment ? getTool(slug, toolSlug) : undefined;
-  if (!segment || !tool || toolSlug === "topic") notFound();
+  const tool = segment && segment.status === "active" ? getTool(slug, toolSlug) : undefined;
+  if (!segment || segment.status !== "active" || !tool || toolSlug === "topic") notFound();
   const topics = configuredTopicsForTool(segmentTopics(segment), tool);
   const topicCrumb = topics.length === 1 ? topics[0] : undefined;
 

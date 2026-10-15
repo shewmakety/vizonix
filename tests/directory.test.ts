@@ -8,7 +8,7 @@ import {
   toolTopicKeys,
   withDirectoryQuery,
 } from "@/lib/directory";
-import { toolSchema } from "@/lib/schema";
+import { toolSchema, type ToolEntry } from "@/lib/schema";
 import {
   getSegment,
   topicPageDescription,
@@ -89,9 +89,12 @@ describe("tool directory topics", () => {
     expect(chips.some((chip) => chip.key === "other")).toBe(false);
     const pathChips = directoryChips("aviation", topics, tools, "path");
     expect(pathChips.find((chip) => chip.key === "aog-support")?.href).toBe("/aviation/tools/topic/aog-support");
-    const legalChips = directoryChips("legal", [], listTools("legal"), "query");
+    const untagged = { topic: undefined, topics: undefined } as ToolEntry;
+    const legalChips = directoryChips("legal", [], [untagged], "query");
     expect(legalChips.map((chip) => chip.key)).toEqual(["all", "other"]);
-    expect(legalChips[0].count).toBe(legalChips[1].count);
+    expect(legalChips[0].count).toBe(1);
+    expect(legalChips[1].count).toBe(1);
+    expect(directoryChips("legal", [], [], "query").map((chip) => chip.key)).toEqual(["all"]);
     expect(withDirectoryQuery("/aviation/tools?topic=predictive-maintenance", { q: "Veryon", view: "list" })).toBe(
       "/aviation/tools?topic=predictive-maintenance&q=Veryon&view=list",
     );
@@ -118,13 +121,12 @@ describe("tool directory topics", () => {
   });
 
   it("keeps topic optional and reserves the topic slug", () => {
-    const legalTool = getTool("legal", "clauseharbor");
     const aviationTool = getTool("aviation", "airvoyant");
-    expect(legalTool).toBeTruthy();
     expect(aviationTool).toBeTruthy();
-    if (!legalTool || !aviationTool) return;
-    expect(toolSchema.safeParse(legalTool).success).toBe(true);
-    expect(toolSchema.safeParse({ ...legalTool, topic: "predictive-maintenance" }).success).toBe(false);
+    if (!aviationTool) return;
+    const ungrouped = { ...aviationTool, segment: "legal", topic: undefined, topics: undefined };
+    expect(toolSchema.safeParse(ungrouped).success).toBe(true);
+    expect(toolSchema.safeParse({ ...ungrouped, topic: "predictive-maintenance" }).success).toBe(false);
     expect(toolSchema.safeParse({ ...aviationTool, slug: "topic" }).success).toBe(false);
     expect(toolSchema.safeParse({ ...aviationTool, topic: "not-a-topic" }).success).toBe(false);
     expect(

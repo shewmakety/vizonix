@@ -28,8 +28,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const { segment: slug, topic: topicKey } = await params;
   const query = await searchParams;
   const segment = getSegment(slug);
-  const topic = segment ? getSegmentTopic(segment, topicKey) : undefined;
-  if (!segment || !topic) return {};
+  const topic = segment && segment.status === "active" ? getSegmentTopic(segment, topicKey) : undefined;
+  if (!segment || segment.status !== "active" || !topic) return { robots: { index: false, follow: false } };
   const heading = topicPageHeading(segment.name, topic);
   const description = topicPageDescription(segment.name, topic);
   const q = firstQueryValue(query.q);
@@ -50,8 +50,8 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
   const { segment: slug, topic: topicKey } = await params;
   const query = await searchParams;
   const segment = getSegment(slug);
-  const topic = segment ? getSegmentTopic(segment, topicKey) : undefined;
-  if (!segment || !topic) notFound();
+  const topic = segment && segment.status === "active" ? getSegmentTopic(segment, topicKey) : undefined;
+  if (!segment || segment.status !== "active" || !topic) notFound();
   const heading = topicPageHeading(segment.name, topic);
 
   return (

@@ -8,13 +8,13 @@ import { getSegment, segments } from "@/lib/segments";
 type Props = { params: Promise<{ segment: string }> };
 
 export function generateStaticParams() {
-  return segments.map((segment) => ({ segment: segment.slug }));
+  return segments.filter((segment) => segment.status === "active").map((segment) => ({ segment: segment.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
-  if (!segment) return {};
+  if (!segment || segment.status === "planned") return { robots: { index: false, follow: false } };
   return {
     title: `${segment.name} issues`,
     description: `Archive of the Vizonix ${segment.name} briefing.`,
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IssuesPage({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
-  if (!segment) notFound();
+  if (!segment || segment.status === "planned") notFound();
   const issues = listIssues(segment.slug);
 
   return (

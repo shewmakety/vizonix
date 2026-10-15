@@ -27,11 +27,7 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/bluetail-ai", "Bluetail"],
   ["/aviation/tools/airvoyant", "Contact the vendor"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
-  ["/legal", "Lawyers and law practices"],
-  ["/legal/issues", "Sample issue"],
-  ["/legal/issues/2026-10-14", "Sample issue"],
-  ["/legal/tools", "ClauseHarbor"],
-  ["/legal/tools/clauseharbor", "Sample listing"],
+  ["/legal", "Coming soon"],
   ["/warehousing", "not publishing yet"],
   ["/marketing-sales", "not publishing yet"],
   ["/sponsor", "Aviation is the first list"],
@@ -157,6 +153,16 @@ async function main() {
       throw new Error("The real aviation issue still contains sample content.");
     }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
+    await expectStatus("/legal/issues", { method: "GET" }, 404);
+    await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
+    await expectStatus("/legal/tools", { method: "GET" }, 404);
+    await expectStatus("/legal/tools/clauseharbor", { method: "GET" }, 404);
+    await expectStatus("/legal/tools/docketline", { method: "GET" }, 404);
+    await expectStatus("/legal/tools/billwise-counsel", { method: "GET" }, 404);
+    await expectStatus("/legal/tools/precedent-north", { method: "GET" }, 404);
+    await expectStatus("/warehousing/issues", { method: "GET" }, 404);
+    await expectStatus("/warehousing/tools", { method: "GET" }, 404);
+    await expectStatus("/marketing-sales/tools", { method: "GET" }, 404);
     await expectStatus("/aviation/tools/aogline", { method: "GET" }, 404);
     await expectStatus("/aviation/tools/dutyline", { method: "GET" }, 404);
 
@@ -166,6 +172,9 @@ async function main() {
     }
     if (sitemap.includes("aogline") || sitemap.includes("/aviation/issues/2026-10-14")) {
       throw new Error("Sitemap still lists fictional aviation content.");
+    }
+    if (sitemap.includes("/legal") || sitemap.includes("/warehousing") || sitemap.includes("/marketing-sales")) {
+      throw new Error("Sitemap lists a planned section.");
     }
     if (!sitemap.includes("/aviation/tools/topic/predictive-maintenance")) {
       throw new Error("Sitemap is missing the predictive maintenance topic page.");
@@ -256,11 +265,20 @@ async function main() {
     }
 
     const legal = await fetch(`${base}/legal`).then((response) => response.text());
-    if (!legal.includes("Subscribe to Vizonix") || legal.includes("Subscribe to Legal")) {
-      throw new Error("Legal signup heading was not renamed.");
+    if (!legal.includes("Coming soon") || !legal.includes("not publishing yet")) {
+      throw new Error("Legal did not render the coming soon page.");
     }
-    if (!legal.includes('href="/legal/tools"') || !legal.includes("Tool Directory")) {
-      throw new Error("Legal header is missing its Tool Directory link.");
+    if (!legal.includes('href="/aviation"') || !legal.includes("Back to the aviation section")) {
+      throw new Error("Legal coming soon page is missing the aviation link.");
+    }
+    if (!legal.includes("noindex")) {
+      throw new Error("Legal coming soon page is indexable.");
+    }
+    if (legal.includes("ClauseHarbor") || legal.includes("Docketline") || legal.includes("Sample issue")) {
+      throw new Error("Legal still renders sample content.");
+    }
+    if (!legal.includes("Tool Directory") || !legal.includes('href="/aviation/tools"')) {
+      throw new Error("Legal header did not send Tool Directory to aviation.");
     }
 
     const directory = await fetch(`${base}/aviation/tools`).then((response) => response.text());
@@ -311,9 +329,12 @@ async function main() {
     if (!toolPage.includes('href="/aviation/tools/topic/aog-support"') || !toolPage.includes("AOG Support")) {
       throw new Error("Tool page is missing its topic link.");
     }
-    const legalTool = await fetch(`${base}/legal/tools/clauseharbor`).then((response) => response.text());
-    if (legalTool.includes("/legal/tools/topic/")) {
-      throw new Error("Legal sample tool linked to a topic page.");
+    const llms = await fetch(`${base}/llms.txt`).then((response) => response.text());
+    const llmsFullBody = await fetch(`${base}/llms-full.txt`).then((response) => response.text());
+    for (const body of [llms, llmsFullBody]) {
+      if (body.includes("ClauseHarbor") || body.includes("/legal/tools") || body.includes("/legal/issues")) {
+        throw new Error("llms output still lists legal sample pages.");
+      }
     }
 
     const robots = await fetch(`${base}/robots.txt`).then((response) => response.text());

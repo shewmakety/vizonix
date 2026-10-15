@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { segment: slug, date } = await params;
   const issue = getIssue(slug, date);
   const segment = getSegment(slug);
-  if (!issue || !segment) return {};
+  if (!segment || segment.status === "planned" || !issue) return { robots: { index: false, follow: false } };
   return {
     title: issue.subject,
     description: issue.preheader,
@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IssuePage({ params }: Props) {
   const { segment: slug, date } = await params;
   const segment = getSegment(slug);
-  const issue = segment ? getIssue(slug, date) : undefined;
-  if (!segment || !issue) notFound();
+  const issue = segment && segment.status === "active" ? getIssue(slug, date) : undefined;
+  if (!segment || segment.status !== "active" || !issue) notFound();
 
   return (
     <>

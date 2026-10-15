@@ -58,12 +58,15 @@ export function segmentHomeHref(pathname: string, cookieValue?: string | null): 
   return `/${segmentForChrome(pathname, cookieValue).slug}`;
 }
 
-/** Tool Directory. The page's section wins over the cookie. */
+/** Tool Directory. An open section wins. A planned section has no directory, so this falls back. */
 export function segmentDirectoryHref(pathname: string, cookieValue?: string | null): string {
-  if (segmentFromPathname(pathname)) return toolDirectoryHref(pathname);
-  const remembered = rememberedSegment(cookieValue);
-  if (remembered) return toolDirectoryPath(remembered);
-  return toolDirectoryHref(pathname);
+  const fromPath = segmentFromPathname(pathname);
+  if (fromPath?.status === "active") return toolDirectoryPath(fromPath);
+  if (!fromPath) {
+    const remembered = rememberedSegment(cookieValue);
+    if (remembered?.status === "active") return toolDirectoryPath(remembered);
+  }
+  return toolDirectoryHref("/");
 }
 
 export function segmentSubscribeHref(pathname: string, cookieValue?: string | null): string {

@@ -20,12 +20,13 @@ export function buildLlmsTxt(): string {
     "",
     `> ${site.description}`,
     "",
-    "Sample tool pages and the sample issues are fictional placeholders for the format. Do not cite them as real products or as a paid sponsorship. Published issues are not sample data.",
+    "Sections marked planned are not published. Do not cite them, and do not invent issues or tools for them. Only an active section has coverage.",
     "",
     "## Sections",
-    ...segments.map(
-      (segment) =>
-        `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
+    ...segments.map((segment) =>
+      segment.status === "planned"
+        ? `- ${segment.name}: ${segment.summary} Status: planned. Not published.`
+        : `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
     ),
     "",
     "## Site",
@@ -36,7 +37,7 @@ export function buildLlmsTxt(): string {
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
     "",
     "## Tool topics",
-    ...segments.flatMap((segment) =>
+    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
       (segment.topics ?? []).map(
         (topic) =>
           `- [${topic.label}](${absoluteUrl(topicPagePath(segment.slug, topic.key))}): ${topicPageDescription(segment.name, topic)}`,
@@ -44,7 +45,7 @@ export function buildLlmsTxt(): string {
     ),
     "",
     "## Published issues",
-    ...segments.flatMap((segment) =>
+    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
       listIssues(segment.slug)
         .filter((issue) => !issue.sample)
         .map(
@@ -73,7 +74,7 @@ export function buildLlmsFullTxt(): string {
     return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
   });
 
-  const archiveBlocks = segments.flatMap((segment) => {
+  const archiveBlocks = segments.filter((segment) => segment.status === "active").flatMap((segment) => {
     const issues = listIssues(segment.slug);
     if (issues.length === 0) return [];
     return [
@@ -106,7 +107,9 @@ export function buildLlmsFullTxt(): string {
     ];
   });
 
-  const toolLines = allTools().flatMap((tool) => {
+  const toolLines = allTools()
+    .filter((tool) => getSegment(tool.segment)?.status === "active")
+    .flatMap((tool) => {
     const payoff = getSegment(tool.segment)?.payoffLabel ?? "Why it matters";
     return [
       `### ${tool.sample ? "SAMPLE " : ""}${tool.name} (${tool.segment})`,
@@ -141,14 +144,15 @@ export function buildLlmsFullTxt(): string {
     ...ladderLines,
     "",
     "## Sections",
-    ...segments.map(
-      (segment) =>
-        `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
+    ...segments.map((segment) =>
+      segment.status === "planned"
+        ? `- ${segment.name} (planned): ${segment.summary} Not published.`
+        : `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
     ),
     "",
     ...archiveBlocks,
     "## Tool topics",
-    ...segments.flatMap((segment) =>
+    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
       (segment.topics ?? []).map(
         (topic) =>
           `- ${topic.label}: ${absoluteUrl(topicPagePath(segment.slug, topic.key))}. ${topic.intro}`,
