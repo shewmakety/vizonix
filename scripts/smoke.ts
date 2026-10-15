@@ -8,7 +8,7 @@ const base = `http://127.0.0.1:${port}`;
 
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
-  ["/aviation", "maintenance and AOG teams"],
+  ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "AI moves into the hangar workflow"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
@@ -158,6 +158,39 @@ async function main() {
     const llmsFull = await fetch(`${base}/llms-full.txt`).then((response) => response.text());
     if (!llmsFull.includes("https://veryon.com/") || llmsFull.includes("AOGLine")) {
       throw new Error("llms-full.txt is missing the real lead or still names AOGLine.");
+    }
+
+    const home = await fetch(`${base}/`).then((response) => response.text());
+    if (home.includes("Sponsor a week")) {
+      throw new Error("The home page still shows Sponsor a week.");
+    }
+    if (home.includes("nav-soon") || home.includes(">Soon<")) {
+      throw new Error("Segment links are still in the header.");
+    }
+
+    const aviation = await fetch(`${base}/aviation`).then((response) => response.text());
+    if (!aviation.includes("Subscribe to Vizonix") || aviation.includes("Subscribe to Aviation")) {
+      throw new Error("Aviation signup heading was not renamed.");
+    }
+    if (!aviation.includes("Tool Highlights")) {
+      throw new Error("Aviation page is missing Tool Highlights.");
+    }
+
+    const legal = await fetch(`${base}/legal`).then((response) => response.text());
+    if (!legal.includes("Subscribe to Vizonix") || legal.includes("Subscribe to Legal")) {
+      throw new Error("Legal signup heading was not renamed.");
+    }
+
+    const directory = await fetch(`${base}/aviation/tools`).then((response) => response.text());
+    if (!directory.includes("Tool directory") || !directory.includes('aria-pressed="true"')) {
+      throw new Error("Tool directory is missing the view toggle.");
+    }
+    if (!directory.includes("tool-grid") || directory.includes("tool-directory-list")) {
+      throw new Error("The default directory view is not cards.");
+    }
+    const listView = await fetch(`${base}/aviation/tools?view=list`).then((response) => response.text());
+    if (!listView.includes("tool-directory-list") || !listView.includes("Airvoyant")) {
+      throw new Error("The list view did not render tool names.");
     }
 
     const robots = await fetch(`${base}/robots.txt`).then((response) => response.text());

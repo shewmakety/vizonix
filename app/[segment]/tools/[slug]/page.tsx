@@ -43,7 +43,7 @@ export default async function ToolPage({ params }: Props) {
         <div className="wrap prose">
           <p className="crumbs">
             <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> /{" "}
-            <Link href={`/${segment.slug}/tools`}>Tools</Link> / {tool.name}
+            <Link href={`/${segment.slug}/tools`}>Tool directory</Link> / {tool.name}
           </p>
           {tool.sample ? (
             <p className="notice">
@@ -99,7 +99,7 @@ export default async function ToolPage({ params }: Props) {
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
             { name: segment.name, path: `/${segment.slug}` },
-            { name: "Tools", path: `/${segment.slug}/tools` },
+            { name: "Tool directory", path: `/${segment.slug}/tools` },
             { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
           ]),
         ]}

@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ToolDirectory } from "@/components/ToolDirectory";
+import { directoryViewFromQuery } from "@/lib/directory-view";
 import { listTools } from "@/lib/content";
 import { getSegment, segments } from "@/lib/segments";
 
-type Props = { params: Promise<{ segment: string }> };
+type Props = {
+  params: Promise<{ segment: string }>;
+  searchParams: Promise<{ view?: string | string[] }>;
+};
 
 export function generateStaticParams() {
   return segments.map((segment) => ({ segment: segment.slug }));
@@ -21,17 +26,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ToolsPage({ params }: Props) {
+export default async function ToolsPage({ params, searchParams }: Props) {
   const { segment: slug } = await params;
+  const query = await searchParams;
   const segment = getSegment(slug);
   if (!segment) notFound();
   const tools = listTools(segment.slug);
+  const initialView = directoryViewFromQuery(query.view);
 
   return (
     <section className="hero">
       <div className="wrap">
         <p className="crumbs">
-          <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Tools
+          <Link href="/">Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Tool directory
         </p>
         <p className="kicker">{segment.name}</p>
         <h1>Tool directory</h1>
@@ -43,20 +50,7 @@ export default async function ToolsPage({ params }: Props) {
         {tools.length === 0 ? (
           <p className="notice">No tool listings yet. This section is not publishing yet.</p>
         ) : (
-          <div className="tool-grid">
-            {tools.map((tool) => (
-              <article className="card" key={tool.slug}>
-                {tool.sample ? <p className="pill sample">Sample listing</p> : null}
-                <p className="meta">{tool.category}</p>
-                <h2>
-                  <Link href={`/${segment.slug}/tools/${tool.slug}`}>{tool.name}</Link>
-                </h2>
-                <p>{tool.summary}</p>
-                {tool.company ? <p className="meta">{tool.company}</p> : null}
-                {tool.bestFor ? <p className="meta">{tool.bestFor}</p> : null}
-              </article>
-            ))}
-          </div>
+          <ToolDirectory segmentSlug={segment.slug} tools={tools} initialView={initialView} />
         )}
       </div>
     </section>

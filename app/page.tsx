@@ -27,9 +27,6 @@ export default function HomePage() {
               <Link className="button" href={`/${featured.slug}`}>
                 Read the {featured.name.toLowerCase()} section
               </Link>
-              <Link className="button secondary" href="/sponsor">
-                Sponsor a week
-              </Link>
             </div>
           </div>
           <SignupForm heading="Subscribe" />

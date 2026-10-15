@@ -264,6 +264,49 @@ input:focus, select:focus, textarea:focus {
 .prose h2 { margin-top: 1.8rem; }
 .issue-layout { display: grid; grid-template-columns: minmax(0, 42rem) 16rem; gap: 2rem; }
 .side-card { position: sticky; top: 1rem; }
+.view-toggle {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+.view-toggle button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+.view-toggle button[aria-pressed="true"] {
+  background: var(--pine);
+  border-color: var(--pine);
+  color: #f7f4ee;
+}
+.tool-directory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tool-directory-list li {
+  display: grid;
+  grid-template-columns: minmax(9rem, 16rem) minmax(7rem, 14rem) minmax(0, 1fr);
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.tool-directory-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: baseline;
+}
+.tool-directory-list .blurb {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .tool-list, .link-list { padding-left: 1.1rem; }
 .tool-list li, .link-list li { margin: 0 0 0.9rem; }
 .steps { padding-left: 1.2rem; }
@@ -309,5 +352,12 @@ dl.facts dt { color: var(--muted); }
   .header-inner { flex-wrap: wrap; padding: 0.8rem 0; }
   .site-nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 0.2rem; }
   .site-banner .wrap { flex-direction: column; align-items: flex-start; }
+  .tool-directory-list li { grid-template-columns: 1fr; }
+  .tool-directory-list .blurb {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
   dl.facts { grid-template-columns: 1fr; }
 }

@@ -8,7 +8,7 @@ import { getSegment } from "@/lib/segments";
 function ToolSection({ section, payoff }: { section: IssueSectionView; payoff: string }) {
   return (
     <section>
-      <h2>{section.topic ?? "New tools"}</h2>
+      <h2>{section.topic ?? "Tool Highlights"}</h2>
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
       {section.intro ? (
         <p>

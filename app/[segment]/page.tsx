@@ -62,7 +62,7 @@ export default async function SegmentPage({ params }: Props) {
               </Link>
             </div>
           </div>
-          <SignupForm defaultSegment={segment.slug} showSegment={false} heading={`Subscribe to ${segment.name}`} />
+          <SignupForm defaultSegment={segment.slug} showSegment={false} heading="Subscribe to Vizonix" />
         </div>
       </section>
 
@@ -91,7 +91,7 @@ export default async function SegmentPage({ params }: Props) {
 
       <section className="wrap section">
         <div className="section-head">
-          <h2>Tools</h2>
+          <h2>Tool Highlights</h2>
           <Link href={`/${segment.slug}/tools`}>Directory</Link>
         </div>
         {tools.length === 0 ? (

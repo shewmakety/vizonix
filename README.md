@@ -1,6 +1,6 @@
 # Vizonix
 
-Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance and AOG teams. Legal is the second live section. Warehousing and marketing and sales are in the same app and stay planned until you add content and flip their status.
+Vizonix is a free weekday morning email and a website. It covers emerging AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section, for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams. Legal is the second live section. Warehousing and marketing and sales are in the same app and stay planned until you add content and flip their status.
 
 The email is free. Revenue is weekly sponsorship from AI companies. Launch prices live in `lib/rate-card.ts` and on [/sponsor](https://vizonix.com/sponsor). The first active entry in `lib/segments.ts` is the featured section on the home page and the default list for signup.
 

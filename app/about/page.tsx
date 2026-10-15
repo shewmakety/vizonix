@@ -19,8 +19,8 @@ export default function AboutPage() {
         <p>
           Vizonix reports emerging AI tools, bots, models, and resources. The test for inclusion is
           specific: could this change revenue, cost, or speed for the section&apos;s reader. Aviation is
-          the first section, written for airlines, MROs, parts suppliers, operators, and maintenance and
-          AOG teams. Legal is the second live section, for lawyers and law practices. Warehousing, then
+          the first section, written for airlines, MROs, parts suppliers, operators, and maintenance / AOG
+          teams. Legal is the second live section, for lawyers and law practices. Warehousing, then
           marketing and sales, use the same format when they open.
         </p>
         <h2>How a section is organized</h2>

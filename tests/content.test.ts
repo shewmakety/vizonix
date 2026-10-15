@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getIssue, listIssues, listTools } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { issueSchema, issueTools } from "@/lib/schema";
+import { directoryViewFromQuery } from "@/lib/directory-view";
 import { featuredSegment, segments } from "@/lib/segments";
 
 describe("segment config and sample content", () => {
@@ -22,6 +23,20 @@ describe("segment config and sample content", () => {
     expect(segments.find((segment) => segment.slug === "legal")?.payoffLabel).toBe(
       "Why it can make the practice money",
     );
+    expect(segments.find((segment) => segment.slug === "aviation")?.audience).toBe(
+      "Airlines, MROs, parts suppliers, operators, and maintenance / AOG teams",
+    );
+    expect(segments.find((segment) => segment.slug === "aviation")?.summary).toContain(
+      "maintenance / AOG teams",
+    );
+    expect(segments.find((segment) => segment.slug === "aviation")?.summary).not.toContain(
+      "maintenance and AOG",
+    );
+    expect(directoryViewFromQuery(undefined)).toBe("cards");
+    expect(directoryViewFromQuery("cards")).toBe("cards");
+    expect(directoryViewFromQuery("list")).toBe("list");
+    expect(directoryViewFromQuery(["list"])).toBe("list");
+    expect(directoryViewFromQuery("grid")).toBe("cards");
   });
 
   it("loads the first real aviation issue and real tool pages", () => {
@@ -95,8 +110,11 @@ describe("segment config and sample content", () => {
     expect(text).not.toMatch(/[\u2013\u2014]/);
 
     const legalHtml = renderIssueEmail(legal, { mode: "test" });
+    const legalText = renderIssueText(legal, { mode: "test" });
     expect(legalHtml).toContain("Why it can make the practice money.");
     expect(legalHtml).toContain("Northline Systems");
+    expect(legalHtml).toContain("Tool Highlights");
+    expect(legalText).toContain("TOOL HIGHLIGHTS");
   });
 
   it("rejects sponsor copy that is longer than the rate card ceiling", () => {

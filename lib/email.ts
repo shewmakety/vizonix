@@ -66,7 +66,7 @@ function href(value: string, absolute: boolean): string {
 }
 
 function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean): string {
-  const heading = section.topic ?? "New tools";
+  const heading = section.topic ?? "Tool Highlights";
   const note = section.coverageNote
     ? `<p style="margin:8px 0 0;padding:10px 12px;background:#f7efe2;border:1px solid #e0cfae;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${escapeHtml(section.coverageNote)}</p>`
     : "";
@@ -110,7 +110,7 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
 }
 
 function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
-  const lines = [section.topic ? section.topic.toUpperCase() : "NEW TOOLS"];
+  const lines = [section.topic ? section.topic.toUpperCase() : "TOOL HIGHLIGHTS"];
   if (section.coverageNote) lines.push(section.coverageNote);
   if (section.intro) {
     lines.push(section.intro);

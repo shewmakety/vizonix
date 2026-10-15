@@ -192,7 +192,7 @@ export function issueSections(issue: Issue): IssueSectionView[] {
   }
   const groups: IssueSectionView[] = [];
   for (const tool of tools) {
-    const topic = tool.topic ?? "Tools";
+    const topic = tool.topic ?? "Tool Highlights";
     const current = groups[groups.length - 1];
     if (current?.topic === topic) current.tools.push(tool);
     else groups.push({ topic, tools: [tool] });
