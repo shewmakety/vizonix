@@ -1,55 +1,54 @@
 import type { Metadata } from "next";
-import { cookies, headers } from "next/headers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
-import { SEGMENT_COOKIE, SEGMENT_HEADER, resolveRememberedSlug } from "@/lib/segment-memory";
-import { site, siteUrl } from "@/lib/site";
+import { AVIATION_FEED_PATH, capDescription } from "@/lib/meta";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
+
+const description = capDescription(
+  "A free weekday briefing on AI tools that make a specific business more profitable. Aviation is the launch section.",
+);
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Vizonix",
+    default: "Vizonix - Free daily AI briefing for business",
     template: "%s | Vizonix",
   },
-  description: site.description,
+  description,
   applicationName: "Vizonix",
   openGraph: {
     type: "website",
     siteName: "Vizonix",
-    title: "Vizonix",
-    description: site.description,
+    title: "Vizonix - Free daily AI briefing for business",
+    description,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vizonix",
-    description: site.description,
+    title: "Vizonix - Free daily AI briefing for business",
+    description,
   },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": AVIATION_FEED_PATH },
+  },
   robots: { index: true, follow: true },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const headerStore = await headers();
-  const cookieStore = await cookies();
-  const rememberedSlug = resolveRememberedSlug(
-    headerStore.get(SEGMENT_HEADER),
-    cookieStore.get(SEGMENT_COOKIE)?.value,
-  );
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <a className="skip" href="#content">
           Skip to content
         </a>
-        <SiteHeader rememberedSlug={rememberedSlug} />
+        <SiteHeader />
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <main id="content">{children}</main>
-        <SiteFooter rememberedSlug={rememberedSlug} />
+        <SiteFooter />
       </body>
     </html>
   );

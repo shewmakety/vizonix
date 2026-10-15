@@ -1,4 +1,5 @@
-import { allTools, listIssues } from "@/lib/content";
+import { listIssues, listTools } from "@/lib/content";
+import { toolTopicKeys } from "@/lib/directory";
 import { issueSections } from "@/lib/schema";
 import {
   classifiedRatio,
@@ -11,41 +12,65 @@ import {
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
-import { getSegment, segments, topicPageDescription, topicPagePath } from "@/lib/segments";
-import { absoluteUrl, site } from "@/lib/site";
+import { getSegment, segments, topicPagePath, type Segment } from "@/lib/segments";
+import { absoluteUrl, editor, organizationSameAs, site } from "@/lib/site";
 
-export function buildLlmsTxt(): string {
-  const lines = [
+function firstSentence(text: string): string {
+  const match = text.match(/^[\s\S]{1,240}?[.](?:\s|$)/);
+  return (match ? match[0] : text).replace(/\s+/g, " ").trim();
+}
+
+function identityLines(): string[] {
+  return [
     `# ${site.name}`,
     "",
-    `> ${site.description}`,
+    `Vizonix is a free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Aviation is the launch section.`,
     "",
-    "Sections marked planned are not published. Do not cite them, and do not invent issues or tools for them. Only an active section has coverage.",
+    `${editor.name}, ${editor.jobTitle}, publishes Vizonix. He has an aviation industry background and is the founder of AOG Alerts and MRO List.`,
+    "",
+    `Profiles: ${organizationSameAs.join(", ")}.`,
+    "",
+    "The email is free. Revenue is weekly sponsorship from AI companies. Sponsorship details are listed after the editorial archive.",
+  ];
+}
+
+function sectionLines(): string[] {
+  return segments.map((segment) =>
+    segment.status === "planned"
+      ? `- ${segment.name}: ${segment.summary} Status: planned. This section is not published.`
+      : `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
+  );
+}
+
+function toolsForTopic(segment: Segment, topicKey: string) {
+  return listTools(segment.slug).filter((tool) => !tool.sample && toolTopicKeys(tool).includes(topicKey));
+}
+
+function toolBlocks(segment: Segment): string[] {
+  return (segment.topics ?? []).flatMap((topic) => {
+    const tools = toolsForTopic(segment, topic.key);
+    if (tools.length === 0) return [];
+    return [
+      `### [${topic.label}](${absoluteUrl(topicPagePath(segment.slug, topic.key))})`,
+      ...tools.map(
+        (tool) =>
+          `- [${tool.name}](${absoluteUrl(`/${segment.slug}/tools/${tool.slug}`)})${tool.company ? ` (${tool.company})` : ""}: ${firstSentence(tool.summary)}`,
+      ),
+      "",
+    ];
+  });
+}
+
+export function buildLlmsTxt(): string {
+  const active = segments.filter((segment) => segment.status === "active");
+  const lines = [
+    ...identityLines(),
     "",
     "## Sections",
-    ...segments.map((segment) =>
-      segment.status === "planned"
-        ? `- ${segment.name}: ${segment.summary} Status: planned. Not published.`
-        : `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
-    ),
-    "",
-    "## Site",
-    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships, founding offer, and checkout.`,
-    `- [Subscribe](${absoluteUrl("/subscribe")}): double opt-in. The address is not on the list until the reader confirms.`,
-    `- [Privacy](${absoluteUrl("/privacy")})`,
-    `- [About](${absoluteUrl("/about")})`,
-    `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
-    "",
-    "## Tool topics",
-    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
-      (segment.topics ?? []).map(
-        (topic) =>
-          `- [${topic.label}](${absoluteUrl(topicPagePath(segment.slug, topic.key))}): ${topicPageDescription(segment.name, topic)}`,
-      ),
-    ),
+    ...sectionLines(),
     "",
     "## Published issues",
-    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
+    ...active.flatMap((segment) =>
       listIssues(segment.slug)
         .filter((issue) => !issue.sample)
         .map(
@@ -53,6 +78,15 @@ export function buildLlmsTxt(): string {
             `- [${issue.date} ${issue.subject}](${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}): ${issue.preheader} Lead source: ${issue.lead.sourceUrl}`,
         ),
     ),
+    "",
+    "## Tools",
+    ...active.flatMap((segment) => toolBlocks(segment)),
+    "## Site",
+    `- [About](${absoluteUrl("/about")})`,
+    `- [Subscribe](${absoluteUrl("/subscribe")}): double opt-in. The address is not on the list until the reader confirms.`,
+    `- [Privacy](${absoluteUrl("/privacy")})`,
+    `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
+    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships and the founding offer.`,
     "",
     "## Optional",
     `- [Terms](${absoluteUrl("/terms")})`,
@@ -74,96 +108,85 @@ export function buildLlmsFullTxt(): string {
     return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
   });
 
-  const archiveBlocks = segments.filter((segment) => segment.status === "active").flatMap((segment) => {
-    const issues = listIssues(segment.slug);
+  const active = segments.filter((segment) => segment.status === "active");
+  const archiveBlocks = active.flatMap((segment) => {
+    const issues = listIssues(segment.slug).filter((issue) => !issue.sample);
     if (issues.length === 0) return [];
     return [
       `## ${segment.name} issues currently in the archive (${issues.length})`,
       ...issues.flatMap((issue) => [
-        `### ${issue.sample ? "SAMPLE " : ""}${issue.date} ${issue.subject}`,
-        issue.sample
-          ? "This issue is sample data. The companies named in it are not real."
-          : issue.preheader,
+        `### ${issue.date} ${issue.subject}`,
+        issue.preheader,
         `Lead: ${issue.lead.title}`,
         issue.lead.summary,
-        ...(issue.sample
-          ? []
-          : [
-              `Lead source: ${issue.lead.sourceUrl}`,
-              ...(issue.lead.productUrl ? [`Product: ${issue.lead.productUrl}`] : []),
-              ...issueSections(issue).flatMap((section) => [
-                ...(section.topic ? [`Topic: ${section.topic}`] : []),
-                ...(section.coverageNote ? [`Coverage note: ${section.coverageNote}`] : []),
-                ...(section.introSourceUrl ? [`Topic source: ${section.introSourceUrl}`] : []),
-                ...section.tools.map(
-                  (tool) =>
-                    `- ${tool.name}${tool.company ? ` (${tool.company})` : ""}: ${tool.sourceUrl ?? tool.url}`,
-                ),
-              ]),
-            ]),
+        `Lead source: ${issue.lead.sourceUrl}`,
+        ...(issue.lead.productUrl ? [`Product: ${issue.lead.productUrl}`] : []),
+        ...issueSections(issue).flatMap((section) => [
+          ...(section.topic ? [`Topic: ${section.topic}`] : []),
+          ...(section.coverageNote ? [`Coverage note: ${section.coverageNote}`] : []),
+          ...(section.introSourceUrl ? [`Topic source: ${section.introSourceUrl}`] : []),
+          ...section.tools.map(
+            (tool) => `- ${tool.name}${tool.company ? ` (${tool.company})` : ""}: ${tool.sourceUrl ?? tool.url}`,
+          ),
+        ]),
         `Archive: ${absoluteUrl(`/${issue.segment}/issues/${issue.date}`)}`,
         "",
       ]),
     ];
   });
 
-  const toolLines = allTools()
-    .filter((tool) => getSegment(tool.segment)?.status === "active")
-    .flatMap((tool) => {
-    const payoff = getSegment(tool.segment)?.payoffLabel ?? "Why it matters";
-    return [
-      `### ${tool.sample ? "SAMPLE " : ""}${tool.name} (${tool.segment})`,
-      tool.sample ? "Fictional sample listing. Not a real product and not an endorsement." : tool.summary,
-      tool.summary,
-      `${payoff}: ${tool.whyItMatters}`,
-      `Page: ${absoluteUrl(`/${tool.segment}/tools/${tool.slug}`)}`,
-      ...(tool.sample
-        ? []
-        : [`Product: ${tool.url}`, ...(tool.sourceUrl && tool.sourceUrl !== tool.url ? [`Source: ${tool.sourceUrl}`] : [])]),
-      "",
-    ];
-  });
+  const toolLines = active.flatMap((segment) =>
+    listTools(segment.slug)
+      .filter((tool) => !tool.sample)
+      .flatMap((tool) => {
+        const payoff = getSegment(tool.segment)?.payoffLabel ?? "Why it matters";
+        return [
+          `### ${tool.name} (${tool.segment})`,
+          tool.summary,
+          `${payoff}: ${tool.whyItMatters}`,
+          `Page: ${absoluteUrl(`/${tool.segment}/tools/${tool.slug}`)}`,
+          `Product: ${tool.url}`,
+          ...(tool.sourceUrl && tool.sourceUrl !== tool.url ? [`Source: ${tool.sourceUrl}`] : []),
+          "",
+        ];
+      }),
+  );
 
   return [
-    `# ${site.name}`,
-    "",
-    site.description,
-    "",
-    "Vizonix is a free weekday morning email plus a website. Revenue is weekly sponsorship from AI companies. Maximum of 3 newsletter sponsors per issue. Exclusivity, meaning the only sponsor that week, is 50% more.",
-    "",
-    `Founding offer: the first ${foundingSponsorCap} sponsors, at half the launch price, locked for 3 months. They then move to the current subscriber tier with a 25% loyalty discount for 3 more months.`,
-    "",
-    `Newsletter sponsor cap: ${maxNewsletterSponsors}. Exclusivity premium: ${exclusivityPremium * 100}%.`,
+    ...identityLines(),
     "",
     "Open rate and audience makeup are not published yet. Do not invent them.",
     "",
+    "## Sections",
+    ...segments.map((segment) =>
+      segment.status === "planned"
+        ? `- ${segment.name} (planned): ${segment.summary} This section is not published.`
+        : `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
+    ),
+    "",
+    ...archiveBlocks,
+    "## Tool topics",
+    ...active.flatMap((segment) =>
+      (segment.topics ?? []).map(
+        (topic) => `- ${topic.label}: ${absoluteUrl(topicPagePath(segment.slug, topic.key))}. ${firstSentence(topic.intro)}`,
+      ),
+    ),
+    "",
+    "## Tool directory",
+    ...toolLines,
     "## Launch rate card (0-2,500 subscribers in the section)",
     ...placementLines,
     "",
     "## Primary price ladder",
     ...ladderLines,
     "",
-    "## Sections",
-    ...segments.map((segment) =>
-      segment.status === "planned"
-        ? `- ${segment.name} (planned): ${segment.summary} Not published.`
-        : `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
-    ),
+    `Founding offer: the first ${foundingSponsorCap} sponsors, at half the launch price, locked for 3 months. They then move to the current subscriber tier with a 25% loyalty discount for 3 more months.`,
     "",
-    ...archiveBlocks,
-    "## Tool topics",
-    ...segments.filter((segment) => segment.status === "active").flatMap((segment) =>
-      (segment.topics ?? []).map(
-        (topic) =>
-          `- ${topic.label}: ${absoluteUrl(topicPagePath(segment.slug, topic.key))}. ${topic.intro}`,
-      ),
-    ),
+    `Newsletter sponsor cap: ${maxNewsletterSponsors}. Exclusivity premium: ${exclusivityPremium * 100}%.`,
     "",
-    "## Tool directory",
-    ...toolLines,
     "## Contact",
     `Readers: ${site.emailHello}`,
-    `Sponsors: ${site.emailSponsors}`,
+    `Sponsor inquiries: ${absoluteUrl("/sponsor")}`,
     `Privacy: ${site.emailPrivacy}`,
     "",
   ].join("\n");

@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  htmlLimitedBots: /.*/,
   outputFileTracingIncludes: {
     "/api/checkout": ["./content/**/*"],
     "/api/publish": ["./content/**/*"],
@@ -16,6 +17,14 @@ const nextConfig: NextConfig = {
     "/llms.txt": ["./content/**/*"],
     "/llms-full.txt": ["./content/**/*"],
     "/sitemap.xml": ["./content/**/*"],
+    "/[segment]/feed.xml": ["./content/**/*"],
+    "/opengraph-image": ["./assets/fonts/**/*"],
+    "/logo.png": ["./assets/fonts/**/*"],
+    "/[segment]/opengraph-image": ["./assets/fonts/**/*"],
+    "/[segment]/issues/[date]/opengraph-image": ["./assets/fonts/**/*"],
+    "/[segment]/tools/opengraph-image": ["./assets/fonts/**/*"],
+    "/[segment]/tools/[slug]/opengraph-image": ["./assets/fonts/**/*"],
+    "/[segment]/tools/topic/[topic]/opengraph-image": ["./assets/fonts/**/*"],
   },
 };
 

@@ -1,13 +1,22 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
-import { formatLongDate } from "@/lib/dates";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { pageMeta } from "@/lib/meta";
 import { featuredSegment, segmentCardLabel, segmentCardPillClass, segments } from "@/lib/segments";
 import { site } from "@/lib/site";
 
+export const metadata = pageMeta({
+  title: "Vizonix - Free daily AI briefing for business",
+  absoluteTitle: true,
+  description:
+    "A free weekday briefing on AI tools that make a specific business more profitable. Aviation is the launch section.",
+  canonical: "/",
+});
+
 export default function HomePage() {
   const featured = featuredSegment();
-  const latest = listIssues(featured.slug)[0];
+  const latest = listIssues(featured.slug).find((issue) => !issue.sample) ?? listIssues(featured.slug)[0];
   const tools = listTools(featured.slug).slice(0, 3);
 
   return (
@@ -16,7 +25,7 @@ export default function HomePage() {
         <div className="wrap hero-grid">
           <div>
             <p className="kicker">Free weekday morning briefing</p>
-            <h1>AI tools that make a specific business more profitable.</h1>
+            <h1>Free daily AI briefing for a specific business.</h1>
             <p className="lede">{site.description}</p>
             <p>
               Each section covers one industry. The launch section is {featured.name}. We write up
@@ -63,7 +72,7 @@ export default function HomePage() {
           </div>
           <article className="card">
             {latest.sample ? <p className="pill sample">Sample issue</p> : null}
-            <p className="meta">{formatLongDate(latest.date)}</p>
+            <p className="meta">{formatPublishedInstant(issuePublishedInstant(latest))}</p>
             <h3>
               <Link href={`/${featured.slug}/issues/${latest.date}`}>{latest.subject}</Link>
             </h3>
@@ -99,7 +108,7 @@ export default function HomePage() {
             <p>
               A week is five weekday issues. Launch prices are published on the rate card, including a
               founding rate for the first 10 sponsors. Mentions that are not paid are not labeled as
-              sponsors. Sample data on the site is labeled as sample data.
+              sponsors.
             </p>
             <Link className="button" href="/sponsor">
               Read the rate card

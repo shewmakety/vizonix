@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Crumbs } from "@/components/Crumbs";
 import { DirectoryBrowser } from "@/components/DirectoryBrowser";
+import { JsonLd } from "@/components/JsonLd";
 import { listTools } from "@/lib/content";
-import { directoryCanonical, firstQueryValue, otherTopicKey } from "@/lib/directory";
+import { directoryCanonical, filterDirectoryTools, firstQueryValue, knownTopicKeys, otherTopicKey } from "@/lib/directory";
 import { directoryViewFromQuery } from "@/lib/directory-view";
+import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/jsonld";
+import { pageMeta } from "@/lib/meta";
 import { getSegment, getSegmentTopic, segments } from "@/lib/segments";
 
 type Props = {
@@ -16,7 +18,7 @@ export function generateStaticParams() {
   return segments.filter((segment) => segment.status === "active").map((segment) => ({ segment: segment.slug }));
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props) {
   const { segment: slug } = await params;
   const query = await searchParams;
   const segment = getSegment(slug);
@@ -24,14 +26,17 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const topicKey = firstQueryValue(query.topic);
   const q = firstQueryValue(query.q);
   const known = topicKey === otherTopicKey || !topicKey || Boolean(getSegmentTopic(segment, topicKey));
-  return {
-    title: `${segment.name} tool directory`,
-    description: `AI tools covered by the Vizonix ${segment.name} briefing. Sample listings are labeled.`,
-    alternates: {
-      canonical: known ? directoryCanonical(segment, topicKey || undefined) : `/${segment.slug}/tools`,
-    },
-    robots: q ? { index: false, follow: true } : { index: true, follow: true },
-  };
+  const count = listTools(segment.slug).filter((tool) => !tool.sample).length;
+  const title =
+    segment.slug === "aviation"
+      ? `${count} AI tools for aviation: MRO, AOG, parts, and flight ops`
+      : `${count} AI tools for ${segment.name}`;
+  return pageMeta({
+    title,
+    description: `Directory of AI tools covered by the Vizonix ${segment.name} briefing, each with its own page.`,
+    canonical: known ? directoryCanonical(segment, topicKey || undefined) : `/${segment.slug}/tools`,
+    robots: q ? { index: false, follow: true } : undefined,
+  });
 }
 
 export default async function ToolsPage({ params, searchParams }: Props) {
@@ -43,19 +48,37 @@ export default async function ToolsPage({ params, searchParams }: Props) {
   if (topicKey && topicKey !== otherTopicKey && !getSegmentTopic(segment, topicKey)) notFound();
   const tools = listTools(segment.slug);
   const q = firstQueryValue(query.q);
+  const visible = filterDirectoryTools(tools, {
+    topic: topicKey || undefined,
+    q,
+    knownKeys: knownTopicKeys(segment.topics ?? []),
+  });
+  const title =
+    segment.slug === "aviation"
+      ? `${visible.length} AI tools for aviation: MRO, AOG, parts, and flight ops`
+      : `${segment.name} tool directory`;
+  const description = `Directory of AI tools covered by the Vizonix ${segment.name} briefing, each with its own page.`;
+  const crumbs = [
+    { name: "Vizonix", path: "/" },
+    { name: segment.name, path: `/${segment.slug}` },
+    { name: "Tool directory", path: `/${segment.slug}/tools` },
+  ];
 
   return (
     <section className="hero">
       <div className="wrap">
-        <p className="crumbs">
-          <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Tool directory
-        </p>
+        <Crumbs
+          items={[
+            { name: "Vizonix", href: "/" },
+            { name: segment.name, href: `/${segment.slug}` },
+            { name: "Tool directory" },
+          ]}
+        />
         <p className="kicker">{segment.name}</p>
         <h1>Tool directory</h1>
         <p className="lede">
           Each tool has its own page: what it does, who it is for, and how it could change the money.
-          Featured listings, when a sponsor buys one, are labeled Sponsored. Sample listings are
-          fictional.
+          Featured listings, when a sponsor buys one, are labeled Sponsored.
         </p>
         {tools.length === 0 ? (
           <p className="notice">No tool listings yet. This section is not publishing yet.</p>
@@ -69,6 +92,12 @@ export default async function ToolsPage({ params, searchParams }: Props) {
           />
         )}
       </div>
+      <JsonLd
+        data={[
+          collectionJsonLd({ name: title, description, path: `/${segment.slug}/tools`, tools: visible }),
+          breadcrumbJsonLd(crumbs),
+        ]}
+      />
     </section>
   );
 }

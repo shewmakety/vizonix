@@ -78,6 +78,11 @@ export const issueSchema = z
   .object({
     segment: z.string().trim().min(1),
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    /** Real publish time. Use this when `date` is the send day and that day is still ahead. */
+    publishedAt: z
+      .string()
+      .refine((value) => !Number.isNaN(Date.parse(value)), "publishedAt must be a timestamp")
+      .optional(),
     sample: z.boolean(),
     subject: z.string().trim().min(1).max(140),
     preheader: z.string().trim().min(1).max(200),

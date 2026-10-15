@@ -1,8 +1,11 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Crumbs } from "@/components/Crumbs";
+import { JsonLd } from "@/components/JsonLd";
 import { listIssues } from "@/lib/content";
-import { formatLongDate } from "@/lib/dates";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { breadcrumbJsonLd } from "@/lib/jsonld";
+import { pageMeta } from "@/lib/meta";
 import { getSegment, segments } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
@@ -11,15 +14,15 @@ export function generateStaticParams() {
   return segments.filter((segment) => segment.status === "active").map((segment) => ({ segment: segment.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned") return { robots: { index: false, follow: false } };
-  return {
-    title: `${segment.name} issues`,
-    description: `Archive of the Vizonix ${segment.name} briefing.`,
-    alternates: { canonical: `/${segment.slug}/issues` },
-  };
+  return pageMeta({
+    title: `${segment.name} issue archive`,
+    description: `Each weekday issue of the free ${segment.name} briefing stays on its own page.`,
+    canonical: `/${segment.slug}/issues`,
+  });
 }
 
 export default async function IssuesPage({ params }: Props) {
@@ -27,18 +30,27 @@ export default async function IssuesPage({ params }: Props) {
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned") notFound();
   const issues = listIssues(segment.slug);
+  const crumbs = [
+    { name: "Vizonix", path: "/" },
+    { name: segment.name, path: `/${segment.slug}` },
+    { name: "Issues", path: `/${segment.slug}/issues` },
+  ];
 
   return (
     <section className="hero">
       <div className="wrap prose">
-        <p className="crumbs">
-          <Link href={`/${segment.slug}`}>Home</Link> / <Link href={`/${segment.slug}`}>{segment.name}</Link> / Issues
-        </p>
+        <Crumbs
+          items={[
+            { name: "Vizonix", href: "/" },
+            { name: segment.name, href: `/${segment.slug}` },
+            { name: "Issues" },
+          ]}
+        />
         <p className="kicker">{segment.name}</p>
         <h1>Issue archive</h1>
         <p>
-          Each weekday issue has its own page. Sample issues are labeled and are not offered as real
-          coverage.
+          Each weekday issue has its own page, with the lead story, the tools, and the sources named on
+          that issue. This is the {segment.name} briefing archive.
         </p>
         {issues.length === 0 ? (
           <p className="notice">No issues yet. This section is not publishing yet.</p>
@@ -48,14 +60,16 @@ export default async function IssuesPage({ params }: Props) {
               <li key={issue.date}>
                 <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
                 <div className="meta">
-                  {formatLongDate(issue.date)}
+                  {formatPublishedInstant(issuePublishedInstant(issue))}
                   {issue.sample ? " - Sample issue" : ""}
                 </div>
+                <p>{issue.preheader}</p>
               </li>
             ))}
           </ul>
         )}
       </div>
+      <JsonLd data={breadcrumbJsonLd(crumbs)} />
     </section>
   );
 }

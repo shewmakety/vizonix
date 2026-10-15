@@ -1,24 +1,13 @@
-import type { Metadata } from "next";
-import { cookies, headers } from "next/headers";
 import { SignupForm } from "@/components/SignupForm";
-import { SEGMENT_COOKIE, SEGMENT_HEADER, resolveRememberedSlug } from "@/lib/segment-memory";
-import { featuredSegment } from "@/lib/segments";
+import { pageMeta } from "@/lib/meta";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Subscribe",
   description: "Confirm your email to receive a Vizonix section briefing.",
-  alternates: { canonical: "/subscribe" },
-};
+  canonical: "/subscribe",
+});
 
-export default async function SubscribePage() {
-  const headerStore = await headers();
-  const cookieStore = await cookies();
-  const rememberedSlug = resolveRememberedSlug(
-    headerStore.get(SEGMENT_HEADER),
-    cookieStore.get(SEGMENT_COOKIE)?.value,
-  );
-  const defaultSegment = rememberedSlug ?? featuredSegment().slug;
-
+export default function SubscribePage() {
   return (
     <section className="hero">
       <div className="wrap split">
@@ -36,7 +25,7 @@ export default async function SubscribePage() {
           </p>
           <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
         </div>
-        <SignupForm defaultSegment={defaultSegment} />
+        <SignupForm />
       </div>
     </section>
   );

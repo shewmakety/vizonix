@@ -4,6 +4,7 @@ import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { AppError } from "@/lib/errors";
 import { writeIssueFile } from "@/lib/content";
 import { githubConfigured, writeRepoFile } from "@/lib/github";
+import { indexNowTargets, pingIndexNow } from "@/lib/indexnow";
 import { parseIssue, type Issue } from "@/lib/schema";
 import { getSegment, segmentResendId } from "@/lib/segments";
 
@@ -32,6 +33,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       path: `/${issue.segment}/issues/${issue.date}`,
       written,
       delivery: null,
+      indexNow: await notifyIndexNow(issue, written !== "skipped"),
     };
   }
 
@@ -52,6 +54,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       path: `/${issue.segment}/issues/${issue.date}`,
       written,
       delivery,
+      indexNow: await notifyIndexNow(issue, true),
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Email failed.";
@@ -60,6 +63,15 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
     }
     throw error;
   }
+}
+
+async function notifyIndexNow(issue: Issue, published: boolean) {
+  if (issue.sample) return { ok: false, skipped: "sample" };
+  if (!published) return { ok: false, skipped: "not published" };
+  const result = await pingIndexNow(indexNowTargets(issue));
+  if (result.skipped) console.warn(`IndexNow skipped: ${result.skipped}`);
+  else if (!result.ok) console.warn(`IndexNow ping failed: ${result.error ?? "unknown error"}`);
+  return result;
 }
 
 async function writeIssue(issue: Issue): Promise<"github" | "local"> {

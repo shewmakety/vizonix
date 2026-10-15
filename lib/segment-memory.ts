@@ -20,7 +20,8 @@ export function segmentCookieAttributes(secure = process.env.NODE_ENV === "produ
     path: "/",
     maxAge: SEGMENT_COOKIE_MAX_AGE,
     sameSite: "lax" as const,
-    httpOnly: true,
+    // The slug is not a credential. The browser reads it so pages can stay static.
+    httpOnly: false,
     secure,
   };
 }

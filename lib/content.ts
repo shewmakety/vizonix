@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { clampInstant, issuePublishedInstant } from "@/lib/dates";
 import { parseIssue, parseTool, type Issue, type ToolEntry } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
 
@@ -86,6 +87,32 @@ export function getTool(segment: string, slug: string): ToolEntry | undefined {
   if (fs.existsSync(file)) return parseTool(readJson(file));
   if (!segmentUsesGeneralAi(segment)) return undefined;
   return loadGeneralAi(segment).find((tool) => tool.slug === slug);
+}
+
+export function toolSourceFile(tool: Pick<ToolEntry, "segment" | "slug">): string | undefined {
+  const segmentFile = path.join(toolsDir(tool.segment), `${tool.slug}.json`);
+  if (fs.existsSync(segmentFile)) return segmentFile;
+  const shared = path.join(generalAiDir(), `${tool.slug}.json`);
+  if (fs.existsSync(shared)) return shared;
+  return undefined;
+}
+
+/** File mtime, clamped so a checkout clock cannot publish a future date. */
+export function fileUpdatedAt(file: string | undefined, now = new Date()): Date {
+  if (!file || !fs.existsSync(file)) return clampInstant(new Date(0), now);
+  return clampInstant(fs.statSync(file).mtime, now);
+}
+
+export function toolUpdatedAt(tool: Pick<ToolEntry, "segment" | "slug">, now = new Date()): Date {
+  return fileUpdatedAt(toolSourceFile(tool), now);
+}
+
+/** Later of the publish time and the issue file mtime, never in the future. */
+export function issueModifiedInstant(issue: Issue, now = new Date()): Date {
+  const published = issuePublishedInstant(issue, now);
+  const file = path.join(issuesDir(issue.segment), `${issue.date}.json`);
+  const updated = fileUpdatedAt(fs.existsSync(file) ? file : undefined, now);
+  return updated.getTime() > published.getTime() ? updated : published;
 }
 
 export function writeIssueFile(issue: Issue): string {

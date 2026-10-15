@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { SponsorCheckoutForm } from "@/components/SponsorCheckoutForm";
@@ -19,17 +18,17 @@ import {
   secondaryRatio,
   stripeLinkEnvKey,
 } from "@/lib/rate-card";
+import { pageMeta } from "@/lib/meta";
 import { featuredSegment, segments } from "@/lib/segments";
-import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Sponsor",
   description:
     "Vizonix launch rate card. Aviation is the first list. Primary, secondary, and classified sponsorships, plus the founding offer.",
-  alternates: { canonical: "/sponsor" },
-};
+  canonical: "/sponsor",
+});
 
 export default async function SponsorPage({
   searchParams,
@@ -204,15 +203,11 @@ export default async function SponsorPage({
               </>
             ) : (
               <p className="form-note">
-                Payment Links are optional. If checkout is not connected yet, email{" "}
-                <a href={`mailto:${site.emailSponsors}`}>{site.emailSponsors}</a> with the placement and
-                the Monday you want.
+                Payment Links are optional. If checkout is not connected yet, use the form on this page
+                with the placement and the Monday you want.
               </p>
             )}
-            <p>
-              Questions about a bundle or a multi-week run:{" "}
-              <Link href={`mailto:${site.emailSponsors}`}>{site.emailSponsors}</Link>.
-            </p>
+            <p>Questions about a bundle or a multi-week run: use the form on this page.</p>
           </div>
         </div>
       </div>

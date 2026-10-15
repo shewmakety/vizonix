@@ -1,15 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { featuredSegment, segments } from "@/lib/segments";
+import { useEffect, useState } from "react";
+import { useRememberedSlug } from "@/components/useRememberedSlug";
+import { featuredSegment, getSegment, segments } from "@/lib/segments";
 
 export function UnsubscribeRequestForm({
   defaultSegment = featuredSegment().slug,
 }: {
   defaultSegment?: string;
 }) {
+  const remembered = useRememberedSlug();
+  const [segment, setSegment] = useState(defaultSegment);
+  const [touched, setTouched] = useState(false);
   const [message, setMessage] = useState("");
   const [kind, setKind] = useState<"idle" | "working" | "ok" | "error">("idle");
+
+  useEffect(() => {
+    if (touched || !remembered || !getSegment(remembered)) return;
+    setSegment(remembered);
+  }, [remembered, touched]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,7 +48,15 @@ export function UnsubscribeRequestForm({
       <label htmlFor="unsub-email">Email</label>
       <input id="unsub-email" name="email" type="email" required autoComplete="email" />
       <label htmlFor="unsub-segment">Section</label>
-      <select id="unsub-segment" name="segment" defaultValue={defaultSegment}>
+      <select
+        id="unsub-segment"
+        name="segment"
+        value={segment}
+        onChange={(event) => {
+          setTouched(true);
+          setSegment(event.target.value);
+        }}
+      >
         {segments.map((segment) => (
           <option key={segment.slug} value={segment.slug}>
             {segment.name}

@@ -47,6 +47,34 @@ export function formatLongDate(isoDate: string): string {
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
+/** Never return an instant later than `now`. An invalid date falls back to `now`. */
+export function clampInstant(instant: Date, now = new Date()): Date {
+  if (Number.isNaN(instant.getTime()) || instant.getTime() > now.getTime()) return new Date(now.getTime());
+  return instant;
+}
+
+/**
+ * When an issue is dated for its send day, `publishedAt` is the real publish time.
+ * A missing timestamp falls back to 07:00 America/New_York on that send day, then clamps.
+ */
+export function issuePublishedInstant(
+  issue: { date: string; publishedAt?: string },
+  now = new Date(),
+): Date {
+  const parsed = issue.publishedAt ? new Date(issue.publishedAt) : new Date(`${issue.date}T11:00:00.000Z`);
+  return clampInstant(parsed, now);
+}
+
+export function formatPublishedInstant(instant: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(instant);
+}
+
 export function rangesOverlap(
   aStart: string,
   aEnd: string,

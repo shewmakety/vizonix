@@ -21,7 +21,8 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/topic/aog-support", "AI tools for AOG support in aviation"],
   ["/aviation/tools/topic/records-and-documentation", "AI tools for records and documentation in aviation"],
   ["/aviation/tools/topic/flight-operations", "AI tools for flight operations in aviation"],
-  ["/aviation/tools/topic/general-ai", "AI tools for general-purpose assistants in aviation"],
+  ["/aviation/tools/topic/general-ai", "General AI assistants for aviation teams"],
+  ["/aviation/feed.xml", "AI moves into the hangar workflow"],
   ["/aviation/tools/chatgpt", "ChatGPT is OpenAI"],
   ["/aviation/tools/jeppesen-foreflight-airflow", "wider rollout is expected in 2027"],
   ["/aviation/tools/bluetail-ai", "Bluetail"],
@@ -201,8 +202,14 @@ async function main() {
     if (!home.includes("Tool Directory") || !home.includes('href="/aviation/tools"')) {
       throw new Error("Home header is missing the Tool Directory link.");
     }
-    if (!home.includes("AI tools that make a specific business more profitable.")) {
+    if (!home.includes("Free daily AI briefing for a specific business.")) {
       throw new Error("Home is missing the marketing landing heading.");
+    }
+    if (!home.includes("https://x.com/Vizonixai") || !home.includes("https://www.linkedin.com/company/vizonix")) {
+      throw new Error("Home footer is missing the X or LinkedIn profile.");
+    }
+    if (home.includes("Sample listings are fictional") || home.includes("Sample data on the site")) {
+      throw new Error("Home still has sample-data copy.");
     }
     if (!home.includes("In preparation") || home.includes('class="pill live"')) {
       throw new Error("Home still labels a section Live. Only Aviation is launched.");
@@ -261,6 +268,20 @@ async function main() {
     }
     if (!aviation.includes("Tool Highlights")) {
       throw new Error("Aviation page is missing Tool Highlights.");
+    }
+    if (!aviation.includes("AI for Aviation: the free daily briefing")) {
+      throw new Error("Aviation page is missing its heading.");
+    }
+    if (aviation.includes("Site banner, open")) {
+      throw new Error("The open banner placeholder is still on the aviation page.");
+    }
+    const headEnd = aviation.indexOf("</head>");
+    const head = headEnd === -1 ? "" : aviation.slice(0, headEnd);
+    if (!head.includes("<title>") || !head.includes('name="description"') || !head.includes("canonical")) {
+      throw new Error("Aviation title, description, or canonical is outside the document head.");
+    }
+    if (!head.includes("application/rss+xml") || !head.includes("/aviation/feed.xml")) {
+      throw new Error("Aviation head is missing the RSS alternate link.");
     }
     if (!aviation.includes("Tool Directory") || !aviation.includes('href="/aviation/tools"')) {
       throw new Error("Aviation header is missing its Tool Directory link.");

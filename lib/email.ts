@@ -3,7 +3,7 @@ import { unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl, site } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
-import { formatLongDate } from "@/lib/dates";
+import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
 
@@ -244,7 +244,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
               <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
-              <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatLongDate(issue.date))}</p>
+              <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatPublishedInstant(issuePublishedInstant(issue)))}</p>
             </td>
           </tr>
           ${linkRow}
@@ -312,7 +312,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
 
   const lines = [
     `Vizonix ${sectionName}`,
-    formatLongDate(issue.date),
+    formatPublishedInstant(issuePublishedInstant(issue)),
     "",
     `Tool Directory: ${directory}`,
     `Read on the web: ${archive}`,

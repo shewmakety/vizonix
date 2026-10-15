@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRememberedSlug } from "@/components/useRememberedSlug";
 import {
   segmentDirectoryHref,
   segmentHomeHref,
@@ -13,8 +14,9 @@ function current(active: boolean): "page" | undefined {
   return active ? "page" : undefined;
 }
 
-export function SiteHeader({ rememberedSlug }: { rememberedSlug?: string }) {
+export function SiteHeader() {
   const pathname = usePathname() || "/";
+  const rememberedSlug = useRememberedSlug();
   const onSponsor = pathname === "/sponsor" || pathname.startsWith("/sponsor/");
   const onAbout = pathname === "/about" || pathname.startsWith("/about/");
   const subscribeHref = segmentSubscribeHref(pathname, rememberedSlug);
