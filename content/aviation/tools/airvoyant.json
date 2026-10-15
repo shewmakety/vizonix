@@ -4,6 +4,7 @@
   "name": "Airvoyant",
   "sample": false,
   "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
   "company": "AAR",
   "summary": "AI parts procurement for airlines and MROs, launched April 21, 2026. It searches inventory, requests and consolidates quotes and recommends a purchase, integrates with Trax and other ERPs, and connects to Aeroxchange's network of more than 5,000 suppliers. Launch partners include Air Europa, Allegiant, Atlas Air, JetBlue, Thai Airways and Virgin Atlantic.",
   "paragraphs": [

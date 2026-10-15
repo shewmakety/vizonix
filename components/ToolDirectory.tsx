@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { withDirectoryQuery, type DirectoryChip } from "@/lib/directory";
 import type { DirectoryView } from "@/lib/directory-view";
 import type { ToolEntry } from "@/lib/schema";
 
@@ -11,10 +12,20 @@ export function ToolDirectory({
   segmentSlug,
   tools,
   initialView,
+  chips,
+  activeKey,
+  query,
+  searchAction,
+  hiddenTopic,
 }: {
   segmentSlug: string;
   tools: ToolEntry[];
   initialView: DirectoryView;
+  chips: DirectoryChip[];
+  activeKey: string;
+  query: string;
+  searchAction: string;
+  hiddenTopic?: string;
 }) {
   const [view, setView] = useState<DirectoryView>(initialView);
 
@@ -59,6 +70,35 @@ export function ToolDirectory({
 
   return (
     <>
+      <div className="topic-chips" role="group" aria-label="Topics">
+        {chips.map((chip) => {
+          const pressed = chip.key === activeKey;
+          const href = withDirectoryQuery(chip.href, { q: query, view });
+          return (
+            <Link
+              key={chip.key}
+              href={href}
+              aria-pressed={pressed}
+              aria-label={`${chip.label}, ${chip.count} ${chip.count === 1 ? "tool" : "tools"}`}
+            >
+              {chip.label} <span className="topic-count">({chip.count})</span>
+            </Link>
+          );
+        })}
+      </div>
+      <form className="directory-search" method="get" action={searchAction}>
+        <label htmlFor="tool-search">Search tools</label>
+        <input
+          id="tool-search"
+          name="q"
+          type="search"
+          defaultValue={query}
+          placeholder="Name, company, or description"
+        />
+        {hiddenTopic ? <input type="hidden" name="topic" value={hiddenTopic} /> : null}
+        {view === "list" ? <input type="hidden" name="view" value="list" /> : null}
+        <button type="submit">Search</button>
+      </form>
       <div className="view-toggle" role="group" aria-label="Directory view">
         <button type="button" aria-pressed={view === "cards"} onClick={() => choose("cards")}>
           Cards
@@ -67,7 +107,9 @@ export function ToolDirectory({
           List
         </button>
       </div>
-      {view === "list" ? (
+      {tools.length === 0 ? (
+        <p className="notice">No tools match that filter.</p>
+      ) : view === "list" ? (
         <ul className="tool-directory-list">
           {tools.map((tool) => (
             <li key={tool.slug}>

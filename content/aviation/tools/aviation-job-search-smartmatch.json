@@ -4,6 +4,7 @@
   "name": "SmartMatch",
   "sample": false,
   "category": "Recruiting pilots and technicians",
+  "topic": "recruiting-pilots-and-technicians",
   "company": "Aviation Job Search",
   "summary": "AI candidate matching built for aviation hiring. It reads licences, aircraft types, recency and approvals instead of generic CV keywords, across an audience of more than 150,000 registered aviation professionals.",
   "paragraphs": [

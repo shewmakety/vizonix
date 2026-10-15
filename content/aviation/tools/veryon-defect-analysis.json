@@ -4,6 +4,7 @@
   "name": "Defect Analysis (next generation)",
   "sample": false,
   "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
   "company": "Veryon",
   "summary": "Announced September 9, 2026. Adds aircraft fault data and part failures to every chronic, with AI chronic detection, rogue-parts detection that flags components statistically linked to recurring defects, AI chronic summaries and a conversational Fix Agent. Every AI suggestion goes through operator review.",
   "paragraphs": [

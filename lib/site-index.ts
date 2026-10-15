@@ -1,5 +1,5 @@
 import { allIssues, allTools } from "@/lib/content";
-import { segments } from "@/lib/segments";
+import { segments, topicPagePath } from "@/lib/segments";
 
 export type IndexPath = {
   path: string;
@@ -27,6 +27,9 @@ export function allIndexPaths(): IndexPath[] {
       { path: `/${segment.slug}/issues`, sample: false },
       { path: `/${segment.slug}/tools`, sample: false },
     );
+    for (const topic of segment.topics ?? []) {
+      paths.push({ path: topicPagePath(segment.slug, topic.key), sample: false });
+    }
   }
 
   for (const issue of allIssues()) {

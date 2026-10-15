@@ -4,6 +4,7 @@
   "name": "Maintenance Insight",
   "sample": false,
   "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
   "company": "StandardAero",
   "summary": "Predictive maintenance and reliability tools that use AI, machine learning and digital twins to analyze engine failure modes and inform work scoping. On October 6, 2026, the USAF awarded StandardAero work to apply it to the F100-220 engine, its fifth USAF engine type.",
   "paragraphs": [

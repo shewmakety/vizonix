@@ -12,6 +12,13 @@ const pages: Array<[string, string]> = [
   ["/aviation/issues", "AI moves into the hangar workflow"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
+  ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
+  ["/aviation/tools/topic/sales-and-marketing", "AI tools for sales and marketing in aviation"],
+  ["/aviation/tools/topic/predictive-maintenance", "AI tools for predictive maintenance in aviation"],
+  ["/aviation/tools/topic/maintenance-optimization", "AI tools for maintenance optimization in aviation"],
+  ["/aviation/tools/topic/troubleshooting", "AI tools for troubleshooting in aviation"],
+  ["/aviation/tools/topic/warehousing-and-inventory", "AI tools for warehousing and inventory in aviation"],
+  ["/aviation/tools/topic/aog-support", "AI tools for AOG support in aviation"],
   ["/aviation/tools/airvoyant", "Contact the vendor"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
   ["/legal", "Lawyers and law practices"],
@@ -154,6 +161,9 @@ async function main() {
     if (sitemap.includes("aogline") || sitemap.includes("/aviation/issues/2026-10-14")) {
       throw new Error("Sitemap still lists fictional aviation content.");
     }
+    if (!sitemap.includes("/aviation/tools/topic/predictive-maintenance")) {
+      throw new Error("Sitemap is missing the predictive maintenance topic page.");
+    }
 
     const llmsFull = await fetch(`${base}/llms-full.txt`).then((response) => response.text());
     if (!llmsFull.includes("https://veryon.com/") || llmsFull.includes("AOGLine")) {
@@ -205,9 +215,47 @@ async function main() {
     if (!directory.includes("tool-grid") || directory.includes("tool-directory-list")) {
       throw new Error("The default directory view is not cards.");
     }
+    if (!directory.includes("Search tools") || !directory.includes('aria-label="Topics"')) {
+      throw new Error("Tool directory is missing topic chips or search.");
+    }
+    if (!directory.includes("Predictive Maintenance")) {
+      throw new Error("Tool directory is missing topic chips.");
+    }
     const listView = await fetch(`${base}/aviation/tools?view=list`).then((response) => response.text());
     if (!listView.includes("tool-directory-list") || !listView.includes("Airvoyant")) {
       throw new Error("The list view did not render tool names.");
+    }
+    const filtered = await fetch(`${base}/aviation/tools?topic=predictive-maintenance&q=Veryon&view=list`).then(
+      (response) => response.text(),
+    );
+    if (!filtered.includes("tool-directory-list") || !filtered.includes("Defect Analysis")) {
+      throw new Error("Topic and search filter did not render the matching tool.");
+    }
+    if (filtered.includes("Airvoyant") || filtered.includes("TalentVista")) {
+      throw new Error("Topic and search filter included a tool outside the query.");
+    }
+    if (!filtered.includes("/aviation/tools/topic/predictive-maintenance")) {
+      throw new Error("Filtered directory did not canonicalize to the topic page.");
+    }
+    if (!filtered.includes('aria-pressed="true"')) {
+      throw new Error("Filtered directory is missing a pressed topic chip.");
+    }
+    const topicPage = await fetch(`${base}/aviation/tools/topic/predictive-maintenance`).then((response) => response.text());
+    if (!topicPage.includes("AI tools for predictive maintenance in aviation")) {
+      throw new Error("Topic page is missing its heading.");
+    }
+    if (topicPage.includes("noindex") || topicPage.includes("Airvoyant")) {
+      throw new Error("Topic page should be indexable and limited to that topic.");
+    }
+    await expectStatus("/aviation/tools/topic", { method: "GET" }, 404);
+    await expectStatus("/aviation/tools/topic/not-a-topic", { method: "GET" }, 404);
+    const toolPage = await fetch(`${base}/aviation/tools/airvoyant`).then((response) => response.text());
+    if (!toolPage.includes('href="/aviation/tools/topic/aog-support"') || !toolPage.includes("AOG Support")) {
+      throw new Error("Tool page is missing its topic link.");
+    }
+    const legalTool = await fetch(`${base}/legal/tools/clauseharbor`).then((response) => response.text());
+    if (legalTool.includes("/legal/tools/topic/")) {
+      throw new Error("Legal sample tool linked to a topic page.");
     }
 
     const robots = await fetch(`${base}/robots.txt`).then((response) => response.text());

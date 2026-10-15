@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     "/[segment]/issues/[date]": ["./content/**/*"],
     "/[segment]/tools": ["./content/**/*"],
     "/[segment]/tools/[slug]": ["./content/**/*"],
+    "/[segment]/tools/topic/[topic]": ["./content/**/*"],
     "/llms.txt": ["./content/**/*"],
     "/llms-full.txt": ["./content/**/*"],
     "/sitemap.xml": ["./content/**/*"],
