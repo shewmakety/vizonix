@@ -1,0 +1,17 @@
+{
+  "slug": "amos-ai",
+  "segment": "aviation",
+  "name": "AMOS AI document scanning and Amy assistant",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "Swiss AviationSoftware (Swiss-AS)",
+  "summary": "AMOS 25.12 adds AI-supported document scanning to speed receiving and quotations; Swiss-AS also demos an AI assistant called Amy.",
+  "paragraphs": [
+    "AMOS 25.12 adds AI-supported document scanning to speed receiving and quotations; Swiss-AS also demos an AI assistant called Amy."
+  ],
+  "whyItMatters": "For stores already on AMOS, AI capture of receiving paperwork means less hand-keying and cleaner stock data.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.aircraftit.com/news/amos-25-12-is-here/",
+  "url": "https://www.swiss-as.com/"
+}

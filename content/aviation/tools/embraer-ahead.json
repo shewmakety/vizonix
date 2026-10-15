@@ -1,0 +1,17 @@
+{
+  "slug": "embraer-ahead",
+  "segment": "aviation",
+  "name": "AHEAD",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Embraer",
+  "summary": "Aircraft Health Analysis and Diagnosis uses analytics and AI on sensor data, aircraft history and environment to predict E-Jet maintenance needs.",
+  "paragraphs": [
+    "Aircraft Health Analysis and Diagnosis uses analytics and AI on sensor data, aircraft history and environment to predict E-Jet maintenance needs."
+  ],
+  "whyItMatters": "The OEM option for E-Jet and E2 operators; Virgin Australia is equipping its E190-E2 fleet.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://aviationweek.com/special-topics/small-narrowbody-jets/virgin-australia-equip-e190-e2-fleet-embraers-ahead-predictive",
+  "url": "https://www.embraer.com/commercial-aviation-service-support/digital-solutions/en/"
+}

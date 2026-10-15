@@ -1,0 +1,15 @@
+{
+  "slug": "mistral-le-chat",
+  "name": "Le Chat",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Mistral",
+  "summary": "Le Chat is Mistral's assistant for writing and questions. A business user can draft text or work through a document in the browser.",
+  "paragraphs": [
+    "Le Chat is Mistral's assistant for writing and questions. A business user can draft text or work through a document in the browser."
+  ],
+  "whyItMatters": "Use it for a draft or a plain-language explanation, then have a person review the result.",
+  "pricing": "See the vendor site",
+  "url": "https://chat.mistral.ai/"
+}

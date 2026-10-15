@@ -1,0 +1,17 @@
+{
+  "slug": "aviatar-predictive-health-analytics",
+  "segment": "aviation",
+  "name": "AVIATAR Predictive Health Analytics",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Lufthansa Technik",
+  "summary": "Predicts component and system failures from full flight data and recommends actions that can flow into AMOS or Trax; Frontier added it in 2026.",
+  "paragraphs": [
+    "Predicts component and system failures from full flight data and recommends actions that can flow into AMOS or Trax; Frontier added it in 2026."
+  ],
+  "whyItMatters": "Turns unscheduled removals into planned ones on Airbus and Boeing fleets, independent of the OEM.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.lufthansa-technik.com/en/frontier-opts-for-more-of-lufthansa-technik-s-digital-tech-ops-and-engineering-products-972c2bce9e357fac",
+  "url": "https://www.lufthansa-technik.com/en/aviatar"
+}

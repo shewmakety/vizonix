@@ -1,0 +1,15 @@
+{
+  "slug": "grok",
+  "name": "Grok",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "xAI",
+  "summary": "Grok is xAI's assistant for questions, writing, and recent events. A business user can draft a note or ask about something that happened recently.",
+  "paragraphs": [
+    "Grok is xAI's assistant for questions, writing, and recent events. A business user can draft a note or ask about something that happened recently."
+  ],
+  "whyItMatters": "Use it for a draft or a quick check on a recent event, then confirm the details before you act.",
+  "pricing": "See the vendor site",
+  "url": "https://grok.com/"
+}

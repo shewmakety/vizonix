@@ -1,0 +1,17 @@
+{
+  "slug": "fetcherr",
+  "segment": "aviation",
+  "name": "Fetcherr",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Fetcherr",
+  "summary": "AI pricing engine built on a proprietary Large Market Model that simulates market behavior and sets airline prices in real time.",
+  "paragraphs": [
+    "AI pricing engine built on a proprietary Large Market Model that simulates market behavior and sets airline prices in real time."
+  ],
+  "whyItMatters": "An alternative to legacy revenue management systems; Google Cloud's case study cites more than 10% revenue uplift in optimized streams.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://cloud.google.com/customers/fetcherr-ai",
+  "url": "https://www.fetcherr.io/"
+}

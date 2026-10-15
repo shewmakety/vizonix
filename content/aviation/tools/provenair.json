@@ -1,0 +1,17 @@
+{
+  "slug": "provenair",
+  "segment": "aviation",
+  "name": "ProvenAir",
+  "sample": false,
+  "category": "Records and documentation",
+  "topic": "records-and-documentation",
+  "company": "ProvenAir Technologies",
+  "summary": "AI and OCR that scan maintenance records to build back-to-birth trace histories for life-limited parts, with exception reports for missing paperwork.",
+  "paragraphs": [
+    "AI and OCR that scan maintenance records to build back-to-birth trace histories for life-limited parts, with exception reports for missing paperwork."
+  ],
+  "whyItMatters": "Back-to-birth gaps stall engine, landing gear and part sales; this speeds trace review for lessors, MROs and traders.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://provenair.com/",
+  "url": "https://provenair.com/"
+}

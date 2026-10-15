@@ -1,0 +1,15 @@
+{
+  "slug": "otter-ai",
+  "name": "Otter.ai",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Otter.ai",
+  "summary": "Otter.ai records a meeting and writes a transcript and a summary. A business user can review what was said without replaying the whole call.",
+  "paragraphs": [
+    "Otter.ai records a meeting and writes a transcript and a summary. A business user can review what was said without replaying the whole call."
+  ],
+  "whyItMatters": "Use it to catch action items from a meeting, and correct the transcript where the audio was unclear.",
+  "pricing": "See the vendor site",
+  "url": "https://otter.ai/"
+}

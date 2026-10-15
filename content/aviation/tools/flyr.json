@@ -1,0 +1,17 @@
+{
+  "slug": "flyr",
+  "segment": "aviation",
+  "name": "FLYR",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "FLYR",
+  "summary": "Deep-learning revenue management and pricing for airlines; Virgin Atlantic reported more than a 10% uplift in seating revenue with FLYR's ancillary pricing.",
+  "paragraphs": [
+    "Deep-learning revenue management and pricing for airlines; Virgin Atlantic reported more than a 10% uplift in seating revenue with FLYR's ancillary pricing."
+  ],
+  "whyItMatters": "Moves airline pricing from static rules to machine-learning optimization, aimed at revenue managers and commercial teams.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://flyr.com/resource-hub/virgin-atlantic-turns-to-flyr-for-ancillary-revenue-management/",
+  "url": "https://flyr.com/"
+}

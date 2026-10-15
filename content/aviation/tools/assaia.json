@@ -1,0 +1,17 @@
+{
+  "slug": "assaia",
+  "segment": "aviation",
+  "name": "Assaia",
+  "sample": false,
+  "category": "Flight operations",
+  "topic": "flight-operations",
+  "company": "Assaia",
+  "summary": "Computer vision and AI that track aircraft turnaround activity at the gate in real time; Breeze Airways began deploying it in August 2026.",
+  "paragraphs": [
+    "Computer vision and AI that track aircraft turnaround activity at the gate in real time; Breeze Airways began deploying it in August 2026."
+  ],
+  "whyItMatters": "Spots turnaround delays and safety issues as they happen, before they push back departures.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.assaia.com/resources/breeze-airways-chooses-assaia-to-enhance-visibility-across-ground-operations",
+  "url": "https://www.assaia.com/"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "honeywell-ensemble",
+  "segment": "aviation",
+  "name": "Honeywell Ensemble",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Honeywell Aerospace",
+  "summary": "AI digital maintenance service that monitors engine data such as vibration, ITT and pressures to predict component failures; tied to Honeywell's Maintenance Service Plan.",
+  "paragraphs": [
+    "AI digital maintenance service that monitors engine data such as vibration, ITT and pressures to predict component failures; tied to Honeywell's Maintenance Service Plan."
+  ],
+  "whyItMatters": "For business aviation operators on Honeywell engines, it aims to catch problems before they cause unplanned downtime or budget surprises.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.honeywellaerospace.com/us/en/insights/articles/how-honeywell-ensemble-uses-ai-to-predict-engine-health",
+  "url": "https://www.honeywellaerospace.com/us/en/insights/articles/how-honeywell-ensemble-uses-ai-to-predict-engine-health"
+}

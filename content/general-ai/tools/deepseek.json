@@ -1,0 +1,15 @@
+{
+  "slug": "deepseek",
+  "name": "DeepSeek",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "DeepSeek",
+  "summary": "DeepSeek is an assistant for writing, coding, and questions. A business user can draft a note or ask it to explain a technical step.",
+  "paragraphs": [
+    "DeepSeek is an assistant for writing, coding, and questions. A business user can draft a note or ask it to explain a technical step."
+  ],
+  "whyItMatters": "Use it for a draft or an explanation of a technical step, and check the result before you use it.",
+  "pricing": "See the vendor site",
+  "url": "https://www.deepseek.com/"
+}

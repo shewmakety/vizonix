@@ -1,0 +1,17 @@
+{
+  "slug": "collins-ascentia",
+  "segment": "aviation",
+  "name": "Ascentia",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Collins Aerospace",
+  "summary": "Analytics platform with prognostic health monitoring, an AOG management board and an NLP-based Repeaters app that clusters free-text defects.",
+  "paragraphs": [
+    "Analytics platform with prognostic health monitoring, an AOG management board and an NLP-based Repeaters app that clusters free-text defects."
+  ],
+  "whyItMatters": "Lets airline engineers build their own predictive alerts with low-code tools, then measure them across the fleet.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.collinsaerospace.com/what-we-do/industries/commercial-aviation/analytics-solutions/ascentia-analytics-services",
+  "url": "https://www.collinsaerospace.com/what-we-do/industries/commercial-aviation/analytics-solutions/ascentia-analytics-services"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "ramco-sb-ad-agent",
+  "segment": "aviation",
+  "name": "SB/AD Extraction Agent",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "Ramco Systems",
+  "summary": "Agentic AI in Ramco Aviation that monitors OEM portals for new service bulletins and ADs, checks fleet applicability and structures the data.",
+  "paragraphs": [
+    "Agentic AI in Ramco Aviation that monitors OEM portals for new service bulletins and ADs, checks fleet applicability and structures the data."
+  ],
+  "whyItMatters": "Ramco says it cuts SB and AD review from days to hours, so compliance planning stops being a deadline fire drill.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.ramco.com/blog/aviation/agentic-ai-for-aviation-maintenance",
+  "url": "https://www.ramco.com/blog/aviation/agentic-ai-for-aviation-maintenance"
+}

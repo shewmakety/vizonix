@@ -1,0 +1,15 @@
+{
+  "slug": "microsoft-copilot",
+  "name": "Microsoft Copilot",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Microsoft",
+  "summary": "Microsoft Copilot is Microsoft's assistant for chat and for Microsoft 365 apps. A business user can draft in Word, summarize email, and ask questions about a workbook.",
+  "paragraphs": [
+    "Microsoft Copilot is Microsoft's assistant for chat and for Microsoft 365 apps. A business user can draft in Word, summarize email, and ask questions about a workbook."
+  ],
+  "whyItMatters": "Use it inside the Microsoft apps the team already works in, and review the result before you send it.",
+  "pricing": "See the vendor site",
+  "url": "https://copilot.microsoft.com/"
+}
