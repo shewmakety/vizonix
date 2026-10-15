@@ -1,9 +1,11 @@
+import { createHash } from "crypto";
 import { Resend } from "resend";
 import { z } from "zod";
-import { confirmationEmail, unsubscribeLinkEmail } from "@/lib/email";
+import { latestPublishedIssue } from "@/lib/content";
+import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePlainMessage } from "@/lib/email";
 import { AppError } from "@/lib/errors";
 import { absoluteUrl } from "@/lib/site";
-import { getSegment, segmentResendId } from "@/lib/segments";
+import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
 import { signToken, tokenSecret, verifyToken } from "@/lib/tokens";
 
 const emailSchema = z.string().trim().email();
@@ -89,6 +91,61 @@ export async function startDoubleOptIn(input: {
   return { ok: true, status: "confirmation_sent" };
 }
 
+/** Stable Resend key so a repeated confirm cannot deliver a second welcome. */
+export function welcomeIdempotencyKey(email: string, segment: string): string {
+  const hash = createHash("sha256")
+    .update(`${email.trim().toLowerCase()}\n${segment}`)
+    .digest("hex");
+  return `welcome-${segment}-${hash}`;
+}
+
+function alreadyOnSegment(message: string): boolean {
+  const normalized = message.toLowerCase();
+  return normalized.includes("already") || normalized.includes("exist");
+}
+
+async function sendWelcomeEmail(
+  resend: Resend,
+  input: { email: string; segment: Segment },
+): Promise<void> {
+  const from = process.env.EMAIL_FROM;
+  if (!from) {
+    console.error(`Welcome email was not sent for ${input.segment.slug}: EMAIL_FROM is not set.`);
+    return;
+  }
+  const secret = tokenSecret();
+  const unsubscribeUrl = secret
+    ? absoluteUrl(
+        `/unsubscribe?token=${encodeURIComponent(
+          signToken({ email: input.email, segment: input.segment.slug, purpose: "unsubscribe" }, secret),
+        )}`,
+      )
+    : absoluteUrl("/unsubscribe");
+  const issue = latestPublishedIssue(input.segment.slug);
+  const message = issue
+    ? welcomeIssueMessage(issue, unsubscribeUrl)
+    : welcomePlainMessage(input.segment.name, absoluteUrl(`/${input.segment.slug}`), unsubscribeUrl);
+  try {
+    const sent = await resend.emails.send(
+      {
+        from,
+        to: [input.email],
+        subject: message.subject,
+        html: message.html,
+        text: message.text,
+        headers: message.headers,
+      },
+      { idempotencyKey: welcomeIdempotencyKey(input.email, input.segment.slug) },
+    );
+    if (sent.error) {
+      console.error(`Welcome email was not sent for ${input.segment.slug}: ${sent.error.message}`);
+    }
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "unknown error";
+    console.error(`Welcome email was not sent for ${input.segment.slug}: ${detail}`);
+  }
+}
+
 export async function confirmSubscription(token: string): Promise<{
   ok: true;
   message: string;
@@ -111,6 +168,14 @@ export async function confirmSubscription(token: string): Promise<{
   }
 
   const resend = new Resend(apiKey);
+  let wasConfirmed = false;
+  try {
+    const prior = await resend.contacts.get({ email: payload.email });
+    wasConfirmed = prior.data?.unsubscribed === false;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "unknown error";
+    console.error(`Could not read the contact before confirm for ${segment.slug}: ${detail}`);
+  }
   const updated = await resend.contacts.update({
     email: payload.email,
     unsubscribed: false,
@@ -122,15 +187,19 @@ export async function confirmSubscription(token: string): Promise<{
     email: payload.email,
     segmentId,
   });
+  let alreadyInSegment = false;
   if (added.error) {
-    const message = added.error.message.toLowerCase();
-    if (!message.includes("already") && !message.includes("exist")) {
+    if (!alreadyOnSegment(added.error.message)) {
       return {
         ok: false,
         status: 502,
         error: "The address was confirmed, but it could not be added to the section list.",
       };
     }
+    alreadyInSegment = true;
+  }
+  if (!(wasConfirmed && alreadyInSegment)) {
+    await sendWelcomeEmail(resend, { email: payload.email, segment });
   }
   return {
     ok: true,
