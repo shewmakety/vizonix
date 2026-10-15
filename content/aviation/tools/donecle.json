@@ -1,0 +1,17 @@
+{
+  "slug": "donecle",
+  "segment": "aviation",
+  "name": "Donecle",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Donecle",
+  "summary": "Autonomous drone inspections with machine-learning defect detection that finds lightning strikes, dents and paint wear and produces a report.",
+  "paragraphs": [
+    "Autonomous drone inspections with machine-learning defect detection that finds lightning strikes, dents and paint wear and produces a report."
+  ],
+  "whyItMatters": "JetBlue began deploying it in April 2026 for lightning-strike and hail checks, which normally keep an aircraft on the ground for hours.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.donecle.com/solution/",
+  "url": "https://www.donecle.com/"
+}

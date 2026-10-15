@@ -29,7 +29,10 @@ describe("tool directory topics", () => {
   it("maps every Oct 16 issue section onto a directory topic and tool", () => {
     const issue = getIssue("aviation", "2026-10-16");
     expect(issue?.sections).toHaveLength(7);
-    expect(topics.map((topic) => topic.issueTopic)).toEqual(issue?.sections?.map((section) => section.topic));
+    expect(topics.filter((topic) => topic.issueTopic).map((topic) => topic.issueTopic)).toEqual(
+      issue?.sections?.map((section) => section.topic),
+    );
+    expect(topics.at(-1)?.key).toBe("general-ai");
     for (const section of issue?.sections ?? []) {
       const topic = topics.find((item) => item.issueTopic === section.topic);
       expect(topic).toBeTruthy();
@@ -45,10 +48,10 @@ describe("tool directory topics", () => {
 
   it("filters by topic, search, and the Other bucket", () => {
     const predictive = filterDirectoryTools(tools, { topic: "predictive-maintenance", knownKeys: known });
-    expect(predictive.map((tool) => tool.slug).sort()).toEqual([
-      "standardaero-maintenance-insight",
-      "veryon-defect-analysis",
-    ]);
+    expect(predictive.map((tool) => tool.slug)).toEqual(
+      expect.arrayContaining(["standardaero-maintenance-insight", "veryon-defect-analysis"]),
+    );
+    expect(predictive).toHaveLength(10);
     const byCompany = filterDirectoryTools(tools, { q: "aar", knownKeys: known });
     expect(byCompany.map((tool) => tool.slug)).toEqual(["airvoyant"]);
     const narrowed = filterDirectoryTools(tools, {
@@ -76,9 +79,13 @@ describe("tool directory topics", () => {
     expect(chips.find((chip) => chip.key === "all")?.href).toBe("/aviation/tools");
     expect(chips.find((chip) => chip.key === "predictive-maintenance")).toMatchObject({
       label: "Predictive Maintenance",
-      count: 2,
+      count: 10,
       href: "/aviation/tools?topic=predictive-maintenance",
     });
+    expect(chips.at(-1)?.key).toBe("general-ai");
+    expect(chips.find((chip) => chip.key === "records-and-documentation")?.count).toBe(2);
+    expect(chips.find((chip) => chip.key === "flight-operations")?.count).toBe(3);
+    expect(chips.find((chip) => chip.key === "general-ai")?.count).toBe(15);
     expect(chips.some((chip) => chip.key === "other")).toBe(false);
     const pathChips = directoryChips("aviation", topics, tools, "path");
     expect(pathChips.find((chip) => chip.key === "aog-support")?.href).toBe("/aviation/tools/topic/aog-support");

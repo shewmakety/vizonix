@@ -1,0 +1,17 @@
+{
+  "slug": "boeing-insight-accelerator",
+  "segment": "aviation",
+  "name": "Insight Accelerator",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Boeing Global Services",
+  "summary": "AI predictive maintenance tool that lets airline engineers build and test custom alerts from flight and maintenance data without coding.",
+  "paragraphs": [
+    "AI predictive maintenance tool that lets airline engineers build and test custom alerts from flight and maintenance data without coding."
+  ],
+  "whyItMatters": "Boeing says implementing a recommendation can cut unnecessary inspections by up to 85%; users include ANA, JAL and Korean Air.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://boeing.mediaroom.com/news-releases-statements?item=131281",
+  "url": "https://services.boeing.com/maintenance-engineering/maintenance-optimization/insight-accelerator"
+}

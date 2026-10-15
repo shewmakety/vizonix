@@ -1,0 +1,15 @@
+{
+  "slug": "midjourney",
+  "name": "Midjourney",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Midjourney",
+  "summary": "Midjourney generates images from a text prompt. A business user can make a concept image or an illustration for a deck.",
+  "paragraphs": [
+    "Midjourney generates images from a text prompt. A business user can make a concept image or an illustration for a deck."
+  ],
+  "whyItMatters": "Use it for a concept image, and do not treat the picture as a photo of a real aircraft, part, or place.",
+  "pricing": "See the vendor site",
+  "url": "https://www.midjourney.com/"
+}

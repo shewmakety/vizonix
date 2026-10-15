@@ -1,0 +1,17 @@
+{
+  "slug": "aviatar-technical-repetitives-examination",
+  "segment": "aviation",
+  "name": "AVIATAR Technical Repetitives Examination",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Lufthansa Technik",
+  "summary": "AI reads technical logbook write-ups, assigns the right ATA chapter and flags repetitive defects; rolled out at more than 20 airlines.",
+  "paragraphs": [
+    "AI reads technical logbook write-ups, assigns the right ATA chapter and flags repetitive defects; rolled out at more than 20 airlines."
+  ],
+  "whyItMatters": "Repeat defects are hidden in free text; this surfaces them so engineering can schedule a final fix.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/lufthansa-technik-debuts-aviatars-first-ai-tool",
+  "url": "https://www.lufthansa-technik.com/en/aviatar-adds-technical-repetitives-examination-to-its-reliability-suite-f58a894db33f64fd"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "meta-ai",
+  "name": "Meta AI",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Meta",
+  "summary": "Meta AI is Meta's assistant on the web and inside Meta's apps. A business user can draft a post, rewrite a message, or ask a short question.",
+  "paragraphs": [
+    "Meta AI is Meta's assistant on the web and inside Meta's apps. A business user can draft a post, rewrite a message, or ask a short question."
+  ],
+  "whyItMatters": "Use it for a first version of a public post or a message, then edit it before it goes out.",
+  "pricing": "See the vendor site",
+  "url": "https://www.meta.ai/"
+}

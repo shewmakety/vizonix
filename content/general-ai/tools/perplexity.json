@@ -1,0 +1,15 @@
+{
+  "slug": "perplexity",
+  "name": "Perplexity",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Perplexity",
+  "summary": "Perplexity is an answer engine that cites the pages it used. A business user can check a fact and open the sources it lists.",
+  "paragraphs": [
+    "Perplexity is an answer engine that cites the pages it used. A business user can check a fact and open the sources it lists."
+  ],
+  "whyItMatters": "Use it when you want an answer with links, and read those links before you rely on the answer.",
+  "pricing": "See the vendor site",
+  "url": "https://www.perplexity.ai/"
+}

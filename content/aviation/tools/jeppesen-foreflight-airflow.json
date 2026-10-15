@@ -1,0 +1,17 @@
+{
+  "slug": "jeppesen-foreflight-airflow",
+  "segment": "aviation",
+  "name": "Airflow agents",
+  "sample": false,
+  "category": "Flight operations",
+  "topic": "flight-operations",
+  "company": "Jeppesen ForeFlight",
+  "summary": "AI agents for airline crew trip trading, roster target planning, and disruption recovery that rank options with reasoning, keeping humans in control. A wider rollout is expected in 2027.",
+  "paragraphs": [
+    "AI agents for airline crew trip trading, roster target planning, and disruption recovery that rank options with reasoning, keeping humans in control. A wider rollout is expected in 2027."
+  ],
+  "whyItMatters": "Disruption recovery is one of the costliest ops problems; operators can join co-development now.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.jeppesenforeflight.com/news/jeppesen-foreflight-airflow-agents-debut-for-commercial-aviation",
+  "url": "https://ai.jeppesenforeflight.com/"
+}

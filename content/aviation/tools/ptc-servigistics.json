@@ -1,0 +1,17 @@
+{
+  "slug": "ptc-servigistics",
+  "segment": "aviation",
+  "name": "Servigistics",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "PTC",
+  "summary": "AI-powered service parts planning and inventory optimization; Qantas reports 94% availability with its parts forecasting.",
+  "paragraphs": [
+    "AI-powered service parts planning and inventory optimization; Qantas reports 94% availability with its parts forecasting."
+  ],
+  "whyItMatters": "Used by Qantas, Airbus FHS and the US Air Force to decide what spares to hold and where.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.ptc.com/en/case-studies/qantas-airlines-parts-forecasting",
+  "url": "https://www.ptc.com/en/products/servigistics"
+}

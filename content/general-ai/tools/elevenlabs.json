@@ -1,0 +1,15 @@
+{
+  "slug": "elevenlabs",
+  "name": "ElevenLabs",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "ElevenLabs",
+  "summary": "ElevenLabs turns text into speech and can clone a voice the account is allowed to use. A business user can make a voiceover or an audio version of a written update.",
+  "paragraphs": [
+    "ElevenLabs turns text into speech and can clone a voice the account is allowed to use. A business user can make a voiceover or an audio version of a written update."
+  ],
+  "whyItMatters": "Use it for a voiceover of text you already wrote, and only clone a voice you have permission to use.",
+  "pricing": "See the vendor site",
+  "url": "https://elevenlabs.io/"
+}

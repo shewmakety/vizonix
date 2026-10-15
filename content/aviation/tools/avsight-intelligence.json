@@ -1,0 +1,17 @@
+{
+  "slug": "avsight-intelligence",
+  "segment": "aviation",
+  "name": "AvSight Intelligence",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "AvSight",
+  "summary": "AI agents inside the AvSight aviation ERP that price RFQ lines, build quotes from structured and email requests, and send follow-ups on open quotes.",
+  "paragraphs": [
+    "AI agents inside the AvSight aviation ERP that price RFQ lines, build quotes from structured and email requests, and send follow-ups on open quotes."
+  ],
+  "whyItMatters": "For parts sellers and MROs already on AvSight, the quote agent turns inbound RFQs into draft quotes your team reviews instead of builds.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://avsight.net/intelligence-by-feature/",
+  "url": "https://avsight.net/intelligence-by-feature/"
+}

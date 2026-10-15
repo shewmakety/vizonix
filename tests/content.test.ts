@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getIssue, listIssues, listTools } from "@/lib/content";
+import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
@@ -79,9 +79,22 @@ describe("segment config and sample content", () => {
     expect(issueTools(issues[0]).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(12);
+    expect(tools).toHaveLength(72);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
-    expect(tools.every((tool) => tool.pricing === "Contact the vendor")).toBe(true);
+    expect(tools.filter((tool) => tool.topic !== "general-ai").every((tool) => tool.pricing === "Contact the vendor")).toBe(
+      true,
+    );
+    expect(tools.filter((tool) => tool.topic === "general-ai")).toHaveLength(15);
+    expect(getTool("aviation", "hirevue")?.summary).toContain("general-purpose");
+    expect(getTool("aviation", "hirevue")?.summary).toContain("not an aviation-specific");
+    expect(getTool("aviation", "elevatus")?.summary).toContain("not an aviation-specific");
+    expect(getTool("aviation", "upbrains-8130-extractor")?.summary).toContain("not an aviation-only");
+    expect(getTool("aviation", "jeppesen-foreflight-airflow")?.summary).toContain("2027");
+    expect(getTool("aviation", "chatgpt")?.url).toBe("https://chatgpt.com/");
+    expect(getTool("legal", "chatgpt")).toBeUndefined();
+    for (const slug of ["flyhire", "partscollab", "ge-ai-material-assistant", "veryon-tracking-ai-agents", "ils-on-demand-intelligence"]) {
+      expect(tools.map((tool) => tool.slug)).not.toContain(slug);
+    }
     for (const slug of ["aogline", "baywright", "stockramp", "dutyline"]) {
       expect(tools.map((tool) => tool.slug)).not.toContain(slug);
     }

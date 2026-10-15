@@ -29,7 +29,10 @@ export type Segment = {
   resendSegmentEnv: string;
   /** Legacy alias. Used when the segment env var is unset. */
   resendAudienceEnv: string;
-  /** Directory topics. Omit when the section is not grouping tools yet. */
+  /**
+   * Directory topics. Omit when the section is not grouping tools yet.
+   * The general-ai topic reuses content/general-ai/tools on any section that lists it.
+   */
   topics?: SegmentTopic[];
 };
 
@@ -101,6 +104,24 @@ export const segments: Segment[] = [
         phrase: "AOG support",
         intro: "Tools for sourcing parts when an aircraft is on the ground.",
         issueTopic: "AOG support: parts, rotables and technicians",
+      },
+      {
+        key: "records-and-documentation",
+        label: "Records & Documentation",
+        phrase: "records and documentation",
+        intro: "Tools for aircraft records, logbooks, and parts trace.",
+      },
+      {
+        key: "flight-operations",
+        label: "Flight Operations",
+        phrase: "flight operations",
+        intro: "Tools for crew planning, fuel, and turnaround work.",
+      },
+      {
+        key: "general-ai",
+        label: "General AI",
+        phrase: "general-purpose assistants",
+        intro: "Mainstream assistants and everyday AI tools a business user can open in a browser. These are not aviation-specific.",
       },
     ],
   },

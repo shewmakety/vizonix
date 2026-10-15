@@ -1,0 +1,15 @@
+{
+  "slug": "notion-ai",
+  "name": "Notion AI",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Notion",
+  "summary": "Notion AI writes and summarizes inside Notion pages and databases. A business user can turn notes into a page or tidy a draft they already keep in Notion.",
+  "paragraphs": [
+    "Notion AI writes and summarizes inside Notion pages and databases. A business user can turn notes into a page or tidy a draft they already keep in Notion."
+  ],
+  "whyItMatters": "Use it on pages the team already keeps in Notion, and edit the text before you share it.",
+  "pricing": "See the vendor site",
+  "url": "https://www.notion.com/product/ai"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "openairlines-skybreathe",
+  "segment": "aviation",
+  "name": "SkyBreathe",
+  "sample": false,
+  "category": "Flight operations",
+  "topic": "flight-operations",
+  "company": "OpenAirlines",
+  "summary": "Fuel efficiency software using physics and AI on flight data to find fuel savings, with an AI assistant; used by 80+ airlines and selected by IAG in 2026.",
+  "paragraphs": [
+    "Fuel efficiency software using physics and AI on flight data to find fuel savings, with an AI assistant; used by 80+ airlines and selected by IAG in 2026."
+  ],
+  "whyItMatters": "Fuel is a top airline cost, and the vendor claims savings of up to 5%.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.iairgroup.com/press-releases/2026/iag-selects-openairlines-skybreathe-platform-to-support-fuel-efficiency-across-its-airlines/",
+  "url": "https://www.openairlines.com/fuel-management-software/"
+}

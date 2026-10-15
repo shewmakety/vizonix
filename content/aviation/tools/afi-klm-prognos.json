@@ -1,0 +1,17 @@
+{
+  "slug": "afi-klm-prognos",
+  "segment": "aviation",
+  "name": "PROGNOS for Aircraft",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "AFI KLM E&M",
+  "summary": "In-house predictive maintenance suite that analyzes aircraft sensor data and alerts 30 to 50 flights before a fault; used by Virgin Atlantic and Norse Atlantic.",
+  "paragraphs": [
+    "In-house predictive maintenance suite that analyzes aircraft sensor data and alerts 30 to 50 flights before a fault; used by Virgin Atlantic and Norse Atlantic."
+  ],
+  "whyItMatters": "AFI KLM E&M reports no 'no fault found' results across hundreds of predictive removals, a useful benchmark when comparing vendors.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.afiklmem.com/en/solutions/prognos-for-aircraft",
+  "url": "https://www.afiklmem.com/en/solutions/prognos-for-aircraft"
+}

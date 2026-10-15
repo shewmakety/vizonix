@@ -1,0 +1,15 @@
+{
+  "slug": "gemini",
+  "name": "Gemini",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Google",
+  "summary": "Gemini is Google's assistant, available on the web and in Google accounts. A business user can ask questions, draft text, and work with files they already keep in Google.",
+  "paragraphs": [
+    "Gemini is Google's assistant, available on the web and in Google accounts. A business user can ask questions, draft text, and work with files they already keep in Google."
+  ],
+  "whyItMatters": "Use it for everyday questions and drafts alongside the Google tools the team already has.",
+  "pricing": "See the vendor site",
+  "url": "https://gemini.google.com/"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "claude",
+  "name": "Claude",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "Anthropic",
+  "summary": "Claude is Anthropic's assistant for long documents, writing, and analysis. A business user can review a draft, summarize a report, or work through an exported spreadsheet.",
+  "paragraphs": [
+    "Claude is Anthropic's assistant for long documents, writing, and analysis. A business user can review a draft, summarize a report, or work through an exported spreadsheet."
+  ],
+  "whyItMatters": "Use it when a document is long and you want a summary or a revised draft before a person signs off.",
+  "pricing": "See the vendor site",
+  "url": "https://claude.ai/"
+}

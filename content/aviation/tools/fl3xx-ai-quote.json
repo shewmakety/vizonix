@@ -1,0 +1,17 @@
+{
+  "slug": "fl3xx-ai-quote",
+  "segment": "aviation",
+  "name": "FL3XX AI: Quote",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "FL3XX",
+  "summary": "Forward a charter request email to a dedicated address and FL3XX's AI reads it and builds a pre-filled quote in the Sales module.",
+  "paragraphs": [
+    "Forward a charter request email to a dedicated address and FL3XX's AI reads it and builds a pre-filled quote in the Sales module."
+  ],
+  "whyItMatters": "Cuts manual re-keying of trip requests for Part 135 sales desks; the quote is still reviewed before it goes out.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.fl3xx.com/fl3xx-ai-quote",
+  "url": "https://www.fl3xx.com/fl3xx-ai-quote"
+}

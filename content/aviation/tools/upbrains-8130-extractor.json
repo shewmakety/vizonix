@@ -1,0 +1,17 @@
+{
+  "slug": "upbrains-8130-extractor",
+  "segment": "aviation",
+  "name": "8130-3 and EASA Form 1 extractor",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "UpBrains AI",
+  "summary": "UpBrains is a general-purpose document platform used by distributors, not an aviation-only product. Aviation teams can use its extractor to read FAA 8130-3 and EASA Form 1 release certificates and check each block.",
+  "paragraphs": [
+    "UpBrains is a general-purpose document platform used by distributors, not an aviation-only product. Aviation teams can use its extractor to read FAA 8130-3 and EASA Form 1 release certificates and check each block."
+  ],
+  "whyItMatters": "Release certificates are hand-keyed at receiving in many stores; extraction cuts typing and catches mismatches.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://upbrains.ai/extractors/faa-form8130-3-esea-form1-extractor",
+  "url": "https://upbrains.ai/extractors/faa-form8130-3-esea-form1-extractor"
+}

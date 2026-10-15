@@ -1,0 +1,15 @@
+{
+  "slug": "chatgpt",
+  "name": "ChatGPT",
+  "sample": false,
+  "category": "General AI",
+  "topic": "general-ai",
+  "company": "OpenAI",
+  "summary": "ChatGPT is OpenAI's assistant for writing, research, and working through documents. A business user can draft a note, summarize a report, or talk through a plan.",
+  "paragraphs": [
+    "ChatGPT is OpenAI's assistant for writing, research, and working through documents. A business user can draft a note, summarize a report, or talk through a plan."
+  ],
+  "whyItMatters": "Use it to get a first draft or a plain-language summary, then have a person edit the result.",
+  "pricing": "See the vendor site",
+  "url": "https://chatgpt.com/"
+}
