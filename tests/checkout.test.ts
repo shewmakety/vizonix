@@ -20,7 +20,7 @@ describe("checkout dates", () => {
   it("rejects a midweek start for the primary slot and accepts a future Monday", () => {
     const midweek = parseCheckoutRequest(
       {
-        segment: "legal",
+        segment: "aviation",
         placement: "primary",
         startDate: "2026-10-14",
         email: "buyer@firm.example",
@@ -32,7 +32,7 @@ describe("checkout dates", () => {
 
     const monday = parseCheckoutRequest(
       {
-        segment: "legal",
+        segment: "aviation",
         placement: "primary",
         startDate: "2026-10-19",
         email: "buyer@firm.example",
@@ -47,7 +47,7 @@ describe("checkout dates", () => {
   it("blocks an overlapping reservation and ignores the honeypot", () => {
     const conflict = parseCheckoutRequest(
       {
-        segment: "legal",
+        segment: "aviation",
         placement: "primary",
         startDate: "2026-10-19",
         email: "buyer@firm.example",
@@ -58,7 +58,7 @@ describe("checkout dates", () => {
           {
             id: "cs_test",
             stripeSessionId: "cs_test",
-            segment: "legal",
+            segment: "aviation",
             placement: "primary",
             startDate: "2026-10-19",
             endDate: "2026-10-23",
@@ -82,15 +82,17 @@ describe("checkout dates", () => {
   });
 
   it("refuses a section that is not open", () => {
-    const planned = parseCheckoutRequest(
-      {
-        segment: "warehousing",
-        placement: "primary",
-        startDate: "2026-10-19",
-        email: "buyer@firm.example",
-      },
-      { now, reservations: [] },
-    );
-    expect(planned.ok).toBe(false);
+    for (const segment of ["warehousing", "legal"]) {
+      const planned = parseCheckoutRequest(
+        {
+          segment,
+          placement: "primary",
+          startDate: "2026-10-19",
+          email: "buyer@firm.example",
+        },
+        { now, reservations: [] },
+      );
+      expect(planned.ok).toBe(false);
+    }
   });
 });

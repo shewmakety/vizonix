@@ -13,7 +13,7 @@ import {
 } from "@/lib/segments";
 
 describe("segment config and sample content", () => {
-  it("lists aviation first, with legal live and two sections still planned", () => {
+  it("lists aviation first, with legal and two other sections still planned", () => {
     expect(segments.map((segment) => segment.slug)).toEqual([
       "aviation",
       "legal",
@@ -22,8 +22,8 @@ describe("segment config and sample content", () => {
     ]);
     expect(featuredSegment().slug).toBe("aviation");
     expect(segments.find((segment) => segment.slug === "aviation")?.status).toBe("active");
-    expect(segments.find((segment) => segment.slug === "legal")?.status).toBe("active");
-    expect(segments.filter((segment) => segment.status === "planned")).toHaveLength(2);
+    expect(segments.find((segment) => segment.slug === "legal")?.status).toBe("planned");
+    expect(segments.filter((segment) => segment.status === "planned")).toHaveLength(3);
     expect(segments.find((segment) => segment.slug === "aviation")?.payoffLabel).toBe(
       "Why it can make the operation money",
     );
@@ -152,6 +152,7 @@ describe("segment config and sample content", () => {
     expect(text.indexOf("SECONDARY SPONSOR")).toBeLessThan(text.indexOf("CLASSIFIED"));
     expect(text).toContain("One standout this week.");
     expect(text).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
+    expect(text).toContain(absoluteUrl("/aviation/unsubscribe"));
     expect(html).not.toMatch(/[\u2013\u2014]/);
     expect(text).not.toMatch(/[\u2013\u2014]/);
 
@@ -159,6 +160,7 @@ describe("segment config and sample content", () => {
     const legalText = renderIssueText(legal, { mode: "test" });
     expect(legalHtml).toContain(`href="${absoluteUrl("/legal/tools")}"`);
     expect(legalText).toContain(`Tool Directory: ${absoluteUrl("/legal/tools")}`);
+    expect(legalText).toContain(absoluteUrl("/legal/unsubscribe"));
     expect(legalHtml).toContain("Why it can make the practice money.");
     expect(legalHtml).toContain("Northline Systems");
     expect(legalHtml).toContain("Tool Highlights");

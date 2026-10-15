@@ -94,11 +94,11 @@ describe("welcome email on confirm", () => {
     expect(payload.html).toContain("Read on the web");
     expect(payload.text).toContain("Tool Directory: https://vizonix.com/aviation/tools");
     expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-16");
-    expect(payload.html).toContain("/unsubscribe?token=");
+    expect(payload.html).toContain("/aviation/unsubscribe?token=");
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");
     expect(payload.text).toContain("Unsubscribe:");
-    expect(payload.headers["List-Unsubscribe"]).toContain("/unsubscribe?token=");
+    expect(payload.headers["List-Unsubscribe"]).toContain("/aviation/unsubscribe?token=");
     expect(options.idempotencyKey).toBe(welcomeIdempotencyKey("reader@example.com", "aviation"));
     expect(`${payload.subject}\n${payload.html}\n${payload.text}`).not.toMatch(/[\u2013\u2014]/);
   });
@@ -133,6 +133,7 @@ describe("welcome email on confirm", () => {
     expect(resend.send).toHaveBeenCalledTimes(1);
     const payload = resend.send.mock.calls[0][0] as { subject: string; html: string };
     expect(payload.subject).toBe("Welcome to Vizonix - Legal");
+    expect(payload.html).toContain("/legal/unsubscribe?token=");
     expect(payload.html).not.toContain("ClauseHarbor");
     expect(payload.html).not.toContain("Northline");
   });

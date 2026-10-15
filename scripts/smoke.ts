@@ -176,7 +176,11 @@ async function main() {
       throw new Error("llms-full.txt is missing the real lead or still names AOGLine.");
     }
 
-    const home = await fetch(`${base}/`).then((response) => response.text());
+    const homeResponse = await fetch(`${base}/`, { redirect: "manual" });
+    const home = await homeResponse.text();
+    if (homeResponse.status !== 200) {
+      throw new Error(`Home without a section cookie returned ${homeResponse.status}.`);
+    }
     if (home.includes("Sponsor a week")) {
       throw new Error("The home page still shows Sponsor a week.");
     }
@@ -185,6 +189,54 @@ async function main() {
     }
     if (!home.includes("Tool Directory") || !home.includes('href="/aviation/tools"')) {
       throw new Error("Home header is missing the Tool Directory link.");
+    }
+    if (!home.includes("AI tools that make a specific business more profitable.")) {
+      throw new Error("Home is missing the marketing landing heading.");
+    }
+    if (!home.includes("In preparation") || home.includes('class="pill live"')) {
+      throw new Error("Home still labels a section Live. Only Aviation is launched.");
+    }
+    if (!home.includes('class="brand" href="/aviation"')) {
+      throw new Error("Home logo did not fall back to the aviation section.");
+    }
+
+    const remembered = await fetch(`${base}/`, {
+      redirect: "manual",
+      headers: { cookie: "vz_segment=aviation" },
+    });
+    const rememberedLocation = remembered.headers.get("location") || "";
+    if (remembered.status !== 307 || !rememberedLocation.endsWith("/aviation")) {
+      throw new Error(`Aviation cookie did not 307 / to /aviation (${remembered.status} ${rememberedLocation}).`);
+    }
+    const plannedCookie = await fetch(`${base}/`, {
+      redirect: "manual",
+      headers: { cookie: "vz_segment=legal" },
+    });
+    if (plannedCookie.status !== 200) {
+      throw new Error(`A legal cookie redirected the marketing root (${plannedCookie.status}).`);
+    }
+
+    const sectionVisit = await fetch(`${base}/aviation`, { redirect: "manual" });
+    const setCookie = sectionVisit.headers.get("set-cookie") || "";
+    if (!setCookie.includes("vz_segment=aviation")) {
+      throw new Error("Visiting /aviation did not set vz_segment.");
+    }
+
+    const legalConfirm = await fetch(`${base}/legal/confirm`);
+    const legalConfirmHtml = await legalConfirm.text();
+    if (legalConfirm.status !== 200 || !legalConfirmHtml.includes("Confirm your subscription")) {
+      throw new Error("Section confirm URL did not render the confirm page.");
+    }
+    if (!legalConfirmHtml.includes('class="brand" href="/legal"')) {
+      throw new Error("Confirm page did not keep the reader in Legal.");
+    }
+    const aviationSubscribe = await fetch(`${base}/aviation/subscribe`);
+    const aviationSubscribeHtml = await aviationSubscribe.text();
+    if (aviationSubscribe.status !== 200 || !aviationSubscribeHtml.includes("Aviation is the launch section")) {
+      throw new Error("Section subscribe URL did not render the subscribe page.");
+    }
+    if (!aviationSubscribeHtml.includes('class="brand" href="/aviation"')) {
+      throw new Error("Subscribe page did not keep the reader in Aviation.");
     }
 
     const about = await fetch(`${base}/about`).then((response) => response.text());
