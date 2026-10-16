@@ -12,7 +12,7 @@ async function main() {
   const file = process.argv.slice(2).find((arg) => !arg.startsWith("--"));
   if (!file) {
     console.error(
-      "Usage: npm run publish-issue -- content/drafts/example-aviation.json [--send] [--allow-sample] [--test-to you@example.com] [--no-write]",
+      "Usage: npm run publish-issue -- content/drafts/example-aviation.json [--send] [--allow-sample] [--test-to you@example.com] [--no-write] [--no-linkedin]",
     );
     process.exit(1);
   }
@@ -23,6 +23,7 @@ async function main() {
     write: !process.argv.includes("--no-write"),
     allowSample: process.argv.includes("--allow-sample"),
     testTo: argValue("--test-to"),
+    linkedin: !process.argv.includes("--no-linkedin"),
   });
 
   console.log(JSON.stringify(result, null, 2));

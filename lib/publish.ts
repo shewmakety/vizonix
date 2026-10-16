@@ -5,6 +5,7 @@ import { AppError } from "@/lib/errors";
 import { writeIssueFile } from "@/lib/content";
 import { githubConfigured, writeRepoFile } from "@/lib/github";
 import { indexNowTargets, pingIndexNow } from "@/lib/indexnow";
+import { postIssueToLinkedIn, type LinkedInPostResult } from "@/lib/linkedin";
 import { parseIssue, type Issue } from "@/lib/schema";
 import { getSegment, segmentResendId } from "@/lib/segments";
 
@@ -13,6 +14,8 @@ export type PublishOptions = {
   write: boolean;
   allowSample?: boolean;
   testTo?: string;
+  /** Set false to skip the LinkedIn company post. Defaults to posting after a real broadcast. */
+  linkedin?: boolean;
 };
 
 export async function publishIssue(input: unknown, options: PublishOptions) {
@@ -34,6 +37,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       written,
       delivery: null,
       indexNow: await notifyIndexNow(issue, written !== "skipped"),
+      linkedin: await linkedInForIssue(issue, options, null),
     };
   }
 
@@ -55,6 +59,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       written,
       delivery,
       indexNow: await notifyIndexNow(issue, true),
+      linkedin: await linkedInForIssue(issue, options, delivery),
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Email failed.";
@@ -62,6 +67,22 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       throw new AppError(`The issue file was written, but the email was not sent. ${message}`, 502);
     }
     throw error;
+  }
+}
+
+async function linkedInForIssue(
+  issue: Issue,
+  options: PublishOptions,
+  delivery: { mode: "broadcast" | "test" } | null,
+): Promise<LinkedInPostResult> {
+  if (options.linkedin === false) return { ok: false, skipped: "disabled" };
+  if (!delivery || delivery.mode !== "broadcast") return { ok: false, skipped: "not a broadcast" };
+  try {
+    return await postIssueToLinkedIn(issue);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "LinkedIn post failed.";
+    console.warn(`LinkedIn post failed: ${message}`);
+    return { ok: false, error: message };
   }
 }
 

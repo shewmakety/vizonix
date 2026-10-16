@@ -19,6 +19,7 @@ export async function POST(request: Request) {
     write?: boolean;
     allowSample?: boolean;
     testTo?: string;
+    linkedin?: boolean;
   };
   try {
     body = (await request.json()) as typeof body;
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
       write: body.write !== false,
       allowSample: body.allowSample === true,
       testTo: body.testTo,
+      linkedin: body.linkedin !== false,
     });
     return NextResponse.json({ ok: true, ...result });
   } catch (error) {
