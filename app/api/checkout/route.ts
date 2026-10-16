@@ -95,7 +95,9 @@ export async function POST(request: Request) {
     }
 
     const draft = built.session;
-    const session = await stripe.checkout.sessions.create({
+    // Sponsorships are marketing services. Managed Payments is on by default for
+    // this account and rejects a session that has no product tax code.
+    const params = {
       mode: draft.mode,
       customer_email: order.email,
       line_items: draft.line_items,
@@ -103,11 +105,15 @@ export async function POST(request: Request) {
       cancel_url: absoluteUrl("/sponsor?status=cancelled"),
       billing_address_collection: "auto",
       metadata: draft.metadata,
+      managed_payments: { enabled: false },
       ...(draft.subscription_data ? { subscription_data: draft.subscription_data } : {}),
       ...(draft.discounts
         ? { discounts: draft.discounts }
         : { allow_promotion_codes: draft.allow_promotion_codes ?? false }),
-    });
+    } satisfies Stripe.Checkout.SessionCreateParams & {
+      managed_payments: { enabled: false };
+    };
+    const session = await stripe.checkout.sessions.create(params);
 
     if (!session.url) {
       throw new AppError("Stripe did not return a checkout URL.", 502);
