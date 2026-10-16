@@ -40,7 +40,7 @@ afterEach(() => {
 describe("publish LinkedIn wiring", () => {
   it("posts only after a real broadcast", async () => {
     process.env.RESEND_API_KEY = "re_test";
-    process.env.EMAIL_FROM = "Vizonix <news@vizonix.com>";
+    process.env.EMAIL_FROM = "Vizonix <admin@vizonix.com>";
     process.env.RESEND_SEGMENT_ID_AVIATION = "seg_aviation";
     delete process.env.RESEND_TEST_TO;
     delete process.env.INDEXNOW_KEY;
