@@ -4,25 +4,19 @@ import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
-import { featuredSegment, getSegment, segments } from "@/lib/segments";
+import { activeSegments, getSegment } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
 
 export function generateStaticParams() {
-  return segments.map((segment) => ({ segment: segment.slug }));
+  return activeSegments().map((segment) => ({ segment: segment.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
-  if (!segment) return {};
-  if (segment.status === "planned") {
-    return pageMeta({
-      title: segment.name,
-      description: "This section is not publishing yet.",
-      canonical: `/${segment.slug}`,
-      robots: { index: false, follow: true },
-    });
+  if (!segment || segment.status !== "active") {
+    return { robots: { index: false, follow: false } };
   }
   const title =
     segment.slug === "aviation"
@@ -38,22 +32,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function SegmentPage({ params }: Props) {
   const { segment: slug } = await params;
   const segment = getSegment(slug);
-  if (!segment) notFound();
-  if (segment.status === "planned") {
-    const featured = featuredSegment();
-    return (
-      <section className="hero">
-        <div className="wrap prose">
-          <p className="kicker">{segment.name}</p>
-          <h1>Coming soon</h1>
-          <p>This section is not publishing yet.</p>
-          <p>
-            <Link href={`/${featured.slug}`}>{`Back to the ${featured.name.toLowerCase()} section`}</Link>.
-          </p>
-        </div>
-      </section>
-    );
-  }
+  if (!segment || segment.status !== "active") notFound();
   const issues = listIssues(segment.slug);
   const tools = listTools(segment.slug);
 

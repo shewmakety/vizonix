@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   );
   if (!sent) {
     return NextResponse.json(
-      { error: `The inquiry could not be sent. Email ${site.emailHello} instead.` },
+      { error: `The inquiry could not be sent. Email ${site.email} instead.` },
       { status: 503 },
     );
   }

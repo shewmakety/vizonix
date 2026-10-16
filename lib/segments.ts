@@ -140,49 +140,15 @@ export const segments: Segment[] = [
       },
     ],
   },
-  {
-    slug: "legal",
-    name: "Legal",
-    status: "planned",
-    audience: "Lawyers and law practices",
-    summary:
-      "A weekday briefing on AI tools, bots, models, and resources for lawyers and law practices.",
-    promise:
-      "What is new, and how it could help a practice bill more, write faster, or miss less.",
-    payoffLabel: "Why it can make the practice money",
-    resendSegmentEnv: "RESEND_SEGMENT_ID_LEGAL",
-    resendAudienceEnv: "RESEND_AUDIENCE_ID_LEGAL",
-  },
-  {
-    slug: "warehousing",
-    name: "Warehousing",
-    status: "planned",
-    audience: "Warehouse and fulfillment operators",
-    summary:
-      "AI tools that help a warehouse move more goods with fewer errors and less wasted labor.",
-    promise:
-      "This section is not publishing yet. The signup list uses the same confirmation email as the live sections.",
-    payoffLabel: "Why it can make the warehouse money",
-    resendSegmentEnv: "RESEND_SEGMENT_ID_WAREHOUSING",
-    resendAudienceEnv: "RESEND_AUDIENCE_ID_WAREHOUSING",
-  },
-  {
-    slug: "marketing-sales",
-    name: "Marketing and sales",
-    status: "planned",
-    audience: "Marketing and sales teams",
-    summary:
-      "AI tools that help a team find demand, convert it, and keep the customer.",
-    promise:
-      "This section is not publishing yet. Leave an address if you want the first issue.",
-    payoffLabel: "Why it can make the team money",
-    resendSegmentEnv: "RESEND_SEGMENT_ID_MARKETING_SALES",
-    resendAudienceEnv: "RESEND_AUDIENCE_ID_MARKETING_SALES",
-  },
 ];
 
 export function getSegment(slug: string): Segment | undefined {
   return segments.find((segment) => segment.slug === slug);
+}
+
+/** Sections that are live. Planned entries stay out of nav, signup, and llms text. */
+export function activeSegments(): Segment[] {
+  return segments.filter((segment) => segment.status === "active");
 }
 
 export function segmentTopics(segment: Segment | undefined): SegmentTopic[] {

@@ -26,17 +26,20 @@ export function segmentCookieAttributes(secure = process.env.NODE_ENV === "produ
   };
 }
 
-/** Known section from the cookie, including sections still in preparation. */
+/** Launched section from the cookie. Unknown and planned values are ignored. */
 export function rememberedSegment(cookieValue: string | null | undefined): Segment | undefined {
   if (!cookieValue) return undefined;
-  return getSegment(cookieValue);
+  const segment = getSegment(cookieValue);
+  if (!segment || segment.status !== "active") return undefined;
+  return segment;
 }
 
 export function resolveRememberedSlug(
   headerSlug: string | null | undefined,
   cookieValue: string | null | undefined,
 ): string | undefined {
-  if (headerSlug && getSegment(headerSlug)) return headerSlug;
+  const header = headerSlug ? getSegment(headerSlug) : undefined;
+  if (header?.status === "active") return header.slug;
   return rememberedSegment(cookieValue)?.slug;
 }
 
@@ -91,7 +94,8 @@ export function unsubscribePath(segmentSlug: string, token?: string): string {
 export function segmentAliasRewrite(pathname: string): string | null {
   const parts = pathname.split("/").filter(Boolean);
   if (parts.length !== 2) return null;
-  if (!getSegment(parts[0])) return null;
+  const segment = getSegment(parts[0]);
+  if (!segment || segment.status !== "active") return null;
   if (!SEGMENT_ALIAS_TAILS.includes(parts[1] as (typeof SEGMENT_ALIAS_TAILS)[number])) return null;
   return `/${parts[1]}`;
 }

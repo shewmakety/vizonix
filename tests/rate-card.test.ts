@@ -52,11 +52,11 @@ describe("launch rate card", () => {
   });
 
   it("builds stripe env keys without putting secrets in the name", () => {
-    expect(stripePriceEnvKey("legal", "primary", false)).toBe("STRIPE_PRICE_LEGAL_PRIMARY");
-    expect(stripePriceEnvKey("legal", "primary", true)).toBe("STRIPE_PRICE_LEGAL_PRIMARY_FOUNDING");
-    expect(stripePriceEnvKey("marketing-sales", "classified", false)).toBe(
-      "STRIPE_PRICE_MARKETING_SALES_CLASSIFIED",
+    expect(stripePriceEnvKey("field-service", "primary", false)).toBe("STRIPE_PRICE_FIELD_SERVICE_PRIMARY");
+    expect(stripePriceEnvKey("field-service", "primary", true)).toBe("STRIPE_PRICE_FIELD_SERVICE_PRIMARY_FOUNDING");
+    expect(stripePriceEnvKey("field-service", "classified", false)).toBe(
+      "STRIPE_PRICE_FIELD_SERVICE_CLASSIFIED",
     );
-    expect(stripeLinkEnvKey("legal", "bundle")).toBe("NEXT_PUBLIC_STRIPE_LINK_LEGAL_BUNDLE");
+    expect(stripeLinkEnvKey("field-service", "bundle")).toBe("NEXT_PUBLIC_STRIPE_LINK_FIELD_SERVICE_BUNDLE");
   });
 });

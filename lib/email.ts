@@ -352,7 +352,7 @@ export function welcomeParagraphs(sectionName: string, issueUrl?: string): strin
   return [
     `Thanks for confirming. You are on the Vizonix ${sectionName} list.`,
     `Expect a short AI briefing every weekday morning for ${sectionName}.`,
-    `Add ${site.emailHello} to your contacts, or reply to this email to say hi. That helps the briefing reach your inbox.`,
+    `Add ${site.email} to your contacts, or reply to this email to say hi. That helps the briefing reach your inbox.`,
     issueUrl
       ? `Read this issue on the web: ${issueUrl}`
       : "No issue is in the archive yet. You will get the first one on a weekday morning.",

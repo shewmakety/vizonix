@@ -18,11 +18,7 @@ export default function SubscribePage() {
             We send a confirmation email. You are not subscribed until you click it. After that, the
             section you picked arrives on weekday mornings.
           </p>
-          <p>
-            Aviation is the launch section. Legal, warehousing, and marketing and sales are in
-            preparation. You can join those lists now. They will not send a daily issue until the
-            section opens.
-          </p>
+          <p>Aviation is the launch section.</p>
           <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
         </div>
         <SignupForm />

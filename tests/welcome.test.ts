@@ -21,6 +21,7 @@ vi.mock("resend", () => {
   };
 });
 
+import { welcomePlainMessage } from "@/lib/email";
 import { confirmSubscription, welcomeIdempotencyKey } from "@/lib/subscribe";
 
 const envKeys = [
@@ -28,8 +29,6 @@ const envKeys = [
   "RESEND_API_KEY",
   "EMAIL_FROM",
   "RESEND_SEGMENT_ID_AVIATION",
-  "RESEND_SEGMENT_ID_LEGAL",
-  "RESEND_SEGMENT_ID_WAREHOUSING",
   "NEXT_PUBLIC_SITE_URL",
 ] as const;
 
@@ -43,10 +42,8 @@ describe("welcome email on confirm", () => {
   beforeEach(() => {
     process.env.TOKEN_SECRET = "welcome-test-secret";
     process.env.RESEND_API_KEY = "re_test";
-    process.env.EMAIL_FROM = "Vizonix <hello@vizonix.com>";
+    process.env.EMAIL_FROM = "Vizonix <admin@vizonix.com>";
     process.env.RESEND_SEGMENT_ID_AVIATION = "seg_aviation";
-    process.env.RESEND_SEGMENT_ID_LEGAL = "seg_legal";
-    process.env.RESEND_SEGMENT_ID_WAREHOUSING = "seg_warehousing";
     process.env.NEXT_PUBLIC_SITE_URL = "https://vizonix.com";
     resend.send.mockReset();
     resend.get.mockReset();
@@ -81,12 +78,12 @@ describe("welcome email on confirm", () => {
       },
       { idempotencyKey: string },
     ];
-    expect(payload.from).toBe("Vizonix <hello@vizonix.com>");
+    expect(payload.from).toBe("Vizonix <admin@vizonix.com>");
     expect(payload.to).toEqual(["reader@example.com"]);
     expect(payload.subject).toBe("Welcome to Vizonix - here's the latest Aviation issue");
     expect(payload.html).toContain("Thanks for confirming");
     expect(payload.html).toContain("short AI briefing every weekday morning for Aviation");
-    expect(payload.html).toContain("hello@vizonix.com");
+    expect(payload.html).toContain("admin@vizonix.com");
     expect(payload.html).toContain("Veryon puts an AI assistant inside the business aviation maintenance record");
     expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-10-16");
     expect(payload.html).toContain("https://vizonix.com/aviation/tools");
@@ -103,15 +100,19 @@ describe("welcome email on confirm", () => {
     expect(`${payload.subject}\n${payload.html}\n${payload.text}`).not.toMatch(/[\u2013\u2014]/);
   });
 
-  it("sends a plain welcome when the segment has no published issue", async () => {
+  it("writes a plain welcome when a section has no published issue", () => {
+    const message = welcomePlainMessage("Field service", "https://vizonix.com/field-service", "https://vizonix.com/field-service/unsubscribe");
+    expect(message.subject).toBe("Welcome to Vizonix - Field service");
+    expect(message.html).toContain("No issue is in the archive yet");
+    expect(message.html).toContain("https://vizonix.com/field-service");
+    expect(message.html).toContain("admin@vizonix.com");
+    expect(message.html).not.toContain("Veryon");
+  });
+
+  it("rejects a confirmation for a section that is not live", async () => {
     const result = await confirmSubscription(confirmToken("reader@example.com", "warehousing"));
-    expect(result.ok).toBe(true);
-    expect(resend.send).toHaveBeenCalledTimes(1);
-    const payload = resend.send.mock.calls[0][0] as { subject: string; html: string };
-    expect(payload.subject).toBe("Welcome to Vizonix - Warehousing");
-    expect(payload.html).toContain("No issue is in the archive yet");
-    expect(payload.html).toContain("https://vizonix.com/warehousing");
-    expect(payload.html).not.toContain("Veryon");
+    expect(result.ok).toBe(false);
+    expect(resend.send).not.toHaveBeenCalled();
   });
 
   it("does not send a second welcome when the contact is already confirmed for that segment", async () => {
@@ -126,16 +127,11 @@ describe("welcome email on confirm", () => {
     expect(resend.send).not.toHaveBeenCalled();
   });
 
-  it("still welcomes a newly joined segment when the contact is already confirmed elsewhere", async () => {
+  it("rejects a second unknown section the same way", async () => {
     resend.get.mockResolvedValue({ data: { unsubscribed: false }, error: null });
     const result = await confirmSubscription(confirmToken("reader@example.com", "legal"));
-    expect(result.ok).toBe(true);
-    expect(resend.send).toHaveBeenCalledTimes(1);
-    const payload = resend.send.mock.calls[0][0] as { subject: string; html: string };
-    expect(payload.subject).toBe("Welcome to Vizonix - Legal");
-    expect(payload.html).toContain("/legal/unsubscribe?token=");
-    expect(payload.html).not.toContain("ClauseHarbor");
-    expect(payload.html).not.toContain("Northline");
+    expect(result.ok).toBe(false);
+    expect(resend.send).not.toHaveBeenCalled();
   });
 
   it("keeps the confirmation when the welcome send fails", async () => {

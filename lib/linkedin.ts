@@ -16,9 +16,6 @@ const REQUEST_TIMEOUT_MS = 20_000;
 
 const hashtagsBySegment: Record<string, string[]> = {
   aviation: ["#Aviation", "#AI", "#MRO"],
-  legal: ["#Legal", "#AI"],
-  warehousing: ["#Warehousing", "#AI"],
-  "marketing-sales": ["#Marketing", "#AI", "#Sales"],
 };
 
 function sanitize(text: string): string {
