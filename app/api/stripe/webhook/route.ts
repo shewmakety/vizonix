@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { recordPaidReservation, reservationFromSession } from "@/lib/bookings";
 import { notifyOps } from "@/lib/notify";
+import { manualCheckoutNotice, purchaseNotice } from "@/lib/owner-alerts";
 
 export const runtime = "nodejs";
 
@@ -30,8 +31,6 @@ export async function POST(request: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
-  const subscriptionId =
-    typeof session.subscription === "string" ? session.subscription : session.subscription?.id;
   const reservation = reservationFromSession({
     id: session.id,
     created: session.created,
@@ -40,49 +39,16 @@ export async function POST(request: Request) {
   });
 
   if (!reservation) {
-    await notifyOps(
-      "Vizonix checkout needs a manual booking",
-      `Session ${session.id} completed without segment, placement, and week metadata.`,
-    );
+    const manual = manualCheckoutNotice(session);
+    await notifyOps(manual.subject, manual.text);
     return NextResponse.json({ received: true, recorded: false });
   }
 
   const saved = await recordPaidReservation(reservation);
-  const note = [
-    `Session: ${session.id}`,
-    `Section: ${reservation.segment}`,
-    `Placement: ${reservation.placement}`,
-    `Dates: ${reservation.startDate} through ${reservation.endDate}`,
-    `Founding flag: ${reservation.founding ? "yes" : "no"}`,
-    `Exclusivity requested: ${reservation.exclusivityRequested ? "yes" : "no"}`,
-    `Company: ${session.metadata?.company || ""}`,
-    `Email: ${session.customer_email || session.customer_details?.email || ""}`,
-    `Ad copy: ${session.metadata?.ad_copy_url || ""}`,
-    ...(subscriptionId ? [`Subscription: ${subscriptionId}`] : []),
-    ...(reservation.placement === "featured"
-      ? [
-          "Featured listing: set featured.until to the end date and featured.tier to founding or standard on the tool JSON. The Sponsored card stays off until that flag is saved.",
-        ]
-      : []),
-    `Stored: ${saved.stored}`,
-    saved.conflict
-      ? `Conflict with ${saved.conflict.id} (${saved.conflict.startDate} to ${saved.conflict.endDate}).`
-      : "No date conflict.",
-    saved.duplicate ? "Duplicate delivery." : "New reservation.",
-  ].join("\n");
-
   if (!saved.duplicate) {
-    await notifyOps(
-      saved.conflict
-        ? `Vizonix booking conflict: ${reservation.segment} ${reservation.placement}`
-        : `Vizonix booking: ${reservation.segment} ${reservation.placement}`,
-      note,
-    );
-  }
-
-  if (saved.stored === "unstored") {
-    const mailed = await notifyOps("Vizonix booking was not written to the repo", note);
-    if (!mailed) {
+    const alert = purchaseNotice({ session, reservation, saved });
+    const mailed = await notifyOps(alert.subject, alert.text);
+    if (saved.stored === "unstored" && !mailed) {
       return NextResponse.json(
         { error: "Booking could not be stored. Set GITHUB_TOKEN, or RESEND_API_KEY so the ops notice can be sent." },
         { status: 500 },

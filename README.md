@@ -38,7 +38,8 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `RESEND_SEGMENT_ID_AVIATION` | Aviation list | Resend segment id for the launch section. Audiences were renamed to Segments in November 2025. |
 | `RESEND_AUDIENCE_ID_AVIATION` | Legacy alias | Used only if the aviation segment id is empty. |
 | `RESEND_TEST_TO` | Test sends | Single recipient when you are not broadcasting. |
-| `OPS_EMAIL` | Booking and inquiry mail | Defaults to admin@vizonix.com. Sent from admin@vizonix.com through Resend. |
+| `NOTIFY_EMAIL` | Owner alerts | Confirmed subscriber, sponsor purchase, and sponsor inquiry. Comma-separated. Defaults to admin@vizonix.com,tyshewmake@gmail.com. Sent from `EMAIL_FROM` through Resend. |
+| `OPS_EMAIL` | Legacy recipient | Included with the default list only when `NOTIFY_EMAIL` is unset. |
 | `STRIPE_SECRET_KEY` | Checkout | Secret key. |
 | `STRIPE_WEBHOOK_SECRET` | Webhook | Signing secret for `/api/stripe/webhook`. |
 | `STRIPE_PRICE_AVIATION_*` | Aviation checkout | Price id per placement. Featured must be a monthly recurring Price. The others are one-time. See `.env.example`. |
@@ -152,7 +153,7 @@ Webhook:
 2. Event `checkout.session.completed`
 3. Copy the signing secret to `STRIPE_WEBHOOK_SECRET`
 
-The webhook writes `content/bookings.json` through the GitHub API when `GITHUB_TOKEN` and `GITHUB_REPO` are set. The file records section, placement, and dates. It does not record the email. The email, company, and ad-copy URL are in the Stripe session and in the ops notice (`OPS_EMAIL`, default admin@vizonix.com, sent from admin@vizonix.com). A matching newsletter or banner placement with overlapping dates is rejected at checkout. Featured listings can overlap. A completed founding checkout is counted toward the cap of 10.
+The webhook writes `content/bookings.json` through the GitHub API when `GITHUB_TOKEN` and `GITHUB_REPO` are set. The file records section, placement, and dates. It does not record the email. The email, company, ad-copy URL, amount paid, and a Stripe Dashboard link are in the owner notice (`NOTIFY_EMAIL`, default admin@vizonix.com,tyshewmake@gmail.com, sent from `EMAIL_FROM`). A matching newsletter or banner placement with overlapping dates is rejected at checkout. Featured listings can overlap. A completed founding checkout is counted toward the cap of 10. A new confirmed subscriber sends the same owner list a separate notice. The Resend contacts list has no total, so that notice does not include a subscriber count.
 
 Payment Links are optional. If you add one, create custom fields with keys `segment`, `placement`, and `preferred_week` (`YYYY-MM-DD`). Put the URL in `NEXT_PUBLIC_STRIPE_LINK_AVIATION_*`. The sponsor page lists a link for every live section that has one set. Checkout is the path that captures the week without Dashboard field setup.
 

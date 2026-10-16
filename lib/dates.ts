@@ -95,6 +95,20 @@ export function formatPublishedInstant(instant: Date): string {
   }).format(instant);
 }
 
+/** Clock time for owner alerts. America/New_York, including the zone abbreviation. */
+export function formatNewYorkTimestamp(instant: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  }).format(instant);
+}
+
 export function rangesOverlap(
   aStart: string,
   aEnd: string,
