@@ -8,7 +8,7 @@ import {
   foundingSponsorCap,
   launchPlacements,
   maxNewsletterSponsors,
-  primaryLadder,
+  publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
@@ -86,7 +86,8 @@ export function buildLlmsTxt(): string {
     `- [Subscribe](${absoluteUrl("/subscribe")}): double opt-in. The address is not on the list until the reader confirms.`,
     `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
-    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships and the founding offer.`,
+    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships, the Featured listing, and the founding offer.`,
+    `- [Media kit](${absoluteUrl("/media-kit")}): formats and founding prices. Audience numbers are not published yet.`,
     "",
     "## Optional",
     `- [Terms](${absoluteUrl("/terms")})`,
@@ -101,9 +102,9 @@ export function buildLlmsFullTxt(): string {
     return `- ${placement.name}: ${formatUsd(placement.price)} per ${unit}. Founding price ${formatUsd(placement.founding)}. ${placement.description}`;
   });
 
-  const ladderLines = primaryLadder.map((row) => {
+  const ladderLines = publishedPrimaryLadder().map((row) => {
     if (row.primary === null) {
-      return `- ${row.label} active subscribers: primary is a quote. ${row.note}. Secondary is 60% of primary. Classified is 35% of primary.`;
+      return `- ${row.label} active subscribers: primary is a quote. ${row.note}. Secondary and classified follow the rate card.`;
     }
     return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
   });
@@ -178,6 +179,7 @@ export function buildLlmsFullTxt(): string {
     ...placementLines,
     "",
     "## Primary price ladder",
+    "Subscriber tiers above 2,500 are not offered yet.",
     ...ladderLines,
     "",
     `Founding offer: the first ${foundingSponsorCap} sponsors, at half the launch price, locked for 3 months. They then move to the current subscriber tier with a 25% loyalty discount for 3 more months.`,
@@ -187,6 +189,7 @@ export function buildLlmsFullTxt(): string {
     "## Contact",
     `Readers: ${site.emailHello}`,
     `Sponsor inquiries: ${absoluteUrl("/sponsor")}`,
+    `Media kit: ${absoluteUrl("/media-kit")}`,
     `Privacy: ${site.emailPrivacy}`,
     "",
   ].join("\n");

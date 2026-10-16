@@ -3,8 +3,10 @@ import { Crumbs } from "@/components/Crumbs";
 import { DirectoryBrowser } from "@/components/DirectoryBrowser";
 import { JsonLd } from "@/components/JsonLd";
 import { listTools } from "@/lib/content";
-import { filterDirectoryTools, firstQueryValue, knownTopicKeys } from "@/lib/directory";
+import { firstQueryValue, knownTopicKeys } from "@/lib/directory";
 import { directoryViewFromQuery } from "@/lib/directory-view";
+import { todayInNewYork } from "@/lib/dates";
+import { presentDirectory } from "@/lib/featured";
 import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
 import {
@@ -52,10 +54,11 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
   const heading = topicPageHeading(segment.name, topic);
   const description = topicPageDescription(segment.name, topic);
   const path = topicPagePath(segment.slug, topic.key);
-  const tools = filterDirectoryTools(listTools(segment.slug), {
+  const presented = presentDirectory(listTools(segment.slug), {
     topic: topic.key,
     q: firstQueryValue(query.q),
     knownKeys: knownTopicKeys(segment.topics ?? []),
+    today: todayInNewYork(),
   });
   const crumbs = [
     { name: "Vizonix", path: "/" },
@@ -88,7 +91,13 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
       </div>
       <JsonLd
         data={[
-          collectionJsonLd({ name: heading, description, path, tools }),
+          collectionJsonLd({
+            name: heading,
+            description,
+            path,
+            tools: presented.tools,
+            sponsoredSlugs: presented.sponsoredSlugs,
+          }),
           breadcrumbJsonLd(crumbs),
         ]}
       />

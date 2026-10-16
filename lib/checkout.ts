@@ -133,19 +133,35 @@ export function parseCheckoutRequest(
     }
   }
 
-  const window = reservationWindow(placement, startDate, quantity);
-  const conflict = findConflict(options.reservations, {
-    segment: segment.slug,
-    placement,
-    startDate: window.startDate,
-    endDate: window.endDate,
-  });
-  if (conflict) {
+  if (placement === "featured" && quantity !== 1) {
     return {
       ok: false,
-      status: 409,
-      error: `That ${placement} placement is already reserved from ${conflict.startDate} through ${conflict.endDate}.`,
+      status: 400,
+      error: "A Featured listing renews monthly. Choose quantity 1.",
     };
+  }
+  if (placement === "featured" && !company) {
+    return { ok: false, status: 400, error: "Enter the company to feature." };
+  }
+  if (placement === "featured" && !adCopyUrl) {
+    return { ok: false, status: 400, error: "Enter the tool or directory URL to feature." };
+  }
+
+  const window = reservationWindow(placement, startDate, quantity);
+  if (placement !== "featured") {
+    const conflict = findConflict(options.reservations, {
+      segment: segment.slug,
+      placement,
+      startDate: window.startDate,
+      endDate: window.endDate,
+    });
+    if (conflict) {
+      return {
+        ok: false,
+        status: 409,
+        error: `That ${placement} placement is already reserved from ${conflict.startDate} through ${conflict.endDate}.`,
+      };
+    }
   }
 
   return {
@@ -160,7 +176,7 @@ export function parseCheckoutRequest(
       company,
       adCopyUrl,
       founding: flag(body.founding),
-      exclusivityRequested: flag(body.exclusivity),
+      exclusivityRequested: Boolean(getPlacement(placement)?.newsletter) && flag(body.exclusivity),
       honeypot: false,
     },
   };

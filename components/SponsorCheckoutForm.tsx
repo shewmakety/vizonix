@@ -13,13 +13,21 @@ export function SponsorCheckoutForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
   const selected = getPlacement(placement);
   const price = selected ? (founding ? selected.founding : selected.price) : null;
+  const featured = selected?.id === "featured";
   const unit = selected?.unit === "month" ? "month" : "week";
-  const quantityLabel = unit === "month" ? "Number of months" : "Number of weeks";
+  const heading = featured
+    ? "Featured listing, monthly"
+    : selected?.newsletter
+      ? "Reserve a newsletter week"
+      : "Reserve a placement";
 
   const helper = useMemo(() => {
     if (!selected) return "";
-    if (selected.id === "banner" || selected.id === "featured") {
-      return "Banner and featured listings can start on any day.";
+    if (selected.id === "featured") {
+      return "A Featured listing can start on any day. It renews each month until it is cancelled.";
+    }
+    if (selected.id === "banner") {
+      return "A section banner can start on any day.";
     }
     return "A newsletter week starts on Monday and covers Monday through Friday.";
   }, [selected]);
@@ -54,11 +62,14 @@ export function SponsorCheckoutForm() {
 
   return (
     <form className="form-card" onSubmit={onSubmit}>
-      <h2>Reserve a week</h2>
+      <h2>{heading}</h2>
       <p className="form-note">
-        Checkout charges the launch price
-        {price !== null ? ` (${formatUsd(price)} per ${unit} before any code you enter on Stripe)` : ""}.
-        The week is blocked after Stripe confirms payment.
+        {featured
+          ? "Checkout starts a monthly subscription"
+          : "Checkout charges the launch price"}
+        {price !== null ? ` at ${formatUsd(price)} per ${unit}` : ""}. A newsletter week is blocked
+        after Stripe confirms payment. A Featured listing is turned on after that same confirmation.
+        The founding rate, when the box is checked, does not combine with another discount.
       </p>
       <label htmlFor="sponsor-segment">Section</label>
       <select id="sponsor-segment" name="segment" defaultValue={active[0]?.slug ?? ""}>
@@ -85,14 +96,28 @@ export function SponsorCheckoutForm() {
       <p className="form-note">{helper}</p>
       <label htmlFor="startDate">Preferred start date</label>
       <input id="startDate" name="startDate" type="date" required />
-      <label htmlFor="quantity">{quantityLabel}</label>
-      <input id="quantity" name="quantity" type="number" min={1} max={12} defaultValue={1} />
-      <label htmlFor="company">Company</label>
-      <input id="company" name="company" autoComplete="organization" />
+      {featured ? (
+        <input type="hidden" name="quantity" value="1" />
+      ) : (
+        <>
+          <label htmlFor="quantity">Number of weeks</label>
+          <input id="quantity" name="quantity" type="number" min={1} max={12} defaultValue={1} />
+        </>
+      )}
+      <label htmlFor="company">Company{featured ? " (required)" : ""}</label>
+      <input id="company" name="company" autoComplete="organization" required={featured} />
       <label htmlFor="sponsor-email">Email for the receipt</label>
       <input id="sponsor-email" name="email" type="email" required autoComplete="email" />
-      <label htmlFor="adCopyUrl">Link to ad copy, optional</label>
-      <input id="adCopyUrl" name="adCopyUrl" type="url" placeholder="https://" />
+      <label htmlFor="adCopyUrl">
+        {featured ? "Tool or directory URL (required)" : "Link to ad copy, optional"}
+      </label>
+      <input
+        id="adCopyUrl"
+        name="adCopyUrl"
+        type="url"
+        placeholder="https://"
+        required={featured}
+      />
       <label className="check">
         <input
           name="founding"
@@ -102,18 +127,20 @@ export function SponsorCheckoutForm() {
         />
         <span>
           Request the founding rate
-          {selected ? ` (${formatUsd(selected.founding)} per ${unit})` : ""}. On the Stripe page, enter
-          code FOUNDING if the price has not already been reduced. The first 10 sponsors, locked for 3
-          months.
+          {selected ? ` (${formatUsd(selected.founding)} per ${unit})` : ""}. Half off, locked for 3
+          months, for the first 10 sponsors across products. Checkout applies it. It does not combine
+          with another discount.
         </span>
       </label>
-      <label className="check">
-        <input name="exclusivity" type="checkbox" />
-        <span>
-          Request exclusivity for that week (50% above the listed price). Checkout charges the listed
-          price. We confirm the surcharge by email before the week is marked exclusive.
-        </span>
-      </label>
+      {selected?.newsletter ? (
+        <label className="check">
+          <input name="exclusivity" type="checkbox" />
+          <span>
+            Request exclusivity for that week (50% above the listed price). Checkout charges the listed
+            price. We confirm the surcharge by email before the week is marked exclusive.
+          </span>
+        </label>
+      ) : null}
       <div className="hp" aria-hidden="true">
         <label htmlFor="sponsor-company-website">Company website</label>
         <input id="sponsor-company-website" name="company_website" tabIndex={-1} autoComplete="off" />

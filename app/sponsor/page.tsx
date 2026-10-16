@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { SponsorCheckoutForm } from "@/components/SponsorCheckoutForm";
+import { SponsorInquiryForm } from "@/components/SponsorInquiryForm";
 import { loadReservations, publicReservations } from "@/lib/bookings";
 import { formatLongDate } from "@/lib/dates";
 import { sponsorFaqJsonLd } from "@/lib/jsonld";
 import {
-  classifiedRatio,
   exclusivityPremium,
   formatUsd,
   foundingSponsorCap,
@@ -13,9 +13,10 @@ import {
   launchPlacements,
   loyaltyDiscount,
   maxNewsletterSponsors,
-  primaryLadder,
+  publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
+  classifiedRatio,
   stripeLinkEnvKey,
 } from "@/lib/rate-card";
 import { pageMeta } from "@/lib/meta";
@@ -41,6 +42,9 @@ export default async function SponsorPage({
     (segment) => segment.status === "active" && segment.slug !== featured.slug,
   );
   const reserved = publicReservations(await loadReservations());
+  const ladder = publishedPrimaryLadder();
+  const floorPrimary = ladder[0]?.primary;
+  const nextPrimary = ladder[1]?.primary;
   const links = segments
     .filter((segment) => segment.status === "active")
     .flatMap((segment) =>
@@ -73,6 +77,9 @@ export default async function SponsorPage({
         {status === "cancelled" ? (
           <p className="notice">Checkout was cancelled. No charge was made.</p>
         ) : null}
+        <p>
+          <Link href="/media-kit">Media kit</Link> with placement mockups, founding prices, and a PDF.
+        </p>
 
         <h2>Launch placements</h2>
         <div className="table-wrap">
@@ -81,7 +88,7 @@ export default async function SponsorPage({
               <tr>
                 <th>Placement</th>
                 <th>What you get</th>
-                <th>Weekly price</th>
+                <th>Price</th>
                 <th>Founding price</th>
               </tr>
             </thead>
@@ -113,10 +120,10 @@ export default async function SponsorPage({
         <h2>Founding sponsor offer</h2>
         <p>
           The founding rate is half the launch price. It is for the first {foundingSponsorCap} sponsors
-          and stays in place for 3 months of bookings. After that, the sponsor moves to whatever
+          across products and stays in place for 3 months. After that, the sponsor moves to whatever
           subscriber tier the section is in, with a {loyaltyDiscount * 100}% loyalty discount for 3 more
-          months. Check the founding box in checkout. If Stripe still shows the full price, enter the
-          code FOUNDING.
+          months. Check the founding box in checkout. The rate is applied there, and it does not combine
+          with another discount.
         </p>
         <p>
           After the first 4 weeks of sending, we will set a click bar. If a paid week comes in under
@@ -126,11 +133,15 @@ export default async function SponsorPage({
 
         <h2>Price ladder</h2>
         <p>
-          Primary slot, per week. Secondary is {secondaryRatio * 100}% of primary. Classified is{" "}
-          {classifiedRatio * 100}% of primary. The 0-1,000 row is a floor, so the per-subscriber figure
-          is not meaningful there. Open rate and audience makeup will be published on this page once a
-          month of {featured.name.toLowerCase()} issues has been sent. Those figures are not published
-          yet.
+          Primary slot, per week. At the launch floor, secondary is{" "}
+          {formatUsd(getPlacement("secondary")?.price ?? 0)} and classified is{" "}
+          {formatUsd(getPlacement("classified")?.price ?? 0)}, the same figures as the placement table.
+          {floorPrimary !== null && nextPrimary !== null && nextPrimary !== undefined && floorPrimary !== undefined
+            ? ` The ${ladder[1]?.label} row scales from those rate-card prices: secondary ${formatUsd(scaledFromPrimary(nextPrimary, secondaryRatio))} and classified ${formatUsd(scaledFromPrimary(nextPrimary, classifiedRatio))} when primary is ${formatUsd(nextPrimary)}.`
+            : ""}{" "}
+          Tiers above 2,500 subscribers are not offered yet. Open rate and audience makeup will be
+          published on this page once a month of {featured.name.toLowerCase()} issues has been sent.
+          Those figures are not published yet.
         </p>
         <div className="table-wrap">
           <table>
@@ -144,19 +155,15 @@ export default async function SponsorPage({
               </tr>
             </thead>
             <tbody>
-              {primaryLadder.map((row) => (
+              {ladder.map((row) => (
                 <tr key={row.label}>
                   <td>{row.label}</td>
                   <td className="num">{row.primary === null ? "Quote" : formatUsd(row.primary)}</td>
                   <td className="num">
-                    {row.primary === null
-                      ? "60% of primary"
-                      : formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}
+                    {row.primary === null ? "Quote" : formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}
                   </td>
                   <td className="num">
-                    {row.primary === null
-                      ? "35% of primary"
-                      : formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}
+                    {row.primary === null ? "Quote" : formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}
                   </td>
                   <td>{row.note}</td>
                 </tr>
@@ -203,12 +210,18 @@ export default async function SponsorPage({
               </>
             ) : (
               <p className="form-note">
-                Payment Links are optional. If checkout is not connected yet, use the form on this page
-                with the placement and the Monday you want.
+                Payment Links are optional. Paid placements use the checkout form. Questions still reach
+                us through the inquiry form below.
               </p>
             )}
-            <p>Questions about a bundle or a multi-week run: use the form on this page.</p>
+            <p>
+              Questions about a bundle or a multi-week run: use the{" "}
+              <a href="#inquiry">inquiry form</a>.
+            </p>
           </div>
+        </div>
+        <div style={{ marginTop: "2rem" }}>
+          <SponsorInquiryForm />
         </div>
       </div>
       <JsonLd data={sponsorFaqJsonLd()} />

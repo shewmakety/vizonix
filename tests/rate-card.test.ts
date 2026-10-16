@@ -5,11 +5,13 @@ import {
   foundingSponsorCap,
   launchPlacements,
   primaryLadder,
+  publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
   stripeLinkEnvKey,
   stripePriceEnvKey,
 } from "@/lib/rate-card";
+import { buildLlmsFullTxt } from "@/lib/llms";
 
 describe("launch rate card", () => {
   it("matches the Oct 14 2026 launch prices", () => {
@@ -30,13 +32,23 @@ describe("launch rate card", () => {
     expect(foundingSponsorCap).toBe(10);
   });
 
-  it("scales the ladder by the published ratios", () => {
-    expect(secondaryRatio).toBe(0.6);
-    expect(classifiedRatio).toBe(0.35);
+  it("scales the published ladder from the rate card", () => {
+    expect(secondaryRatio).toBeCloseTo(175 / 300);
+    expect(classifiedRatio).toBeCloseTo(100 / 300);
     expect(primaryLadder.map((row) => row.primary)).toEqual([300, 400, 750, 1250, 2500, 4500, null]);
-    expect(scaledFromPrimary(400, secondaryRatio)).toBe(240);
-    expect(scaledFromPrimary(400, classifiedRatio)).toBe(140);
+    expect(publishedPrimaryLadder().map((row) => row.label)).toEqual(["0-1,000", "1,000-2,500"]);
+    expect(scaledFromPrimary(300, secondaryRatio)).toBe(175);
+    expect(scaledFromPrimary(300, classifiedRatio)).toBe(100);
+    expect(scaledFromPrimary(400, secondaryRatio)).toBe(233);
+    expect(scaledFromPrimary(400, classifiedRatio)).toBe(133);
     expect(formatUsd(300)).toBe("$300");
+    const full = buildLlmsFullTxt();
+    expect(full).toContain("Secondary $175");
+    expect(full).toContain("Classified $100");
+    expect(full).not.toContain("2,500-5,000");
+    expect(full).not.toContain("$4,500");
+    expect(full).not.toContain("60%");
+    expect(full).not.toContain("35%");
   });
 
   it("builds stripe env keys without putting secrets in the name", () => {

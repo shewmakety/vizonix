@@ -1,5 +1,7 @@
 import { listIssues } from "@/lib/content";
+import { todayInNewYork } from "@/lib/dates";
 import { configuredTopicsForTool, toolTopicKeys } from "@/lib/directory";
+import { isFeaturedActive } from "@/lib/featured";
 import { issueTools, type Issue, type ToolEntry } from "@/lib/schema";
 import { getSegment, segmentTopics, type Segment } from "@/lib/segments";
 
@@ -13,11 +15,19 @@ export function toolPageTitle(tool: ToolEntry, segment: Segment, peers: ToolEntr
   return `${label} - AI for ${phrase} in ${segment.name.toLowerCase()}`;
 }
 
-export function relatedTools(tool: ToolEntry, peers: ToolEntry[], limit = 4): ToolEntry[] {
+export function relatedTools(
+  tool: ToolEntry,
+  peers: ToolEntry[],
+  limit = 4,
+  today = todayInNewYork(),
+): ToolEntry[] {
   const keys = new Set(toolTopicKeys(tool));
-  return peers
-    .filter((other) => other.slug !== tool.slug && toolTopicKeys(other).some((key) => keys.has(key)))
-    .slice(0, limit);
+  const matches = peers.filter(
+    (other) => other.slug !== tool.slug && toolTopicKeys(other).some((key) => keys.has(key)),
+  );
+  const featured = matches.filter((other) => isFeaturedActive(other, today));
+  const rest = matches.filter((other) => !isFeaturedActive(other, today));
+  return [...featured, ...rest].slice(0, limit);
 }
 
 export function issuesMentioningTool(segmentSlug: string, slug: string): Issue[] {

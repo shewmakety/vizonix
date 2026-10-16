@@ -16,7 +16,7 @@ export type SitemapEntry = {
 /** First aviation issue publish time. Static pages use this, then clamp to now. */
 export const SITE_PUBLISHED_AT = new Date("2026-10-15T10:28:02.000Z");
 
-const staticPaths = ["/", "/about", "/privacy", "/terms", "/subscribe", "/sponsor"];
+const staticPaths = ["/", "/about", "/privacy", "/terms", "/subscribe", "/sponsor", "/media-kit"];
 
 export function allIndexPaths(): IndexPath[] {
   const paths: IndexPath[] = staticPaths.map((path) => ({ path, sample: false }));

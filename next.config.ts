@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     "/api/publish": ["./content/**/*"],
     "/api/stripe/webhook": ["./content/**/*"],
     "/sponsor": ["./content/**/*"],
+    "/media-kit": ["./content/**/*"],
+    "/media-kit.pdf": ["./content/**/*"],
     "/[segment]": ["./content/**/*"],
     "/[segment]/issues": ["./content/**/*"],
     "/[segment]/issues/[date]": ["./content/**/*"],

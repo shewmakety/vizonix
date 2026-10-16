@@ -11,6 +11,7 @@ const storageKey = "vizonix-tool-directory-view";
 export function ToolDirectory({
   segmentSlug,
   tools,
+  sponsoredSlugs,
   initialView,
   chips,
   activeKey,
@@ -20,6 +21,7 @@ export function ToolDirectory({
 }: {
   segmentSlug: string;
   tools: ToolEntry[];
+  sponsoredSlugs: string[];
   initialView: DirectoryView;
   chips: DirectoryChip[];
   activeKey: string;
@@ -28,6 +30,7 @@ export function ToolDirectory({
   hiddenTopic?: string;
 }) {
   const [view, setView] = useState<DirectoryView>(initialView);
+  const sponsored = new Set(sponsoredSlugs);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -111,31 +114,61 @@ export function ToolDirectory({
         <p className="notice">No tools match that filter.</p>
       ) : view === "list" ? (
         <ul className="tool-directory-list">
-          {tools.map((tool) => (
-            <li key={tool.slug}>
-              <span className="tool-directory-name">
-                {tool.sample ? <span className="pill sample">Sample listing</span> : null}
-                <Link href={`/${segmentSlug}/tools/${tool.slug}`}>{tool.name}</Link>
-              </span>
-              <span className="meta">{tool.company ?? ""}</span>
-              <p className="blurb">{tool.summary}</p>
-            </li>
-          ))}
+          {tools.map((tool) => {
+            const paid = sponsored.has(tool.slug);
+            return (
+              <li key={tool.slug} className={paid ? "sponsored" : undefined}>
+                <span className="tool-directory-name">
+                  {paid ? <span className="pill sponsored">Sponsored</span> : null}
+                  {tool.sample ? <span className="pill sample">Sample listing</span> : null}
+                  <Link href={`/${segmentSlug}/tools/${tool.slug}`}>{tool.name}</Link>
+                </span>
+                <span className="meta">{tool.company ?? ""}</span>
+                <div className={paid ? "blurb sponsored-blurb" : "blurb"}>
+                  {paid && tool.featured?.logo ? (
+                    <img className="tool-logo" src={tool.featured.logo} alt="" />
+                  ) : null}
+                  <p>{paid && tool.featured?.blurb ? tool.featured.blurb : tool.summary}</p>
+                  {paid && tool.featured?.cta && tool.featured.ctaUrl ? (
+                    <p>
+                      <a href={tool.featured.ctaUrl} rel="sponsored noopener noreferrer">
+                        {tool.featured.cta}
+                      </a>
+                    </p>
+                  ) : null}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       ) : (
         <div className="tool-grid">
-          {tools.map((tool) => (
-            <article className="card" key={tool.slug}>
-              {tool.sample ? <p className="pill sample">Sample listing</p> : null}
-              <p className="meta">{tool.category}</p>
-              <h2>
-                <Link href={`/${segmentSlug}/tools/${tool.slug}`}>{tool.name}</Link>
-              </h2>
-              <p>{tool.summary}</p>
-              {tool.company ? <p className="meta">{tool.company}</p> : null}
-              {tool.bestFor ? <p className="meta">{tool.bestFor}</p> : null}
-            </article>
-          ))}
+          {tools.map((tool) => {
+            const paid = sponsored.has(tool.slug);
+            return (
+              <article className={paid ? "card sponsored" : "card"} key={tool.slug}>
+                {paid ? <p className="pill sponsored">Sponsored</p> : null}
+                {tool.sample ? <p className="pill sample">Sample listing</p> : null}
+                {paid && tool.featured?.logo ? (
+                  <img className="tool-logo" src={tool.featured.logo} alt="" />
+                ) : null}
+                <p className="meta">{tool.category}</p>
+                <h2>
+                  <Link href={`/${segmentSlug}/tools/${tool.slug}`}>{tool.name}</Link>
+                </h2>
+                <p>{paid && tool.featured?.blurb ? tool.featured.blurb : tool.summary}</p>
+                {tool.company ? <p className="meta">{tool.company}</p> : null}
+                {tool.bestFor ? <p className="meta">{tool.bestFor}</p> : null}
+                {paid && tool.featured?.cta && tool.featured.ctaUrl ? (
+                  <p>
+                    <a href={tool.featured.ctaUrl} rel="sponsored noopener noreferrer">
+                      {tool.featured.cta}
+                    </a>
+                  </p>
+                ) : null}
+              </article>
+            );
+          })}
         </div>
       )}
     </>

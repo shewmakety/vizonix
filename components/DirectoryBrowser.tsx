@@ -1,12 +1,9 @@
 import { ToolDirectory } from "@/components/ToolDirectory";
 import { listTools } from "@/lib/content";
-import {
-  directoryChips,
-  filterDirectoryTools,
-  knownTopicKeys,
-  otherTopicKey,
-} from "@/lib/directory";
+import { todayInNewYork } from "@/lib/dates";
+import { directoryChips, knownTopicKeys, otherTopicKey } from "@/lib/directory";
 import type { DirectoryView } from "@/lib/directory-view";
+import { presentDirectory } from "@/lib/featured";
 import { type Segment, topicPagePath } from "@/lib/segments";
 
 export function DirectoryBrowser({
@@ -26,10 +23,11 @@ export function DirectoryBrowser({
 }) {
   const topics = segment.topics ?? [];
   const tools = listTools(segment.slug);
-  const filtered = filterDirectoryTools(tools, {
+  const presented = presentDirectory(tools, {
     topic: activeTopic,
     q: query,
     knownKeys: knownTopicKeys(topics),
+    today: todayInNewYork(),
   });
   const onTopicPage = linkMode === "path" && activeTopic && activeTopic !== otherTopicKey;
   const searchAction = onTopicPage ? topicPagePath(segment.slug, activeTopic) : `/${segment.slug}/tools`;
@@ -38,7 +36,8 @@ export function DirectoryBrowser({
   return (
     <ToolDirectory
       segmentSlug={segment.slug}
-      tools={filtered}
+      tools={presented.tools}
+      sponsoredSlugs={presented.sponsoredSlugs}
       initialView={view}
       chips={directoryChips(segment.slug, topics, tools, linkMode)}
       activeKey={activeTopic ?? "all"}

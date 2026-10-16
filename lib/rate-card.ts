@@ -99,8 +99,15 @@ export const launchPlacements: LaunchPlacement[] = [
   },
 ];
 
-export const secondaryRatio = 0.6;
-export const classifiedRatio = 0.35;
+function placementPrice(id: Placement): number {
+  const placement = launchPlacements.find((item) => item.id === id);
+  if (!placement) throw new Error(`Missing rate card placement: ${id}`);
+  return placement.price;
+}
+
+/** Secondary and classified follow the launch rate card, not a rounded percent. */
+export const secondaryRatio = placementPrice("secondary") / placementPrice("primary");
+export const classifiedRatio = placementPrice("classified") / placementPrice("primary");
 export const exclusivityPremium = 0.5;
 export const maxNewsletterSponsors = 3;
 export const foundingSponsorCap = 10;
@@ -114,7 +121,7 @@ export type LadderRow = {
   note: string;
 };
 
-/** Primary slot, weekly. Other newsletter slots scale by the ratios above. */
+/** Primary slot, weekly. Other newsletter slots scale from the launch rate card. */
 export const primaryLadder: LadderRow[] = [
   { label: "0-1,000", primary: 300, note: "Floor" },
   { label: "1,000-2,500", primary: 400, note: "About $32-$80 per 1,000 subs per issue" },
@@ -128,6 +135,19 @@ export const primaryLadder: LadderRow[] = [
     note: "Quote, about $15-$20 per 1,000 subs per issue",
   },
 ];
+
+/**
+ * Bands that start at this many subscribers stay off the public page and llms.txt.
+ * The full ladder remains in code for when those tiers open.
+ */
+export const publishedSubscriberCeiling = 2500;
+
+export function publishedPrimaryLadder(): LadderRow[] {
+  return primaryLadder.filter((row) => {
+    const start = Number(row.label.replace(/,/g, "").split(/[-+]/)[0]);
+    return Number.isFinite(start) && start < publishedSubscriberCeiling;
+  });
+}
 
 export function scaledFromPrimary(primary: number, ratio: number): number {
   return Math.round(primary * ratio);
