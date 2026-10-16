@@ -48,19 +48,32 @@ afterEach(() => {
 });
 
 describe("LinkedIn post text", () => {
-  it("stays within 1200 characters, keeps the URL, and uses regular hyphens", () => {
+  it("stays within 1300 characters, keeps the URL, and uses regular hyphens", () => {
     const url = "https://www.vizonix.com/aviation/issues/2026-10-16";
     const text = buildLinkedInPost(issue(), url);
-    expect(text.length).toBeLessThanOrEqual(1200);
-    expect(text).toContain(url);
-    expect(text).toContain("Friday, October 16, 2026. Vizonix Aviation briefing:");
-    expect(text).toContain("Free every morning. Subscribe at vizonix.com/aviation");
-    expect(text).toContain("#Aviation");
+    expect(text.length).toBeLessThanOrEqual(1300);
+    expect(text).toBe(`AI moves into the hangar, plus 7 places to put it to work
+
+On October 13, Veryon launched Veryon for Business Aviation, one platform that combines maintenance tracking, MRO management, defect analysis and technical publications for charter operators, management companies, MROs and flight departments.
+
+- SmartMatch (Aviation Job Search): AI candidate matching built for aviation hiring.
+- Flight Leads (Levo): An AI sales dashboard for charter operators, launched July 2, 2026.
+- Maintenance Insight (StandardAero): Predictive maintenance and reliability tools that use AI, machine learning and digital twins to analyze engine failure modes and inform work scoping.
+- Tailsight: AI maintenance planning and optimization for airline tech ops.
+
+Read the full issue: ${url}
+Free AI briefing for aviation. Subscribe: https://www.vizonix.com/aviation
+
+#Aviation #AI #MRO`);
+    expect(text).not.toContain("TalentVista (TalentVista)");
+    expect(text).not.toContain("Tailsight (Tailsight)");
+    expect(text).not.toContain("...");
+    expect(text).not.toContain("Plus ");
     expect(text).not.toContain(dash(0x2013));
     expect(text).not.toContain(dash(0x2014));
 
     const marked = structuredClone(issue());
-    marked.lead.title = `Hangar${dash(0x2014)}desk${dash(0x2013)}note`;
+    marked.subject = `Hangar${dash(0x2014)}desk${dash(0x2013)}note`;
     marked.lead.summary = `One sentence${dash(0x2014)}here. Second sentence.`;
     const cleaned = buildLinkedInPost(marked, url);
     expect(cleaned).not.toContain(dash(0x2013));
@@ -72,18 +85,19 @@ describe("LinkedIn post text", () => {
   it("trims bullets before it would cut the issue URL", () => {
     const url = "https://www.vizonix.com/aviation/issues/2026-10-16";
     const huge = structuredClone(issue());
+    huge.subject = "T".repeat(180);
     huge.lead.title = "T".repeat(180);
-    huge.lead.summary = "Sentence one is long enough to matter. Sentence two keeps going. ".repeat(40);
+    huge.lead.summary = `${"This sentence keeps going without a stop ".repeat(80).trim()}.`;
     huge.playbook.title = "Playbook title ".repeat(20);
     for (const section of huge.sections ?? []) {
-      section.topic = `${section.topic ?? "Topic"} `.repeat(8).trim();
       for (const tool of section.tools) {
-        tool.summary = "Tool sentence about the product and the buyer. ".repeat(12);
+        tool.summary = `${"Tool sentence without a stop ".repeat(40).trim()}.`;
       }
     }
     const text = buildLinkedInPost(huge, url);
-    expect(text.length).toBeLessThanOrEqual(1200);
+    expect(text.length).toBeLessThanOrEqual(1300);
     expect(text).toContain(url);
+    expect(text).not.toContain("...");
     expect(text).toContain("Read the full issue: https://www.vizonix.com/aviation/issues/2026-10-16");
   });
 });
@@ -174,7 +188,7 @@ describe("LinkedIn post gates", () => {
         expect(form.get("as_organization")).toBe("org_vz");
         expect(form.get("external_link")).toBe(pageUrl);
         const text = String(form.get("text"));
-        expect(text.length).toBeLessThanOrEqual(1200);
+        expect(text.length).toBeLessThanOrEqual(1300);
         expect(text).toContain(pageUrl);
         expect(text).not.toContain(dash(0x2013));
         expect(text).not.toContain(dash(0x2014));

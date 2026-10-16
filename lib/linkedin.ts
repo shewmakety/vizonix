@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { githubConfigured, readRepoFile, writeRepoFile } from "@/lib/github";
-import { issueSections, type Issue } from "@/lib/schema";
-import { formatIssueDate } from "@/lib/dates";
+import { issueSections, productivitySectionTopic, type Issue, type IssueTool } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
 
 export type LinkedInPostResult = {
@@ -12,7 +11,7 @@ export type LinkedInPostResult = {
   error?: string;
 };
 
-const POST_LIMIT = 1200;
+const POST_LIMIT = 1300;
 const REQUEST_TIMEOUT_MS = 20_000;
 
 const hashtagsBySegment: Record<string, string[]> = {
@@ -23,26 +22,55 @@ function sanitize(text: string): string {
   return text.replace(/\u2014/g, "-").replace(/\u2013/g, "-").replace(/\s+/g, " ").trim();
 }
 
-function clip(text: string, max: number): string {
-  const clean = sanitize(text);
-  if (clean.length <= max) return clean;
-  const cut = clean.slice(0, Math.max(0, max - 3));
-  const lastSpace = cut.lastIndexOf(" ");
-  const shortened = (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trimEnd();
-  return `${shortened}...`;
+function sentences(text: string): string[] {
+  return sanitize(text)
+    .split(/(?<=[.!?])\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
 }
 
-function firstSentences(text: string, count: number): string {
-  const clean = sanitize(text);
-  const parts = clean.split(/(?<=[.!?])\s+/).filter(Boolean);
-  if (parts.length === 0) return clean;
-  return parts.slice(0, count).join(" ");
+/** One complete sentence. A short dateline is skipped when a later sentence says what the product does. */
+function descriptiveSentence(text: string): string {
+  const parts = sentences(text);
+  const useful = parts.find((part) => part.length >= 40);
+  return useful ?? parts[0] ?? sanitize(text);
 }
 
-function joinList(items: string[]): string {
-  if (items.length <= 1) return items[0] ?? "";
-  if (items.length === 2) return `${items[0]} and ${items[1]}`;
-  return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
+function sameName(toolName: string, company: string | undefined): boolean {
+  const vendor = company?.trim();
+  if (!vendor) return false;
+  return vendor.toLowerCase() === toolName.trim().toLowerCase();
+}
+
+function toolLabel(tool: IssueTool): string {
+  if (tool.company && !sameName(tool.name, tool.company)) return `${tool.name} (${tool.company})`;
+  return tool.name;
+}
+
+function toolsInOrder(issue: Issue): IssueTool[] {
+  const sections = issueSections(issue);
+  const industry = sections.filter((section) => section.topic !== productivitySectionTopic);
+  const rest = sections.filter((section) => section.topic === productivitySectionTopic);
+  return [...industry, ...rest].flatMap((section) => section.tools);
+}
+
+/** One tool from each industry section, up to four, each described in one complete sentence. */
+function pickTools(issue: Issue): IssueTool[] {
+  const sections = issueSections(issue).filter((section) => section.topic !== productivitySectionTopic);
+  const picked: IssueTool[] = [];
+  for (const section of sections) {
+    const tool =
+      section.tools.find((item) => descriptiveSentence(item.summary).length <= 180) ?? section.tools[0];
+    if (tool) picked.push(tool);
+    if (picked.length === 4) break;
+  }
+  if (picked.length >= 3) return picked;
+  for (const tool of toolsInOrder(issue)) {
+    if (picked.includes(tool)) continue;
+    picked.push(tool);
+    if (picked.length === 4) break;
+  }
+  return picked;
 }
 
 export function linkedInIssueUrl(issue: Pick<Issue, "segment" | "date">): string {
@@ -50,82 +78,40 @@ export function linkedInIssueUrl(issue: Pick<Issue, "segment" | "date">): string
   return `${base}/${issue.segment}/issues/${issue.date}`;
 }
 
-/** Post copy for one issue. The issue URL is kept whole, and the result stays within 1200 characters. */
+function subscribeLine(issue: Pick<Issue, "segment">, issueUrl: string): string {
+  const segmentName = (getSegment(issue.segment)?.name ?? issue.segment).toLowerCase();
+  let origin = "https://www.vizonix.com";
+  try {
+    origin = new URL(issueUrl).origin;
+  } catch {
+    origin = (process.env.NEXT_PUBLIC_SITE_URL || origin).replace(/\/$/, "");
+  }
+  return `Free AI briefing for ${segmentName}. Subscribe: ${origin}/${issue.segment}`;
+}
+
+/** Post copy for one issue. Sentences stay whole, and the result stays within 1300 characters. */
 export function buildLinkedInPost(issue: Issue, issueUrl: string): string {
-  const segmentName = getSegment(issue.segment)?.name ?? issue.segment;
   const tags = hashtagsBySegment[issue.segment] ?? ["#Vizonix", "#AI"];
-  const sections = issueSections(issue);
-  const tools = sections.flatMap((section, sectionIndex) =>
-    section.tools.map((tool) => ({ tool, sectionIndex })),
-  );
-  const usedSections = new Set<number>();
-  const bullets = [clip(firstSentences(issue.lead.summary, 2), 280)];
-  if (tools[0]) {
-    const tool = tools[0].tool;
-    const who = tool.company ? `${tool.name} (${tool.company})` : tool.name;
-    bullets.push(clip(`${who}: ${firstSentences(tool.summary, 1)}`, 280));
-    usedSections.add(tools[0].sectionIndex);
-  }
-  if (tools[1]) {
-    const tool = tools[1].tool;
-    const who = tool.company ? `${tool.name} (${tool.company})` : tool.name;
-    bullets.push(clip(`${who}: ${firstSentences(tool.summary, 1)}`, 280));
-    usedSections.add(tools[1].sectionIndex);
-  } else {
-    const intro = sections.find((section) => section.intro);
-    if (intro?.intro) {
-      const label = intro.topic ? `${intro.topic}: ` : "";
-      bullets.push(clip(`${label}${firstSentences(intro.intro, 1)}`, 280));
-    }
-  }
-
-  const remaining = sections
-    .filter((section, index) => !usedSections.has(index) && section.topic)
-    .map((section) => section.topic as string);
-  const plus = remaining.length
-    ? `Plus ${joinList(remaining)} and the playbook ${issue.playbook.title}.`
-    : `Plus the playbook ${issue.playbook.title}.`;
-
-  let hook = clip(issue.lead.title || issue.subject, 180);
-  let plusLine = clip(plus, 240);
-  let lines = bullets.map((bullet) => sanitize(bullet)).filter(Boolean);
+  const hook = sanitize(issue.subject || issue.lead.title);
+  let story = descriptiveSentence(issue.lead.summary);
+  let bullets = pickTools(issue).map((tool) => `${toolLabel(tool)}: ${descriptiveSentence(tool.summary)}`);
 
   const render = () => {
-    const parts = [
-      hook,
-      "",
-      `${formatIssueDate(issue)}. Vizonix ${segmentName} briefing:`,
-      ...lines.map((bullet) => `- ${bullet}`),
-      "",
-      plusLine,
-      "",
+    const parts = [hook, ""];
+    if (story) parts.push(story, "");
+    for (const bullet of bullets) parts.push(`- ${bullet}`);
+    if (bullets.length) parts.push("");
+    parts.push(
       `Read the full issue: ${issueUrl}`,
-      `Free every morning. Subscribe at vizonix.com/${issue.segment}`,
+      subscribeLine(issue, issueUrl),
       "",
       tags.join(" "),
-    ];
+    );
     return parts.join("\n");
   };
 
-  while (render().length > POST_LIMIT && lines.length > 0) {
-    const last = lines[lines.length - 1];
-    if (last.length > 80) {
-      lines[lines.length - 1] = clip(last, Math.max(60, last.length - 40));
-      continue;
-    }
-    if (lines.length > 1) {
-      lines.pop();
-      continue;
-    }
-    break;
-  }
-  while (render().length > POST_LIMIT && plusLine.length > 40) {
-    plusLine = clip(plusLine, Math.max(40, plusLine.length - 30));
-  }
-  while (render().length > POST_LIMIT && hook.length > 40) {
-    hook = clip(hook, Math.max(40, hook.length - 20));
-  }
-  if (render().length > POST_LIMIT) lines = [];
+  while (render().length > POST_LIMIT && bullets.length > 0) bullets.pop();
+  if (render().length > POST_LIMIT) story = "";
   return render();
 }
 
