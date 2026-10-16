@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/checkout": ["./content/**/*"],
     "/api/publish": ["./content/**/*"],
+    "/api/linkedin-post": ["./content/**/*"],
     "/api/stripe/webhook": ["./content/**/*"],
     "/sponsor": ["./content/**/*"],
     "/media-kit": ["./content/**/*"],

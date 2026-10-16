@@ -32,7 +32,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production links | Canonical URL, no trailing slash. Default `https://vizonix.com`. |
 | `TOKEN_SECRET` | Signup | HMAC secret for confirm and unsubscribe links. |
-| `PUBLISH_SECRET` | `POST /api/publish` | Bearer token. |
+| `PUBLISH_SECRET` | `POST /api/publish` and `POST /api/linkedin-post` | Bearer token. |
 | `RESEND_API_KEY` | Email and the list | Resend API key. |
 | `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <admin@vizonix.com>`. |
 | `RESEND_SEGMENT_ID_AVIATION` | Aviation list | Resend segment id for the launch section. Audiences were renamed to Segments in November 2025. |
@@ -83,6 +83,15 @@ The script writes `content/{segment}/issues/{date}.json`. Commit and push that f
 `--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it creates a Resend broadcast and sends it. Sample issues are refused unless you pass `--allow-sample`.
 
 A real broadcast can also post the issue to the Vizonix LinkedIn company page. Set `LINKEDIN_AUTOPOST=true` plus `UNIPILE_DSN` and `UNIPILE_API_KEY`. A test send, a sample issue, and `--no-linkedin` do not post. The API body field `"linkedin": false` is the same opt-out. After a successful post, the marker `content/{segment}/linkedin/{date}.json` blocks a second post. On Vercel that marker is committed with `GITHUB_TOKEN`. The LinkedIn step never fails the publish after the email has gone out.
+
+To post an issue that was already emailed, call `POST /api/linkedin-post` with the same `PUBLISH_SECRET` bearer token. The body is `{ "segment": "aviation", "date": "2026-10-16" }`. It loads `content/{segment}/issues/{date}.json` and posts that issue. It does not send email. A sample issue is refused. The same marker blocks a second post.
+
+```bash
+curl -X POST https://www.vizonix.com/api/linkedin-post \
+  -H "Authorization: Bearer $PUBLISH_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"segment":"aviation","date":"2026-10-16"}'
+```
 
 The same payload can be posted in production:
 

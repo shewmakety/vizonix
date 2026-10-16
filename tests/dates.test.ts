@@ -58,6 +58,9 @@ describe("date-only issue dates", () => {
     expect(nyDay >= "2026-10-16").toBe(true);
 
     const post = buildLinkedInPost(issue!, "https://www.vizonix.com/aviation/issues/2026-10-16");
-    expect(post).toContain("Friday, October 16, 2026. Vizonix Aviation briefing:");
+    expect(post).toContain("AI moves into the hangar, plus 7 places to put it to work");
+    expect(post).toContain("Read the full issue: https://www.vizonix.com/aviation/issues/2026-10-16");
+    expect(post).not.toContain("Thursday, October 15, 2026");
+    expect(post).not.toContain("October 15, 2026");
   });
 });
