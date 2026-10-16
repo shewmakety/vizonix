@@ -33,7 +33,7 @@ export function buildSegmentFeed(segmentSlug: string, _now = new Date()): string
       ].join("");
     })
     .join("");
-  const newest = issues[0] ? calendarInstant(issues[0].date) : now;
+  const newest = issues[0] ? calendarInstant(issues[0].date) : _now;
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0">',
