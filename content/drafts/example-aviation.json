@@ -12,14 +12,34 @@
     "sourceName": "Vizonix draft",
     "sourceUrl": "https://example.com/vizonix-aviation-draft"
   },
-  "tools": [
+  "sections": [
     {
-      "name": "Replace this tool",
-      "slug": "replace-this-tool",
-      "summary": "Placeholder so the draft file validates. It is not a product and it is not published until you replace it.",
-      "whyItMatters": "Swap this for a real tool before a public send.",
-      "url": "/aviation",
-      "pricing": "Contact the vendor"
+      "topic": "Replace this industry topic",
+      "tools": [
+        {
+          "name": "Replace this tool",
+          "slug": "replace-this-tool",
+          "summary": "Placeholder so the draft file validates. It is not a product and it is not published until you replace it.",
+          "whyItMatters": "Swap this for a real tool before a public send.",
+          "url": "/aviation",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AI Productivity Tools",
+      "intro": "General-purpose productivity AI for any business user: writing, meetings and notes, email, scheduling, research, spreadsheets, presentations, and automation. Keep this section last, after the industry topics. Use real products, a one-line description, and the official URL.",
+      "tools": [
+        {
+          "name": "Microsoft Copilot",
+          "slug": "microsoft-copilot",
+          "company": "Microsoft",
+          "summary": "Microsoft's assistant in chat and in Microsoft 365. Replace this blurb with a one-line description written for this issue's readers.",
+          "whyItMatters": "Say how a reader in this industry could use it on the desk work they already do, without inventing a statistic.",
+          "url": "https://copilot.microsoft.com/",
+          "pricing": "See the vendor site"
+        }
+      ]
     }
   ],
   "playbook": {

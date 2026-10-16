@@ -28,12 +28,15 @@ describe("tool directory topics", () => {
 
   it("maps every Oct 16 issue section onto a directory topic and tool", () => {
     const issue = getIssue("aviation", "2026-10-16");
-    expect(issue?.sections).toHaveLength(7);
+    const industry = issue?.sections?.filter((section) => section.topic !== "AI Productivity Tools") ?? [];
+    expect(issue?.sections).toHaveLength(8);
+    expect(issue?.sections?.at(-1)?.topic).toBe("AI Productivity Tools");
+    expect(industry).toHaveLength(7);
     expect(topics.filter((topic) => topic.issueTopic).map((topic) => topic.issueTopic)).toEqual(
-      issue?.sections?.map((section) => section.topic),
+      industry.map((section) => section.topic),
     );
     expect(topics.at(-1)?.key).toBe("general-ai");
-    for (const section of issue?.sections ?? []) {
+    for (const section of industry) {
       const topic = topics.find((item) => item.issueTopic === section.topic);
       expect(topic).toBeTruthy();
       for (const listed of section.tools) {

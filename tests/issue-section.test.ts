@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail } from "@/lib/email";
+import { issueSchema, productivitySectionTopic } from "@/lib/schema";
 
 describe("issue section headings", () => {
   it("renders topic headings as gray pills on the page and leaves the email plain", () => {
@@ -20,6 +21,7 @@ describe("issue section headings", () => {
       "Troubleshooting support",
       "Warehousing",
       "AOG support: parts, rotables and technicians",
+      productivitySectionTopic,
     ];
     for (const topic of topics) {
       expect(html).toContain(`<h2 class="section-heading">${topic}</h2>`);
@@ -43,5 +45,21 @@ describe("issue section headings", () => {
     expect(email).not.toContain("section-heading");
     expect(email).not.toContain("issue-section");
     expect(email).toContain("<h2 style=\"margin:0;font-size:22px;font-weight:normal;\">Recruiting pilots and technicians</h2>");
+    expect(email).toContain(`<h2 style="margin:0;font-size:22px;font-weight:normal;">${productivitySectionTopic}</h2>`);
+    expect(email.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
+      email.indexOf(productivitySectionTopic),
+    );
+  });
+
+  it("requires the productivity section after the industry topics", () => {
+    const issue = getIssue("aviation", "2026-10-16");
+    expect(issue?.sections?.at(-1)?.topic).toBe(productivitySectionTopic);
+    const dropped = issueSchema.safeParse({ ...issue, sections: issue?.sections?.slice(0, -1) });
+    expect(dropped.success).toBe(false);
+    const moved = issueSchema.safeParse({
+      ...issue,
+      sections: issue?.sections ? [issue.sections.at(-1), ...issue.sections.slice(0, -1)] : [],
+    });
+    expect(moved.success).toBe(false);
   });
 });

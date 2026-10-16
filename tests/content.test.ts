@@ -25,7 +25,7 @@ describe("segment config and sample content", () => {
     expect(segments.find((segment) => segment.slug === "legal")?.status).toBe("planned");
     expect(segments.filter((segment) => segment.status === "planned")).toHaveLength(3);
     expect(segments.find((segment) => segment.slug === "aviation")?.payoffLabel).toBe(
-      "Why it can make the operation money",
+      "Why it can make you money",
     );
     expect(segments.find((segment) => segment.slug === "legal")?.payoffLabel).toBe(
       "Why it can make the practice money",
@@ -72,9 +72,11 @@ describe("segment config and sample content", () => {
     expect(issues[0].sponsors.primary?.ctaUrl).toBe("https://www.vizonix.com/sponsor");
     expect(issues[0].sponsors.secondary).toBeNull();
     expect(issues[0].sponsors.classified).toBeNull();
-    expect(issues[0].sections).toHaveLength(7);
+    expect(issues[0].subject).toBe("AI moves into the hangar, plus 7 places to put it to work");
+    expect(issues[0].sections).toHaveLength(8);
+    expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
     expect(issues[0].sections?.some((section) => section.coverageNote)).toBe(true);
-    expect(issueTools(issues[0])).toHaveLength(12);
+    expect(issueTools(issues[0])).toHaveLength(15);
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toContain("airvoyant");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).not.toContain("aogline");
 
@@ -138,8 +140,16 @@ describe("segment config and sample content", () => {
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);
     expect(text.indexOf("Tool Directory:")).toBeLessThan(text.indexOf(aviation.lead.title));
-    expect(html).toContain("Why it can make the operation money.");
+    expect(html).toContain("Why it can make you money.");
+    expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
+    expect(html.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
+      html.indexOf("AI Productivity Tools"),
+    );
+    expect(html.indexOf("AI Productivity Tools")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html).toContain("https://copilot.microsoft.com/");
+    expect(html).toContain("https://otter.ai/");
+    expect(html).toContain("https://www.notion.com/product/ai");
     expect(html).not.toContain("Holdshort Systems");
     expect(html).not.toContain("Sample issue");
     expect(text).toContain("PRIMARY SPONSOR");
@@ -159,6 +169,7 @@ describe("segment config and sample content", () => {
     expect(legalText).toContain(`Tool Directory: ${absoluteUrl("/legal/tools")}`);
     expect(legalText).toContain(absoluteUrl("/legal/unsubscribe"));
     expect(legalHtml).toContain("Why it can make the practice money.");
+    expect(legalHtml).not.toContain("Why it can make you money.");
     expect(legalHtml).not.toContain("Why it can make the operation money.");
     expect(legalHtml).not.toContain("Northline Systems");
     expect(legalHtml).not.toContain("ClauseHarbor");

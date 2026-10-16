@@ -56,7 +56,7 @@ export const segments: Segment[] = [
       "A weekday briefing on AI tools, bots, models, and resources for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams.",
     promise:
       "What is new, and how it could put an aircraft back in service sooner, fill a bay, or cut a premium parts buy.",
-    payoffLabel: "Why it can make the operation money",
+    payoffLabel: "Why it can make you money",
     resendSegmentEnv: "RESEND_SEGMENT_ID_AVIATION",
     resendAudienceEnv: "RESEND_AUDIENCE_ID_AVIATION",
     topics: [

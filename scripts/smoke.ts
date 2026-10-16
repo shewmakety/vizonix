@@ -9,7 +9,7 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "AI moves into the hangar workflow"],
+  ["/aviation/issues", "AI moves into the hangar, plus 7 places"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
   ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
@@ -22,7 +22,7 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/topic/records-and-documentation", "AI tools for records and documentation in aviation"],
   ["/aviation/tools/topic/flight-operations", "AI tools for flight operations in aviation"],
   ["/aviation/tools/topic/general-ai", "General AI assistants for aviation teams"],
-  ["/aviation/feed.xml", "AI moves into the hangar workflow"],
+  ["/aviation/feed.xml", "AI moves into the hangar, plus 7 places"],
   ["/aviation/tools/chatgpt", "ChatGPT is OpenAI"],
   ["/aviation/tools/jeppesen-foreflight-airflow", "wider rollout is expected in 2027"],
   ["/aviation/tools/bluetail-ai", "Bluetail"],
@@ -41,7 +41,7 @@ const pages: Array<[string, string]> = [
   ["/confirm", "confirmation"],
   ["/unsubscribe", "Unsubscribe"],
   ["/llms.txt", "Aviation"],
-  ["/llms-full.txt", "Why it can make the operation money"],
+  ["/llms-full.txt", "Why it can make you money"],
   ["/sitemap.xml", "/aviation"],
   ["/robots.txt", "GPTBot"],
 ];
