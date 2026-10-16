@@ -45,7 +45,8 @@ describe("sitemap and feeds", () => {
     const xml = buildSegmentFeed("aviation", now);
     expect(xml).toBeTruthy();
     expect(xml).toContain("<rss");
-    expect(xml).toContain("AI moves into the hangar workflow, plus 7 places to put it to work");
+    expect(xml).toContain("AI moves into the hangar, plus 7 places to put it to work");
+    expect(xml).not.toContain("hangar workflow");
     expect(xml).toContain("Thu, 15 Oct 2026 10:28:02 GMT");
     expect(xml).not.toContain("16 Oct 2026");
     expect(buildSegmentFeed("legal", now)).toBeNull();

@@ -15,7 +15,7 @@ export function organizationJsonLd() {
     name: site.name,
     url: siteUrl(),
     description: site.description,
-    email: site.emailHello,
+    email: site.email,
     logo: absoluteUrl("/logo.png"),
     sameAs: organizationSameAs,
     founder: {

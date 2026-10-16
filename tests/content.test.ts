@@ -6,6 +6,7 @@ import { directoryViewFromQuery } from "@/lib/directory-view";
 import { absoluteUrl } from "@/lib/site";
 import {
   featuredSegment,
+  getSegment,
   isToolDirectoryPath,
   segments,
   toolDirectoryHref,
@@ -13,22 +14,16 @@ import {
 } from "@/lib/segments";
 
 describe("segment config and sample content", () => {
-  it("lists aviation first, with legal and two other sections still planned", () => {
-    expect(segments.map((segment) => segment.slug)).toEqual([
-      "aviation",
-      "legal",
-      "warehousing",
-      "marketing-sales",
-    ]);
+  it("lists aviation as the only public section", () => {
+    expect(segments.map((segment) => segment.slug)).toEqual(["aviation"]);
     expect(featuredSegment().slug).toBe("aviation");
     expect(segments.find((segment) => segment.slug === "aviation")?.status).toBe("active");
-    expect(segments.find((segment) => segment.slug === "legal")?.status).toBe("planned");
-    expect(segments.filter((segment) => segment.status === "planned")).toHaveLength(3);
+    expect(segments.filter((segment) => segment.status === "planned")).toHaveLength(0);
+    expect(getSegment("legal")).toBeUndefined();
+    expect(getSegment("warehousing")).toBeUndefined();
+    expect(getSegment("marketing-sales")).toBeUndefined();
     expect(segments.find((segment) => segment.slug === "aviation")?.payoffLabel).toBe(
-      "Why it can make the operation money",
-    );
-    expect(segments.find((segment) => segment.slug === "legal")?.payoffLabel).toBe(
-      "Why it can make the practice money",
+      "Why it can make you money",
     );
     expect(segments.find((segment) => segment.slug === "aviation")?.audience).toBe(
       "Airlines, MROs, parts suppliers, operators, and maintenance / AOG teams",
@@ -72,9 +67,11 @@ describe("segment config and sample content", () => {
     expect(issues[0].sponsors.primary?.ctaUrl).toBe("https://www.vizonix.com/sponsor");
     expect(issues[0].sponsors.secondary).toBeNull();
     expect(issues[0].sponsors.classified).toBeNull();
-    expect(issues[0].sections).toHaveLength(7);
+    expect(issues[0].subject).toBe("AI moves into the hangar, plus 7 places to put it to work");
+    expect(issues[0].sections).toHaveLength(8);
+    expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
     expect(issues[0].sections?.some((section) => section.coverageNote)).toBe(true);
-    expect(issueTools(issues[0])).toHaveLength(12);
+    expect(issueTools(issues[0])).toHaveLength(15);
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toContain("airvoyant");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).not.toContain("aogline");
 
@@ -101,10 +98,12 @@ describe("segment config and sample content", () => {
     expect(getIssue("aviation", "2026-10-14")).toBeUndefined();
   });
 
-  it("publishes no legal issues or tools while the section is planned", () => {
-    expect(listIssues("legal")).toEqual([]);
-    expect(listTools("legal")).toEqual([]);
-    expect(getIssue("legal", "2026-10-14")).toBeUndefined();
+  it("publishes issues and tools only for aviation", () => {
+    for (const slug of ["legal", "warehousing", "marketing-sales"]) {
+      expect(listIssues(slug)).toEqual([]);
+      expect(listTools(slug)).toEqual([]);
+      expect(getIssue(slug, "2026-10-14")).toBeUndefined();
+    }
     for (const slug of ["clauseharbor", "docketline", "billwise-counsel", "precedent-north"]) {
       expect(getTool("legal", slug)).toBeUndefined();
     }
@@ -114,7 +113,7 @@ describe("segment config and sample content", () => {
     const aviation = getIssue("aviation", "2026-10-16");
     expect(aviation).toBeTruthy();
     if (!aviation) return;
-    const legal = { ...aviation, segment: "legal" };
+    const other = { ...aviation, segment: "field-service" };
 
     const html = renderIssueEmail(aviation, { mode: "broadcast" });
     const text = renderIssueText(aviation, { mode: "test" });
@@ -138,8 +137,16 @@ describe("segment config and sample content", () => {
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);
     expect(text.indexOf("Tool Directory:")).toBeLessThan(text.indexOf(aviation.lead.title));
-    expect(html).toContain("Why it can make the operation money.");
+    expect(html).toContain("Why it can make you money.");
+    expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
+    expect(html.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
+      html.indexOf("AI Productivity Tools"),
+    );
+    expect(html.indexOf("AI Productivity Tools")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html).toContain("https://copilot.microsoft.com/");
+    expect(html).toContain("https://otter.ai/");
+    expect(html).toContain("https://www.notion.com/product/ai");
     expect(html).not.toContain("Holdshort Systems");
     expect(html).not.toContain("Sample issue");
     expect(text).toContain("PRIMARY SPONSOR");
@@ -153,15 +160,14 @@ describe("segment config and sample content", () => {
     expect(html).not.toMatch(/[\u2013\u2014]/);
     expect(text).not.toMatch(/[\u2013\u2014]/);
 
-    const legalHtml = renderIssueEmail(legal, { mode: "test" });
-    const legalText = renderIssueText(legal, { mode: "test" });
-    expect(legalHtml).toContain(`href="${absoluteUrl("/legal/tools")}"`);
-    expect(legalText).toContain(`Tool Directory: ${absoluteUrl("/legal/tools")}`);
-    expect(legalText).toContain(absoluteUrl("/legal/unsubscribe"));
-    expect(legalHtml).toContain("Why it can make the practice money.");
-    expect(legalHtml).not.toContain("Why it can make the operation money.");
-    expect(legalHtml).not.toContain("Northline Systems");
-    expect(legalHtml).not.toContain("ClauseHarbor");
+    const otherHtml = renderIssueEmail(other, { mode: "test" });
+    const otherText = renderIssueText(other, { mode: "test" });
+    expect(otherHtml).toContain(`href="${absoluteUrl("/field-service/tools")}"`);
+    expect(otherText).toContain(`Tool Directory: ${absoluteUrl("/field-service/tools")}`);
+    expect(otherText).toContain(absoluteUrl("/field-service/unsubscribe"));
+    expect(otherHtml).toContain("Why it matters.");
+    expect(otherHtml).not.toContain("Why it can make you money.");
+    expect(otherHtml).not.toContain("Why it can make the operation money.");
   });
 
   it("rejects sponsor copy that is longer than the rate card ceiling", () => {

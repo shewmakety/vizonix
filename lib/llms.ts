@@ -12,7 +12,7 @@ import {
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
-import { getSegment, segments, topicPagePath, type Segment } from "@/lib/segments";
+import { activeSegments, getSegment, topicPagePath, type Segment } from "@/lib/segments";
 import { absoluteUrl, editor, organizationSameAs, site } from "@/lib/site";
 
 function firstSentence(text: string): string {
@@ -35,10 +35,9 @@ function identityLines(): string[] {
 }
 
 function sectionLines(): string[] {
-  return segments.map((segment) =>
-    segment.status === "planned"
-      ? `- ${segment.name}: ${segment.summary} Status: planned. This section is not published.`
-      : `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
+  return activeSegments().map(
+    (segment) =>
+      `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
   );
 }
 
@@ -62,7 +61,7 @@ function toolBlocks(segment: Segment): string[] {
 }
 
 export function buildLlmsTxt(): string {
-  const active = segments.filter((segment) => segment.status === "active");
+  const active = activeSegments();
   const lines = [
     ...identityLines(),
     "",
@@ -109,7 +108,7 @@ export function buildLlmsFullTxt(): string {
     return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
   });
 
-  const active = segments.filter((segment) => segment.status === "active");
+  const active = activeSegments();
   const archiveBlocks = active.flatMap((segment) => {
     const issues = listIssues(segment.slug).filter((issue) => !issue.sample);
     if (issues.length === 0) return [];
@@ -159,10 +158,8 @@ export function buildLlmsFullTxt(): string {
     "Open rate and audience makeup are not published yet. Do not invent them.",
     "",
     "## Sections",
-    ...segments.map((segment) =>
-      segment.status === "planned"
-        ? `- ${segment.name} (planned): ${segment.summary} This section is not published.`
-        : `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
+    ...activeSegments().map(
+      (segment) => `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
     ),
     "",
     ...archiveBlocks,
@@ -187,10 +184,10 @@ export function buildLlmsFullTxt(): string {
     `Newsletter sponsor cap: ${maxNewsletterSponsors}. Exclusivity premium: ${exclusivityPremium * 100}%.`,
     "",
     "## Contact",
-    `Readers: ${site.emailHello}`,
+    `Contact: ${site.email}`,
     `Sponsor inquiries: ${absoluteUrl("/sponsor")}`,
     `Media kit: ${absoluteUrl("/media-kit")}`,
-    `Privacy: ${site.emailPrivacy}`,
+    `Privacy: ${site.email}`,
     "",
   ].join("\n");
 }

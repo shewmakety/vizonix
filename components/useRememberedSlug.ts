@@ -11,7 +11,8 @@ export function useRememberedSlug(): string | undefined {
     const row = document.cookie.split("; ").find((part) => part.startsWith(`${SEGMENT_COOKIE}=`));
     if (!row) return;
     const value = decodeURIComponent(row.slice(SEGMENT_COOKIE.length + 1));
-    if (getSegment(value)) setSlug(value);
+    const segment = getSegment(value);
+    if (segment?.status === "active") setSlug(value);
   }, []);
   return slug;
 }

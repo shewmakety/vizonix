@@ -53,7 +53,7 @@ export default async function IssuesPage({ params }: Props) {
           that issue. This is the {segment.name} briefing archive.
         </p>
         {issues.length === 0 ? (
-          <p className="notice">No issues yet. This section is not publishing yet.</p>
+          <p className="notice">No issues yet.</p>
         ) : (
           <ul className="link-list">
             {issues.map((issue) => (

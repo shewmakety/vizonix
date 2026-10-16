@@ -3,7 +3,7 @@
   "date": "2026-10-16",
   "publishedAt": "2026-10-15T06:28:02-04:00",
   "sample": false,
-  "subject": "AI moves into the hangar workflow, plus 7 places to put it to work",
+  "subject": "AI moves into the hangar, plus 7 places to put it to work",
   "preheader": "Veryon brings agentic AI to business aviation maintenance, and our first pass at AI for recruiting, sales, predictive maintenance, planning, troubleshooting, warehousing and AOG.",
   "lead": {
     "kicker": "Top story",
@@ -173,6 +173,42 @@
           "url": "/aviation/tools/skyselect",
           "sourceUrl": "https://avm-mag.com/skyselect-raises-9m-to-modernize-aircraft-parts-procurement-with-ai",
           "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business: writing, meetings and notes, email, scheduling, research, spreadsheets, presentations, and automation. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Microsoft Copilot",
+          "slug": "microsoft-copilot",
+          "company": "Microsoft",
+          "summary": "Microsoft's assistant in chat and in Microsoft 365, so an aviation desk can draft in Word, summarize email, and ask questions about a spreadsheet.",
+          "whyItMatters": "It sits in the Microsoft apps many flight departments and MROs already use. Review the draft before it goes into a work order, a quote, or a customer email.",
+          "url": "https://copilot.microsoft.com/",
+          "sourceUrl": "https://copilot.microsoft.com/",
+          "pricing": "See the vendor site"
+        },
+        {
+          "name": "Otter.ai",
+          "slug": "otter-ai",
+          "company": "Otter.ai",
+          "summary": "Otter.ai records a meeting and writes a transcript and a summary, so a maintenance or sales call can be reviewed without replaying it.",
+          "whyItMatters": "Use it to catch action items from a vendor or customer call, and correct the transcript where the audio was unclear.",
+          "url": "https://otter.ai/",
+          "sourceUrl": "https://otter.ai/",
+          "pricing": "See the vendor site"
+        },
+        {
+          "name": "Notion AI",
+          "slug": "notion-ai",
+          "company": "Notion",
+          "summary": "Notion AI writes and summarizes inside Notion pages, so a team that already keeps notes there can turn a meeting page into a shorter brief.",
+          "whyItMatters": "Use it on pages the team already keeps in Notion, and edit the text before you share it with a customer or a lessor.",
+          "url": "https://www.notion.com/product/ai",
+          "sourceUrl": "https://www.notion.com/product/ai",
+          "pricing": "See the vendor site"
         }
       ]
     }

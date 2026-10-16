@@ -2,8 +2,7 @@ export const site = {
   name: "Vizonix",
   description:
     "A free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Aviation first.",
-  emailHello: "hello@vizonix.com",
-  emailPrivacy: "privacy@vizonix.com",
+  email: "admin@vizonix.com",
 };
 
 export const editor = {

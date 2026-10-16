@@ -25,7 +25,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
   const slug = pathname.split("/").filter(Boolean)[0];
-  const segment = slug ? getSegment(slug) : undefined;
+  const found = slug ? getSegment(slug) : undefined;
+  const segment = found?.status === "active" ? found : undefined;
 
   if (pathname === "/") {
     const target = rootRedirectForCookie(request.cookies.get(SEGMENT_COOKIE)?.value);

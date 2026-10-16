@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRememberedSlug } from "@/components/useRememberedSlug";
-import { featuredSegment, getSegment, segments } from "@/lib/segments";
+import { activeSegments, featuredSegment, getSegment } from "@/lib/segments";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
 
@@ -21,8 +21,9 @@ export function SignupForm({
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
 
   useEffect(() => {
-    if (!showSegment || touched || !remembered || !getSegment(remembered)) return;
-    setSegment(remembered);
+    const known = remembered ? getSegment(remembered) : undefined;
+    if (!showSegment || touched || !known || known.status !== "active") return;
+    setSegment(known.slug);
   }, [remembered, showSegment, touched]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -74,10 +75,9 @@ export function SignupForm({
               setSegment(event.target.value);
             }}
           >
-            {segments.map((segment) => (
+            {activeSegments().map((segment) => (
               <option key={segment.slug} value={segment.slug}>
                 {segment.name}
-                {segment.status === "planned" ? " (in preparation)" : ""}
               </option>
             ))}
           </select>

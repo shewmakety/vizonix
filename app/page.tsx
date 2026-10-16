@@ -3,7 +3,7 @@ import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
-import { featuredSegment, segmentCardLabel, segmentCardPillClass, segments } from "@/lib/segments";
+import { activeSegments, featuredSegment, segmentCardLabel, segmentCardPillClass } from "@/lib/segments";
 import { site } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -47,7 +47,7 @@ export default function HomePage() {
           <h2>One domain, one section per industry</h2>
         </div>
         <div className="cards">
-          {segments.map((segment) => {
+          {activeSegments().map((segment) => {
             const label = segmentCardLabel(segment);
             const pillClass = segmentCardPillClass(segment);
             return (

@@ -30,8 +30,7 @@ export default function AboutPage() {
           Vizonix reports emerging AI tools, bots, models, and resources. The test for inclusion is
           specific: could this change revenue, cost, or speed for the section&apos;s reader. Aviation is
           the first section, written for airlines, MROs, parts suppliers, operators, and maintenance / AOG
-          teams. Legal, for lawyers and law practices, is in preparation. Warehousing, then marketing
-          and sales, use the same format when they open.
+          teams.
         </p>
         <h2>How a section is organized</h2>
         <p>
@@ -45,15 +44,9 @@ export default function AboutPage() {
           mention that was not paid is not dressed up as a sponsor. Prices are on the{" "}
           <Link href="/sponsor">rate card</Link>.
         </p>
-        <h2>Sections that are not open</h2>
-        <p>
-          Legal, warehousing, and marketing and sales are in preparation. Those pages say coming soon.
-          They are not indexed, and they do not list issues or tools. The aviation issue is a published
-          briefing, and each item on it names a source.
-        </p>
         <h2>Contact</h2>
         <p>
-          Readers: <a href={`mailto:${site.emailHello}`}>{site.emailHello}</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
           <br />
           Sponsor inquiries: <Link href="/sponsor">the sponsor page</Link>
         </p>

@@ -13,7 +13,7 @@ export async function notifyOps(
   if (!apiKey) return false;
   const resend = new Resend(apiKey);
   const result = await resend.emails.send({
-    from: `Vizonix <${site.emailHello}>`,
+    from: `Vizonix <${site.email}>`,
     to: [to],
     subject,
     text,

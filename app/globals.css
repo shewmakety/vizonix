@@ -279,6 +279,24 @@ input:focus, select:focus, textarea:focus {
 .prose { max-width: 42rem; }
 .prose h2 { margin-top: 1.8rem; }
 .issue-layout { display: grid; grid-template-columns: minmax(0, 42rem) 16rem; gap: 2rem; }
+.issue-section { margin-top: 2.25rem; }
+.section-heading {
+  display: inline-block;
+  max-width: 100%;
+  margin: 0 0 0.85rem;
+  padding: 0.32rem 0.9rem;
+  border-radius: 999px;
+  background: #14532D;
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.25;
+}
+@media (prefers-color-scheme: dark) {
+  .section-heading {
+    background: #166534;
+    color: #ffffff;
+  }
+}
 .side-card { position: sticky; top: 1rem; }
 .topic-chips {
   display: flex;

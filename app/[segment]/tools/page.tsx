@@ -84,7 +84,7 @@ export default async function ToolsPage({ params, searchParams }: Props) {
           Featured listings, when a sponsor buys one, are labeled Sponsored.
         </p>
         {tools.length === 0 ? (
-          <p className="notice">No tool listings yet. This section is not publishing yet.</p>
+          <p className="notice">No tool listings yet.</p>
         ) : (
           <DirectoryBrowser
             segment={segment}

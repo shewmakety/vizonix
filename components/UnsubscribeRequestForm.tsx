@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRememberedSlug } from "@/components/useRememberedSlug";
-import { featuredSegment, getSegment, segments } from "@/lib/segments";
+import { activeSegments, featuredSegment, getSegment } from "@/lib/segments";
 
 export function UnsubscribeRequestForm({
   defaultSegment = featuredSegment().slug,
@@ -16,8 +16,9 @@ export function UnsubscribeRequestForm({
   const [kind, setKind] = useState<"idle" | "working" | "ok" | "error">("idle");
 
   useEffect(() => {
-    if (touched || !remembered || !getSegment(remembered)) return;
-    setSegment(remembered);
+    const known = remembered ? getSegment(remembered) : undefined;
+    if (touched || !known || known.status !== "active") return;
+    setSegment(known.slug);
   }, [remembered, touched]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -57,7 +58,7 @@ export function UnsubscribeRequestForm({
           setSegment(event.target.value);
         }}
       >
-        {segments.map((segment) => (
+        {activeSegments().map((segment) => (
           <option key={segment.slug} value={segment.slug}>
             {segment.name}
           </option>

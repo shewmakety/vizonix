@@ -74,6 +74,9 @@ const issueSectionSchema = z.object({
 
 export type IssueSection = z.infer<typeof issueSectionSchema>;
 
+/** Last section on a sectioned issue, after the industry topics. */
+export const productivitySectionTopic = "AI Productivity Tools";
+
 export const issueSchema = z
   .object({
     segment: z.string().trim().min(1),
@@ -147,6 +150,16 @@ export const issueSchema = z
         path: ["sections"],
         message: "An issue can list at most 16 tools across its sections.",
       });
+    }
+    if (issue.sections && issue.sections.length > 0) {
+      const productivity = issue.sections.filter((section) => section.topic === productivitySectionTopic);
+      if (productivity.length !== 1 || issue.sections.at(-1)?.topic !== productivitySectionTopic) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["sections"],
+          message: `End the sections with one "${productivitySectionTopic}" section, after the industry topics.`,
+        });
+      }
     }
 
     const slots: Array<["primary" | "secondary" | "classified", SponsorCreative | null]> = [

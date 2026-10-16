@@ -9,7 +9,7 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "AI moves into the hangar workflow"],
+  ["/aviation/issues", "AI moves into the hangar, plus 7 places"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
   ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
@@ -22,15 +22,12 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/topic/records-and-documentation", "AI tools for records and documentation in aviation"],
   ["/aviation/tools/topic/flight-operations", "AI tools for flight operations in aviation"],
   ["/aviation/tools/topic/general-ai", "General AI assistants for aviation teams"],
-  ["/aviation/feed.xml", "AI moves into the hangar workflow"],
+  ["/aviation/feed.xml", "AI moves into the hangar, plus 7 places"],
   ["/aviation/tools/chatgpt", "ChatGPT is OpenAI"],
   ["/aviation/tools/jeppesen-foreflight-airflow", "wider rollout is expected in 2027"],
   ["/aviation/tools/bluetail-ai", "Bluetail"],
   ["/aviation/tools/airvoyant", "Contact the vendor"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
-  ["/legal", "Coming soon"],
-  ["/warehousing", "not publishing yet"],
-  ["/marketing-sales", "not publishing yet"],
   ["/sponsor", "Aviation is the first list"],
   ["/media-kit", "Audience numbers will be published after our first full month."],
   ["/sponsor/confirmed", "Payment received"],
@@ -41,7 +38,7 @@ const pages: Array<[string, string]> = [
   ["/confirm", "confirmation"],
   ["/unsubscribe", "Unsubscribe"],
   ["/llms.txt", "Aviation"],
-  ["/llms-full.txt", "Why it can make the operation money"],
+  ["/llms-full.txt", "Why it can make you money"],
   ["/sitemap.xml", "/aviation"],
   ["/robots.txt", "GPTBot"],
 ];
@@ -257,7 +254,16 @@ async function main() {
     if (home.includes("Sample listings are fictional") || home.includes("Sample data on the site")) {
       throw new Error("Home still has sample-data copy.");
     }
-    if (!home.includes("In preparation") || home.includes('class="pill live"')) {
+    if (
+      home.includes("In preparation") ||
+      home.includes("Coming soon") ||
+      home.includes('href="/legal"') ||
+      home.includes('href="/warehousing"') ||
+      home.includes('href="/marketing-sales"')
+    ) {
+      throw new Error("Home still mentions a section that is not aviation.");
+    }
+    if (home.includes('class="pill live"') || !home.includes("Launch")) {
       throw new Error("Home still labels a section Live. Only Aviation is launched.");
     }
     if (!home.includes('class="brand" href="/aviation"')) {
@@ -286,13 +292,13 @@ async function main() {
       throw new Error("Visiting /aviation did not set vz_segment.");
     }
 
-    const legalConfirm = await fetch(`${base}/legal/confirm`);
-    const legalConfirmHtml = await legalConfirm.text();
-    if (legalConfirm.status !== 200 || !legalConfirmHtml.includes("Confirm your subscription")) {
+    const aviationConfirm = await fetch(`${base}/aviation/confirm`);
+    const aviationConfirmHtml = await aviationConfirm.text();
+    if (aviationConfirm.status !== 200 || !aviationConfirmHtml.includes("Confirm your subscription")) {
       throw new Error("Section confirm URL did not render the confirm page.");
     }
-    if (!legalConfirmHtml.includes('class="brand" href="/legal"')) {
-      throw new Error("Confirm page did not keep the reader in Legal.");
+    if (!aviationConfirmHtml.includes('class="brand" href="/aviation"')) {
+      throw new Error("Confirm page did not keep the reader in Aviation.");
     }
     const aviationSubscribe = await fetch(`${base}/aviation/subscribe`);
     const aviationSubscribeHtml = await aviationSubscribe.text();
@@ -333,21 +339,18 @@ async function main() {
       throw new Error("Aviation header is missing its Tool Directory link.");
     }
 
-    const legal = await fetch(`${base}/legal`).then((response) => response.text());
-    if (!legal.includes("Coming soon") || !legal.includes("not publishing yet")) {
-      throw new Error("Legal did not render the coming soon page.");
-    }
-    if (!legal.includes('href="/aviation"') || !legal.includes("Back to the aviation section")) {
-      throw new Error("Legal coming soon page is missing the aviation link.");
-    }
-    if (!legal.includes("noindex")) {
-      throw new Error("Legal coming soon page is indexable.");
-    }
-    if (legal.includes("ClauseHarbor") || legal.includes("Docketline") || legal.includes("Sample issue")) {
-      throw new Error("Legal still renders sample content.");
-    }
-    if (!legal.includes("Tool Directory") || !legal.includes('href="/aviation/tools"')) {
-      throw new Error("Legal header did not send Tool Directory to aviation.");
+    for (const path of ["/legal", "/warehousing", "/marketing-sales", "/legal/confirm"]) {
+      const response = await fetch(`${base}${path}`);
+      const html = await response.text();
+      if (response.status !== 404) {
+        throw new Error(`${path} returned ${response.status}. Expected a 404.`);
+      }
+      if (!html.includes("noindex")) {
+        throw new Error(`${path} is indexable.`);
+      }
+      if (html.includes("Coming soon") || html.includes("not publishing yet")) {
+        throw new Error(`${path} still renders a coming soon page.`);
+      }
     }
 
     const directory = await fetch(`${base}/aviation/tools`).then((response) => response.text());
