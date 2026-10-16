@@ -55,6 +55,11 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `GITHUB_REPO` | Same | `owner/name`. |
 | `GITHUB_BRANCH` | Same | Defaults to `main`. |
 | `INDEXNOW_KEY` | IndexNow | Hex key, 8 to 128 characters. The public file is `/{key}.txt`. Set this in Vercel. Do not commit the value. |
+| `UNIPILE_DSN` | LinkedIn post | Unipile API base, for example `https://api1.unipile.com:13111`. |
+| `UNIPILE_API_KEY` | LinkedIn post | Sent as `X-API-KEY`. Do not commit it. |
+| `UNIPILE_ACCOUNT_ID` | LinkedIn post | Optional. First LinkedIn account is used when this is empty, and the id is logged. |
+| `LINKEDIN_ORG_ID_VIZONIX` | LinkedIn post | Optional. The organization named Vizonix is used when this is empty, and the id is logged. |
+| `LINKEDIN_AUTOPOST` | LinkedIn post | Set to `true` to post after a real broadcast. Any other value skips the post. |
 
 Ty needs to set every row marked required before that feature works. The site still builds if they are empty.
 
@@ -81,6 +86,8 @@ npm run publish-issue -- content/drafts/example-aviation.json --send --test-to y
 The script writes `content/{segment}/issues/{date}.json`. Commit and push that file so Vercel deploys the archive page. Then send.
 
 `--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it creates a Resend broadcast and sends it. Sample issues are refused unless you pass `--allow-sample`.
+
+A real broadcast can also post the issue to the Vizonix LinkedIn company page. Set `LINKEDIN_AUTOPOST=true` plus `UNIPILE_DSN` and `UNIPILE_API_KEY`. A test send, a sample issue, and `--no-linkedin` do not post. The API body field `"linkedin": false` is the same opt-out. After a successful post, the marker `content/{segment}/linkedin/{date}.json` blocks a second post. On Vercel that marker is committed with `GITHUB_TOKEN`. The LinkedIn step never fails the publish after the email has gone out.
 
 The same payload can be posted in production:
 
