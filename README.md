@@ -34,7 +34,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `TOKEN_SECRET` | Signup | HMAC secret for confirm and unsubscribe links. |
 | `PUBLISH_SECRET` | `POST /api/publish` | Bearer token. |
 | `RESEND_API_KEY` | Email and the list | Resend API key. |
-| `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <news@vizonix.com>`. |
+| `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <admin@vizonix.com>`. |
 | `RESEND_SEGMENT_ID_AVIATION` | Aviation list | Resend segment id for the launch section. Audiences were renamed to Segments in November 2025. |
 | `RESEND_AUDIENCE_ID_AVIATION` | Legacy alias | Used only if the aviation segment id is empty. |
 | `RESEND_TEST_TO` | Test sends | Single recipient when you are not broadcasting. |
@@ -126,7 +126,7 @@ Vercel redeploys when `main` changes. Issue pages and tool pages are generated f
 
 `vizonix.com` is already verified in Resend. Do not add the SPF, DKIM, or DMARC records again.
 
-1. Set `EMAIL_FROM` to an address on that domain, for example `Vizonix <news@vizonix.com>`.
+1. Set `EMAIL_FROM` to an address on that domain, for example `Vizonix <admin@vizonix.com>`.
 2. Create a Resend segment for Aviation. Copy its id into `RESEND_SEGMENT_ID_AVIATION`.
 3. Send a test: `npm run publish-issue -- content/aviation/issues/2026-10-16.json --send --test-to you@example.com --no-write`
 
