@@ -9,8 +9,8 @@ import { editor } from "@/lib/site";
 
 function ToolSection({ section, payoff }: { section: IssueSectionView; payoff: string }) {
   return (
-    <section>
-      <h2>{section.topic ?? "Tool Highlights"}</h2>
+    <section className="issue-section">
+      <h2 className="section-heading">{section.topic ?? "Tool Highlights"}</h2>
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
       {section.intro ? (
         <p>
