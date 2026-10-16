@@ -66,8 +66,12 @@ describe("welcome email on confirm", () => {
   it("sends the latest published issue on the first confirm", async () => {
     const result = await confirmSubscription(confirmToken("reader@example.com", "aviation"));
     expect(result.ok).toBe(true);
-    expect(resend.send).toHaveBeenCalledTimes(1);
-    const [payload, options] = resend.send.mock.calls[0] as [
+    expect(resend.send).toHaveBeenCalledTimes(2);
+    const welcomeCall = resend.send.mock.calls.find(
+      (call) => (call[0] as { to?: string[] }).to?.[0] === "reader@example.com",
+    );
+    expect(welcomeCall).toBeTruthy();
+    const [payload, options] = welcomeCall as [
       {
         from: string;
         to: string[];
@@ -98,6 +102,14 @@ describe("welcome email on confirm", () => {
     expect(payload.headers["List-Unsubscribe"]).toContain("/aviation/unsubscribe?token=");
     expect(options.idempotencyKey).toBe(welcomeIdempotencyKey("reader@example.com", "aviation"));
     expect(`${payload.subject}\n${payload.html}\n${payload.text}`).not.toMatch(/[\u2013\u2014]/);
+    const owner = resend.send.mock.calls.find((call) =>
+      String((call[0] as { subject?: string }).subject).startsWith("New Vizonix subscriber:"),
+    );
+    expect(owner).toBeTruthy();
+    const ownerPayload = owner?.[0] as { to: string[]; subject: string; from: string };
+    expect(ownerPayload.from).toBe("Vizonix <admin@vizonix.com>");
+    expect(ownerPayload.to).toEqual(["admin@vizonix.com", "tyshewmake@gmail.com"]);
+    expect(ownerPayload.subject).toBe("New Vizonix subscriber: reader@example.com (Aviation)");
   });
 
   it("writes a plain welcome when a section has no published issue", () => {

@@ -14,7 +14,8 @@ export async function POST(request: Request) {
   if (!body.token) {
     return NextResponse.json({ error: "Missing confirmation token." }, { status: 400 });
   }
-  const result = await confirmSubscription(body.token);
+  const source = request.headers.get("referer")?.trim() || undefined;
+  const result = await confirmSubscription(body.token, source ? { source } : undefined);
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: result.status });
   }

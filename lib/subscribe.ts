@@ -4,6 +4,8 @@ import { z } from "zod";
 import { latestPublishedIssue } from "@/lib/content";
 import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePlainMessage } from "@/lib/email";
 import { AppError } from "@/lib/errors";
+import { notifyOps } from "@/lib/notify";
+import { subscriberNotice } from "@/lib/owner-alerts";
 import { confirmPath, unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl } from "@/lib/site";
 import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
@@ -148,7 +150,10 @@ async function sendWelcomeEmail(
   }
 }
 
-export async function confirmSubscription(token: string): Promise<{
+export async function confirmSubscription(
+  token: string,
+  options?: { source?: string },
+): Promise<{
   ok: true;
   message: string;
   segment: string;
@@ -172,9 +177,12 @@ export async function confirmSubscription(token: string): Promise<{
 
   const resend = new Resend(apiKey);
   let wasConfirmed = false;
+  let firstName: string | undefined;
   try {
     const prior = await resend.contacts.get({ email: payload.email });
     wasConfirmed = prior.data?.unsubscribed === false;
+    const name = prior.data?.first_name?.trim();
+    if (name) firstName = name;
   } catch (error) {
     const detail = error instanceof Error ? error.message : "unknown error";
     console.error(`Could not read the contact before confirm for ${segment.slug}: ${detail}`);
@@ -203,6 +211,19 @@ export async function confirmSubscription(token: string): Promise<{
   }
   if (!(wasConfirmed && alreadyInSegment)) {
     await sendWelcomeEmail(resend, { email: payload.email, segment });
+    try {
+      const notice = subscriberNotice({
+        email: payload.email,
+        name: firstName,
+        segmentName: segment.name,
+        confirmedAt: new Date(),
+        source: options?.source,
+      });
+      await notifyOps(notice.subject, notice.text);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "unknown error";
+      console.error(`Subscriber notice was not sent for ${segment.slug}: ${detail}`);
+    }
   }
   return {
     ok: true,
