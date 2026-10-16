@@ -1,5 +1,5 @@
 import { listIssues } from "@/lib/content";
-import { issuePublishedInstant } from "@/lib/dates";
+import { calendarInstant } from "@/lib/dates";
 import { getSegment } from "@/lib/segments";
 import { absoluteUrl, site } from "@/lib/site";
 
@@ -11,7 +11,7 @@ function xml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export function buildSegmentFeed(segmentSlug: string, now = new Date()): string | null {
+export function buildSegmentFeed(segmentSlug: string, _now = new Date()): string | null {
   const segment = getSegment(segmentSlug);
   if (!segment || segment.status !== "active") return null;
   const issues = listIssues(segment.slug).filter((issue) => !issue.sample);
@@ -20,7 +20,7 @@ export function buildSegmentFeed(segmentSlug: string, now = new Date()): string 
   const description = segment.summary;
   const items = issues
     .map((issue) => {
-      const published = issuePublishedInstant(issue, now);
+      const published = calendarInstant(issue.date);
       const url = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
       return [
         "<item>",
@@ -33,7 +33,7 @@ export function buildSegmentFeed(segmentSlug: string, now = new Date()): string 
       ].join("");
     })
     .join("");
-  const newest = issues[0] ? issuePublishedInstant(issues[0], now) : now;
+  const newest = issues[0] ? calendarInstant(issues[0].date) : now;
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0">',

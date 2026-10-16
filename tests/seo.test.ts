@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, listTools } from "@/lib/content";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatIssueDate, formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
 import { buildSegmentFeed } from "@/lib/feed";
 import { issueJsonLd, organizationJsonLd, toolJsonLd } from "@/lib/jsonld";
 import { capDescription } from "@/lib/meta";
@@ -36,6 +36,7 @@ describe("sitemap and feeds", () => {
     const published = issuePublishedInstant(issue!, now);
     expect(published.toISOString()).toBe("2026-10-15T10:28:02.000Z");
     expect(formatPublishedInstant(published)).toBe("Thursday, October 15, 2026");
+    expect(formatIssueDate(issue!)).toBe("Friday, October 16, 2026");
     const issueEntry = entries.find((entry) => entry.path === "/aviation/issues/2026-10-16");
     expect(issueEntry?.lastModified.getTime()).toBeGreaterThanOrEqual(published.getTime());
     expect(issueEntry?.lastModified.getTime()).toBeLessThanOrEqual(now.getTime());
@@ -47,8 +48,8 @@ describe("sitemap and feeds", () => {
     expect(xml).toContain("<rss");
     expect(xml).toContain("AI moves into the hangar, plus 7 places to put it to work");
     expect(xml).not.toContain("hangar workflow");
-    expect(xml).toContain("Thu, 15 Oct 2026 10:28:02 GMT");
-    expect(xml).not.toContain("16 Oct 2026");
+    expect(xml).toContain("Fri, 16 Oct 2026 12:00:00 GMT");
+    expect(xml).not.toContain("15 Oct 2026");
     expect(buildSegmentFeed("legal", now)).toBeNull();
     expect(buildSegmentFeed("warehousing", now)).toBeNull();
   });
@@ -92,7 +93,7 @@ describe("titles, schema, and profiles", () => {
       author: { name: string };
       image: string;
     };
-    expect(article.datePublished).toBe("2026-10-15T10:28:02.000Z");
+    expect(article.datePublished).toBe("2026-10-16T12:00:00.000Z");
     expect(new Date(article.dateModified).getTime()).toBeLessThanOrEqual(now.getTime());
     expect(article.author.name).toBe("Tyler Shewmake");
     expect(article.image).toContain("/aviation/issues/2026-10-16/opengraph-image");

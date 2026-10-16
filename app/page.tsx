@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
 import { activeSegments, featuredSegment, segmentCardLabel, segmentCardPillClass } from "@/lib/segments";
 import { site } from "@/lib/site";
@@ -72,7 +72,7 @@ export default function HomePage() {
           </div>
           <article className="card">
             {latest.sample ? <p className="pill sample">Sample issue</p> : null}
-            <p className="meta">{formatPublishedInstant(issuePublishedInstant(latest))}</p>
+            <p className="meta">{formatIssueDate(latest)}</p>
             <h3>
               <Link href={`/${featured.slug}/issues/${latest.date}`}>{latest.subject}</Link>
             </h3>

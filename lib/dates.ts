@@ -47,6 +47,26 @@ export function formatLongDate(isoDate: string): string {
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
+/**
+ * Noon UTC on a date-only day.
+ * `new Date("YYYY-MM-DD")` is UTC midnight, which is the previous evening in America/New_York.
+ * Noon stays on the same calendar date in UTC and in New York.
+ */
+export function calendarInstant(isoDate: string): Date {
+  return new Date(`${isoDate}T12:00:00.000Z`);
+}
+
+/** The issue's date-only field, as that calendar day. publishedAt is not the label. */
+export function formatIssueDate(issue: { date: string }): string {
+  return formatLongDate(issue.date);
+}
+
+/** Open Graph footer. The calendar date stays in front of the preheader. */
+export function issueDateLine(issue: { date: string; preheader?: string }): string {
+  const label = formatIssueDate(issue);
+  return issue.preheader ? `${label}. ${issue.preheader}` : label;
+}
+
 /** Never return an instant later than `now`. An invalid date falls back to `now`. */
 export function clampInstant(instant: Date, now = new Date()): Date {
   if (Number.isNaN(instant.getTime()) || instant.getTime() > now.getTime()) return new Date(now.getTime());

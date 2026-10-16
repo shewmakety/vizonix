@@ -6,7 +6,7 @@ import { allTools, getTool, listTools } from "@/lib/content";
 import { configuredTopicsForTool } from "@/lib/directory";
 import { breadcrumbJsonLd, toolJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
-import { formatPublishedInstant, issuePublishedInstant, todayInNewYork } from "@/lib/dates";
+import { formatIssueDate, todayInNewYork } from "@/lib/dates";
 import { isFeaturedActive } from "@/lib/featured";
 import { getSegment, segmentTopics, topicPagePath } from "@/lib/segments";
 import { issuesMentioningTool, relatedTools, toolPageTitle } from "@/lib/tool-page";
@@ -154,7 +154,7 @@ export default async function ToolPage({ params }: Props) {
                 {mentioned.map((issue) => (
                   <li key={issue.date}>
                     <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
-                    <div className="meta">{formatPublishedInstant(issuePublishedInstant(issue))}</div>
+                    <div className="meta">{formatIssueDate(issue)}</div>
                   </li>
                 ))}
               </ul>

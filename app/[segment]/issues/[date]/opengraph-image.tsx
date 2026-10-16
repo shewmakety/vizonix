@@ -1,4 +1,5 @@
 import { getIssue, allIssues } from "@/lib/content";
+import { issueDateLine } from "@/lib/dates";
 import { ogContentType, ogSize, renderOgCard } from "@/lib/og-card";
 import { getSegment } from "@/lib/segments";
 
@@ -17,6 +18,6 @@ export default async function Image({ params }: { params: Promise<{ segment: str
   return renderOgCard({
     kicker: segment ? `Vizonix ${segment.name}` : "Vizonix",
     title: issue?.subject ?? "Issue",
-    footer: issue?.preheader ?? "The briefing is free.",
+    footer: issue ? issueDateLine(issue) : "The briefing is free.",
   });
 }

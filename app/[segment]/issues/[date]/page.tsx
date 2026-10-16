@@ -4,7 +4,7 @@ import { IssueBody } from "@/components/IssueBody";
 import { JsonLd } from "@/components/JsonLd";
 import { SignupForm } from "@/components/SignupForm";
 import { allIssues, getIssue, issueModifiedInstant } from "@/lib/content";
-import { issuePublishedInstant } from "@/lib/dates";
+import { calendarInstant } from "@/lib/dates";
 import { breadcrumbJsonLd, issueJsonLd } from "@/lib/jsonld";
 import { capDescription, pageMeta } from "@/lib/meta";
 import { getSegment } from "@/lib/segments";
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
   const issue = getIssue(slug, date);
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned" || !issue) return { robots: { index: false, follow: false } };
-  const published = issuePublishedInstant(issue);
+  const published = calendarInstant(issue.date);
   const modified = issueModifiedInstant(issue);
   return pageMeta({
     title: issue.subject,

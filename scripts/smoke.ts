@@ -161,6 +161,9 @@ async function main() {
     if (aviationIssue.includes("Sample issue") || aviationIssue.includes("AOGLine")) {
       throw new Error("The real aviation issue still contains sample content.");
     }
+    if (!aviationIssue.includes("Friday, October 16, 2026") || aviationIssue.includes("Thursday, October 15, 2026")) {
+      throw new Error("The aviation issue date did not stay on Friday, October 16, 2026.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);

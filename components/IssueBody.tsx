@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Crumbs } from "@/components/Crumbs";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatIssueDate } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
@@ -104,7 +104,7 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const payoff = segment?.payoffLabel ?? "Why it matters";
-  const publishedLabel = formatPublishedInstant(issuePublishedInstant(issue));
+  const publishedLabel = formatIssueDate(issue);
   return (
     <article>
       <Crumbs

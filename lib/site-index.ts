@@ -1,5 +1,5 @@
 import { allIssues, allTools, issueModifiedInstant, toolUpdatedAt } from "@/lib/content";
-import { clampInstant, issuePublishedInstant } from "@/lib/dates";
+import { clampInstant } from "@/lib/dates";
 import { toolTopicKeys } from "@/lib/directory";
 import { segments, topicPagePath } from "@/lib/segments";
 
@@ -76,7 +76,7 @@ export function sitemapEntries(now = new Date()): SitemapEntry[] {
     return segment?.status === "active" && !tool.sample;
   });
 
-  const issueInstant = new Map(issues.map((issue) => [issue, issuePublishedInstant(issue, now)]));
+  const issueInstant = new Map(issues.map((issue) => [issue, issueModifiedInstant(issue, now)]));
   const toolInstant = new Map(tools.map((tool) => [tool.slug + tool.segment, toolUpdatedAt(tool, now)]));
 
   const dates = new Map<string, Date>();
