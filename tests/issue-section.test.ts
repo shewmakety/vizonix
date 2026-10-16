@@ -9,7 +9,7 @@ import { renderIssueEmail } from "@/lib/email";
 import { issueSchema, productivitySectionTopic } from "@/lib/schema";
 
 describe("issue section headings", () => {
-  it("renders topic headings as gray pills on the page and leaves the email plain", () => {
+  it("renders topic headings as green pills on the page and leaves the email plain", () => {
     const issue = getIssue("aviation", "2026-10-16");
     expect(issue).toBeTruthy();
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
@@ -33,13 +33,18 @@ describe("issue section headings", () => {
     expect(html.match(/class="section-heading"/g)).toHaveLength(topics.length);
 
     const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
-    const rule = css.slice(css.indexOf(".section-heading {"), css.indexOf(".section-heading {") + 400);
+    const start = css.indexOf(".section-heading {");
+    const rule = css.slice(start, start + 280);
     expect(rule).toContain("display: inline-block");
     expect(rule).toContain("border-radius: 999px");
-    expect(rule).toContain("background: #e5e7eb");
-    expect(rule).toContain("color: #1c1915");
+    expect(rule).toContain("background: #14532D");
+    expect(rule).toContain("color: #ffffff");
     expect(rule).toContain("font-weight: 600");
+    expect(rule).not.toContain("#166534");
     expect(css).toContain(".issue-section { margin-top: 2.25rem; }");
+    const dark = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
+    expect(dark).toContain("background: #166534");
+    expect(dark).toContain("color: #ffffff");
 
     const email = renderIssueEmail(issue!, { mode: "broadcast" });
     expect(email).not.toContain("section-heading");

@@ -286,10 +286,16 @@ input:focus, select:focus, textarea:focus {
   margin: 0 0 0.85rem;
   padding: 0.32rem 0.9rem;
   border-radius: 999px;
-  background: #e5e7eb;
-  color: #1c1915;
+  background: #14532D;
+  color: #ffffff;
   font-weight: 600;
   line-height: 1.25;
+}
+@media (prefers-color-scheme: dark) {
+  .section-heading {
+    background: #166534;
+    color: #ffffff;
+  }
 }
 .side-card { position: sticky; top: 1rem; }
 .topic-chips {
