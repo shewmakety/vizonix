@@ -280,19 +280,19 @@ input:focus, select:focus, textarea:focus {
 .prose { max-width: 42rem; }
 .prose h2 { margin-top: 1.8rem; }
 .issue-layout { display: grid; grid-template-columns: minmax(0, 42rem) 16rem; gap: 2rem; }
-.issue-section { margin-top: 36px; }
+.issue-section { margin-top: 48px; }
 .section-heading {
   display: flex;
   align-items: baseline;
-  gap: 14px;
+  gap: 18px;
   max-width: 100%;
-  margin: 0 0 18px;
-  padding: 12px 0 0;
+  margin: 0 0 22px;
+  padding: 16px 0 0;
   border-top: 2px solid var(--ink);
   background: none;
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 26px;
+  font-size: clamp(30px, 4vw, 40px);
   font-weight: 400;
   font-style: normal;
   letter-spacing: normal;
@@ -301,7 +301,7 @@ input:focus, select:focus, textarea:focus {
 .section-number {
   flex: none;
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 600;
   font-style: normal;
   letter-spacing: 0.08em;
@@ -311,7 +311,7 @@ input:focus, select:focus, textarea:focus {
 .section-title {
   min-width: 0;
   font-family: var(--serif);
-  font-size: 26px;
+  font-size: clamp(30px, 4vw, 40px);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
@@ -499,7 +499,6 @@ dl.facts dt { color: var(--muted); }
     overflow: visible;
   }
   dl.facts { grid-template-columns: 1fr; }
-  .section-heading, .section-title { font-size: 22px; }
 }
 
 .mock-grid {
