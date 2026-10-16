@@ -149,7 +149,7 @@ Checkout is `POST /api/checkout`. It stores the preferred week in Checkout metad
 
 Webhook:
 
-1. Endpoint `https://vizonix.com/api/stripe/webhook`
+1. Endpoint `https://www.vizonix.com/api/stripe/webhook`
 2. Event `checkout.session.completed`
 3. Copy the signing secret to `STRIPE_WEBHOOK_SECRET`
 
