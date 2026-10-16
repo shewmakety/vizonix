@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Crumbs } from "@/components/Crumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { listIssues } from "@/lib/content";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatIssueDate } from "@/lib/dates";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
 import { getSegment, segments } from "@/lib/segments";
@@ -60,7 +60,7 @@ export default async function IssuesPage({ params }: Props) {
               <li key={issue.date}>
                 <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
                 <div className="meta">
-                  {formatPublishedInstant(issuePublishedInstant(issue))}
+                  {formatIssueDate(issue)}
                   {issue.sample ? " - Sample issue" : ""}
                 </div>
                 <p>{issue.preheader}</p>

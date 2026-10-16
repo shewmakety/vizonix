@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { githubConfigured, readRepoFile, writeRepoFile } from "@/lib/github";
 import { issueSections, type Issue } from "@/lib/schema";
+import { formatIssueDate } from "@/lib/dates";
 import { getSegment } from "@/lib/segments";
 
 export type LinkedInPostResult = {
@@ -93,7 +94,7 @@ export function buildLinkedInPost(issue: Issue, issueUrl: string): string {
     const parts = [
       hook,
       "",
-      `Today's Vizonix ${segmentName} briefing:`,
+      `${formatIssueDate(issue)}. Vizonix ${segmentName} briefing:`,
       ...lines.map((bullet) => `- ${bullet}`),
       "",
       plusLine,

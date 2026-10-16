@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
 import { activeSegments, getSegment } from "@/lib/segments";
 
@@ -76,7 +76,7 @@ export default async function SegmentPage({ params }: Props) {
             {issues.slice(0, 3).map((issue) => (
               <article className="card" key={issue.date}>
                 {issue.sample ? <p className="pill sample">Sample issue</p> : null}
-                <p className="meta">{formatPublishedInstant(issuePublishedInstant(issue))}</p>
+                <p className="meta">{formatIssueDate(issue)}</p>
                 <h3>
                   <Link href={`/${segment.slug}/issues/${issue.date}`}>{issue.subject}</Link>
                 </h3>

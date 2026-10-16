@@ -1,0 +1,63 @@
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, it } from "vitest";
+import { IssueBody } from "@/components/IssueBody";
+import { getIssue } from "@/lib/content";
+import {
+  calendarInstant,
+  formatIssueDate,
+  formatLongDate,
+  formatPublishedInstant,
+  issueDateLine,
+} from "@/lib/dates";
+import { renderIssueEmail, renderIssueText } from "@/lib/email";
+import { buildSegmentFeed } from "@/lib/feed";
+import { issueJsonLd } from "@/lib/jsonld";
+import { buildLinkedInPost } from "@/lib/linkedin";
+import { sitemapEntries } from "@/lib/site-index";
+
+describe("date-only issue dates", () => {
+  it("keeps the calendar day instead of shifting UTC midnight into the previous evening", () => {
+    expect(formatLongDate("2026-10-16")).toBe("Friday, October 16, 2026");
+    expect(formatPublishedInstant(new Date("2026-10-16T00:00:00.000Z"))).toBe("Thursday, October 15, 2026");
+    expect(calendarInstant("2026-10-16").toISOString()).toBe("2026-10-16T12:00:00.000Z");
+    expect(formatPublishedInstant(calendarInstant("2026-10-16"))).toBe("Friday, October 16, 2026");
+
+    const issue = getIssue("aviation", "2026-10-16");
+    expect(issue?.date).toBe("2026-10-16");
+    expect(issue?.publishedAt).toBe("2026-10-15T06:28:02-04:00");
+    expect(formatIssueDate(issue!)).toBe("Friday, October 16, 2026");
+    expect(issueDateLine(issue!).startsWith("Friday, October 16, 2026. ")).toBe(true);
+
+    const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
+    expect(html).toContain("Friday, October 16, 2026");
+    expect(html).not.toContain("Thursday, October 15, 2026");
+
+    const email = renderIssueEmail(issue!, { mode: "broadcast" });
+    const text = renderIssueText(issue!, { mode: "broadcast" });
+    expect(email).toContain("Friday, October 16, 2026");
+    expect(email).not.toContain("Thursday, October 15, 2026");
+    expect(text).toContain("Friday, October 16, 2026");
+
+    const now = new Date("2026-12-01T00:00:00.000Z");
+    const feed = buildSegmentFeed("aviation", now);
+    expect(feed).toContain("Fri, 16 Oct 2026 12:00:00 GMT");
+    expect(feed).not.toContain("15 Oct 2026");
+
+    const article = issueJsonLd(issue!, now) as { datePublished: string };
+    expect(article.datePublished).toBe("2026-10-16T12:00:00.000Z");
+
+    const entry = sitemapEntries(now).find((item) => item.path === "/aviation/issues/2026-10-16");
+    expect(entry).toBeTruthy();
+    const nyDay = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/New_York",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(entry!.lastModified);
+    expect(nyDay >= "2026-10-16").toBe(true);
+
+    const post = buildLinkedInPost(issue!, "https://www.vizonix.com/aviation/issues/2026-10-16");
+    expect(post).toContain("Friday, October 16, 2026. Vizonix Aviation briefing:");
+  });
+});

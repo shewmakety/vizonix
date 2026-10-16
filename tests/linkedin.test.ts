@@ -53,7 +53,7 @@ describe("LinkedIn post text", () => {
     const text = buildLinkedInPost(issue(), url);
     expect(text.length).toBeLessThanOrEqual(1200);
     expect(text).toContain(url);
-    expect(text).toContain("Today's Vizonix Aviation briefing:");
+    expect(text).toContain("Friday, October 16, 2026. Vizonix Aviation briefing:");
     expect(text).toContain("Free every morning. Subscribe at vizonix.com/aviation");
     expect(text).toContain("#Aviation");
     expect(text).not.toContain(dash(0x2013));

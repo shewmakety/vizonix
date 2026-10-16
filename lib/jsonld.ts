@@ -1,5 +1,5 @@
 import { issueModifiedInstant } from "@/lib/content";
-import { issuePublishedInstant } from "@/lib/dates";
+import { calendarInstant } from "@/lib/dates";
 import type { Issue, ToolEntry } from "@/lib/schema";
 import { absoluteUrl, editor, organizationSameAs, site, siteUrl } from "@/lib/site";
 import { getSegment } from "@/lib/segments";
@@ -49,14 +49,13 @@ export function personAuthorJsonLd() {
 
 export function issueJsonLd(issue: Issue, now = new Date()) {
   const segment = getSegment(issue.segment);
-  const published = issuePublishedInstant(issue, now);
   const modified = issueModifiedInstant(issue, now);
   const path = `/${issue.segment}/issues/${issue.date}`;
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: issue.subject,
-    datePublished: published.toISOString(),
+    datePublished: calendarInstant(issue.date).toISOString(),
     dateModified: modified.toISOString(),
     description: issue.preheader,
     image: absoluteUrl(`${path}/opengraph-image`),

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { clampInstant, issuePublishedInstant } from "@/lib/dates";
+import { calendarInstant, clampInstant } from "@/lib/dates";
 import { parseIssue, parseTool, type Issue, type ToolEntry } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
 
@@ -107,12 +107,12 @@ export function toolUpdatedAt(tool: Pick<ToolEntry, "segment" | "slug">, now = n
   return fileUpdatedAt(toolSourceFile(tool), now);
 }
 
-/** Later of the publish time and the issue file mtime, never in the future. */
+/** Later of the issue's calendar day and the file mtime, never in the future. */
 export function issueModifiedInstant(issue: Issue, now = new Date()): Date {
-  const published = issuePublishedInstant(issue, now);
+  const calendar = clampInstant(calendarInstant(issue.date), now);
   const file = path.join(issuesDir(issue.segment), `${issue.date}.json`);
   const updated = fileUpdatedAt(fs.existsSync(file) ? file : undefined, now);
-  return updated.getTime() > published.getTime() ? updated : published;
+  return updated.getTime() > calendar.getTime() ? updated : calendar;
 }
 
 export function writeIssueFile(issue: Issue): string {
