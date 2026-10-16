@@ -19,6 +19,7 @@ export function SiteFooter() {
           <Link href="/terms">Terms</Link>
           <Link href={segmentUnsubscribeHref(pathname, rememberedSlug)}>Unsubscribe</Link>
           <Link href="/sponsor">Sponsor</Link>
+          <Link href="/media-kit">Media kit</Link>
           <Link href="/llms.txt">llms.txt</Link>
           <SocialLinks />
         </nav>

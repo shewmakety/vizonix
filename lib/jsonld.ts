@@ -77,15 +77,18 @@ export function issueJsonLd(issue: Issue, now = new Date()) {
   };
 }
 
-export function toolJsonLd(tool: ToolEntry) {
+export function toolJsonLd(tool: ToolEntry, options?: { sponsored?: boolean }) {
+  const description = tool.sample
+    ? `Sample listing. ${tool.summary} This is fictional and not a real product.`
+    : options?.sponsored
+      ? `Sponsored listing. ${tool.summary}`
+      : tool.summary;
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: tool.name,
     applicationCategory: "BusinessApplication",
-    description: tool.sample
-      ? `Sample listing. ${tool.summary} This is fictional and not a real product.`
-      : tool.summary,
+    description,
     url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
     ...(tool.sample ? {} : { sameAs: tool.url }),
     ...(tool.company ? { provider: { "@type": "Organization", name: tool.company } } : {}),
@@ -95,27 +98,49 @@ export function toolJsonLd(tool: ToolEntry) {
   };
 }
 
+function directoryItemList(
+  tools: Array<Pick<ToolEntry, "name" | "segment" | "slug">>,
+  nameFor: (tool: Pick<ToolEntry, "name">) => string,
+  extra?: { name: string; description: string },
+) {
+  return {
+    "@type": "ItemList",
+    ...(extra ? { name: extra.name, description: extra.description } : {}),
+    itemListElement: tools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: nameFor(tool),
+      url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
+    })),
+  };
+}
+
 export function collectionJsonLd(input: {
   name: string;
   description: string;
   path: string;
   tools: Array<Pick<ToolEntry, "name" | "segment" | "slug">>;
+  /** Paid slots. They are omitted from the organic ItemList so position is not a ranking. */
+  sponsoredSlugs?: readonly string[];
 }) {
+  const sponsoredSet = new Set(input.sponsoredSlugs ?? []);
+  const sponsored = input.tools.filter((tool) => sponsoredSet.has(tool.slug));
+  const organic = input.tools.filter((tool) => !sponsoredSet.has(tool.slug));
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: input.name,
     description: input.description,
     url: absoluteUrl(input.path),
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: input.tools.map((tool, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: tool.name,
-        url: absoluteUrl(`/${tool.segment}/tools/${tool.slug}`),
-      })),
-    },
+    mainEntity: directoryItemList(organic, (tool) => tool.name),
+    ...(sponsored.length > 0
+      ? {
+          hasPart: directoryItemList(sponsored, (tool) => `${tool.name} (Sponsored)`, {
+            name: "Sponsored listings",
+            description: "Paid placements. Order in this list is not a ranking and is not an editorial order.",
+          }),
+        }
+      : {}),
   };
 }
 

@@ -30,6 +30,8 @@ export async function POST(request: Request) {
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
+  const subscriptionId =
+    typeof session.subscription === "string" ? session.subscription : session.subscription?.id;
   const reservation = reservationFromSession({
     id: session.id,
     created: session.created,
@@ -56,6 +58,12 @@ export async function POST(request: Request) {
     `Company: ${session.metadata?.company || ""}`,
     `Email: ${session.customer_email || session.customer_details?.email || ""}`,
     `Ad copy: ${session.metadata?.ad_copy_url || ""}`,
+    ...(subscriptionId ? [`Subscription: ${subscriptionId}`] : []),
+    ...(reservation.placement === "featured"
+      ? [
+          "Featured listing: set featured.until to the end date and featured.tier to founding or standard on the tool JSON. The Sponsored card stays off until that flag is saved.",
+        ]
+      : []),
     `Stored: ${saved.stored}`,
     saved.conflict
       ? `Conflict with ${saved.conflict.id} (${saved.conflict.startDate} to ${saved.conflict.endDate}).`
@@ -76,7 +84,7 @@ export async function POST(request: Request) {
     const mailed = await notifyOps("Vizonix booking was not written to the repo", note);
     if (!mailed) {
       return NextResponse.json(
-        { error: "Booking could not be stored. Set GITHUB_TOKEN or OPS_EMAIL." },
+        { error: "Booking could not be stored. Set GITHUB_TOKEN, or RESEND_API_KEY so the ops notice can be sent." },
         { status: 500 },
       );
     }

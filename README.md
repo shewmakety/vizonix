@@ -41,14 +41,14 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `RESEND_SEGMENT_ID_MARKETING_SALES` | That list | Same. Hyphens in the slug become underscores. |
 | `RESEND_AUDIENCE_ID_*` | Legacy alias | Used only if the matching segment id is empty. |
 | `RESEND_TEST_TO` | Test sends | Single recipient when you are not broadcasting. |
-| `OPS_EMAIL` | Booking mail | Private notice when a checkout completes. |
+| `OPS_EMAIL` | Booking and inquiry mail | Defaults to admin@vizonix.com. Sent from hello@vizonix.com through Resend. |
 | `STRIPE_SECRET_KEY` | Checkout | Secret key. |
 | `STRIPE_WEBHOOK_SECRET` | Webhook | Signing secret for `/api/stripe/webhook`. |
-| `STRIPE_PRICE_AVIATION_*` | Aviation checkout | One-time Price id per placement. See `.env.example`. |
+| `STRIPE_PRICE_AVIATION_*` | Aviation checkout | Price id per placement. Featured must be a monthly recurring Price. The others are one-time. See `.env.example`. |
 | `STRIPE_PRICE_AVIATION_*_FOUNDING` | Aviation founding rate | Optional Price at the founding amount. |
 | `STRIPE_PRICE_LEGAL_*` | Legal checkout | Same pattern for legal, when that section opens. |
 | `STRIPE_PRICE_LEGAL_*_FOUNDING` | Legal founding rate | Optional. |
-| `STRIPE_FOUNDING_PROMOTION_CODE` | Founding coupon | `promo_` id, used when the founding Price is unset. |
+| `STRIPE_FOUNDING_PROMOTION_CODE` | Founding coupon | `promo_` id. 50% off, repeating for 3 months, max 10 redemptions. Do not also set a founding Price. |
 | `NEXT_PUBLIC_STRIPE_LINK_AVIATION_*` | Optional | Payment Link URLs for the launch section. |
 | `NEXT_PUBLIC_STRIPE_LINK_LEGAL_*` | Optional | Payment Link URLs for legal. |
 | `GITHUB_TOKEN` | Vercel publish and bookings | Fine-grained token, Contents read and write, this repo only. |
@@ -151,7 +151,7 @@ Webhook:
 2. Event `checkout.session.completed`
 3. Copy the signing secret to `STRIPE_WEBHOOK_SECRET`
 
-The webhook writes `content/bookings.json` through the GitHub API when `GITHUB_TOKEN` and `GITHUB_REPO` are set. The file records section, placement, and dates. It does not record the email. The email, company, and ad-copy URL are in the Stripe session and in the optional `OPS_EMAIL` notice. A matching placement and overlapping dates is rejected at checkout.
+The webhook writes `content/bookings.json` through the GitHub API when `GITHUB_TOKEN` and `GITHUB_REPO` are set. The file records section, placement, and dates. It does not record the email. The email, company, and ad-copy URL are in the Stripe session and in the ops notice (`OPS_EMAIL`, default admin@vizonix.com, from hello@vizonix.com). A matching newsletter or banner placement with overlapping dates is rejected at checkout. Featured listings can overlap. A completed founding checkout is counted toward the cap of 10.
 
 Payment Links are optional. If you add one, create custom fields with keys `segment`, `placement`, and `preferred_week` (`YYYY-MM-DD`). Put the URL in `NEXT_PUBLIC_STRIPE_LINK_AVIATION_*` or `NEXT_PUBLIC_STRIPE_LINK_LEGAL_*`. The sponsor page lists a link for every live section that has one set. Checkout is the path that captures the week without Dashboard field setup.
 

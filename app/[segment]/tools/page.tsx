@@ -3,8 +3,10 @@ import { Crumbs } from "@/components/Crumbs";
 import { DirectoryBrowser } from "@/components/DirectoryBrowser";
 import { JsonLd } from "@/components/JsonLd";
 import { listTools } from "@/lib/content";
-import { directoryCanonical, filterDirectoryTools, firstQueryValue, knownTopicKeys, otherTopicKey } from "@/lib/directory";
+import { directoryCanonical, firstQueryValue, knownTopicKeys, otherTopicKey } from "@/lib/directory";
 import { directoryViewFromQuery } from "@/lib/directory-view";
+import { todayInNewYork } from "@/lib/dates";
+import { presentDirectory } from "@/lib/featured";
 import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
 import { getSegment, getSegmentTopic, segments } from "@/lib/segments";
@@ -48,14 +50,15 @@ export default async function ToolsPage({ params, searchParams }: Props) {
   if (topicKey && topicKey !== otherTopicKey && !getSegmentTopic(segment, topicKey)) notFound();
   const tools = listTools(segment.slug);
   const q = firstQueryValue(query.q);
-  const visible = filterDirectoryTools(tools, {
+  const presented = presentDirectory(tools, {
     topic: topicKey || undefined,
     q,
     knownKeys: knownTopicKeys(segment.topics ?? []),
+    today: todayInNewYork(),
   });
   const title =
     segment.slug === "aviation"
-      ? `${visible.length} AI tools for aviation: MRO, AOG, parts, and flight ops`
+      ? `${presented.tools.length} AI tools for aviation: MRO, AOG, parts, and flight ops`
       : `${segment.name} tool directory`;
   const description = `Directory of AI tools covered by the Vizonix ${segment.name} briefing, each with its own page.`;
   const crumbs = [
@@ -94,7 +97,13 @@ export default async function ToolsPage({ params, searchParams }: Props) {
       </div>
       <JsonLd
         data={[
-          collectionJsonLd({ name: title, description, path: `/${segment.slug}/tools`, tools: visible }),
+          collectionJsonLd({
+            name: title,
+            description,
+            path: `/${segment.slug}/tools`,
+            tools: presented.tools,
+            sponsoredSlugs: presented.sponsoredSlugs,
+          }),
           breadcrumbJsonLd(crumbs),
         ]}
       />

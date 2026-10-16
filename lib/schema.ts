@@ -226,8 +226,29 @@ export const toolSchema = z
     topic: topicKey.optional(),
     /** Use when a tool belongs in more than one directory topic. */
     topics: z.array(topicKey).min(1).max(6).optional(),
+    /**
+     * Paid directory placement. Ignored once `until` is before today in New York.
+     * Do not set this on a tool that has not been bought.
+     */
+    featured: z
+      .object({
+        until: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        tier: z.enum(["founding", "standard"]),
+        blurb: z.string().trim().min(1).max(600).optional(),
+        logo: httpUrl.optional(),
+        cta: z.string().trim().min(1).max(80).optional(),
+        ctaUrl: httpUrl.optional(),
+      })
+      .optional(),
   })
   .superRefine((tool, ctx) => {
+    if (tool.featured && Boolean(tool.featured.cta) !== Boolean(tool.featured.ctaUrl)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["featured", "cta"],
+        message: "A featured call to action needs both a label and a URL.",
+      });
+    }
     if (tool.slug === "topic") {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

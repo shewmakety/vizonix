@@ -150,7 +150,8 @@ export async function recordPaidReservation(reservation: Reservation): Promise<{
   if (existing.some((row) => row.id === reservation.id)) {
     return { duplicate: true, conflict: null, stored: "local" };
   }
-  const conflict = findConflict(existing, reservation) ?? null;
+  const conflict =
+    reservation.placement === "featured" ? null : (findConflict(existing, reservation) ?? null);
   try {
     const stored = await saveReservations([...existing, reservation]);
     return { duplicate: false, conflict, stored };

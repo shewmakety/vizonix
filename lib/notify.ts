@@ -1,16 +1,23 @@
 import { Resend } from "resend";
+import { site } from "@/lib/site";
 
-export async function notifyOps(subject: string, text: string): Promise<boolean> {
-  const to = process.env.OPS_EMAIL;
-  const from = process.env.EMAIL_FROM;
+export const defaultOpsEmail = "admin@vizonix.com";
+
+export async function notifyOps(
+  subject: string,
+  text: string,
+  options?: { replyTo?: string },
+): Promise<boolean> {
+  const to = process.env.OPS_EMAIL?.trim() || defaultOpsEmail;
   const apiKey = process.env.RESEND_API_KEY;
-  if (!to || !from || !apiKey) return false;
+  if (!apiKey) return false;
   const resend = new Resend(apiKey);
   const result = await resend.emails.send({
-    from,
+    from: `Vizonix <${site.emailHello}>`,
     to: [to],
     subject,
     text,
+    ...(options?.replyTo ? { replyTo: options.replyTo } : {}),
   });
   return !result.error;
 }

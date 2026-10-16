@@ -6,11 +6,14 @@ import { allTools, getTool, listTools } from "@/lib/content";
 import { configuredTopicsForTool } from "@/lib/directory";
 import { breadcrumbJsonLd, toolJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
-import { formatPublishedInstant, issuePublishedInstant } from "@/lib/dates";
+import { formatPublishedInstant, issuePublishedInstant, todayInNewYork } from "@/lib/dates";
+import { isFeaturedActive } from "@/lib/featured";
 import { getSegment, segmentTopics, topicPagePath } from "@/lib/segments";
 import { issuesMentioningTool, relatedTools, toolPageTitle } from "@/lib/tool-page";
 
 type Props = { params: Promise<{ segment: string; slug: string }> };
+
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return allTools().map((tool) => ({ segment: tool.segment, slug: tool.slug }));
@@ -39,7 +42,9 @@ export default async function ToolPage({ params }: Props) {
   const topics = configuredTopicsForTool(segmentTopics(segment), tool);
   const topicCrumb = topics.length === 1 ? topics[0] : undefined;
   const peers = listTools(segment.slug);
-  const related = relatedTools(tool, peers);
+  const today = todayInNewYork();
+  const sponsored = isFeaturedActive(tool, today);
+  const related = relatedTools(tool, peers, 4, today);
   const mentioned = issuesMentioningTool(segment.slug, tool.slug);
   const crumbs = [
     { name: "Vizonix", path: "/" },
@@ -65,9 +70,16 @@ export default async function ToolPage({ params }: Props) {
               format can be reviewed. It is not an endorsement and not a paid placement.
             </p>
           ) : null}
+          {sponsored ? (
+            <p className="notice">
+              <strong>Sponsored.</strong> {tool.name} paid for this directory placement. It is not an
+              editorial ranking.
+            </p>
+          ) : null}
           <p className="kicker">{tool.category}</p>
           <h1>{tool.name}</h1>
           {tool.company ? <p className="meta">{tool.company}</p> : null}
+          {sponsored && tool.featured?.logo ? <img className="tool-logo" src={tool.featured.logo} alt="" /> : null}
           {topics.length > 0 ? (
             <p className="meta">
               Topic:{" "}
@@ -80,6 +92,7 @@ export default async function ToolPage({ params }: Props) {
             </p>
           ) : null}
           <p className="lede">{tool.summary}</p>
+          {sponsored && tool.featured?.blurb ? <p>{tool.featured.blurb}</p> : null}
           {tool.paragraphs
             .filter((paragraph) => paragraph !== tool.summary)
             .map((paragraph) => (
@@ -113,6 +126,13 @@ export default async function ToolPage({ params }: Props) {
               </>
             ) : null}
           </dl>
+          {sponsored && tool.featured?.cta && tool.featured.ctaUrl ? (
+            <p>
+              <a className="button" href={tool.featured.ctaUrl} rel="sponsored noopener noreferrer">
+                {tool.featured.cta}
+              </a>
+            </p>
+          ) : null}
           {related.length > 0 ? (
             <section>
               <h2>Related tools</h2>
@@ -120,6 +140,7 @@ export default async function ToolPage({ params }: Props) {
                 {related.map((item) => (
                   <li key={item.slug}>
                     <Link href={`/${segment.slug}/tools/${item.slug}`}>{item.name}</Link>
+                    {isFeaturedActive(item, today) ? <span className="pill sponsored">Sponsored</span> : null}
                     {item.company ? <span className="meta"> {item.company}</span> : null}
                   </li>
                 ))}
@@ -144,7 +165,7 @@ export default async function ToolPage({ params }: Props) {
           </p>
         </div>
       </section>
-      <JsonLd data={[toolJsonLd(tool), breadcrumbJsonLd(crumbs)]} />
+      <JsonLd data={[toolJsonLd(tool, { sponsored }), breadcrumbJsonLd(crumbs)]} />
     </>
   );
 }

@@ -46,6 +46,7 @@ describe("site copy", () => {
     const paths = sitemapPaths();
     expect(paths).toContain("/aviation");
     expect(paths).toContain("/sponsor");
+    expect(paths).toContain("/media-kit");
     expect(paths).not.toContain("/legal");
     expect(paths).not.toContain("/legal/issues");
     expect(paths).not.toContain("/legal/tools");

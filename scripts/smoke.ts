@@ -32,6 +32,7 @@ const pages: Array<[string, string]> = [
   ["/warehousing", "not publishing yet"],
   ["/marketing-sales", "not publishing yet"],
   ["/sponsor", "Aviation is the first list"],
+  ["/media-kit", "Audience numbers will be published after our first full month."],
   ["/sponsor/confirmed", "Payment received"],
   ["/about", "rate card"],
   ["/privacy", "Resend"],
@@ -129,6 +130,16 @@ async function main() {
     await expectStatus("/api/publish", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 401);
     await expectStatus("/api/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/stripe/webhook", { method: "POST", body: "{}" }, 400);
+    await expectStatus("/api/sponsor-inquiry", { method: "POST", body: "not-json" }, 400);
+    await expectStatus(
+      "/api/sponsor-inquiry",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ company_website: "https://spam.example" }),
+      },
+      200,
+    );
 
     const issue = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), "content/aviation/issues/2026-10-16.json"), "utf8"),
@@ -182,10 +193,45 @@ async function main() {
     if (!sitemap.includes("/aviation/tools/topic/predictive-maintenance")) {
       throw new Error("Sitemap is missing the predictive maintenance topic page.");
     }
+    if (!sitemap.includes("/media-kit")) {
+      throw new Error("Sitemap is missing the media kit.");
+    }
+
+    const sponsor = await fetch(`${base}/sponsor`).then((response) => response.text());
+    if (sponsor.includes("use the form on this page") || sponsor.includes("$180") || sponsor.includes("$105")) {
+      throw new Error("Sponsor page still has the old form wording or the old ladder prices.");
+    }
+    if (!sponsor.includes("$175") || !sponsor.includes("$100") || !sponsor.includes("inquiry")) {
+      throw new Error("Sponsor page is missing the rate card prices or the inquiry form.");
+    }
+    if (sponsor.includes("2,500-5,000") || sponsor.includes("$4,500")) {
+      throw new Error("Sponsor page still publishes tiers above 2,500 subscribers.");
+    }
+
+    const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-16")) {
+      throw new Error("Media kit is missing the founder or the latest issue.");
+    }
+    const pdf = await fetch(`${base}/media-kit.pdf`);
+    if (pdf.status !== 200 || !pdf.headers.get("content-type")?.includes("application/pdf")) {
+      throw new Error("Media kit PDF was not served.");
+    }
+    const pdfBytes = Buffer.from(await pdf.arrayBuffer());
+    if (!pdfBytes.subarray(0, 8).toString().startsWith("%PDF")) {
+      throw new Error("Media kit PDF is not a PDF.");
+    }
+
+    const airvoyant = await fetch(`${base}/aviation/tools/airvoyant`).then((response) => response.text());
+    if (airvoyant.includes("pill sponsored")) {
+      throw new Error("A real tool is marked Sponsored.");
+    }
 
     const llmsFull = await fetch(`${base}/llms-full.txt`).then((response) => response.text());
     if (!llmsFull.includes("https://veryon.com/") || llmsFull.includes("AOGLine")) {
       throw new Error("llms-full.txt is missing the real lead or still names AOGLine.");
+    }
+    if (llmsFull.includes("2,500-5,000") || llmsFull.includes("$4,500") || llmsFull.includes("60%")) {
+      throw new Error("llms-full.txt still publishes hidden price tiers.");
     }
 
     const homeResponse = await fetch(`${base}/`, { redirect: "manual" });
