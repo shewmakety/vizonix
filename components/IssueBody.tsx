@@ -7,10 +7,33 @@ import { issueSections, type Issue, type IssueSectionView, type SponsorCreative 
 import { getSegment } from "@/lib/segments";
 import { editor } from "@/lib/site";
 
-function ToolSection({ section, payoff }: { section: IssueSectionView; payoff: string }) {
+function sectionAnchor(topic: string): string {
+  const slug = topic
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || "section";
+}
+
+function ToolSection({
+  section,
+  payoff,
+  index,
+}: {
+  section: IssueSectionView;
+  payoff: string;
+  index: number;
+}) {
+  const topic = section.topic ?? "Tool Highlights";
+  const number = String(index + 1).padStart(2, "0");
   return (
     <section className="issue-section">
-      <h2 className="section-heading">{section.topic ?? "Tool Highlights"}</h2>
+      <h2 className="section-heading" id={sectionAnchor(topic)}>
+        <span className="section-number" aria-hidden="true">
+          {number}
+        </span>
+        <span className="section-title">{topic}</span>
+      </h2>
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
       {section.intro ? (
         <p>
@@ -124,7 +147,12 @@ export function IssueBody({ issue }: { issue: Issue }) {
         ) : null}
       </section>
       {issueSections(issue).map((section, index) => (
-        <ToolSection key={section.topic ?? `tools-${index}`} section={section} payoff={payoff} />
+        <ToolSection
+          key={section.topic ?? `tools-${index}`}
+          section={section}
+          payoff={payoff}
+          index={index}
+        />
       ))}
       <SlotView name="secondary" creative={issue.sponsors.secondary} />
       <section>
