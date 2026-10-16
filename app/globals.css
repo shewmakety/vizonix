@@ -13,6 +13,7 @@
   --brass: #5c4214;
   --brass-soft: #f4ecdc;
   --danger: #6d2c2c;
+  --section-number: #14532D;
   --max: 1080px;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -279,23 +280,64 @@ input:focus, select:focus, textarea:focus {
 .prose { max-width: 42rem; }
 .prose h2 { margin-top: 1.8rem; }
 .issue-layout { display: grid; grid-template-columns: minmax(0, 42rem) 16rem; gap: 2rem; }
-.issue-section { margin-top: 2.25rem; }
+.issue-section { margin-top: 36px; }
 .section-heading {
-  display: inline-block;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
   max-width: 100%;
-  margin: 0 0 0.85rem;
-  padding: 0.32rem 0.9rem;
-  border-radius: 999px;
-  background: #14532D;
-  color: #ffffff;
+  margin: 0 0 18px;
+  padding: 12px 0 0;
+  border-top: 2px solid var(--ink);
+  background: none;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.15;
+}
+.section-number {
+  flex: none;
+  font-family: var(--sans);
+  font-size: 13px;
   font-weight: 600;
-  line-height: 1.25;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--section-number);
+}
+.section-title {
+  min-width: 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--ink);
 }
 @media (prefers-color-scheme: dark) {
-  .section-heading {
-    background: #166534;
-    color: #ffffff;
+  :root {
+    --paper: #1f2a24;
+    --paper-deep: #18211c;
+    --card: #26332c;
+    --ink: #f3f0e8;
+    --ink-soft: #e4ddd2;
+    --muted: #cfc6b8;
+    --line: #3e4c44;
+    --brass: #e0c392;
+    --brass-soft: #3a3226;
+    --danger: #f0b4b4;
+    --section-number: #8FBC8F;
   }
+  a { color: #9dceb0; }
+  a:hover { color: #f3f0e8; }
+  .button.secondary { color: var(--ink); border-color: var(--ink); }
+  .button.secondary:hover { background: var(--ink); color: #1f2a24; }
+  .form-ok { color: #8FBC8F; }
+  input, select, textarea, .skip, .mock, .mock-mail { color: #1c1915; }
 }
 .side-card { position: sticky; top: 1rem; }
 .topic-chips {
@@ -457,6 +499,7 @@ dl.facts dt { color: var(--muted); }
     overflow: visible;
   }
   dl.facts { grid-template-columns: 1fr; }
+  .section-heading, .section-title { font-size: 22px; }
 }
 
 .mock-grid {
