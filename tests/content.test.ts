@@ -58,28 +58,52 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(1);
+    expect(issues).toHaveLength(2);
+    expect(issues.map((issue) => issue.date)).toEqual(["2026-10-19", "2026-10-16"]);
     expect(issues[0].sample).toBe(false);
-    expect(issues[0].date).toBe("2026-10-16");
-    expect(issues[0].sponsors.primary?.name).toBe("Vizonix");
-    expect(issues[0].sponsors.primary?.house).toBe(true);
-    expect(issues[0].sponsors.primary?.sample).toBe(false);
-    expect(issues[0].sponsors.primary?.ctaUrl).toBe("https://www.vizonix.com/sponsor");
-    expect(issues[0].sponsors.secondary).toBeNull();
-    expect(issues[0].sponsors.classified).toBeNull();
-    expect(issues[0].subject).toBe("AI moves into the hangar, plus 7 places to put it to work");
+    expect(issues[0].subject).toBe(
+      "NBAA week: AI agents for the flight department, plus 7 places to put AI to work",
+    );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
-    expect(issues[0].sections?.some((section) => section.coverageNote)).toBe(true);
-    expect(issueTools(issues[0])).toHaveLength(15);
-    expect(issueTools(issues[0]).map((tool) => tool.slug)).toContain("airvoyant");
-    expect(issueTools(issues[0]).map((tool) => tool.slug)).not.toContain("aogline");
+    expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
+      "flightatom-hire-ai",
+      "jetnet-ai",
+      "charter-and-go-connieai",
+      "collins-ascentia",
+      "ifs-intelligence",
+      "ironfleet-avios",
+      "ptc-servigistics",
+      "aeroquote",
+      "botminds-aog-parts-sourcing",
+      "chatgpt",
+      "gemini",
+      "ai-by-zapier",
+    ]);
+
+    const first = getIssue("aviation", "2026-10-16");
+    expect(first?.sample).toBe(false);
+    expect(first?.sponsors.primary?.name).toBe("Vizonix");
+    expect(first?.sponsors.primary?.house).toBe(true);
+    expect(first?.sponsors.primary?.sample).toBe(false);
+    expect(first?.sponsors.primary?.ctaUrl).toBe("https://www.vizonix.com/sponsor");
+    expect(first?.sponsors.secondary).toBeNull();
+    expect(first?.sponsors.classified).toBeNull();
+    expect(first?.subject).toBe("AI moves into the hangar, plus 7 places to put it to work");
+    expect(first?.sections).toHaveLength(8);
+    expect(first?.sections?.at(-1)?.topic).toBe("AI Productivity Tools");
+    expect(first?.sections?.some((section) => section.coverageNote)).toBe(true);
+    expect(issueTools(first!)).toHaveLength(15);
+    expect(issueTools(first!).map((tool) => tool.slug)).toContain("airvoyant");
+    expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(72);
+    expect(tools).toHaveLength(77);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
-    expect(tools.filter((tool) => tool.topic !== "general-ai").every((tool) => tool.pricing === "Contact the vendor")).toBe(
-      true,
+    const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
+    expect(priced.map((tool) => tool.slug)).toEqual(["aeroquote"]);
+    expect(getTool("aviation", "aeroquote")?.pricing).toBe(
+      "$299 per month plus $2 per quote sent; first 20 quotes free",
     );
     expect(tools.filter((tool) => tool.topic === "general-ai")).toHaveLength(15);
     expect(getTool("aviation", "hirevue")?.summary).toContain("general-purpose");

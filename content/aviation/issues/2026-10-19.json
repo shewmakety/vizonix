@@ -1,0 +1,246 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-19",
+  "publishedAt": "2026-10-19T05:45:00-04:00",
+  "sample": false,
+  "subject": "NBAA week: AI agents for the flight department, plus 7 places to put AI to work",
+  "preheader": "Jeppesen ForeFlight brings Airflow AI agents to business aviation ahead of NBAA-BACE, plus new AI from JETNET, IFS, Ironfleet and PTC, and two AOG quoting tools.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Jeppesen ForeFlight brings its Airflow AI agents to business aviation ahead of NBAA-BACE",
+    "summary": "On October 15, Jeppesen ForeFlight introduced what it calls its largest slate of new business aviation capabilities to date, including two new Airflow AI agents. Trip Feasibility checks a proposed trip against sanctions, permits, NOTAMs, weather and airport restrictions in a single pass, and Ops Briefing consolidates NOTAMs and current and forecast weather into a shared picture at the start of each shift. The release also adds ClearNOTAMs, which uses aviation-trained AI to turn abbreviated NOTAMs into plain-language summaries with the original text shown alongside, plus a new SMS and FRAT built for small to medium Part 91 operators. It is all on show at booth 3533 at NBAA-BACE, October 20-22 in Las Vegas.",
+    "whyItMatters": "Trip vetting and the morning brief eat hours of skilled dispatcher time that never get billed. If an agent catches a permit or NOTAM problem before the trip is confirmed, that is a refund, a reposition or a stranded crew you never have to pay for. At the show, bring two or three of last quarter's problem trips and see whether Trip Feasibility flags what your team found the hard way.",
+    "sourceName": "Jeppesen ForeFlight press release, October 15, 2026",
+    "sourceUrl": "https://www.jeppesenforeflight.com/news/jeppesen-foreflight-debuts-new-airflow-tm-agents-and-connected-solutions-at-nbaa-bace",
+    "productUrl": "https://ai.jeppesenforeflight.com/"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting pilots and technicians",
+      "intro": "Context: on October 15 the GE Aerospace Foundation committed $1 million to expand aviation maintenance training in Dallas-Fort Worth, adding Aviation Maintenance Technician instructor capacity at Dallas College and larger AMT labs at Tarrant County College, with more than 1,100 people expected to benefit in 2027.",
+      "introSourceUrl": "https://mrobusinesstoday.com/ge-aerospace-investment-targets-the-next-generation-of-aviation-maintenance-technicians/",
+      "coverageNote": "Thin this week: we did not find a new, verified AI recruiting launch for pilots or technicians, so this is one established tool.",
+      "tools": [
+        {
+          "name": "HIRE Ai",
+          "slug": "flightatom-hire-ai",
+          "company": "FlightAtom",
+          "summary": "Pilot recruitment and assessment software for airlines and operators. Applicants take proctored online aviation English, cognitive and technical tests, plus a Voice English test where an AI voice reads the prompts and speech assessment scores the answers on a 1 to 6 level modelled on the ICAO scale. Computer vision proctors every module, and recruiters make every hiring decision.",
+          "whyItMatters": "A bad pilot hire costs a training slot, simulator time and months of a seat you still cannot fill. Screening every applicant the same way online, before you fly anyone in, cuts travel and panel time spent on candidates who would not pass. FlightAtom is clear that the Voice English level is a recruitment screen, not an official ICAO rating.",
+          "url": "/aviation/tools/flightatom-hire-ai",
+          "sourceUrl": "https://www.flightatom.com/products/hire.html",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "JETNET AI",
+          "slug": "jetnet-ai",
+          "company": "JETNET",
+          "summary": "New on October 16, ahead of NBAA-BACE: JETNET AI connectors put its business aircraft intelligence inside Salesforce, HubSpot, Microsoft Teams, Microsoft Copilot, Slack, ChatGPT, Claude and WhatsApp, with every answer traceable to its source. JETNET says usage has tripled over the past six months. It also launched Ramp Monitor, which shows airport-based suppliers their share of ramp activity, including probable maintenance events at identifiable MRO ramps.",
+          "whyItMatters": "Your sales team already lives in the CRM. Answering who operates a tail and where it flies without switching tools means more prospecting calls per day, and Ramp Monitor gives an FBO or MRO a measurable share-of-ramp number to grow instead of a guess. Live demos are at booth 3030.",
+          "url": "/aviation/tools/jetnet-ai",
+          "sourceUrl": "https://www.jetnet.com/resources/press-releases/jetnet-brings-ai-connected-aviation-intelligence-and-new-ramp-monitor-to-nbaa-bace-2026",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "ConnieAI",
+          "slug": "charter-and-go-connieai",
+          "company": "Charter and Go",
+          "summary": "Charter and Go's aviation-focused AI, designed to help automate customer inquiries, gather missing trip information, assist with quoting and speed up the sales process. It sits alongside AI-generated quotes from incoming inquiries, aircraft recommendation models and dynamic pricing in the company's platform for Part 91, 135 and 121 operators and brokers. Charter and Go is demonstrating it at NBAA-BACE, booth 3517 (announced September 29).",
+          "whyItMatters": "Missing trip details are why a charter request sits in the inbox while a competitor quotes it. If the AI chases passenger count, dates and airports for you, measure how many more requests turn into sent quotes in the first 30 days.",
+          "url": "/aviation/tools/charter-and-go-connieai",
+          "sourceUrl": "https://www.pr.com/press-release/980360",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "coverageNote": "Thin this week: one airline deal, and it is analytics-led rather than a new AI launch. A military AI selection is in quick hits.",
+      "tools": [
+        {
+          "name": "Ascentia via FlightSense",
+          "slug": "collins-ascentia",
+          "company": "Collins Aerospace",
+          "summary": "On October 12, Collins Aerospace expanded its contract with Vietjet to add FlightSense support for 44 more GTF-powered A320neo family aircraft. FlightSense is a full-lifecycle support program powered by Collins' Ascentia analytics platform, with guaranteed component availability, reduced downtime and cost predictability. Collins says it will help Vietjet turn raw A320neo and A321XLR data into predictable maintenance needs.",
+          "whyItMatters": "The money in predictive maintenance is turning unscheduled removals into planned ones, and guaranteed component availability turns spares risk into a fixed line item. If you are negotiating a component support deal, ask which predictions are contractual and what you get back when they miss.",
+          "url": "/aviation/tools/collins-ascentia",
+          "sourceUrl": "https://www.rtx.com/news/news-center/2026/10/12/vietjet-air-expands-contract-with-rtxs-collins-aerospace",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "One item this week, and it is a general industrial AI product rather than an aviation-specific one.",
+      "tools": [
+        {
+          "name": "IFS Intelligence",
+          "slug": "ifs-intelligence",
+          "company": "IFS",
+          "summary": "Launched October 13 at IFS Unleashed. One plain-language interface reasons across live data from IFS and third-party systems, including assets, work orders, schedules and history, and shows its sources. Cowork prepares actions that run only after a person approves, Loops hands defined workflows to background digital workers that escalate when judgment is needed, and the IFS Industrial AI Harness applies business rules, permissions and approvals. It is licensed enterprise-wide with no feature tiers and a fair usage cap on AI executions.",
+          "whyItMatters": "If you already run IFS, this is AI on data you already pay to keep. IFS CEO Mark Moffat says industrial organizations often operate at around 60% of their potential. Pick one costly planning question, such as which work packages are at risk for parts or labor next week, and see whether it answers in minutes what now takes several reports and a meeting.",
+          "url": "/aviation/tools/ifs-intelligence",
+          "sourceUrl": "https://www.ifs.com/en/insights/news/ifs-launches-ifs-intelligence",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "intro": "At IFS Unleashed, Southwest Airlines' DJ Rounsoville said new mechanics may need up to two years to become fully efficient at troubleshooting, and panelists from Southwest, UPS and Japan Airlines all pointed to AI assistants that surface maintenance documentation and expert knowledge.",
+      "introSourceUrl": "https://www.constellationr.com/insights/news/how-aviation-maintenance-looks-ai-systems",
+      "coverageNote": "One tool this week.",
+      "tools": [
+        {
+          "name": "aviOS",
+          "slug": "ironfleet-avios",
+          "company": "Ironfleet",
+          "summary": "An AI layer for aircraft maintenance that answers plain-language questions from your manuals, records and work history, cites every source, and says so when the answer is not there. Modules cover each tail, work orders and deferrals, a records vault for logbooks and 8130s, parts, and shift notes and handoffs. It sits on top of the systems you already run, and a certified technician always makes the call.",
+          "whyItMatters": "Every hour a tech spends hunting through manuals and old write-ups is billable time lost or an aircraft still down. Capturing shift notes and the know-how of your senior techs also protects you when they retire. Test it on one chronic squawk where the evidence was hard to assemble.",
+          "url": "/aviation/tools/ironfleet-avios",
+          "sourceUrl": "https://ironfleet.ai/avios",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin this week: one renewal, and it is military.",
+      "tools": [
+        {
+          "name": "Servigistics",
+          "slug": "ptc-servigistics",
+          "company": "PTC",
+          "summary": "On October 15, PTC said the U.S. Air Force has renewed Servigistics, its service supply chain optimization software, under the ESCAPE program, extending a relationship that began in 2017. Servigistics combines forecasting, multi-echelon optimization, supply planning, machine learning and AI to align inventory with aircraft availability, and PTC says the next phase leans on exception-based management so planners focus on the decisions that need a person.",
+          "whyItMatters": "Most stores carry too much of what does not move and too little of what grounds aircraft. Multi-echelon planning aims to put each spare where it protects availability, so the same availability needs less total inventory. Ask any vendor in this space to show it on your own last year of demand.",
+          "url": "/aviation/tools/ptc-servigistics",
+          "sourceUrl": "https://www.ptc.com/en/news/2026/servigistics-renewal-us-air-force",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "coverageNote": "No dated AOG launch we could verify this week, so two vendor products, both with a person approving before anything is bought or sent. BotMinds' published figures come from demo data on a fictional airline, so treat them as targets, not results. AOG technician sourcing again had no verified AI option; the closest is a non-AI map, in quick hits.",
+      "tools": [
+        {
+          "name": "AeroQuote",
+          "slug": "aeroquote",
+          "company": "AeroQuote",
+          "summary": "An AOG quoting agent for small MRO and parts shops. Forward an RFQ email and it parses the parts, sends supplier RFQs in parallel, validates FAA 8130-3 certs against the PO and returns a priced quote, in under five minutes according to the company. Every quote waits in your dashboard for approval before it goes to the customer.",
+          "whyItMatters": "AeroQuote puts a lost AOG bid at $5K to $50K in revenue, and the 3 am requests are the ones most shops miss. If you quote 20 to 200 RFQs a month by spreadsheet and email, the free first 20 quotes are a cheap test against your current response time.",
+          "url": "/aviation/tools/aeroquote",
+          "sourceUrl": "https://aeroquote.app/",
+          "pricing": "$299 per month plus $2 per quote sent; first 20 quotes free"
+        },
+        {
+          "name": "AOG Parts Sourcing",
+          "slug": "botminds-aog-parts-sourcing",
+          "company": "BotMinds",
+          "summary": "Agentic software for airline AOG desks. Seven agents ask stores, pools, brokers, the manufacturer and partner airlines in parallel, check fit against the parts catalog and the MEL, read the 8130-3 or EASA Form 1 and the trace before a quote is shown, and price each route as the quote plus the hours the aircraft waits. The AOG buyer approves and signs the order; the agents never buy.",
+          "whyItMatters": "The cheapest quote is often the most expensive AOG once grounded hours are counted. Even before you buy any tool, start pricing AOG routes as part cost plus grounded hours at a Finance-approved hourly figure, and your next AOG buy gets better.",
+          "url": "/aviation/tools/botminds-aog-parts-sourcing",
+          "sourceUrl": "https://www.botminds.ai/solutions/aog-parts-sourcing",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. All three had real updates in the past two weeks. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "ChatGPT",
+          "slug": "chatgpt",
+          "company": "OpenAI",
+          "summary": "On October 7, OpenAI brought GPT-6 to ChatGPT with Intelligent UI, so answers can include charts, forms, interactive tools and visuals, and ChatGPT can start answering while it is still thinking. It rolled out to Plus, Pro, Business and Enterprise first, then to Free and Go.",
+          "whyItMatters": "Ask it for a quick tool instead of a paragraph, such as a calculator that compares an exchange against a repair on cost and turn time. Check every number before it goes into a quote or a customer email.",
+          "url": "https://chatgpt.com/",
+          "sourceUrl": "https://openai.com/index/gpt-6-for-everyone/",
+          "pricing": "See the vendor site"
+        },
+        {
+          "name": "Gemini",
+          "slug": "gemini",
+          "company": "Google",
+          "summary": "On October 8 at Gemini at Work, Google introduced the Gemini agent for work. It works inside Gmail, Drive, Docs, Sheets, Slides, Chat and Calendar, and can set up a meeting with your usual group, build a model in Sheets and turn it into a deck. Google named Ryanair among customers, rolling out Gemini Enterprise and Google Workspace to 35,000 employees.",
+          "whyItMatters": "For a Google Workspace shop, handing off the weekly status deck or the vendor meeting shuffle frees a planner or sales coordinator for revenue work. Keep customer and aircraft data in your company account, not a personal one.",
+          "url": "https://gemini.google.com/",
+          "sourceUrl": "https://cloud.google.com/blog/products/ai-machine-learning/welcome-to-gemini-at-work-2026",
+          "pricing": "See the vendor site"
+        },
+        {
+          "name": "AI by Zapier",
+          "slug": "ai-by-zapier",
+          "company": "Zapier",
+          "summary": "On October 6, Zapier folded Zapier Agents into AI by Zapier, an AI step you drop into any Zap. You can require human approval per tool, pick the model tier, get structured outputs and see every run in Zap History. AI steps bill as tasks, and a single run that passes 75 tasks pauses for a person.",
+          "whyItMatters": "Automate the copy and paste between inbox, CRM and spreadsheet, such as logging every inbound RFQ with part number, quantity and customer. Let it read on its own, but require approval before anything is sent to a customer.",
+          "url": "https://zapier.com/ai",
+          "sourceUrl": "https://zapier.com/blog/zapier-agents-is-now-ai-by-zapier/",
+          "pricing": "See the vendor site"
+        }
+      ]
+    }
+  ],
+  "playbook": {
+    "title": "Walk NBAA-BACE with a scorecard",
+    "intro": "A simple way to judge the AI demos in Las Vegas this week, or on any vendor call. Practical guidance, not regulatory advice; your approved data and procedures still rule.",
+    "steps": [
+      "Before the show, pick the two numbers you most want to move, such as request-to-quote time, AOG hours or repeat write-ups, and write down today's value.",
+      "Bring three real cases from last quarter: a trip that went wrong, a chronic squawk and an AOG buy. Ask each vendor to run one of them live.",
+      "Ask where every answer came from. If the tool cannot show the manual page, record or quote behind it, move on.",
+      "Ask who approves before anything is signed, bought or sent, and whether you can set that per action.",
+      "Get pricing and a 30-day trial plan in writing, and keep only what pays back at least twice its cost."
+    ]
+  },
+  "quickLinks": [
+    {
+      "title": "Floating Fleet AI debuts agentic scheduling at NBAA-BACE",
+      "url": "https://www.globenewswire.com/news-release/2026/10/13/3379517/0/en/floating-fleet-ai-to-debut-agentic-scheduling-workflow-at-nbaa-bace-2026.html",
+      "note": "October 13: in a demo with 40 aircraft and 116 trips over three days, its best scenario cut projected operating costs by about $86,000, or 5.78%. Booth 850."
+    },
+    {
+      "title": "NBAA-BACE session: Knowledge Acceleration With Human Oversight",
+      "url": "https://nbaa.org/2026-press-releases/nbaa-bace-flight-deck-will-gather-leaders-shaping-bizavs-future/",
+      "note": "October 21, 10:45 to 11:45 a.m. on the Flight Deck stage, with Ironfleet Aero speakers on where AI reduces friction today and why qualified human oversight stays essential."
+    },
+    {
+      "title": "U.S. Marine Corps selects SteerBridge for aviation maintenance AI",
+      "url": "https://defence-blog.com/u-s-marine-corps-wants-ai-to-spot-aircraft-failures-early/",
+      "note": "October 8: a selection, not yet a contract award, to prototype AI that forecasts parts demand and anticipates maintenance."
+    },
+    {
+      "title": "China's AEMTC adds AI-enabled borescope training",
+      "url": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/",
+      "note": "Engine MRO training expands for rising LEAP shop visits, with AI-enabled borescope and mixed-reality instruction."
+    },
+    {
+      "title": "West Star Aviation's Live AOG Technician Map (not AI)",
+      "url": "https://www.aviationpros.com/aircraft-maintenance-technology/mros-repair-shops/press-release/55408230/west-star-aviation-launches-live-aog-technician-map-for-real-time-visibility",
+      "note": "Shows the location, skills and region of technicians in its 250+ person AOG network. Listed because AOG technician sourcing had no verified AI option this week."
+    },
+    {
+      "title": "Become a founding sponsor",
+      "url": "/sponsor",
+      "note": "Founding rates for the first 10 sponsors, locked for 3 months."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI tools for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months, with no more than three sponsors in any issue. If you build AI for aviation, this is your seat at the table.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

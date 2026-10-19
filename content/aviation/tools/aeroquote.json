@@ -1,0 +1,17 @@
+{
+  "slug": "aeroquote",
+  "segment": "aviation",
+  "name": "AeroQuote",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "AeroQuote",
+  "summary": "An AOG quoting agent for small MRO and parts shops. Forward an RFQ email and it parses the parts, sends supplier RFQs in parallel, validates FAA 8130-3 certs against the PO and returns a priced quote, in under five minutes according to the company. Every quote waits in your dashboard for approval before it goes to the customer.",
+  "paragraphs": [
+    "An AOG quoting agent for small MRO and parts shops. Forward an RFQ email and it parses the parts, sends supplier RFQs in parallel, validates FAA 8130-3 certs against the PO and returns a priced quote, in under five minutes according to the company. Every quote waits in your dashboard for approval before it goes to the customer."
+  ],
+  "whyItMatters": "AeroQuote puts a lost AOG bid at $5K to $50K in revenue, and the 3 am requests are the ones most shops miss. If you quote 20 to 200 RFQs a month by spreadsheet and email, the free first 20 quotes are a cheap test against your current response time.",
+  "pricing": "$299 per month plus $2 per quote sent; first 20 quotes free",
+  "sourceUrl": "https://aeroquote.app/",
+  "url": "https://aeroquote.app/"
+}

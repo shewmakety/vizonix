@@ -219,7 +219,8 @@ describe("LinkedIn post gates", () => {
     vi.stubGlobal("fetch", async (_input: RequestInfo | URL, init?: RequestInit) => {
       return new Response(null, { status: init?.method === "HEAD" ? 404 : 404 });
     });
-    expect(await postIssueToLinkedIn(issue())).toMatchObject({ ok: false, skipped: "issue page not live" });
+    const unpublished = { ...issue(), date: "2099-12-29" };
+    expect(await postIssueToLinkedIn(unpublished)).toMatchObject({ ok: false, skipped: "issue page not live" });
 
     let posted = false;
     vi.stubGlobal("fetch", async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -231,7 +232,7 @@ describe("LinkedIn post gates", () => {
       if (url.endsWith("/api/v1/posts")) posted = true;
       return new Response("no", { status: 500 });
     });
-    expect(await postIssueToLinkedIn(issue())).toMatchObject({
+    expect(await postIssueToLinkedIn(unpublished)).toMatchObject({
       ok: false,
       skipped: "cannot create an organic share",
     });

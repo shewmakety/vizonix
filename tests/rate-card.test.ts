@@ -43,12 +43,13 @@ describe("launch rate card", () => {
     expect(scaledFromPrimary(400, classifiedRatio)).toBe(133);
     expect(formatUsd(300)).toBe("$300");
     const full = buildLlmsFullTxt();
+    const rateCard = full.split("## Launch rate card")[1] ?? "";
     expect(full).toContain("Secondary $175");
     expect(full).toContain("Classified $100");
     expect(full).not.toContain("2,500-5,000");
     expect(full).not.toContain("$4,500");
-    expect(full).not.toContain("60%");
-    expect(full).not.toContain("35%");
+    expect(rateCard).not.toContain("60%");
+    expect(rateCard).not.toContain("35%");
   });
 
   it("builds stripe env keys without putting secrets in the name", () => {

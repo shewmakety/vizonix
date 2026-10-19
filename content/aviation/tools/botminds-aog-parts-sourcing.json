@@ -1,0 +1,17 @@
+{
+  "slug": "botminds-aog-parts-sourcing",
+  "segment": "aviation",
+  "name": "AOG Parts Sourcing",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "BotMinds",
+  "summary": "Agentic software for airline AOG desks. Seven agents ask stores, pools, brokers, the manufacturer and partner airlines in parallel, check fit against the parts catalog and the MEL, read the 8130-3 or EASA Form 1 and the trace before a quote is shown, and price each route as the quote plus the hours the aircraft waits. The AOG buyer approves and signs the order; the agents never buy.",
+  "paragraphs": [
+    "Agentic software for airline AOG desks. Seven agents ask stores, pools, brokers, the manufacturer and partner airlines in parallel, check fit against the parts catalog and the MEL, read the 8130-3 or EASA Form 1 and the trace before a quote is shown, and price each route as the quote plus the hours the aircraft waits. The AOG buyer approves and signs the order; the agents never buy."
+  ],
+  "whyItMatters": "The cheapest quote is often the most expensive AOG once grounded hours are counted. Even before you buy any tool, start pricing AOG routes as part cost plus grounded hours at a Finance-approved hourly figure, and your next AOG buy gets better.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.botminds.ai/solutions/aog-parts-sourcing",
+  "url": "https://www.botminds.ai/solutions/aog-parts-sourcing"
+}

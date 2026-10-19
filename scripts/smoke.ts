@@ -9,7 +9,8 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "AI moves into the hangar, plus 7 places"],
+  ["/aviation/issues", "NBAA week: AI agents for the flight department"],
+  ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
   ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
@@ -164,6 +165,13 @@ async function main() {
     if (!aviationIssue.includes("Friday, October 16, 2026") || aviationIssue.includes("Thursday, October 15, 2026")) {
       throw new Error("The aviation issue date did not stay on Friday, October 16, 2026.");
     }
+    const mondayIssue = await fetch(`${base}/aviation/issues/2026-10-19`).then((response) => response.text());
+    if (mondayIssue.includes("noindex")) {
+      throw new Error("The October 19 aviation issue is marked noindex.");
+    }
+    if (!mondayIssue.includes("Monday, October 19, 2026") || mondayIssue.includes("Sunday, October 18, 2026")) {
+      throw new Error("The October 19 issue date did not stay on Monday, October 19, 2026.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -179,8 +187,8 @@ async function main() {
     await expectStatus("/aviation/tools/dutyline", { method: "GET" }, 404);
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
-    if (!sitemap.includes("/aviation/issues/2026-10-16")) {
-      throw new Error("Sitemap is missing the real aviation issue.");
+    if (!sitemap.includes("/aviation/issues/2026-10-19") || !sitemap.includes("/aviation/issues/2026-10-16")) {
+      throw new Error("Sitemap is missing an aviation issue.");
     }
     if (sitemap.includes("aogline") || sitemap.includes("/aviation/issues/2026-10-14")) {
       throw new Error("Sitemap still lists fictional aviation content.");
@@ -209,7 +217,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-16")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-19")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);
@@ -230,7 +238,8 @@ async function main() {
     if (!llmsFull.includes("https://veryon.com/") || llmsFull.includes("AOGLine")) {
       throw new Error("llms-full.txt is missing the real lead or still names AOGLine.");
     }
-    if (llmsFull.includes("2,500-5,000") || llmsFull.includes("$4,500") || llmsFull.includes("60%")) {
+    const rateCard = llmsFull.split("## Launch rate card")[1] ?? "";
+    if (llmsFull.includes("2,500-5,000") || llmsFull.includes("$4,500") || rateCard.includes("60%")) {
       throw new Error("llms-full.txt still publishes hidden price tiers.");
     }
 
