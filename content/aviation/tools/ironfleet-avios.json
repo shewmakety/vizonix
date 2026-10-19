@@ -1,0 +1,17 @@
+{
+  "slug": "ironfleet-avios",
+  "segment": "aviation",
+  "name": "aviOS",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Ironfleet",
+  "summary": "An AI layer for aircraft maintenance that answers plain-language questions from your manuals, records and work history, cites every source, and says so when the answer is not there. Modules cover each tail, work orders and deferrals, a records vault for logbooks and 8130s, parts, and shift notes and handoffs. It sits on top of the systems you already run, and a certified technician always makes the call.",
+  "paragraphs": [
+    "An AI layer for aircraft maintenance that answers plain-language questions from your manuals, records and work history, cites every source, and says so when the answer is not there. Modules cover each tail, work orders and deferrals, a records vault for logbooks and 8130s, parts, and shift notes and handoffs. It sits on top of the systems you already run, and a certified technician always makes the call."
+  ],
+  "whyItMatters": "Every hour a tech spends hunting through manuals and old write-ups is billable time lost or an aircraft still down. Capturing shift notes and the know-how of your senior techs also protects you when they retire. Test it on one chronic squawk where the evidence was hard to assemble.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://ironfleet.ai/avios",
+  "url": "https://ironfleet.ai/avios"
+}

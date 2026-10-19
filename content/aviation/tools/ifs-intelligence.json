@@ -1,0 +1,17 @@
+{
+  "slug": "ifs-intelligence",
+  "segment": "aviation",
+  "name": "IFS Intelligence",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "IFS",
+  "summary": "Launched October 13 at IFS Unleashed. One plain-language interface reasons across live data from IFS and third-party systems, including assets, work orders, schedules and history, and shows its sources. Cowork prepares actions that run only after a person approves, Loops hands defined workflows to background digital workers that escalate when judgment is needed, and the IFS Industrial AI Harness applies business rules, permissions and approvals. It is licensed enterprise-wide with no feature tiers and a fair usage cap on AI executions.",
+  "paragraphs": [
+    "Launched October 13 at IFS Unleashed. One plain-language interface reasons across live data from IFS and third-party systems, including assets, work orders, schedules and history, and shows its sources. Cowork prepares actions that run only after a person approves, Loops hands defined workflows to background digital workers that escalate when judgment is needed, and the IFS Industrial AI Harness applies business rules, permissions and approvals. It is licensed enterprise-wide with no feature tiers and a fair usage cap on AI executions."
+  ],
+  "whyItMatters": "If you already run IFS, this is AI on data you already pay to keep. IFS CEO Mark Moffat says industrial organizations often operate at around 60% of their potential. Pick one costly planning question, such as which work packages are at risk for parts or labor next week, and see whether it answers in minutes what now takes several reports and a meeting.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.ifs.com/en/insights/news/ifs-launches-ifs-intelligence",
+  "url": "https://www.ifs.com/en/products/ai/ifs-intelligence"
+}
