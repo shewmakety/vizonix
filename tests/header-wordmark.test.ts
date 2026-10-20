@@ -48,6 +48,9 @@ describe("header wordmark", () => {
     const message = welcomePlainMessage("Aviation", "https://vizonix.com/aviation", "https://vizonix.com/unsub");
     expect(message.html).toContain(`>${sectionWordmark("Aviation")}</p>`);
     expect(message.html).not.toContain("text-transform:uppercase\">Vizonix");
+    const gap = message.html.slice(0, message.html.indexOf("background:#13233b"));
+    expect(gap).toContain('height="32"');
+    expect(gap).toContain("background:#f4f1ea");
   });
 
   it("reads Vizonix - segment from the issue on the page and in the email", () => {
@@ -69,6 +72,10 @@ describe("header wordmark", () => {
     expect(email).toContain(`the Vizonix ${escapeHtml(edition)} briefing`);
     const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(wordmark)));
     expect(masthead).not.toContain("text-transform");
+    const gap = email.slice(0, email.indexOf("background:#13233b"));
+    expect(gap).toContain('height="32"');
+    expect(gap).toContain("background:#f4f1ea");
+    expect(gap).toContain("mso-line-height-rule:exactly");
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(issueEmailSubject(issue.subject)).toBe(`${ISSUE_EMAIL_SUBJECT_PREFIX}${issue.subject}`);
 

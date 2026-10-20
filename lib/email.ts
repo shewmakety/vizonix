@@ -351,6 +351,13 @@ export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, s
   };
 }
 
+/** Cream band above the navy bar. A spacer row holds in Gmail and Outlook, which drop body margin. */
+function emailMastheadGap(): string {
+  return `<tr>
+      <td height="32" style="height:32px;line-height:32px;font-size:1px;mso-line-height-rule:exactly;background:#f4f1ea;">&nbsp;</td>
+    </tr>`;
+}
+
 function emailMasthead(sectionName: string): string {
   return `<tr>
             <td style="background:#13233b;padding:22px 28px;">
@@ -431,8 +438,9 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
 <body style="margin:0;padding:0;background:#f4f1ea;">
   <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(preview)}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
+    ${emailMastheadGap()}
     <tr>
-      <td align="center">
+      <td align="center" style="background:#f4f1ea;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
           ${emailMasthead(editionName)}
           ${issueHeaderHtml(issue.subject, issueDateline(sectionName, issue))}
@@ -621,8 +629,9 @@ export function welcomePlainMessage(
 <body style="margin:0;padding:0;background:#f4f1ea;">
   <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(paragraphs[0] ?? "")}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
+    ${emailMastheadGap()}
     <tr>
-      <td align="center">
+      <td align="center" style="background:#f4f1ea;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
           ${emailMasthead(sectionName)}
           <tr>
