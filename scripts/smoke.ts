@@ -177,7 +177,9 @@ async function main() {
     if (tuesdayIssue.includes("noindex")) {
       throw new Error("The October 20 aviation issue is marked noindex.");
     }
-    if (!tuesdayIssue.includes("Tuesday, October 20, 2026") || tuesdayIssue.includes("Monday, October 19, 2026")) {
+    // The issue date is the dateline under the title. Ramp bylines keep each post's own day,
+    // including Monday, October 19, 2026, so that string on the page is not a shifted issue date.
+    if (!tuesdayIssue.includes('class="issue-dateline">Aviation - Tuesday, October 20, 2026')) {
       throw new Error("The October 20 issue date did not stay on Tuesday, October 20, 2026.");
     }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
