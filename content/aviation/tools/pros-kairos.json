@@ -1,0 +1,17 @@
+{
+  "slug": "pros-kairos",
+  "segment": "aviation",
+  "name": "PROS Kairos",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "PROS",
+  "summary": "An agentic airline retailing platform unveiled at World Aviation Festival in Lisbon and reported October 19. Built with Databricks, it puts PROS pricing science and airline data into one workspace tailored to each analyst's role, with a conversational interface and an agent orchestrator that coordinates specialized agents through open Model Context Protocol (MCP) connections.",
+  "paragraphs": [
+    "An agentic airline retailing platform unveiled at World Aviation Festival in Lisbon and reported October 19. Built with Databricks, it puts PROS pricing science and airline data into one workspace tailored to each analyst's role, with a conversational interface and an agent orchestrator that coordinates specialized agents through open Model Context Protocol (MCP) connections."
+  ],
+  "whyItMatters": "Revenue analysts lose hours jumping between pricing, product catalogue and stock tools. Fewer manual steps per fare or offer change means faster reaction to competitors, which is where pricing money is made or lost. Ask for a pilot on one route group and compare change turnaround time.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/waf-2026-pros-sets-out-to-reduce-burden-of-manual-processes-with-launch-of-kairos",
+  "url": "https://pros.com/"
+}

@@ -9,7 +9,8 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "NBAA week: AI agents for the flight department"],
+  ["/aviation/issues", "When should a predictive alert ground an aircraft"],
+  ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
