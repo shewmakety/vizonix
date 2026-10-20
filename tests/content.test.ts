@@ -156,7 +156,8 @@ describe("segment config and sample content", () => {
     expect(html).toContain("Tool Directory");
     expect(html).toContain("Read on the web");
     expect(html).toContain(`href="${issueUrl}"`);
-    expect(html.indexOf("Vizonix Aviation")).toBeLessThan(html.indexOf("Tool Directory"));
+    expect(html.indexOf("Vizonix - Aviation")).toBeLessThan(html.indexOf("Tool Directory"));
+    expect(text.startsWith("Vizonix - Aviation\n")).toBe(true);
     expect(html.indexOf("Tool Directory")).toBeLessThan(html.indexOf(aviation.lead.title));
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);

@@ -9,7 +9,7 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
-import { absoluteUrl, site } from "@/lib/site";
+import { absoluteUrl, sectionWordmark, site } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
 import { formatIsoDay, formatIssueDate } from "@/lib/dates";
@@ -360,7 +360,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
           <tr>
             <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
+              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">${escapeHtml(sectionWordmark(sectionName))}</p>
               <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatIssueDate(issue))}</p>
             </td>
           </tr>
@@ -434,7 +434,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   }
 
   const lines = [
-    `Vizonix ${sectionName}`,
+    sectionWordmark(sectionName),
     formatIssueDate(issue),
     "",
     `Tool Directory: ${directory}`,
@@ -547,7 +547,7 @@ export function welcomePlainMessage(
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
           <tr>
             <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
+              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">${escapeHtml(sectionWordmark(sectionName))}</p>
             </td>
           </tr>
           <tr>

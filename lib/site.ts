@@ -24,6 +24,11 @@ export function siteUrl(): string {
   return raw.replace(/\/$/, "");
 }
 
+/** Navy wordmark for a section, for example "Vizonix - Aviation". */
+export function sectionWordmark(sectionName: string): string {
+  return `${site.name} - ${sectionName}`;
+}
+
 export function absoluteUrl(path: string): string {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   return `${siteUrl()}${path.startsWith("/") ? path : `/${path}`}`;
