@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isIsoDate } from "@/lib/dates";
 import { getPlacement, wordCount } from "@/lib/rate-card";
 import { getSegment, segmentTopics } from "@/lib/segments";
 
@@ -64,11 +65,23 @@ const issueToolSchema = z.object({
 
 export type IssueTool = z.infer<typeof issueToolSchema>;
 
+const roboticsItemSchema = z.object({
+  headline: z.string().trim().min(1).max(180),
+  summary: z.string().trim().min(1).max(1200),
+  whyItMatters: z.string().trim().min(1).max(1200),
+  sourceName: z.string().trim().min(1).max(120),
+  sourceUrl: href,
+});
+
+export type RoboticsItem = z.infer<typeof roboticsItemSchema>;
+
 const issueSectionSchema = z.object({
   topic: z.string().trim().min(1).max(120),
   intro: z.string().trim().min(1).max(1200).optional(),
   introSourceUrl: href.optional(),
   coverageNote: z.string().trim().min(1).max(500).optional(),
+  /** One robotics note beside the AI tools. Omitted sections stay AI-only. */
+  robotics: roboticsItemSchema.optional(),
   tools: z.array(issueToolSchema).min(1).max(8),
 });
 
@@ -76,6 +89,51 @@ export type IssueSection = z.infer<typeof issueSectionSchema>;
 
 /** Last section on a sectioned issue, after the industry topics. */
 export const productivitySectionTopic = "AI Productivity Tools";
+
+const rampStatusUrl = z
+  .string()
+  .trim()
+  .refine((value) => {
+    try {
+      const url = new URL(value);
+      if (url.protocol !== "https:" && url.protocol !== "http:") return false;
+      const host = url.hostname.toLowerCase().replace(/^www\./, "");
+      if (host !== "x.com" && host !== "twitter.com" && host !== "mobile.twitter.com") return false;
+      return /^\/[^/]+\/status\/\d+/.test(url.pathname);
+    } catch {
+      return false;
+    }
+  }, "Ramp link must be an x.com or twitter.com status.");
+
+const rampPostSchema = z.object({
+  author: z.string().trim().min(1).max(80),
+  handle: z
+    .string()
+    .trim()
+    .regex(/^@?[A-Za-z0-9_]{1,15}$/, "Handle must be an X username."),
+  url: rampStatusUrl,
+  text: z.string().trim().min(1).max(2000),
+  postedAt: z
+    .string()
+    .trim()
+    .refine(
+      (value) => isIsoDate(value.slice(0, 10)) && !Number.isNaN(Date.parse(value)),
+      "postedAt must be an ISO date.",
+    ),
+  note: z.string().trim().min(1).max(400).optional(),
+});
+
+export const rampSchema = z.object({
+  intro: z.string().trim().min(1).max(600).optional(),
+  posts: z.array(rampPostSchema).min(1).max(6),
+});
+
+export type RampPost = z.infer<typeof rampPostSchema>;
+export type Ramp = z.infer<typeof rampSchema>;
+
+export function rampHandle(handle: string): string {
+  return handle.startsWith("@") ? handle : `@${handle}`;
+}
 
 export const issueSchema = z
   .object({
@@ -98,6 +156,8 @@ export const issueSchema = z
       sourceUrl: href,
       productUrl: href.optional(),
     }),
+    /** Best X posts of the day. Omitted issues skip The Ramp. */
+    ramp: rampSchema.optional(),
     /**
      * Flat list. Required unless `sections` is set.
      * A sectioned issue can omit this and keep the tools inside sections.
@@ -120,6 +180,17 @@ export const issueSchema = z
       )
       .min(1)
       .max(12),
+    /** Plain-language definitions for terms used in this issue. Omitted issues skip the glossary. */
+    glossary: z
+      .array(
+        z.object({
+          term: z.string().trim().min(1).max(80),
+          definition: z.string().trim().min(1).max(400),
+        }),
+      )
+      .min(1)
+      .max(24)
+      .optional(),
     sponsors: z.object({
       primary: sponsorSchema.nullable(),
       secondary: sponsorSchema.nullable(),
@@ -151,6 +222,19 @@ export const issueSchema = z
         message: "An issue can list at most 16 tools across its sections.",
       });
     }
+    const glossaryTerms = new Set<string>();
+    for (const [index, entry] of (issue.glossary ?? []).entries()) {
+      const key = entry.term.toLowerCase();
+      if (glossaryTerms.has(key)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["glossary", index, "term"],
+          message: "Glossary terms must be unique.",
+        });
+      }
+      glossaryTerms.add(key);
+    }
+
     if (issue.sections && issue.sections.length > 0) {
       const productivity = issue.sections.filter((section) => section.topic === productivitySectionTopic);
       if (productivity.length !== 1 || issue.sections.at(-1)?.topic !== productivitySectionTopic) {
@@ -184,6 +268,12 @@ export const issueSchema = z
   });
 
 export type Issue = z.infer<typeof issueSchema>;
+export type GlossaryEntry = NonNullable<Issue["glossary"]>[number];
+
+/** Glossary rows in alphabetical order. Issues with no glossary return an empty list. */
+export function sortedGlossary(entries: GlossaryEntry[] | undefined): GlossaryEntry[] {
+  return [...(entries ?? [])].sort((a, b) => a.term.localeCompare(b.term, "en", { sensitivity: "base" }));
+}
 
 /** Tools the page and email should show. Sections win when both are present. */
 export function issueTools(issue: Issue): IssueTool[] {
@@ -198,6 +288,7 @@ export type IssueSectionView = {
   intro?: string;
   introSourceUrl?: string;
   coverageNote?: string;
+  robotics?: RoboticsItem;
   tools: IssueTool[];
 };
 

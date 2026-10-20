@@ -36,6 +36,13 @@ export function todayInNewYork(now = new Date()): string {
   }).format(now);
 }
 
+/** Calendar day at the start of an ISO date or timestamp, with no timezone shift. */
+export function formatIsoDay(value: string): string {
+  const day = value.slice(0, 10);
+  if (!isIsoDate(day)) return value;
+  return formatLongDate(day);
+}
+
 export function formatLongDate(isoDate: string): string {
   const [year, month, day] = isoDate.split("-").map(Number);
   return new Intl.DateTimeFormat("en-US", {
@@ -44,6 +51,17 @@ export function formatLongDate(isoDate: string): string {
     year: "numeric",
     month: "long",
     day: "numeric",
+  }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+
+/** Email subject date: "Oct 20, 2026". The calendar day is read in UTC so it does not shift. */
+export function formatShortDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
@@ -59,6 +77,11 @@ export function calendarInstant(isoDate: string): Date {
 /** The issue's date-only field, as that calendar day. publishedAt is not the label. */
 export function formatIssueDate(issue: { date: string }): string {
   return formatLongDate(issue.date);
+}
+
+/** Segment and calendar date under the issue title, on the web and in email. */
+export function issueDateline(segmentName: string, issue: { date: string }): string {
+  return `${segmentName} - ${formatIssueDate(issue)}`;
 }
 
 /** Open Graph footer. The calendar date stays in front of the preheader. */

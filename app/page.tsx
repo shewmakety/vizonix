@@ -3,7 +3,7 @@ import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
-import { activeSegments, featuredSegment, segmentCardLabel, segmentCardPillClass } from "@/lib/segments";
+import { activeSegments, featuredSegment, segmentCardLabel, segmentCardPillClass, segmentDisplayName } from "@/lib/segments";
 import { site } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -54,7 +54,7 @@ export default function HomePage() {
               <article className="card" key={segment.slug}>
                 <p className={pillClass}>{label}</p>
                 <h3>
-                  <Link href={`/${segment.slug}`}>{segment.name}</Link>
+                  <Link href={`/${segment.slug}`}>{segmentDisplayName(segment)}</Link>
                 </h3>
                 <p>{segment.summary}</p>
                 <p className="meta">{segment.audience}</p>
@@ -67,7 +67,7 @@ export default function HomePage() {
       {latest ? (
         <section className="wrap section">
           <div className="section-head">
-            <h2>Latest from {featured.name}</h2>
+            <h2>Latest from {segmentDisplayName(featured)}</h2>
             <Link href={`/${featured.slug}/issues`}>Issue archive</Link>
           </div>
           <article className="card">

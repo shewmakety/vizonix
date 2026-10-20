@@ -1,0 +1,409 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-20",
+  "publishedAt": "2026-10-20T05:45:00-04:00",
+  "sample": false,
+  "subject": "When should a predictive alert ground an aircraft? Plus 7 places to put AI and robotics to work",
+  "preheader": "Delta TechOps, Lufthansa Technik and Trax on false alerts, plus drone inspections, hangar robots, AI-tracked AOG shipments and new Claude and Copilot options.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "False alerts are the real test of predictive maintenance, say Delta TechOps, Lufthansa Technik and Trax",
+    "summary": "Aviation Week reported on October 19 that airlines and MROs are getting more careful about when a predictive alert is strong enough to trigger maintenance. \"There is no single accuracy threshold that automatically triggers maintenance action,\" says Alice Belcher, director of predictive technology engineering at Delta TechOps, where algorithms are back-tested against historical data and then reviewed by teams that include former line technicians before anything reaches the hangar. Lufthansa Technik's AVIATAR team scores models on precision (how often a predicted fault is confirmed) and recall (how often a real fault is missed), and sets a higher bar for systems where a failure could cause an AOG, delay or cancellation. Trax warns that repeated alerts with no finding make technicians skeptical of the whole system, and recommends keeping lower-confidence alerts with engineering. The rest of this issue pairs that question with robotics now showing up in training, inspections, stores and AOG moves.",
+    "whyItMatters": "A false alert costs an inspection, maybe a removed part and ground time. A missed one costs an AOG. Before you buy or expand a predictive tool, ask the vendor for its precision and recall on your fleet's history, set a stricter threshold only for systems that can strand an aircraft, and route low-confidence alerts to engineering first so your technicians keep trusting the alerts that matter.",
+    "sourceName": "Aviation Week, October 19, 2026",
+    "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems"
+  },
+  "ramp": {
+    "intro": "The best of what aviation and AI voices were saying on X over the past two days.",
+    "posts": [
+      {
+        "author": "Geoff Fawkes",
+        "handle": "@gfawkes",
+        "url": "https://x.com/gfawkes/status/2111941964497346940",
+        "text": "UPS is exploring AI to identify alternative aircraft parts and improve supply chain processes amid maintenance challenges in the aviation industry.\n\nhttps://t.co/BLr93GkS9n",
+        "postedAt": "2026-10-18T22:06:16Z",
+        "note": "UPS, one of the largest cargo fleets, is testing AI to find approved alternate parts - a direct play on AOG delays and long lead times."
+      },
+      {
+        "author": "GMitchell",
+        "handle": "@GMitchellDaily",
+        "url": "https://x.com/GMitchellDaily/status/2111962526800027804",
+        "text": "FAA Faces Safety Questions After Deploying AI in Washington-Area Air Traffic Operations\n\nArtificial intelligence is now helping federal aviation officials predict air traffic around three of the nation's busiest airports. But lawmakers are demanding evidence that the technology was independently evaluated before entering an environment where inaccurate information could influence critical decisions.\n\nOn September 21, 2026, the Federal Aviation Administration introduced its Strategic Management of Airspace, Routes, and Trajectories system, known as SMART, at Reagan National, Washington Dulles and Baltimore/Washington International airports.\n\nThe technology analyzes more than 200 data streams, including flight schedules, weather conditions and operational constraints, to predict congestion and recommend adjustments. ...",
+        "postedAt": "2026-10-18T23:27:59Z",
+        "note": "FAA's AI traffic tool SMART is live at DCA, IAD and BWI, and Congress wants proof it was tested - a preview of the scrutiny any safety-adjacent AI will face."
+      },
+      {
+        "author": "ada",
+        "handle": "@ada_cx",
+        "url": "https://x.com/ada_cx/status/2112234822890295695",
+        "text": "At World Aviation Festival in Lisbon, conversations at our stand started with a pair of headphones.\n\nBefore talking to our team, visitors listened to an AI agent handle irregular operations: the canceled flight, the missed connection, the traveler who needs a new plan fast.\n\nThe conversations that followed kept coming back to the idea Mike Murchison brought to his IROPS roundtable: disruption is a brand loyalty moment. The way an airline handles a canceled flight is when a traveler decides how they feel about it.\n\nMike also joined Sofia Lufinha, TAP Air Portugal’s Chief Customer Officer, on Keynote Stage 2 to talk about what passengers expect.\n\nThanks to everyone who stopped by stand 1-221. If we didn’t meet in Lisbon, here’s how Ada works with airlines: https://t.co/2opiELx5S7",
+        "postedAt": "2026-10-19T17:29:59Z",
+        "note": "Airlines are piloting AI agents for IROPS rebooking, and TAP Air Portugal's CCO framed disruption handling as a loyalty moment."
+      },
+      {
+        "author": "Virtusa",
+        "handle": "@VirtusaCorp",
+        "url": "https://x.com/VirtusaCorp/status/2112144253577011429",
+        "text": "Transition from reactive to predictive aircraft maintenance with Virtusa eFast AHMS. AI-enabled diagnostics detect emerging failure patterns before they impact operations.\nhttps://t.co/KwbykJlHEN\n\n#PredictiveMaintenance #AircraftHealthManagement #FleetManagement https://t.co/0qUScm7SGB",
+        "postedAt": "2026-10-19T11:30:06Z",
+        "note": "Another vendor pitching AI aircraft health monitoring - useful context when weighing predictive maintenance options against OEM tools."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "coverageNote": "Thin today: we did not find a new, verified AI recruiting launch for pilots or technicians in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "Savannah Tech and USI launch a drone workforce training program",
+        "summary": "A Georgia technical college and Unmanned Safety Institute started a professional drone training program, WTOC reported on October 9, part of a wider push by USI into courses for people who maintain unmanned aircraft. Read it lightly, as a workforce pipeline signal: more people learning to fly and fix the drones that are starting to appear around hangar inspections, not a new airline or MRO recruiting product.",
+        "whyItMatters": "Shops that want inspection drones will need people who can fly and maintain them. A training pipeline is an early lead on where that labor may come from, which is cheaper than bidding against every other MRO for the same few technicians.",
+        "sourceName": "WTOC",
+        "sourceUrl": "https://www.wtoc.com/2026/10/09/savannah-tech-usi-launch-drone-training-program/"
+      },
+      "tools": [
+        {
+          "name": "Amelia",
+          "slug": "apc-amelia",
+          "company": "The Airline Pilot Club (APC)",
+          "summary": "An AI competency platform used for pilot recruitment, assessment and training, linking flight schools and airlines around the same competency-based training standards.",
+          "whyItMatters": "Screening candidates against the competencies you already train to means fewer expensive surprises in type rating and line training. Ask how its scores have tracked against your own checkride results before you rely on them.",
+          "url": "/aviation/tools/apc-amelia",
+          "sourceUrl": "https://aerospaceglobalnews.com/news/amelia-ai-platform-airlines-train-pilots/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "robotics": {
+        "headline": "Jet Aviation takes its Iris drone and AI inspections to NBAA",
+        "summary": "Jet Aviation is promoting automated drone inspections that produce a digital report of an aircraft's exterior, which customers can use for pre-purchase checks, paint assessments and condition records. Inspection data is becoming something an MRO can package and sell. Jet Aviation, October 15.",
+        "whyItMatters": "A drone inspection you can hand a buyer as a condition record is a product, not only a shop task. If customers will pay for the report on a pre-purchase or a paint job, the drone time can be billed instead of given away inside a bigger check.",
+        "sourceName": "Jet Aviation",
+        "sourceUrl": "https://www.jetaviation.com/perspectives/advancing-aircraft-inspections-through-drone-and-ai-technology/"
+      },
+      "tools": [
+        {
+          "name": "PROS Kairos",
+          "slug": "pros-kairos",
+          "company": "PROS",
+          "summary": "An agentic airline retailing platform unveiled at World Aviation Festival in Lisbon and reported October 19. Built with Databricks, it puts PROS pricing science and airline data into one workspace tailored to each analyst's role, with a conversational interface and an agent orchestrator that coordinates specialized agents through open Model Context Protocol (MCP) connections.",
+          "whyItMatters": "Revenue analysts lose hours jumping between pricing, product catalogue and stock tools. Fewer manual steps per fare or offer change means faster reaction to competitors, which is where pricing money is made or lost. Ask for a pilot on one route group and compare change turnaround time.",
+          "url": "/aviation/tools/pros-kairos",
+          "sourceUrl": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/waf-2026-pros-sets-out-to-reduce-burden-of-manual-processes-with-launch-of-kairos",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "Retailaer Early Access Programme",
+          "slug": "retailaer-early-access",
+          "company": "Retailaer",
+          "summary": "Opened to airlines globally at World Aviation Festival (reported October 19). Airlines on a traditional PSS can pilot six use cases on their own data without replacing the PSS, including an MCP connection that lets AI assistants search, book and change trips under the airline's rules.",
+          "whyItMatters": "Bookings are starting to come from AI assistants: GOL opened ChatGPT check-in to all customers on October 19. A controlled pilot with agreed success metrics is a low-risk way to find out whether AI-driven bookings and ancillaries add revenue before committing to a big IT project.",
+          "url": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/waf-2026-airlines-invited-to-sign-up-to-retailaer-early-access-programme",
+          "sourceUrl": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/waf-2026-airlines-invited-to-sign-up-to-retailaer-early-access-programme",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "intro": "See today's top story for how Delta TechOps, Lufthansa Technik and Trax decide when a predictive alert should trigger work.",
+      "introSourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems",
+      "coverageNote": "Thin today: no new predictive maintenance product launch we could verify, so this is the established tool behind the Lufthansa Technik comments in the top story.",
+      "robotics": {
+        "headline": "US Air Force moves to Phase Three of drone and ground-robot aircraft inspections",
+        "summary": "Per Asylon Robotics, the company has a Phase Three contract with Warner Robins Air Logistics Complex for MARIA, a US Air Force program that pairs an aerial drone and a robot dog with LiDAR and a digital twin to run repeatable aircraft inspections. This is Asylon's October 17 account of a military program, not a commercial airline launch. Inspections that repeat the same way each time produce a condition history you can trend.",
+        "whyItMatters": "Repeatable inspections are what make a condition trend trustworthy. If a drone and a ground robot record the same surfaces the same way, you spend less time arguing over whether a mark is new, which is the costly part of an unplanned finding.",
+        "sourceName": "Asylon Robotics",
+        "sourceUrl": "https://asylonrobotics.com/resources/blog/usaf-deploys-drones-and-ground-robots-to-speed-autonomous-aircraft-inspection/"
+      },
+      "tools": [
+        {
+          "name": "AVIATAR Predictive Health Analytics",
+          "slug": "aviatar-predictive-health-analytics",
+          "company": "Lufthansa Technik",
+          "summary": "Predicts component and system failures from full flight data and recommends actions that can flow into AMOS or Trax. Lufthansa Technik's team tunes each model for precision or recall depending on the system, and sets a higher threshold where a failure could cause an AOG, delay or cancellation (Aviation Week, October 19).",
+          "whyItMatters": "Turning unscheduled removals into planned ones is where predictive maintenance pays. The useful question for any vendor is the one LHT already answers: how is the threshold set for each system, and what does a false alert cost you?",
+          "url": "/aviation/tools/aviatar-predictive-health-analytics",
+          "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "Thin today: no new, verified AI launch for maintenance planning in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "ST Engineering uses drones and robot arms to cut inspection time",
+        "summary": "Aviation Week reported on October 16 that at ST Engineering's Changi Creek hangar, drones and robot arms inspect the aircraft. Drones cover the top of a widebody in about 1.5 hours instead of 1.5 days with a boom lift and two or three people, and AI visual inspection of landing gear and APUs cuts inspection time by 83%. ST Engineering says tools that prove out will roll out to its global sites in one to two years. This note is the inspection method, not the new hangar's capacity.",
+        "whyItMatters": "Swapping a day of boom-lift work and two or three people for about 1.5 hours of drone time is hangar capacity you can sell. The same is true of an 83% cut in landing-gear and APU visual inspection time, if the method still satisfies the inspection your manual requires.",
+        "sourceName": "Aviation Week",
+        "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/gallery-tech-innovations-st-engineerings-new-changi-creek-mro-facility"
+      },
+      "tools": [
+        {
+          "name": "SB/AD Extraction Agent",
+          "slug": "ramco-sb-ad-agent",
+          "company": "Ramco Systems",
+          "summary": "Agentic AI in Ramco Aviation that monitors OEM portals for new service bulletins and ADs, checks fleet applicability and structures the data for planning.",
+          "whyItMatters": "Ramco says it cuts SB and AD review from days to hours. Less time reading bulletins means planners can package compliance work into scheduled checks instead of pulling aircraft out of service at the deadline.",
+          "url": "/aviation/tools/ramco-sb-ad-agent",
+          "sourceUrl": "https://www.ramco.com/blog/aviation/agentic-ai-for-aviation-maintenance",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "Thin today: one update, announced at NBAA-BACE, and detail beyond the headline is limited so far.",
+      "robotics": {
+        "headline": "FAA guidance on where robots, drones and remote inspection fit in maintenance",
+        "summary": "FAA guidance on the Cleared for Takeoff blog covers robotic systems, remote visual inspection, augmented reality and drones for reaching hard spots and bringing a remote expert in on a hard fault. The guidance says these tools support required inspections and do not replace them: tactile checks and nondestructive testing still need a qualified mechanic, and drones fall under Part 107. The page carries a last-updated stamp, not a publication date.",
+        "whyItMatters": "Using a drone or a remote camera on a required inspection, without knowing what still needs a mechanic's hands, is how a finding gets rejected and the job gets done twice. Staying on the FAA's line, support tool versus required inspection, protects the work you bill.",
+        "sourceName": "FAA",
+        "sourceUrl": "https://www.faa.gov/blog/clearedfortakeoff/aircraft-maintenance-under-remote-control"
+      },
+      "tools": [
+        {
+          "name": "Web Manuals Amelia AI Compliance Assistant",
+          "slug": "web-manuals-amelia-ai",
+          "company": "Web Manuals",
+          "summary": "New at NBAA-BACE (AIN, October 20): a Compliance Assistant inside Web Manuals' Amelia AI document platform that helps operators identify rule changes, with updates that include integration of FAA Data Collection Tools. Amelia AI already searches and helps co-author an operator's manuals. Web Manuals is at booth 2457.",
+          "whyItMatters": "Finding the right page in your own manuals, and knowing when a rule change means a manual revision, is hours of skilled time every month. At the show, bring a recent rule change and see how quickly it points to the sections you actually had to update.",
+          "url": "/aviation/tools/web-manuals-amelia-ai",
+          "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-20/web-manuals-launches-compliance-assistant-ai-tool",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin today: no new, verified AI warehousing launch for aviation in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "Humanoid robots and AMRs move parts from Kardex stores to the hangar",
+        "summary": "At the same ST Engineering site, Aviation Week describes a different job from the inspections above. Tools and parts sit in a Kardex automated storage system, humanoid robots still in testing sort the picks into boxes, three AMRs deliver them, and an autonomous vehicle carries loads up to 500 kg. ST Engineering estimates 20,000 km of walking and about 7,800 to 8,000 labor-hours saved a year.",
+        "whyItMatters": "Walking parts across a large campus is paid time that does not turn a wrench. If those hours and those kilometers come off the clock, the same stores team can feed more bays without adding headcount.",
+        "sourceName": "Aviation Week",
+        "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/gallery-tech-innovations-st-engineerings-new-changi-creek-mro-facility"
+      },
+      "tools": [
+        {
+          "name": "Syncron Parts Planning",
+          "slug": "syncron-parts-planning",
+          "company": "Syncron",
+          "summary": "AI and machine learning spare parts forecasting and simulation. ATR selected it to optimize its aircraft parts inventory.",
+          "whyItMatters": "Intermittent demand is why aviation stores carry too much of the wrong stock and too little of the right one. Better forecasts free cash from shelves and cut AOG buys. Best suited to OEM and larger operator spares networks.",
+          "url": "/aviation/tools/syncron-parts-planning",
+          "sourceUrl": "https://www.syncron.com/press-releases/atr-optimizes-inventory-management-with-syncron",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "coverageNote": "For AOG technician sourcing we again found no verified AI tool. SalesPatriot is a defense sustainment deal, included because the workflow applies to any parts desk.",
+      "robotics": {
+        "headline": "Magnetic MRO's driverless shuttles now run airside at Tallinn",
+        "summary": "Auve Tech MiCa shuttles carry technicians, tools and spare parts between Magnetic MRO's hangars at Tallinn, about 1,000 km a week at 99.9% autonomy, with one remote supervisor for several vehicles and no safety operator on board. MRO Business Today, October 19. It points to faster moves of parts and people across a large airfield when an aircraft is down.",
+        "whyItMatters": "On an AOG, the delay is often the walk or the truck between hangars, not the repair itself. A shuttle that is already running can put the technician and the part at the aircraft sooner, and one supervisor covering several vehicles costs less than a driver in each.",
+        "sourceName": "MRO Business Today",
+        "sourceUrl": "https://mrobusinesstoday.com/magnetic-mro-advances-autonomous-airside-logistics-at-tallinn-airport/"
+      },
+      "tools": [
+        {
+          "name": "Sensos live tracking for JSSI Parts & Engines",
+          "slug": "sensos-jssi-tracking",
+          "company": "Sensos and JSSI Parts & Engines",
+          "summary": "From October 14, JSSI Parts & Engines is adding Sensos smart labels to high-value and AOG-critical shipments of parts, engines and APUs across sales, exchange and lease, at no cost to customers. Sensos, which describes itself as an AI services company, pairs the credit-card-sized cellular label with carrier data to report live location, dwell, shock, tamper and temperature, with route alerts if a shipment stalls or misses its flight.",
+          "whyItMatters": "When an aircraft is down, the hangar plans around a carrier estimate that is often wrong. Knowing the moment a part misses its flight lets you re-source or reschedule the crew hours earlier, which is real money on every AOG event.",
+          "url": "/aviation/tools/sensos-jssi-tracking",
+          "sourceUrl": "https://jetsupport.com/jssi-parts-engines-adds-live-tracking-to-aog-critical-shipments-at-no-cost-to-customers/",
+          "pricing": "Included at no cost on eligible JSSI Parts & Engines shipments"
+        },
+        {
+          "name": "SalesPatriot",
+          "slug": "salespatriot",
+          "company": "SalesPatriot",
+          "summary": "On October 15, S&K Aerospace, which supports more than 100 partner nations and every U.S. military service, said it is deploying SalesPatriot's agentic AI across its MRO enterprise. The system captures each parts or repair requirement in whatever format it arrives and carries it through to a response ready for submission, with S&K experts approving at every decision.",
+          "whyItMatters": "Requests arrive by email, portal and spreadsheet, and the slow part is turning each one into a quote. If an AI drafts the response and a buyer approves it, the same team can answer more requests the same day.",
+          "url": "/aviation/tools/salespatriot",
+          "sourceUrl": "https://salespatriot.com/blog/sk-aerospace-and-salespatriot-partner",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. All three had real updates this month. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Claude for Google Workspace",
+          "slug": "claude-for-google-workspace",
+          "company": "Anthropic",
+          "summary": "Now in public beta on all paid Claude plans: a sidebar add-on for Google Docs, Sheets and Slides that can edit in place, write formulas, build pivot tables and charts, and build slides from your deck's own layouts. By default every change shows as an approval card before it is applied.",
+          "whyItMatters": "Hand it the monthly fleet or sales report in Sheets and ask for the summary tab and chart. Keep \"Ask before edits\" on for anything that goes to a customer or regulator, and check every number.",
+          "url": "https://claude.com/resources/articles/claude-now-works-in-google-docs-sheets-and-slides",
+          "sourceUrl": "https://claude.com/resources/articles/claude-now-works-in-google-docs-sheets-and-slides",
+          "pricing": "Included in paid Claude plans (beta)"
+        },
+        {
+          "name": "Claude Haiku 5.5",
+          "slug": "claude-haiku-5-5",
+          "company": "Anthropic",
+          "summary": "Released October 7: Anthropic's cheapest and fastest small model, aimed at high-volume work such as summaries, classification and live customer support. Anthropic says it costs around 75% less to run on average than Haiku 4.5.",
+          "whyItMatters": "If you are building an inbox or RFQ triage automation, a cheaper fast model makes it affordable to run on every message instead of a sample. Test it on a week of real requests before trusting it.",
+          "url": "https://www.anthropic.com/claude-haiku-5-5",
+          "sourceUrl": "https://www.anthropic.com/claude-haiku-5-5",
+          "pricing": "From $0.10 per million input tokens (API)"
+        },
+        {
+          "name": "Microsoft 365 Copilot model choice",
+          "slug": "microsoft-365-copilot-model-choice",
+          "company": "Microsoft",
+          "summary": "Since September 30, Microsoft has been rolling out GPT-6.1 Sol and Claude Sonnet 5.5 as selectable models in Copilot, first in Cowork and Copilot Studio and then in phases across Word, Excel, PowerPoint and Chat. Claude Sonnet 5.5 requires your admin to enable the Anthropic subprocessor.",
+          "whyItMatters": "Try the same task on two models, such as drafting a customer delay letter or cleaning a parts spreadsheet, and keep the one that needs fewer fixes. Ask IT to confirm the subprocessor settings first.",
+          "url": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+          "sourceUrl": "https://mwpro.co.uk/blog/2026/10/01/mc1483844-microsoft-copilot-adds-gpt-6-1-sol-and-claude-sonnet-5-5-models-across-microsoft-365-apps-2/",
+          "pricing": "Microsoft 365 Copilot license; some surfaces bill by usage"
+        }
+      ]
+    }
+  ],
+  "playbook": {
+    "title": "Set an alert threshold you can defend",
+    "intro": "A simple way to run any predictive or AI alert tool without wearing out your technicians, drawn from today's top story. Practical guidance, not regulatory advice; your approved data and procedures still rule.",
+    "steps": [
+      "List the systems the tool watches and mark which ones can cause an AOG, delay or cancellation if they fail.",
+      "Ask the vendor for precision and recall on your own fleet history, not a brochure number.",
+      "Set a stricter bar for the AOG-critical systems and a looser one where a check on-wing is quick and cheap.",
+      "Send low-confidence alerts to engineering first, so only validated ones reach the hangar.",
+      "Track every alert for 90 days: confirmed, no fault found, or missed. Keep tuning, and drop alerts that never pay back."
+    ]
+  },
+  "quickLinks": [
+    {
+      "title": "GOL opens ChatGPT check-in to all customers",
+      "url": "https://g1.globo.com/tecnologia/noticia/2026/10/08/gol-lanca-check-in-pelo-chatgpt-veja-como-fazer-e-quando-comeca.ghtml",
+      "note": "From October 19, GOL passengers can type @gol in ChatGPT, log in on GOL's own page, pick a seat and get a QR boarding pass, including on free ChatGPT (G1, in Portuguese)."
+    },
+    {
+      "title": "NBAA-BACE opens today in Las Vegas",
+      "url": "https://www.jeppesenforeflight.com/news/jeppesen-foreflight-debuts-new-airflow-tm-agents-and-connected-solutions-at-nbaa-bace",
+      "note": "October 20-22. Jeppesen ForeFlight's \"Trust, But Verify: AI in Business Aviation\" panel is October 21 at 1:15 p.m. on the Flight Deck, booth 205."
+    },
+    {
+      "title": "Elliott Aviation offers five-day pre-purchase evaluations (not AI)",
+      "url": "https://www.ainonline.com/airshow-convention-news/nbaa-bace-2026",
+      "note": "Announced at NBAA-BACE: the MRO says accelerated pre-buy evaluations can take as few as five days."
+    },
+    {
+      "title": "Become a founding sponsor",
+      "url": "/sponsor",
+      "note": "Founding rates for the first 10 sponsors, locked for 3 months."
+    }
+  ],
+    "glossary": [
+      {
+        "term": "Agent",
+        "definition": "Software that carries out a series of steps, such as reading a service bulletin and filing what it found, instead of only answering one question. A person still approves the decisions that matter."
+      },
+      {
+        "term": "Agentic AI",
+        "definition": "AI that hands work from one agent to the next so a job gets finished, such as turning a parts request into a quote a buyer can approve. It is built to complete a task, not only to chat."
+      },
+      {
+        "term": "Algorithm",
+        "definition": "A set of rules a computer follows to reach a result, such as flagging a part that may fail. Delta checks those rules against old flight data before they reach the hangar."
+      },
+      {
+        "term": "AMR",
+        "definition": "Short for autonomous mobile robot. A cart that drives itself, here from the parts store to the hangar. The ST Engineering site uses three of them to deliver picks."
+      },
+      {
+        "term": "API",
+        "definition": "A connection that lets one program ask another for data, or to take an action, without someone retyping it. Claude's listed price is charged per million tokens over this connection."
+      },
+      {
+        "term": "Back-tested",
+        "definition": "Checked against old records to see whether an alert would have been right. If it would have flagged too many healthy parts, it is not ready for the hangar."
+      },
+      {
+        "term": "Copilot",
+        "definition": "An AI assistant built into apps you already use. Here it is Microsoft 365 Copilot, which can draft in Word or Excel while you choose which model does the work."
+      },
+      {
+        "term": "Digital twin",
+        "definition": "A software copy of a real aircraft, updated as inspections and sensors add measurements. It is the record you compare over time, not a second airplane."
+      },
+      {
+        "term": "False alert",
+        "definition": "A warning that maintenance is needed when nothing is actually wrong. It still costs an inspection, a pulled part, or time on the ground, and too many of them teach technicians to ignore the system."
+      },
+      {
+        "term": "LiDAR",
+        "definition": "A sensor that measures distance with pulses of light and builds a three-dimensional picture. The US Air Force inspection program Asylon describes uses it so each aircraft scan can be compared with the last one."
+      },
+      {
+        "term": "Low-confidence alert",
+        "definition": "A warning the software is not sure about. Send those to engineering first, and let only the ones that hold up reach the hangar."
+      },
+      {
+        "term": "Machine learning",
+        "definition": "Software that studies past data and uses the pattern to estimate what comes next, such as which spare parts you will need. It only knows your operation after it has seen your history."
+      },
+      {
+        "term": "MCP",
+        "definition": "Short for Model Context Protocol, a common plug that lets an AI assistant use another system, such as searching or changing a booking, under rules you already set."
+      },
+      {
+        "term": "Model",
+        "definition": "The program trained to produce an answer or an alert. A larger one can take on harder writing. A smaller, faster one is what you can afford to run on every message."
+      },
+      {
+        "term": "Precision",
+        "definition": "Of the faults a tool said would happen, the share that were real. High precision means few false alerts."
+      },
+      {
+        "term": "Predictive maintenance",
+        "definition": "Using data from the aircraft to flag a part before it fails, so the shop can plan the work. The open question is how sure the alert must be before you pull the aircraft."
+      },
+      {
+        "term": "PSS",
+        "definition": "Passenger service system, the airline computer that holds bookings and tickets. A tool that sits on top of it lets you try AI bookings without replacing that system."
+      },
+      {
+        "term": "Public beta",
+        "definition": "A new feature the maker lets paying customers try while it is still being finished. Treat the output as a draft and check every figure before it goes to a customer or a regulator."
+      },
+      {
+        "term": "Recall",
+        "definition": "Of the real faults that happened, the share the tool caught. Low recall means it missed failures, and a miss on the wrong system becomes an AOG."
+      },
+      {
+        "term": "Subprocessor",
+        "definition": "Another company that handles data for the product you bought. Microsoft requires an admin to allow Anthropic before Copilot will use Claude."
+      },
+      {
+        "term": "Threshold",
+        "definition": "The line an alert has to cross before you act on it. Set it higher when a wrong call can cause an AOG, and lower when a quick check on the aircraft is cheap."
+      },
+      {
+        "term": "Token",
+        "definition": "A small piece of text a model reads or writes, often a word or part of a word. A price per million tokens means a long manual costs more to process than a short email."
+      }
+    ],
+    "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI tools for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months, with no more than three sponsors in any issue. If you build AI for aviation, this is your seat at the table.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

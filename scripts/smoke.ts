@@ -9,11 +9,12 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "NBAA week: AI agents for the flight department"],
+  ["/aviation/issues", "When should a predictive alert ground an aircraft"],
+  ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
-  ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
+  ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting in aviation"],
   ["/aviation/tools/topic/sales-and-marketing", "AI tools for sales and marketing in aviation"],
   ["/aviation/tools/topic/predictive-maintenance", "AI tools for predictive maintenance in aviation"],
   ["/aviation/tools/topic/maintenance-optimization", "AI tools for maintenance optimization in aviation"],
@@ -172,6 +173,13 @@ async function main() {
     if (!mondayIssue.includes("Monday, October 19, 2026") || mondayIssue.includes("Sunday, October 18, 2026")) {
       throw new Error("The October 19 issue date did not stay on Monday, October 19, 2026.");
     }
+    const tuesdayIssue = await fetch(`${base}/aviation/issues/2026-10-20`).then((response) => response.text());
+    if (tuesdayIssue.includes("noindex")) {
+      throw new Error("The October 20 aviation issue is marked noindex.");
+    }
+    if (!tuesdayIssue.includes("Tuesday, October 20, 2026") || tuesdayIssue.includes("Monday, October 19, 2026")) {
+      throw new Error("The October 20 issue date did not stay on Tuesday, October 20, 2026.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -187,7 +195,11 @@ async function main() {
     await expectStatus("/aviation/tools/dutyline", { method: "GET" }, 404);
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
-    if (!sitemap.includes("/aviation/issues/2026-10-19") || !sitemap.includes("/aviation/issues/2026-10-16")) {
+    if (
+      !sitemap.includes("/aviation/issues/2026-10-20") ||
+      !sitemap.includes("/aviation/issues/2026-10-19") ||
+      !sitemap.includes("/aviation/issues/2026-10-16")
+    ) {
       throw new Error("Sitemap is missing an aviation issue.");
     }
     if (sitemap.includes("aogline") || sitemap.includes("/aviation/issues/2026-10-14")) {
@@ -217,7 +229,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-19")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-20")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);
@@ -333,7 +345,7 @@ async function main() {
     if (!aviation.includes("Tool Highlights")) {
       throw new Error("Aviation page is missing Tool Highlights.");
     }
-    if (!aviation.includes("AI for Aviation: the free daily briefing")) {
+    if (!aviation.includes("AI &amp; Robotics News For Aviation") && !aviation.includes("AI & Robotics News For Aviation")) {
       throw new Error("Aviation page is missing its heading.");
     }
     if (aviation.includes("Site banner, open")) {

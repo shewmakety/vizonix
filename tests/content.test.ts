@@ -1,13 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
   getSegment,
   isToolDirectoryPath,
+  segmentDisplayName,
   segments,
   toolDirectoryHref,
   toolsIndexPath,
@@ -58,27 +60,27 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(2);
-    expect(issues.map((issue) => issue.date)).toEqual(["2026-10-19", "2026-10-16"]);
+    expect(issues).toHaveLength(3);
+    expect(issues.map((issue) => issue.date)).toEqual(["2026-10-20", "2026-10-19", "2026-10-16"]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "NBAA week: AI agents for the flight department, plus 7 places to put AI to work",
+      "When should a predictive alert ground an aircraft? Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "flightatom-hire-ai",
-      "jetnet-ai",
-      "charter-and-go-connieai",
-      "collins-ascentia",
-      "ifs-intelligence",
-      "ironfleet-avios",
-      "ptc-servigistics",
-      "aeroquote",
-      "botminds-aog-parts-sourcing",
-      "chatgpt",
-      "gemini",
-      "ai-by-zapier",
+      "apc-amelia",
+      "pros-kairos",
+      "retailaer-early-access",
+      "aviatar-predictive-health-analytics",
+      "ramco-sb-ad-agent",
+      "web-manuals-amelia-ai",
+      "syncron-parts-planning",
+      "sensos-jssi-tracking",
+      "salespatriot",
+      "claude-for-google-workspace",
+      "claude-haiku-5-5",
+      "microsoft-365-copilot-model-choice",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -98,10 +100,10 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(77);
+    expect(tools).toHaveLength(81);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
-    expect(priced.map((tool) => tool.slug)).toEqual(["aeroquote"]);
+    expect(priced.map((tool) => tool.slug)).toEqual(["aeroquote", "sensos-jssi-tracking"]);
     expect(getTool("aviation", "aeroquote")?.pricing).toBe(
       "$299 per month plus $2 per quote sent; first 20 quotes free",
     );
@@ -147,7 +149,7 @@ describe("segment config and sample content", () => {
     expect(html).toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(html).toContain("See founding sponsor rates");
     expect(html).toContain("https://www.vizonix.com/sponsor");
-    expect(html).toContain("Recruiting pilots and technicians");
+    expect(html).toContain(">Recruiting</td>");
     expect(html).toContain("Thin this week: we did not find a verified, aviation-specific AI recruiting launch");
     expect(html).toContain("https://www.atec-amt.org/news/aviation-technical-workforce-expansion-continues-amid-strong-demand");
     const directory = absoluteUrl("/aviation/tools");
@@ -156,7 +158,9 @@ describe("segment config and sample content", () => {
     expect(html).toContain("Tool Directory");
     expect(html).toContain("Read on the web");
     expect(html).toContain(`href="${issueUrl}"`);
-    expect(html.indexOf("Vizonix Aviation")).toBeLessThan(html.indexOf("Tool Directory"));
+    const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
+    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("Tool Directory"));
+    expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(html.indexOf("Tool Directory")).toBeLessThan(html.indexOf(aviation.lead.title));
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);

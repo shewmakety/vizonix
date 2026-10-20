@@ -12,7 +12,7 @@ import {
   scaledFromPrimary,
   secondaryRatio,
 } from "@/lib/rate-card";
-import { activeSegments, getSegment, topicPagePath, type Segment } from "@/lib/segments";
+import { activeSegments, getSegment, segmentDisplayName, topicPagePath, type Segment } from "@/lib/segments";
 import { absoluteUrl, editor, organizationSameAs, site } from "@/lib/site";
 
 function firstSentence(text: string): string {
@@ -37,7 +37,7 @@ function identityLines(): string[] {
 function sectionLines(): string[] {
   return activeSegments().map(
     (segment) =>
-      `- [${segment.name}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
+      `- [${segmentDisplayName(segment)}](${absoluteUrl(`/${segment.slug}`)}): ${segment.summary} Status: ${segment.status}. Audience: ${segment.audience}.`,
   );
 }
 
@@ -113,7 +113,7 @@ export function buildLlmsFullTxt(): string {
     const issues = listIssues(segment.slug).filter((issue) => !issue.sample);
     if (issues.length === 0) return [];
     return [
-      `## ${segment.name} issues currently in the archive (${issues.length})`,
+      `## ${segmentDisplayName(segment)} issues currently in the archive (${issues.length})`,
       ...issues.flatMap((issue) => [
         `### ${issue.date} ${issue.subject}`,
         issue.preheader,
@@ -159,7 +159,7 @@ export function buildLlmsFullTxt(): string {
     "",
     "## Sections",
     ...activeSegments().map(
-      (segment) => `- ${segment.name} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
+      (segment) => `- ${segmentDisplayName(segment)} (${segment.status}): ${segment.summary} ${absoluteUrl(`/${segment.slug}`)}`,
     ),
     "",
     ...archiveBlocks,

@@ -7,7 +7,8 @@ import { allIssues, getIssue, issueModifiedInstant } from "@/lib/content";
 import { calendarInstant } from "@/lib/dates";
 import { breadcrumbJsonLd, issueJsonLd } from "@/lib/jsonld";
 import { capDescription, pageMeta } from "@/lib/meta";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { sectionWordmark } from "@/lib/site";
 
 type Props = { params: Promise<{ segment: string; date: string }> };
 
@@ -56,7 +57,7 @@ export default async function IssuePage({ params }: Props) {
         data={[
           issueJsonLd(issue),
           breadcrumbJsonLd([
-            { name: "Vizonix", path: "/" },
+            { name: sectionWordmark(segmentDisplayName(segment)), path: "/" },
             { name: segment.name, path: `/${segment.slug}` },
             { name: "Issues", path: `/${segment.slug}/issues` },
             { name: issue.subject, path: `/${segment.slug}/issues/${issue.date}` },

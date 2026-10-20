@@ -1,7 +1,8 @@
 import { getIssue, allIssues } from "@/lib/content";
 import { issueDateLine } from "@/lib/dates";
 import { ogContentType, ogSize, renderOgCard } from "@/lib/og-card";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { sectionWordmark } from "@/lib/site";
 
 export const alt = "Vizonix issue";
 export const size = ogSize;
@@ -16,7 +17,7 @@ export default async function Image({ params }: { params: Promise<{ segment: str
   const issue = getIssue(slug, date);
   const segment = getSegment(slug);
   return renderOgCard({
-    kicker: segment ? `Vizonix ${segment.name}` : "Vizonix",
+    kicker: segment ? sectionWordmark(segmentDisplayName(segment)) : "Vizonix",
     title: issue?.subject ?? "Issue",
     footer: issue ? issueDateLine(issue) : "The briefing is free.",
   });

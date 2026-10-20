@@ -1,0 +1,17 @@
+{
+  "slug": "sensos-jssi-tracking",
+  "segment": "aviation",
+  "name": "Sensos live tracking for JSSI Parts & Engines",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "Sensos and JSSI Parts & Engines",
+  "summary": "From October 14, JSSI Parts & Engines is adding Sensos smart labels to high-value and AOG-critical shipments of parts, engines and APUs across sales, exchange and lease, at no cost to customers. Sensos, which describes itself as an AI services company, pairs the credit-card-sized cellular label with carrier data to report live location, dwell, shock, tamper and temperature, with route alerts if a shipment stalls or misses its flight.",
+  "paragraphs": [
+    "From October 14, JSSI Parts & Engines is adding Sensos smart labels to high-value and AOG-critical shipments of parts, engines and APUs across sales, exchange and lease, at no cost to customers. Sensos, which describes itself as an AI services company, pairs the credit-card-sized cellular label with carrier data to report live location, dwell, shock, tamper and temperature, with route alerts if a shipment stalls or misses its flight."
+  ],
+  "whyItMatters": "When an aircraft is down, the hangar plans around a carrier estimate that is often wrong. Knowing the moment a part misses its flight lets you re-source or reschedule the crew hours earlier, which is real money on every AOG event.",
+  "pricing": "Included at no cost on eligible JSSI Parts & Engines shipments",
+  "sourceUrl": "https://jetsupport.com/jssi-parts-engines-adds-live-tracking-to-aog-critical-shipments-at-no-cost-to-customers/",
+  "url": "https://jetsupport.com/jssi-parts-engines-adds-live-tracking-to-aog-critical-shipments-at-no-cost-to-customers/"
+}

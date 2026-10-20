@@ -8,7 +8,8 @@ import {
   segmentHomeHref,
   segmentSubscribeHref,
 } from "@/lib/segment-memory";
-import { isToolDirectoryPath } from "@/lib/segments";
+import { getSegment, isToolDirectoryPath, segmentDisplayName } from "@/lib/segments";
+import { sectionWordmark, site } from "@/lib/site";
 
 function current(active: boolean): "page" | undefined {
   return active ? "page" : undefined;
@@ -21,13 +22,16 @@ export function SiteHeader() {
   const onAbout = pathname === "/about" || pathname.startsWith("/about/");
   const subscribeHref = segmentSubscribeHref(pathname, rememberedSlug);
   const onSubscribe = pathname === subscribeHref || pathname === "/subscribe" || pathname.startsWith("/subscribe/");
+  const sectionSlug = pathname.split("/").filter(Boolean)[0];
+  const section = sectionSlug ? getSegment(sectionSlug) : undefined;
+  const wordmark = section?.status === "active" ? sectionWordmark(segmentDisplayName(section)) : site.name;
 
   return (
     <header className="site-header">
       <div className="wrap header-inner">
         <Link className="brand" href={segmentHomeHref(pathname, rememberedSlug)}>
           <span className="brand-mark">V</span>
-          <span className="brand-name">Vizonix</span>
+          <span className="brand-name">{wordmark}</span>
         </Link>
         <nav className="site-nav" aria-label="Site">
           <Link href="/sponsor" aria-current={current(onSponsor)}>

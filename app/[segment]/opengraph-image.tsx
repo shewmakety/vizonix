@@ -1,5 +1,6 @@
 import { ogContentType, ogSize, renderOgCard } from "@/lib/og-card";
-import { activeSegments, getSegment } from "@/lib/segments";
+import { activeSegments, getSegment, segmentDisplayName } from "@/lib/segments";
+import { sectionWordmark } from "@/lib/site";
 
 export const alt = "Vizonix section";
 export const size = ogSize;
@@ -13,10 +14,9 @@ export default async function Image({ params }: { params: Promise<{ segment: str
   const { segment: slug } = await params;
   const segment = getSegment(slug);
   const launched = segment?.status === "active" ? segment : undefined;
-  const title =
-    launched?.slug === "aviation" ? "AI for Aviation: the free daily briefing" : (launched?.name ?? "Vizonix");
+  const title = launched ? segmentDisplayName(launched) : "Vizonix";
   return renderOgCard({
-    kicker: launched ? `Vizonix ${launched.name}` : "Vizonix",
+    kicker: launched ? sectionWordmark(segmentDisplayName(launched)) : "Vizonix",
     title,
     footer: "The briefing is free.",
   });

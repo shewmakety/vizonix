@@ -28,6 +28,11 @@ describe("date-only issue dates", () => {
     expect(formatIssueDate(monday!)).toBe("Monday, October 19, 2026");
     expect(formatPublishedInstant(new Date(monday!.publishedAt!))).toBe("Monday, October 19, 2026");
 
+    const tuesday = getIssue("aviation", "2026-10-20");
+    expect(tuesday?.date).toBe("2026-10-20");
+    expect(formatIssueDate(tuesday!)).toBe("Tuesday, October 20, 2026");
+    expect(formatPublishedInstant(new Date(tuesday!.publishedAt!))).toBe("Tuesday, October 20, 2026");
+
     const issue = getIssue("aviation", "2026-10-16");
     expect(issue?.date).toBe("2026-10-16");
     expect(issue?.publishedAt).toBe("2026-10-15T06:28:02-04:00");

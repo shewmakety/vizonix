@@ -22,7 +22,10 @@ export type SegmentTopic = {
 
 export type Segment = {
   slug: string;
+  /** Short label for compact lines such as the date line and archive crumbs. */
   name: string;
+  /** Public edition name. The masthead, page title, and email footer use this. */
+  displayName?: string;
   status: SegmentStatus;
   audience: string;
   summary: string;
@@ -50,10 +53,11 @@ export const segments: Segment[] = [
   {
     slug: "aviation",
     name: "Aviation",
+    displayName: "AI & Robotics News For Aviation",
     status: "active",
     audience: "Airlines, MROs, parts suppliers, operators, and maintenance / AOG teams",
     summary:
-      "A weekday briefing on AI tools, bots, models, and resources for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams.",
+      "A weekday briefing on AI and robotics for airlines, MROs, parts suppliers, operators, and maintenance / AOG teams.",
     promise:
       "What is new, and how it could put an aircraft back in service sooner, fill a bay, or cut a premium parts buy.",
     payoffLabel: "Why it can make you money",
@@ -62,11 +66,11 @@ export const segments: Segment[] = [
     topics: [
       {
         key: "recruiting-pilots-and-technicians",
-        label: "Recruiting (pilots & technicians)",
-        phrase: "recruiting pilots and technicians",
+        label: "Recruiting",
+        phrase: "recruiting",
         intro:
           "These listings cover software that helps an airline, MRO, or repair station hire pilots and technicians. The group includes applicant tracking, skills matching, and interview tools aimed at aviation roles.",
-        issueTopic: "Recruiting pilots and technicians",
+        issueTopic: "Recruiting",
       },
       {
         key: "sales-and-marketing",
@@ -144,6 +148,11 @@ export const segments: Segment[] = [
 
 export function getSegment(slug: string): Segment | undefined {
   return segments.find((segment) => segment.slug === slug);
+}
+
+/** Edition name shown to readers. Falls back to the short name when unset. */
+export function segmentDisplayName(segment: Pick<Segment, "name" | "displayName">): string {
+  return segment.displayName ?? segment.name;
 }
 
 /** Sections that are live. Planned entries stay out of nav, signup, and llms text. */

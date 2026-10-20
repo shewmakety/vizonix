@@ -1,9 +1,20 @@
-import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
+import { sectionIconUrl } from "@/lib/icons";
+import {
+  issueSections,
+  productivitySectionTopic,
+  rampHandle,
+  sortedGlossary,
+  type Issue,
+  type IssueSectionView,
+  type Ramp,
+  type RoboticsItem,
+  type SponsorCreative,
+} from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
-import { absoluteUrl, site } from "@/lib/site";
+import { absoluteUrl, sectionWordmark, site, whatWeDo } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
-import { getSegment } from "@/lib/segments";
-import { formatIssueDate } from "@/lib/dates";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { formatIsoDay, issueDateline } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
 
@@ -66,7 +77,38 @@ function href(value: string, absolute: boolean): string {
   return absolute ? (safe.startsWith("/") ? absoluteUrl(safe) : safe) : safe;
 }
 
-function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean): string {
+function emailIconCell(topic: string, alt: string, size: number): string {
+  const icon = sectionIconUrl(topic, "email");
+  if (!icon) return "";
+  return `<td valign="middle" style="padding:0 18px 0 0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(alt)}" width="${size}" height="${size}" style="display:block;border:0;width:${size}px;height:${size}px;" /></td>`;
+}
+
+function emailIconHeading(iconKey: string, visible: string, headingStyle: string, iconPx: number): string {
+  const icon = emailIconCell(iconKey, iconKey, iconPx);
+  const heading = `<h2 style="${headingStyle}">${escapeHtml(visible)}</h2>`;
+  if (!icon) return heading;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;"><tr>${icon}<td valign="middle">${heading}</td></tr></table>`;
+}
+
+function sectionEmailHeading(heading: string, index: number, size = 30): string {
+  const number = String(index + 1).padStart(2, "0");
+  const iconCell = emailIconCell(heading, heading, size >= 36 ? 40 : 34);
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;border-top:2px solid #1c1915;">
+              <tr>
+                <td style="padding:16px 0 0;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                    <tr>
+                      ${iconCell}
+                      <td valign="baseline" style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:${size}px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">${escapeHtml(number)}</td>
+                      <td valign="baseline" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:${size}px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${escapeHtml(heading)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>`;
+}
+
+function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean, index: number): string {
   const heading = section.topic ?? "Tool Highlights";
   const note = section.coverageNote
     ? `<p style="margin:8px 0 0;padding:10px 12px;background:#f7efe2;border:1px solid #e0cfae;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${escapeHtml(section.coverageNote)}</p>`
@@ -78,7 +120,54 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
           : ""
       }</p>`
     : "";
-  const tools = section.tools
+  const tools = toolEmailRows(section, payoff, absolute, heading === productivitySectionTopic ? "4px 24px 18px" : "8px 28px 16px");
+  const robotics = roboticsEmailHtml(section.robotics, payoff, absolute);
+  if (heading === productivitySectionTopic) {
+    return `
+          <tr>
+            <td style="padding:48px 28px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #14532D;background:#f6f4ee;">
+                <tr>
+                  <td style="padding:28px 24px 8px;font-family:Georgia,serif;color:#1c1915;">
+                    ${sectionEmailHeading(heading, index, 36)}
+                    ${note}
+                    ${intro}
+                  </td>
+                </tr>
+                ${tools}
+                ${robotics}
+              </table>
+            </td>
+          </tr>`;
+  }
+  return `
+          <tr>
+            <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
+              ${sectionEmailHeading(heading, index)}
+              ${note}
+              ${intro}
+            </td>
+          </tr>
+          ${tools}
+          ${robotics}`;
+}
+
+function roboticsEmailHtml(item: RoboticsItem | undefined, payoff: string, absolute: boolean): string {
+  if (!item) return "";
+  return `
+      <tr>
+        <td style="padding:4px 28px 8px;font-family:Georgia,serif;color:#1c1915;">
+          <p style="margin:18px 0 8px;padding:14px 0 0;border-top:1px solid #d5cdc0;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;letter-spacing:0.12em;text-transform:uppercase;color:#14532D;">Robotics</p>
+          <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.2;color:#1c1915;">${escapeHtml(item.headline)}</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(item.summary)}</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(item.whyItMatters)}</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(item.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(item.sourceName)}</a></p>
+        </td>
+      </tr>`;
+}
+
+function toolEmailRows(section: IssueSectionView, payoff: string, absolute: boolean, cellPadding: string): string {
+  return section.tools
     .map((tool) => {
       const company = tool.company
         ? `<p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.company)}</p>`
@@ -88,7 +177,7 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
         : "";
       return `
       <tr>
-        <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
+        <td style="padding:${cellPadding};font-family:Georgia,serif;color:#1c1915;">
           <p style="margin:0 0 4px;font-size:18px;"><a href="${escapeHtml(href(tool.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(tool.name)}</a></p>
           ${company}
           <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(tool.summary)}</p>
@@ -99,15 +188,88 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
       </tr>`;
     })
     .join("");
+}
+
+function rampEmailHtml(ramp: Ramp | undefined): string {
+  if (!ramp) return "";
+  const intro = ramp.intro
+    ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(ramp.intro)}</p>`
+    : "";
+  const cards = ramp.posts
+    .map((post) => {
+      const note = post.note
+        ? `<p style="margin:8px 0 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.45;color:#5f584e;">${escapeHtml(post.note)}</p>`
+        : "";
+      return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 14px;border:1px solid #d5cdc0;background:#fbfaf6;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-style:italic;line-height:1.45;color:#1c1915;">${escapeHtml(post.text).replaceAll("\n", "<br>")}</p>
+                  <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;color:#5f584e;">${escapeHtml(post.author)} - ${escapeHtml(rampHandle(post.handle))} - ${escapeHtml(formatIsoDay(post.postedAt))}</p>
+                  ${note}
+                  <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;"><a href="${escapeHtml(href(post.url, true))}" style="color:#1e4636;">View on X</a></p>
+                </td>
+              </tr>
+            </table>`;
+    })
+    .join("");
   return `
           <tr>
-            <td style="padding:22px 28px 0;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0;font-size:22px;font-weight:normal;">${escapeHtml(heading)}</h2>
-              ${note}
+            <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 12px;border-top:2px solid #1c1915;">
+                <tr>
+                  <td style="padding:16px 0 0;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                      <tr>
+                        ${emailIconCell("The Ramp", "The Ramp", 34)}
+                        <td valign="middle" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">The Ramp</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
               ${intro}
+              ${cards}
             </td>
-          </tr>
-          ${tools}`;
+          </tr>`;
+}
+
+function rampEmailText(ramp: Ramp | undefined): string[] {
+  if (!ramp) return [];
+  const lines = ["THE RAMP"];
+  if (ramp.intro) lines.push(ramp.intro);
+  lines.push("");
+  for (const post of ramp.posts) {
+    lines.push(post.text, `${post.author} - ${rampHandle(post.handle)} - ${formatIsoDay(post.postedAt)}`);
+    if (post.note) lines.push(post.note);
+    lines.push(`View on X: ${href(post.url, true)}`, "");
+  }
+  return lines;
+}
+
+function glossaryEmailHtml(issue: Issue): string {
+  const entries = sortedGlossary(issue.glossary);
+  if (entries.length === 0) return "";
+  const rows = entries
+    .map(
+      (entry) =>
+        `<p style="margin:16px 0 4px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-style:italic;font-weight:bold;line-height:1.2;color:#1c1915;">${escapeHtml(entry.term)}</p><p style="margin:0;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">${escapeHtml(entry.definition)}</p>`,
+    )
+    .join("");
+  return `
+          <tr>
+            <td style="padding:28px 28px 8px;font-family:Georgia,serif;color:#1c1915;">
+              <h2 style="margin:0 0 4px;padding:16px 0 0;border-top:2px solid #1c1915;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;">AI Glossary</h2>
+              ${rows}
+            </td>
+          </tr>`;
+}
+
+function glossaryEmailText(issue: Issue): string[] {
+  const entries = sortedGlossary(issue.glossary);
+  if (entries.length === 0) return [];
+  const lines = ["AI GLOSSARY", ""];
+  for (const entry of entries) lines.push(entry.term, entry.definition, "");
+  return lines;
 }
 
 function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
@@ -124,6 +286,17 @@ function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
     lines.push(tool.summary, `${payoff}. ${tool.whyItMatters}`, tool.pricing, href(tool.url, true));
     if (tool.sourceUrl) lines.push(`Source: ${href(tool.sourceUrl, true)}`);
     lines.push("");
+  }
+  if (section.robotics) {
+    const item = section.robotics;
+    lines.push(
+      "ROBOTICS",
+      item.headline,
+      item.summary,
+      `${payoff}. ${item.whyItMatters}`,
+      `Source: ${item.sourceName} (${href(item.sourceUrl, true)})`,
+      "",
+    );
   }
   return lines;
 }
@@ -178,9 +351,36 @@ export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, s
   };
 }
 
+/** Cream band above the navy bar. A spacer row holds in Gmail and Outlook, which drop body margin. */
+function emailMastheadGap(): string {
+  return `<tr>
+      <td height="32" style="height:32px;line-height:32px;font-size:1px;mso-line-height-rule:exactly;background:#f4f1ea;">&nbsp;</td>
+    </tr>`;
+}
+
+function emailMasthead(sectionName: string): string {
+  return `<tr>
+            <td style="background:#13233b;padding:22px 28px;">
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${escapeHtml(sectionWordmark(sectionName))}</p>
+            </td>
+          </tr>`;
+}
+
+function issueHeaderHtml(title: string, dateline: string): string {
+  return `<tr>
+            <td style="padding:28px 28px 0;font-family:Georgia,'Times New Roman',serif;color:#1c1915;">
+              <h1 style="margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1.15;font-weight:normal;color:#1c1915;">${escapeHtml(title)}</h1>
+              <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;letter-spacing:0.04em;color:#14532D;">${escapeHtml(dateline)}</p>
+              <h2 style="margin:0 0 8px;padding:16px 0 0;border-top:2px solid #14532D;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-style:italic;font-weight:normal;line-height:1.15;color:#14532D;">${escapeHtml(whatWeDo.heading)}</h2>
+              <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;color:#1c1915;">${escapeHtml(whatWeDo.copy)}</p>
+            </td>
+          </tr>`;
+}
+
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const absolute = true;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
@@ -194,7 +394,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const classified = resolveSlot("classified", issue.sponsors.classified);
 
   const tools = issueSections(issue)
-    .map((section) => sectionEmailHtml(section, payoff, absolute))
+    .map((section, index) => sectionEmailHtml(section, payoff, absolute, index))
     .join("");
 
   const steps = issue.playbook.steps
@@ -238,15 +438,12 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
 <body style="margin:0;padding:0;background:#f4f1ea;">
   <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(preview)}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
+    ${emailMastheadGap()}
     <tr>
-      <td align="center">
+      <td align="center" style="background:#f4f1ea;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
-          <tr>
-            <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
-              <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatIssueDate(issue))}</p>
-            </td>
-          </tr>
+          ${emailMasthead(editionName)}
+          ${issueHeaderHtml(issue.subject, issueDateline(sectionName, issue))}
           ${linkRow}
           ${intro}
           ${sample}
@@ -254,7 +451,12 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="padding:8px 28px 0;font-family:Georgia,serif;color:#1c1915;">
               <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#5f584e;">${escapeHtml(issue.lead.kicker)}</p>
-              <h1 style="margin:8px 0;font-size:28px;line-height:1.2;font-weight:normal;">${escapeHtml(issue.lead.title)}</h1>
+              <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:8px 0;">
+                <tr>
+                  ${emailIconCell(issue.lead.kicker, issue.lead.kicker, 34)}
+                  <td valign="middle"><h2 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.2;font-weight:normal;color:#1c1915;">${escapeHtml(issue.lead.title)}</h2></td>
+                </tr>
+              </table>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;">${escapeHtml(issue.lead.summary)}</p>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(issue.lead.whyItMatters)}</p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(issue.lead.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(issue.lead.sourceName)}</a></p>
@@ -265,26 +467,28 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               }
             </td>
           </tr>
+          ${rampEmailHtml(issue.ramp)}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
             <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0 0 8px;font-size:22px;font-weight:normal;">${escapeHtml(issue.playbook.title)}</h2>
+              ${emailIconHeading("Playbook", issue.playbook.title, "margin:0;font-size:22px;font-weight:normal;", 26)}
               <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(issue.playbook.intro)}</p>
               <ol style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${steps}</ol>
             </td>
           </tr>
           <tr>
             <td style="padding:0 28px 8px;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0 0 8px;font-size:22px;font-weight:normal;">Quick links</h2>
+              ${emailIconHeading("Quick links", "Quick links", "margin:0;font-size:22px;font-weight:normal;", 26)}
               <ul style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${links}</ul>
             </td>
           </tr>
           ${slotHtml(classified, absolute)}
+          ${glossaryEmailHtml(issue)}
           <tr>
             <td style="padding:8px 28px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
               <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#1e4636;">Read this issue on the web</a></p>
-              <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(sectionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
+              <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
               <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#1e4636;">Unsubscribe</a></p>
             </td>
           </tr>
@@ -299,6 +503,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
 export function renderIssueText(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const directory = absoluteUrl(`/${issue.segment}/tools`);
@@ -311,8 +516,12 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   }
 
   const lines = [
-    `Vizonix ${sectionName}`,
-    formatIssueDate(issue),
+    sectionWordmark(editionName),
+    issue.subject,
+    issueDateline(sectionName, issue),
+    "",
+    whatWeDo.heading.toUpperCase(),
+    whatWeDo.copy,
     "",
     `Tool Directory: ${directory}`,
     `Read on the web: ${archive}`,
@@ -329,6 +538,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
+    ...rampEmailText(issue.ramp),
     ...issueSections(issue).flatMap((section) => sectionEmailText(section, payoff)),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
@@ -339,6 +549,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...issue.quickLinks.map((link) => `${link.title}: ${href(link.url, true)} (${link.note})`),
     "",
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
+    ...glossaryEmailText(issue),
     `Read this issue on the web: ${archive}`,
     `Unsubscribe: ${unsubscribe}`,
   ];
@@ -418,14 +629,11 @@ export function welcomePlainMessage(
 <body style="margin:0;padding:0;background:#f4f1ea;">
   <div style="display:none;max-height:0;overflow:hidden;color:#f4f1ea;">${escapeHtml(paragraphs[0] ?? "")}</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f1ea;">
+    ${emailMastheadGap()}
     <tr>
-      <td align="center">
+      <td align="center" style="background:#f4f1ea;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
-          <tr>
-            <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">Vizonix ${escapeHtml(sectionName)}</p>
-            </td>
-          </tr>
+          ${emailMasthead(sectionName)}
           <tr>
             <td style="padding:22px 28px 8px;">${welcomeIntroHtml(sectionName)}</td>
           </tr>

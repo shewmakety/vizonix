@@ -44,7 +44,7 @@ describe("checkout route", () => {
       request({
         segment: "aviation",
         placement: "primary",
-        startDate: "2026-10-19",
+        startDate: "2027-01-04",
         email: "buyer@firm.example",
         quantity: 1,
       }),
@@ -54,7 +54,7 @@ describe("checkout route", () => {
       request({
         segment: "aviation",
         placement: "featured",
-        startDate: "2026-10-19",
+        startDate: "2027-01-04",
         email: "buyer@firm.example",
         company: "Hangar Co",
         adCopyUrl: "https://hangar.example/tool",
