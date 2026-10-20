@@ -8,6 +8,7 @@ import {
   issueSections,
   productivitySectionTopic,
   rampHandle,
+  sortedGlossary,
   type Issue,
   type IssueSectionView,
   type Ramp,
@@ -108,6 +109,24 @@ function RampView({ ramp }: { ramp: Ramp }) {
           </p>
         </article>
       ))}
+    </section>
+  );
+}
+
+function GlossaryView({ issue }: { issue: Issue }) {
+  const entries = sortedGlossary(issue.glossary);
+  if (entries.length === 0) return null;
+  return (
+    <section className="glossary">
+      <h2 className="glossary-heading">AI Glossary</h2>
+      <dl>
+        {entries.map((entry) => (
+          <div key={entry.term}>
+            <dt className="glossary-term">{entry.term}</dt>
+            <dd className="glossary-definition">{entry.definition}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }
@@ -228,6 +247,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </ul>
       </section>
       <SlotView name="classified" creative={issue.sponsors.classified} />
+      <GlossaryView issue={issue} />
     </article>
   );
 }

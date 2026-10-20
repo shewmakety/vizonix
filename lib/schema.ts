@@ -168,6 +168,17 @@ export const issueSchema = z
       )
       .min(1)
       .max(12),
+    /** Plain-language definitions for terms used in this issue. Omitted issues skip the glossary. */
+    glossary: z
+      .array(
+        z.object({
+          term: z.string().trim().min(1).max(80),
+          definition: z.string().trim().min(1).max(400),
+        }),
+      )
+      .min(1)
+      .max(24)
+      .optional(),
     sponsors: z.object({
       primary: sponsorSchema.nullable(),
       secondary: sponsorSchema.nullable(),
@@ -199,6 +210,19 @@ export const issueSchema = z
         message: "An issue can list at most 16 tools across its sections.",
       });
     }
+    const glossaryTerms = new Set<string>();
+    for (const [index, entry] of (issue.glossary ?? []).entries()) {
+      const key = entry.term.toLowerCase();
+      if (glossaryTerms.has(key)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["glossary", index, "term"],
+          message: "Glossary terms must be unique.",
+        });
+      }
+      glossaryTerms.add(key);
+    }
+
     if (issue.sections && issue.sections.length > 0) {
       const productivity = issue.sections.filter((section) => section.topic === productivitySectionTopic);
       if (productivity.length !== 1 || issue.sections.at(-1)?.topic !== productivitySectionTopic) {
@@ -232,6 +256,12 @@ export const issueSchema = z
   });
 
 export type Issue = z.infer<typeof issueSchema>;
+export type GlossaryEntry = NonNullable<Issue["glossary"]>[number];
+
+/** Glossary rows in alphabetical order. Issues with no glossary return an empty list. */
+export function sortedGlossary(entries: GlossaryEntry[] | undefined): GlossaryEntry[] {
+  return [...(entries ?? [])].sort((a, b) => a.term.localeCompare(b.term, "en", { sensitivity: "base" }));
+}
 
 /** Tools the page and email should show. Sections win when both are present. */
 export function issueTools(issue: Issue): IssueTool[] {

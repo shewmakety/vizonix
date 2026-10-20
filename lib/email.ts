@@ -3,6 +3,7 @@ import {
   issueSections,
   productivitySectionTopic,
   rampHandle,
+  sortedGlossary,
   type Issue,
   type IssueSectionView,
   type Ramp,
@@ -227,6 +228,32 @@ function rampEmailText(ramp: Ramp | undefined): string[] {
   return lines;
 }
 
+function glossaryEmailHtml(issue: Issue): string {
+  const entries = sortedGlossary(issue.glossary);
+  if (entries.length === 0) return "";
+  const rows = entries
+    .map(
+      (entry) =>
+        `<p style="margin:16px 0 4px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-style:italic;font-weight:bold;line-height:1.2;color:#1c1915;">${escapeHtml(entry.term)}</p><p style="margin:0;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">${escapeHtml(entry.definition)}</p>`,
+    )
+    .join("");
+  return `
+          <tr>
+            <td style="padding:28px 28px 8px;font-family:Georgia,serif;color:#1c1915;">
+              <h2 style="margin:0 0 4px;padding:16px 0 0;border-top:2px solid #1c1915;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;">AI Glossary</h2>
+              ${rows}
+            </td>
+          </tr>`;
+}
+
+function glossaryEmailText(issue: Issue): string[] {
+  const entries = sortedGlossary(issue.glossary);
+  if (entries.length === 0) return [];
+  const lines = ["AI GLOSSARY", ""];
+  for (const entry of entries) lines.push(entry.term, entry.definition, "");
+  return lines;
+}
+
 function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
   const lines = [section.topic ? section.topic.toUpperCase() : "TOOL HIGHLIGHTS"];
   if (section.coverageNote) lines.push(section.coverageNote);
@@ -404,6 +431,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
             </td>
           </tr>
           ${slotHtml(classified, absolute)}
+          ${glossaryEmailHtml(issue)}
           <tr>
             <td style="padding:8px 28px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
               <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#1e4636;">Read this issue on the web</a></p>
@@ -463,6 +491,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...issue.quickLinks.map((link) => `${link.title}: ${href(link.url, true)} (${link.note})`),
     "",
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
+    ...glossaryEmailText(issue),
     `Read this issue on the web: ${archive}`,
     `Unsubscribe: ${unsubscribe}`,
   ];

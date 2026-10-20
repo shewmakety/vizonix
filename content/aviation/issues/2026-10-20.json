@@ -217,7 +217,85 @@
       "note": "Founding rates for the first 10 sponsors, locked for 3 months."
     }
   ],
-  "sponsors": {
+    "glossary": [
+      {
+        "term": "Agent",
+        "definition": "Software that carries out a series of steps, such as reading a service bulletin and filing what it found, instead of only answering one question. A person still approves the decisions that matter."
+      },
+      {
+        "term": "Agentic AI",
+        "definition": "AI that hands work from one agent to the next so a job gets finished, such as turning a parts request into a quote a buyer can approve. It is built to complete a task, not only to chat."
+      },
+      {
+        "term": "Algorithm",
+        "definition": "A set of rules a computer follows to reach a result, such as flagging a part that may fail. Delta checks those rules against old flight data before they reach the hangar."
+      },
+      {
+        "term": "API",
+        "definition": "A connection that lets one program ask another for data, or to take an action, without someone retyping it. Claude's listed price is charged per million tokens over this connection."
+      },
+      {
+        "term": "Back-tested",
+        "definition": "Checked against old records to see whether an alert would have been right. If it would have flagged too many healthy parts, it is not ready for the hangar."
+      },
+      {
+        "term": "Copilot",
+        "definition": "An AI assistant built into apps you already use. Here it is Microsoft 365 Copilot, which can draft in Word or Excel while you choose which model does the work."
+      },
+      {
+        "term": "False alert",
+        "definition": "A warning that maintenance is needed when nothing is actually wrong. It still costs an inspection, a pulled part, or time on the ground, and too many of them teach technicians to ignore the system."
+      },
+      {
+        "term": "Low-confidence alert",
+        "definition": "A warning the software is not sure about. Send those to engineering first, and let only the ones that hold up reach the hangar."
+      },
+      {
+        "term": "Machine learning",
+        "definition": "Software that studies past data and uses the pattern to estimate what comes next, such as which spare parts you will need. It only knows your operation after it has seen your history."
+      },
+      {
+        "term": "MCP",
+        "definition": "Short for Model Context Protocol, a common plug that lets an AI assistant use another system, such as searching or changing a booking, under rules you already set."
+      },
+      {
+        "term": "Model",
+        "definition": "The program trained to produce an answer or an alert. A larger one can take on harder writing. A smaller, faster one is what you can afford to run on every message."
+      },
+      {
+        "term": "Precision",
+        "definition": "Of the faults a tool said would happen, the share that were real. High precision means few false alerts."
+      },
+      {
+        "term": "Predictive maintenance",
+        "definition": "Using data from the aircraft to flag a part before it fails, so the shop can plan the work. The open question is how sure the alert must be before you pull the aircraft."
+      },
+      {
+        "term": "PSS",
+        "definition": "Passenger service system, the airline computer that holds bookings and tickets. A tool that sits on top of it lets you try AI bookings without replacing that system."
+      },
+      {
+        "term": "Public beta",
+        "definition": "A new feature the maker lets paying customers try while it is still being finished. Treat the output as a draft and check every figure before it goes to a customer or a regulator."
+      },
+      {
+        "term": "Recall",
+        "definition": "Of the real faults that happened, the share the tool caught. Low recall means it missed failures, and a miss on the wrong system becomes an AOG."
+      },
+      {
+        "term": "Subprocessor",
+        "definition": "Another company that handles data for the product you bought. Microsoft requires an admin to allow Anthropic before Copilot will use Claude."
+      },
+      {
+        "term": "Threshold",
+        "definition": "The line an alert has to cross before you act on it. Set it higher when a wrong call can cause an AOG, and lower when a quick check on the aircraft is cheap."
+      },
+      {
+        "term": "Token",
+        "definition": "A small piece of text a model reads or writes, often a word or part of a word. A price per million tokens means a long manual costs more to process than a short email."
+      }
+    ],
+    "sponsors": {
     "primary": {
       "name": "Vizonix",
       "house": true,
