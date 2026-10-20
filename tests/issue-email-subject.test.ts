@@ -11,6 +11,7 @@ vi.mock("resend", () => ({
 }));
 
 import { getIssue } from "@/lib/content";
+import { formatShortDate } from "@/lib/dates";
 import { buildLinkedInPost } from "@/lib/linkedin";
 import { ISSUE_EMAIL_SUBJECT_PREFIX, issueEmailSubject, sendIssue } from "@/lib/publish";
 import type { Issue } from "@/lib/schema";
@@ -44,9 +45,17 @@ afterEach(() => {
 describe("issue email subject", () => {
   it("prefixes the stored subject once for test sends and broadcasts", async () => {
     const stored = issue().subject;
-    const subject = `${ISSUE_EMAIL_SUBJECT_PREFIX}${stored}`;
-    expect(issueEmailSubject(stored)).toBe(subject);
-    expect(issueEmailSubject(subject)).toBe(subject);
+    const subject = `${ISSUE_EMAIL_SUBJECT_PREFIX}${formatShortDate(issue().date)} - ${stored}`;
+    expect(formatShortDate("2026-10-20")).toBe("Oct 20, 2026");
+    expect(formatShortDate("2026-10-01")).toBe("Oct 1, 2026");
+    expect(subject).toBe(
+      "The VIZONIX Daily: Oct 20, 2026 - When should a predictive alert ground an aircraft? Plus 7 places to put AI and robotics to work",
+    );
+    expect(issueEmailSubject(stored, issue().date)).toBe(subject);
+    expect(issueEmailSubject(subject, issue().date)).toBe(subject);
+    expect(issueEmailSubject(`${ISSUE_EMAIL_SUBJECT_PREFIX}${stored}`, issue().date)).toBe(
+      `${ISSUE_EMAIL_SUBJECT_PREFIX}${stored}`,
+    );
 
     await sendIssue(issue(), { testTo: "reader@example.com" });
     expect(send).toHaveBeenCalledWith(expect.objectContaining({ subject }));

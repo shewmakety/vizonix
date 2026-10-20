@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { isIsoDate } from "@/lib/dates";
+import { formatShortDate, isIsoDate } from "@/lib/dates";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { AppError } from "@/lib/errors";
 import { writeIssueFile } from "@/lib/content";
@@ -111,9 +111,9 @@ async function writeIssue(issue: Issue): Promise<"github" | "local"> {
 
 export const ISSUE_EMAIL_SUBJECT_PREFIX = "The VIZONIX Daily: ";
 
-export function issueEmailSubject(subject: string): string {
+export function issueEmailSubject(subject: string, date: string): string {
   if (subject.startsWith(ISSUE_EMAIL_SUBJECT_PREFIX)) return subject;
-  return `${ISSUE_EMAIL_SUBJECT_PREFIX}${subject}`;
+  return `${ISSUE_EMAIL_SUBJECT_PREFIX}${formatShortDate(date)} - ${subject}`;
 }
 
 export async function sendIssue(
@@ -142,7 +142,7 @@ export async function sendIssue(
     const result = await resend.emails.send({
       from,
       to: [testTo],
-      subject: issueEmailSubject(issue.subject),
+      subject: issueEmailSubject(issue.subject, issue.date),
       html: renderIssueEmail(issue, { mode: "test" }),
       text: renderIssueText(issue, { mode: "test" }),
     });
@@ -153,7 +153,7 @@ export async function sendIssue(
   const result = await resend.broadcasts.create({
     segmentId: segmentId as string,
     from,
-    subject: issueEmailSubject(issue.subject),
+    subject: issueEmailSubject(issue.subject, issue.date),
     name: `${segment.name} ${issue.date}`,
     previewText: issue.preheader,
     html: renderIssueEmail(issue, { mode: "broadcast" }),

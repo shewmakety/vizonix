@@ -54,6 +54,17 @@ export function formatLongDate(isoDate: string): string {
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
+/** Email subject date: "Oct 20, 2026". The calendar day is read in UTC so it does not shift. */
+export function formatShortDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "UTC",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+
 /**
  * Noon UTC on a date-only day.
  * `new Date("YYYY-MM-DD")` is UTC midnight, which is the previous evening in America/New_York.

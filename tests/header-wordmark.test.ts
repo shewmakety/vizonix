@@ -6,6 +6,7 @@ import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText, welcomePlainMessage } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { formatShortDate } from "@/lib/dates";
 import { ISSUE_EMAIL_SUBJECT_PREFIX, issueEmailSubject } from "@/lib/publish";
 import { sectionWordmark } from "@/lib/site";
 
@@ -77,7 +78,9 @@ describe("header wordmark", () => {
     expect(gap).toContain("background:#f4f1ea");
     expect(gap).toContain("mso-line-height-rule:exactly");
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
-    expect(issueEmailSubject(issue.subject)).toBe(`${ISSUE_EMAIL_SUBJECT_PREFIX}${issue.subject}`);
+    expect(issueEmailSubject(issue.subject, issue.date)).toBe(
+      `${ISSUE_EMAIL_SUBJECT_PREFIX}${formatShortDate(issue.date)} - ${issue.subject}`,
+    );
 
     const other = { ...issue, segment: "field-service" };
     const otherMark = sectionWordmark("field-service");
