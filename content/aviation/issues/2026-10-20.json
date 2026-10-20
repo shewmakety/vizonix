@@ -13,6 +13,43 @@
     "sourceName": "Aviation Week, October 19, 2026",
     "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems"
   },
+  "ramp": {
+    "intro": "The best of what aviation and AI voices were saying on X over the past two days.",
+    "posts": [
+      {
+        "author": "Geoff Fawkes",
+        "handle": "@gfawkes",
+        "url": "https://x.com/gfawkes/status/2111941964497346940",
+        "text": "UPS is exploring AI to identify alternative aircraft parts and improve supply chain processes amid maintenance challenges in the aviation industry.\n\nhttps://t.co/BLr93GkS9n",
+        "postedAt": "2026-10-18T22:06:16Z",
+        "note": "UPS, one of the largest cargo fleets, is testing AI to find approved alternate parts - a direct play on AOG delays and long lead times."
+      },
+      {
+        "author": "GMitchell",
+        "handle": "@GMitchellDaily",
+        "url": "https://x.com/GMitchellDaily/status/2111962526800027804",
+        "text": "FAA Faces Safety Questions After Deploying AI in Washington-Area Air Traffic Operations\n\nArtificial intelligence is now helping federal aviation officials predict air traffic around three of the nation's busiest airports. But lawmakers are demanding evidence that the technology was independently evaluated before entering an environment where inaccurate information could influence critical decisions.\n\nOn September 21, 2026, the Federal Aviation Administration introduced its Strategic Management of Airspace, Routes, and Trajectories system, known as SMART, at Reagan National, Washington Dulles and Baltimore/Washington International airports.\n\nThe technology analyzes more than 200 data streams, including flight schedules, weather conditions and operational constraints, to predict congestion and recommend adjustments. ...",
+        "postedAt": "2026-10-18T23:27:59Z",
+        "note": "FAA's AI traffic tool SMART is live at DCA, IAD and BWI, and Congress wants proof it was tested - a preview of the scrutiny any safety-adjacent AI will face."
+      },
+      {
+        "author": "ada",
+        "handle": "@ada_cx",
+        "url": "https://x.com/ada_cx/status/2112234822890295695",
+        "text": "At World Aviation Festival in Lisbon, conversations at our stand started with a pair of headphones.\n\nBefore talking to our team, visitors listened to an AI agent handle irregular operations: the canceled flight, the missed connection, the traveler who needs a new plan fast.\n\nThe conversations that followed kept coming back to the idea Mike Murchison brought to his IROPS roundtable: disruption is a brand loyalty moment. The way an airline handles a canceled flight is when a traveler decides how they feel about it.\n\nMike also joined Sofia Lufinha, TAP Air Portugal’s Chief Customer Officer, on Keynote Stage 2 to talk about what passengers expect.\n\nThanks to everyone who stopped by stand 1-221. If we didn’t meet in Lisbon, here’s how Ada works with airlines: https://t.co/2opiELx5S7",
+        "postedAt": "2026-10-19T17:29:59Z",
+        "note": "Airlines are piloting AI agents for IROPS rebooking, and TAP Air Portugal's CCO framed disruption handling as a loyalty moment."
+      },
+      {
+        "author": "Virtusa",
+        "handle": "@VirtusaCorp",
+        "url": "https://x.com/VirtusaCorp/status/2112144253577011429",
+        "text": "Transition from reactive to predictive aircraft maintenance with Virtusa eFast AHMS. AI-enabled diagnostics detect emerging failure patterns before they impact operations.\nhttps://t.co/KwbykJlHEN\n\n#PredictiveMaintenance #AircraftHealthManagement #FleetManagement https://t.co/0qUScm7SGB",
+        "postedAt": "2026-10-19T11:30:06Z",
+        "note": "Another vendor pitching AI aircraft health monitoring - useful context when weighing predictive maintenance options against OEM tools."
+      }
+    ]
+  },
   "sections": [
     {
       "topic": "Recruiting",

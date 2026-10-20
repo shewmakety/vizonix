@@ -185,7 +185,7 @@ function rampEmailHtml(ramp: Ramp | undefined): string {
       return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 14px;border:1px solid #d5cdc0;background:#fbfaf6;">
               <tr>
                 <td style="padding:20px 22px;">
-                  <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-style:italic;line-height:1.45;color:#1c1915;">${escapeHtml(post.text)}</p>
+                  <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-style:italic;line-height:1.45;color:#1c1915;">${escapeHtml(post.text).replaceAll("\n", "<br>")}</p>
                   <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;color:#5f584e;">${escapeHtml(post.author)} - ${escapeHtml(rampHandle(post.handle))} - ${escapeHtml(formatIsoDay(post.postedAt))}</p>
                   ${note}
                   <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;"><a href="${escapeHtml(href(post.url, true))}" style="color:#1e4636;">View on X</a></p>
