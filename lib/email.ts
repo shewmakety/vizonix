@@ -66,7 +66,23 @@ function href(value: string, absolute: boolean): string {
   return absolute ? (safe.startsWith("/") ? absoluteUrl(safe) : safe) : safe;
 }
 
-function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean): string {
+function sectionEmailHeading(heading: string, index: number): string {
+  const number = String(index + 1).padStart(2, "0");
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;border-top:2px solid #1c1915;">
+              <tr>
+                <td style="padding:16px 0 0;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                    <tr>
+                      <td valign="baseline" style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">${escapeHtml(number)}</td>
+                      <td valign="baseline" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${escapeHtml(heading)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>`;
+}
+
+function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: boolean, index: number): string {
   const heading = section.topic ?? "Tool Highlights";
   const note = section.coverageNote
     ? `<p style="margin:8px 0 0;padding:10px 12px;background:#f7efe2;border:1px solid #e0cfae;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${escapeHtml(section.coverageNote)}</p>`
@@ -101,8 +117,8 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
     .join("");
   return `
           <tr>
-            <td style="padding:22px 28px 0;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0;font-size:22px;font-weight:normal;">${escapeHtml(heading)}</h2>
+            <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
+              ${sectionEmailHeading(heading, index)}
               ${note}
               ${intro}
             </td>
@@ -194,7 +210,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const classified = resolveSlot("classified", issue.sponsors.classified);
 
   const tools = issueSections(issue)
-    .map((section) => sectionEmailHtml(section, payoff, absolute))
+    .map((section, index) => sectionEmailHtml(section, payoff, absolute, index))
     .join("");
 
   const steps = issue.playbook.steps

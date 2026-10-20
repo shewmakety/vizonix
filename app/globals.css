@@ -301,11 +301,11 @@ input:focus, select:focus, textarea:focus {
 .section-number {
   flex: none;
   font-family: var(--sans);
-  font-size: 18px;
+  font-size: clamp(30px, 4vw, 40px);
   font-weight: 600;
   font-style: normal;
   letter-spacing: 0.08em;
-  line-height: 1;
+  line-height: 1.15;
   color: var(--section-number);
 }
 .section-title {

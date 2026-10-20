@@ -9,7 +9,7 @@ import { renderIssueEmail } from "@/lib/email";
 import { issueSchema, productivitySectionTopic } from "@/lib/schema";
 
 describe("issue section headings", () => {
-  it("renders numbered editorial topic headings on the page and leaves the email plain", () => {
+  it("renders numbered editorial topic headings on the page and in the email", () => {
     const issue = getIssue("aviation", "2026-10-16");
     expect(issue).toBeTruthy();
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
@@ -48,13 +48,17 @@ describe("issue section headings", () => {
     expect(heading).not.toContain("border-radius");
     expect(heading).not.toContain("#14532D");
     expect(css).toContain(".issue-section { margin-top: 48px; }");
-    expect(css).toContain("font-size: 18px");
-    expect(css).toContain("font-weight: 600");
-    expect(css).toContain("letter-spacing: 0.08em");
+    const number = css.slice(css.indexOf(".section-number {"), css.indexOf(".section-title {"));
+    expect(number).toContain("font-size: clamp(30px, 4vw, 40px)");
+    expect(number).toContain("font-weight: 600");
+    expect(number).toContain("letter-spacing: 0.08em");
+    expect(number).toContain("color: var(--section-number)");
+    expect(number).not.toContain("font-size: 18px");
     expect(css).toContain("--section-number: #14532D");
     expect(css).toContain("font-style: italic");
     expect(css).not.toContain("font-size: 26px");
     expect(css).not.toContain("font-size: 22px");
+    expect(css).not.toContain("font-size: 18px");
     expect(css).not.toContain("border-radius: 999px");
     expect(css).not.toContain("#166534");
     const dark = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
@@ -65,8 +69,20 @@ describe("issue section headings", () => {
     expect(email).not.toContain("section-heading");
     expect(email).not.toContain("section-number");
     expect(email).not.toContain("issue-section");
-    expect(email).toContain("<h2 style=\"margin:0;font-size:22px;font-weight:normal;\">Recruiting pilots and technicians</h2>");
-    expect(email).toContain(`<h2 style="margin:0;font-size:22px;font-weight:normal;">${productivitySectionTopic}</h2>`);
+    expect(email).toContain("border-top:2px solid #1c1915");
+    expect(email).toContain('valign="baseline"');
+    expect(email).toContain(
+      'style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">01</td>',
+    );
+    expect(email).toContain(
+      'style="padding:0;font-family:Georgia,\'Times New Roman\',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">Recruiting pilots and technicians</td>',
+    );
+    expect(email).toContain(
+      `style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${productivitySectionTopic}</td>`,
+    );
+    expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
+    expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting pilots and technicians</h2>');
+    expect(email.indexOf(">01<")).toBeLessThan(email.indexOf(">08<"));
     expect(email.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
       email.indexOf(productivitySectionTopic),
     );
