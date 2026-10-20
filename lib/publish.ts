@@ -109,6 +109,13 @@ async function writeIssue(issue: Issue): Promise<"github" | "local"> {
   return "local";
 }
 
+export const ISSUE_EMAIL_SUBJECT_PREFIX = "The VIZONIX Daily: ";
+
+export function issueEmailSubject(subject: string): string {
+  if (subject.startsWith(ISSUE_EMAIL_SUBJECT_PREFIX)) return subject;
+  return `${ISSUE_EMAIL_SUBJECT_PREFIX}${subject}`;
+}
+
 export async function sendIssue(
   issue: Issue,
   options: { testTo?: string },
@@ -135,7 +142,7 @@ export async function sendIssue(
     const result = await resend.emails.send({
       from,
       to: [testTo],
-      subject: issue.subject,
+      subject: issueEmailSubject(issue.subject),
       html: renderIssueEmail(issue, { mode: "test" }),
       text: renderIssueText(issue, { mode: "test" }),
     });
@@ -146,7 +153,7 @@ export async function sendIssue(
   const result = await resend.broadcasts.create({
     segmentId: segmentId as string,
     from,
-    subject: issue.subject,
+    subject: issueEmailSubject(issue.subject),
     name: `${segment.name} ${issue.date}`,
     previewText: issue.preheader,
     html: renderIssueEmail(issue, { mode: "broadcast" }),
