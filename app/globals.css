@@ -318,6 +318,55 @@ input:focus, select:focus, textarea:focus {
   line-height: 1.15;
   color: var(--ink);
 }
+.section-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  align-self: center;
+}
+.issue-section.productivity {
+  padding: 32px 28px 24px;
+  border: 1px solid #14532D;
+  background: #f6f4ee;
+}
+.issue-section.productivity .section-number,
+.issue-section.productivity .section-title {
+  font-size: clamp(36px, 4.8vw, 48px);
+}
+.ramp { margin-top: 48px; }
+.ramp-heading {
+  margin: 0 0 12px;
+  padding: 16px 0 0;
+  border-top: 2px solid var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(30px, 4vw, 40px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.ramp-card {
+  margin: 16px 0 0;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+.ramp-quote {
+  margin: 0 0 14px;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+.ramp-byline { margin: 0; }
+.ramp-byline span { margin-left: 0.35rem; }
+.ramp-link { margin: 0.7rem 0 0; }
+@media (prefers-color-scheme: dark) {
+  .issue-section.productivity {
+    background: #1c2c24;
+    border-color: #8FBC8F;
+  }
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --paper: #1f2a24;

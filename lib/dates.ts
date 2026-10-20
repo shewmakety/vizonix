@@ -36,6 +36,13 @@ export function todayInNewYork(now = new Date()): string {
   }).format(now);
 }
 
+/** Calendar day at the start of an ISO date or timestamp, with no timezone shift. */
+export function formatIsoDay(value: string): string {
+  const day = value.slice(0, 10);
+  if (!isIsoDate(day)) return value;
+  return formatLongDate(day);
+}
+
 export function formatLongDate(isoDate: string): string {
   const [year, month, day] = isoDate.split("-").map(Number);
   return new Intl.DateTimeFormat("en-US", {

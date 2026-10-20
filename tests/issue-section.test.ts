@@ -78,8 +78,16 @@ describe("issue section headings", () => {
       'style="padding:0;font-family:Georgia,\'Times New Roman\',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">Recruiting pilots and technicians</td>',
     );
     expect(email).toContain(
-      `style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${productivitySectionTopic}</td>`,
+      `style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:36px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${productivitySectionTopic}</td>`,
     );
+    expect(email).toContain("border:1px solid #14532D;background:#f6f4ee");
+    expect(html).toContain('class="issue-section productivity"');
+    expect(css).toContain(".issue-section.productivity");
+    expect(css).toContain("font-size: clamp(36px, 4.8vw, 48px)");
+    expect(html).not.toContain("The Ramp");
+    expect(email).not.toContain("The Ramp");
+    expect(html).not.toContain("section-icon");
+    expect(email).not.toContain("<img");
     expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
     expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting pilots and technicians</h2>');
     expect(email.indexOf(">01<")).toBeLessThan(email.indexOf(">08<"));

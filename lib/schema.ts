@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isIsoDate } from "@/lib/dates";
 import { getPlacement, wordCount } from "@/lib/rate-card";
 import { getSegment, segmentTopics } from "@/lib/segments";
 
@@ -77,6 +78,51 @@ export type IssueSection = z.infer<typeof issueSectionSchema>;
 /** Last section on a sectioned issue, after the industry topics. */
 export const productivitySectionTopic = "AI Productivity Tools";
 
+const rampStatusUrl = z
+  .string()
+  .trim()
+  .refine((value) => {
+    try {
+      const url = new URL(value);
+      if (url.protocol !== "https:" && url.protocol !== "http:") return false;
+      const host = url.hostname.toLowerCase().replace(/^www\./, "");
+      if (host !== "x.com" && host !== "twitter.com" && host !== "mobile.twitter.com") return false;
+      return /^\/[^/]+\/status\/\d+/.test(url.pathname);
+    } catch {
+      return false;
+    }
+  }, "Ramp link must be an x.com or twitter.com status.");
+
+const rampPostSchema = z.object({
+  author: z.string().trim().min(1).max(80),
+  handle: z
+    .string()
+    .trim()
+    .regex(/^@?[A-Za-z0-9_]{1,15}$/, "Handle must be an X username."),
+  url: rampStatusUrl,
+  text: z.string().trim().min(1).max(2000),
+  postedAt: z
+    .string()
+    .trim()
+    .refine(
+      (value) => isIsoDate(value.slice(0, 10)) && !Number.isNaN(Date.parse(value)),
+      "postedAt must be an ISO date.",
+    ),
+  note: z.string().trim().min(1).max(400).optional(),
+});
+
+export const rampSchema = z.object({
+  intro: z.string().trim().min(1).max(600).optional(),
+  posts: z.array(rampPostSchema).min(1).max(6),
+});
+
+export type RampPost = z.infer<typeof rampPostSchema>;
+export type Ramp = z.infer<typeof rampSchema>;
+
+export function rampHandle(handle: string): string {
+  return handle.startsWith("@") ? handle : `@${handle}`;
+}
+
 export const issueSchema = z
   .object({
     segment: z.string().trim().min(1),
@@ -98,6 +144,8 @@ export const issueSchema = z
       sourceUrl: href,
       productUrl: href.optional(),
     }),
+    /** Best X posts of the day. Omitted issues skip The Ramp. */
+    ramp: rampSchema.optional(),
     /**
      * Flat list. Required unless `sections` is set.
      * A sectioned issue can omit this and keep the tools inside sections.

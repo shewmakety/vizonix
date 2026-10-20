@@ -1,9 +1,18 @@
 import Link from "next/link";
 import { Crumbs } from "@/components/Crumbs";
-import { formatIssueDate } from "@/lib/dates";
+import { formatIsoDay, formatIssueDate } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
-import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
+import { sectionIconUrl } from "@/lib/icons";
+import {
+  issueSections,
+  productivitySectionTopic,
+  rampHandle,
+  type Issue,
+  type IssueSectionView,
+  type Ramp,
+  type SponsorCreative,
+} from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
 import { editor } from "@/lib/site";
 
@@ -26,9 +35,12 @@ function ToolSection({
 }) {
   const topic = section.topic ?? "Tool Highlights";
   const number = String(index + 1).padStart(2, "0");
+  const icon = sectionIconUrl(topic);
+  const productivity = topic === productivitySectionTopic;
   return (
-    <section className="issue-section">
+    <section className={productivity ? "issue-section productivity" : "issue-section"}>
       <h2 className="section-heading" id={sectionAnchor(topic)}>
+        {icon ? <img className="section-icon" src={icon} alt="" width={36} height={36} /> : null}
         <span className="section-number" aria-hidden="true">
           {number}
         </span>
@@ -66,6 +78,28 @@ function ToolSection({
           </li>
         ))}
       </ul>
+    </section>
+  );
+}
+
+function RampView({ ramp }: { ramp: Ramp }) {
+  return (
+    <section className="ramp">
+      <h2 className="ramp-heading">The Ramp</h2>
+      {ramp.intro ? <p>{ramp.intro}</p> : null}
+      {ramp.posts.map((post) => (
+        <article className="ramp-card" key={post.url}>
+          <blockquote className="ramp-quote">{post.text}</blockquote>
+          <p className="ramp-byline">
+            {post.author} <span>{rampHandle(post.handle)}</span>{" "}
+            <span className="meta">{formatIsoDay(post.postedAt)}</span>
+          </p>
+          {post.note ? <p className="meta">{post.note}</p> : null}
+          <p className="ramp-link">
+            <a href={publicHref(post.url)}>View on X</a>
+          </p>
+        </article>
+      ))}
     </section>
   );
 }
@@ -146,6 +180,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </p>
         ) : null}
       </section>
+      {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
       {issueSections(issue).map((section, index) => (
         <ToolSection
           key={section.topic ?? `tools-${index}`}

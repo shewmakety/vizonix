@@ -1,9 +1,18 @@
-import { issueSections, type Issue, type IssueSectionView, type SponsorCreative } from "@/lib/schema";
+import { sectionIconUrl } from "@/lib/icons";
+import {
+  issueSections,
+  productivitySectionTopic,
+  rampHandle,
+  type Issue,
+  type IssueSectionView,
+  type Ramp,
+  type SponsorCreative,
+} from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl, site } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
-import { formatIssueDate } from "@/lib/dates";
+import { formatIsoDay, formatIssueDate } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
 
@@ -66,15 +75,20 @@ function href(value: string, absolute: boolean): string {
   return absolute ? (safe.startsWith("/") ? absoluteUrl(safe) : safe) : safe;
 }
 
-function sectionEmailHeading(heading: string, index: number): string {
+function sectionEmailHeading(heading: string, index: number, size = 30): string {
   const number = String(index + 1).padStart(2, "0");
+  const icon = sectionIconUrl(heading);
+  const iconCell = icon
+    ? `<td valign="middle" style="padding:0 12px 0 0;"><img src="${escapeHtml(icon)}" alt="" width="32" height="32" style="display:block;border:0;width:32px;height:32px;" /></td>`
+    : "";
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;border-top:2px solid #1c1915;">
               <tr>
                 <td style="padding:16px 0 0;">
                   <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                     <tr>
-                      <td valign="baseline" style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">${escapeHtml(number)}</td>
-                      <td valign="baseline" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${escapeHtml(heading)}</td>
+                      ${iconCell}
+                      <td valign="baseline" style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:${size}px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">${escapeHtml(number)}</td>
+                      <td valign="baseline" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:${size}px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${escapeHtml(heading)}</td>
                     </tr>
                   </table>
                 </td>
@@ -94,7 +108,37 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
           : ""
       }</p>`
     : "";
-  const tools = section.tools
+  const tools = toolEmailRows(section, payoff, absolute, heading === productivitySectionTopic ? "4px 24px 18px" : "8px 28px 16px");
+  if (heading === productivitySectionTopic) {
+    return `
+          <tr>
+            <td style="padding:48px 28px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #14532D;background:#f6f4ee;">
+                <tr>
+                  <td style="padding:28px 24px 8px;font-family:Georgia,serif;color:#1c1915;">
+                    ${sectionEmailHeading(heading, index, 36)}
+                    ${note}
+                    ${intro}
+                  </td>
+                </tr>
+                ${tools}
+              </table>
+            </td>
+          </tr>`;
+  }
+  return `
+          <tr>
+            <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
+              ${sectionEmailHeading(heading, index)}
+              ${note}
+              ${intro}
+            </td>
+          </tr>
+          ${tools}`;
+}
+
+function toolEmailRows(section: IssueSectionView, payoff: string, absolute: boolean, cellPadding: string): string {
+  return section.tools
     .map((tool) => {
       const company = tool.company
         ? `<p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(tool.company)}</p>`
@@ -104,7 +148,7 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
         : "";
       return `
       <tr>
-        <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
+        <td style="padding:${cellPadding};font-family:Georgia,serif;color:#1c1915;">
           <p style="margin:0 0 4px;font-size:18px;"><a href="${escapeHtml(href(tool.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(tool.name)}</a></p>
           ${company}
           <p style="margin:0 0 6px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(tool.summary)}</p>
@@ -115,15 +159,51 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
       </tr>`;
     })
     .join("");
+}
+
+function rampEmailHtml(ramp: Ramp | undefined): string {
+  if (!ramp) return "";
+  const intro = ramp.intro
+    ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(ramp.intro)}</p>`
+    : "";
+  const cards = ramp.posts
+    .map((post) => {
+      const note = post.note
+        ? `<p style="margin:8px 0 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.45;color:#5f584e;">${escapeHtml(post.note)}</p>`
+        : "";
+      return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 14px;border:1px solid #d5cdc0;background:#fbfaf6;">
+              <tr>
+                <td style="padding:20px 22px;">
+                  <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-style:italic;line-height:1.45;color:#1c1915;">${escapeHtml(post.text)}</p>
+                  <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;color:#5f584e;">${escapeHtml(post.author)} - ${escapeHtml(rampHandle(post.handle))} - ${escapeHtml(formatIsoDay(post.postedAt))}</p>
+                  ${note}
+                  <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;"><a href="${escapeHtml(href(post.url, true))}" style="color:#1e4636;">View on X</a></p>
+                </td>
+              </tr>
+            </table>`;
+    })
+    .join("");
   return `
           <tr>
             <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
-              ${sectionEmailHeading(heading, index)}
-              ${note}
+              <h2 style="margin:0 0 12px;padding:16px 0 0;border-top:2px solid #1c1915;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;">The Ramp</h2>
               ${intro}
+              ${cards}
             </td>
-          </tr>
-          ${tools}`;
+          </tr>`;
+}
+
+function rampEmailText(ramp: Ramp | undefined): string[] {
+  if (!ramp) return [];
+  const lines = ["THE RAMP"];
+  if (ramp.intro) lines.push(ramp.intro);
+  lines.push("");
+  for (const post of ramp.posts) {
+    lines.push(post.text, `${post.author} - ${rampHandle(post.handle)} - ${formatIsoDay(post.postedAt)}`);
+    if (post.note) lines.push(post.note);
+    lines.push(`View on X: ${href(post.url, true)}`, "");
+  }
+  return lines;
 }
 
 function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
@@ -281,6 +361,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               }
             </td>
           </tr>
+          ${rampEmailHtml(issue.ramp)}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
@@ -345,6 +426,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
+    ...rampEmailText(issue.ramp),
     ...issueSections(issue).flatMap((section) => sectionEmailText(section, payoff)),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
