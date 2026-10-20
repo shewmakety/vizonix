@@ -4,7 +4,7 @@ import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
-import { activeSegments, getSegment } from "@/lib/segments";
+import { activeSegments, getSegment, segmentDisplayName } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
 
@@ -18,10 +18,7 @@ export async function generateMetadata({ params }: Props) {
   if (!segment || segment.status !== "active") {
     return { robots: { index: false, follow: false } };
   }
-  const title =
-    segment.slug === "aviation"
-      ? "AI in Aviation - Free Daily Briefing for MROs, Airlines and AOG Teams"
-      : segment.name;
+  const title = segmentDisplayName(segment);
   return pageMeta({
     title,
     description: segment.summary,
@@ -42,9 +39,7 @@ export default async function SegmentPage({ params }: Props) {
         <div className="wrap hero-grid">
           <div>
             <p className="kicker">{segment.audience}</p>
-            <h1>
-              {segment.slug === "aviation" ? "AI for Aviation: the free daily briefing" : segment.name}
-            </h1>
+            <h1>{segmentDisplayName(segment)}</h1>
             <p className="lede">{segment.summary}</p>
             <p>{segment.promise}</p>
             <p>

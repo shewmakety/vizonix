@@ -6,7 +6,7 @@ import { listIssues } from "@/lib/content";
 import { formatIssueDate } from "@/lib/dates";
 import { breadcrumbJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
-import { getSegment, segments } from "@/lib/segments";
+import { getSegment, segmentDisplayName, segments } from "@/lib/segments";
 
 type Props = { params: Promise<{ segment: string }> };
 
@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: Props) {
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned") return { robots: { index: false, follow: false } };
   return pageMeta({
-    title: `${segment.name} issue archive`,
-    description: `Each weekday issue of the free ${segment.name} briefing stays on its own page.`,
+    title: `${segmentDisplayName(segment)} issue archive`,
+    description: `Each weekday issue of the free ${segmentDisplayName(segment)} briefing stays on its own page.`,
     canonical: `/${segment.slug}/issues`,
   });
 }
@@ -50,7 +50,7 @@ export default async function IssuesPage({ params }: Props) {
         <h1>Issue archive</h1>
         <p>
           Each weekday issue has its own page, with the lead story, the tools, and the sources named on
-          that issue. This is the {segment.name} briefing archive.
+          that issue. This is the {segmentDisplayName(segment)} briefing archive.
         </p>
         {issues.length === 0 ? (
           <p className="notice">No issues yet.</p>

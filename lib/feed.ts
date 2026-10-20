@@ -1,7 +1,7 @@
 import { listIssues } from "@/lib/content";
 import { calendarInstant } from "@/lib/dates";
-import { getSegment } from "@/lib/segments";
-import { absoluteUrl, site } from "@/lib/site";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { absoluteUrl, sectionWordmark } from "@/lib/site";
 
 function xml(value: string): string {
   return value
@@ -15,7 +15,7 @@ export function buildSegmentFeed(segmentSlug: string, _now = new Date()): string
   const segment = getSegment(segmentSlug);
   if (!segment || segment.status !== "active") return null;
   const issues = listIssues(segment.slug).filter((issue) => !issue.sample);
-  const title = `${site.name} ${segment.name}`;
+  const title = sectionWordmark(segmentDisplayName(segment));
   const link = absoluteUrl(`/${segment.slug}`);
   const description = segment.summary;
   const items = issues

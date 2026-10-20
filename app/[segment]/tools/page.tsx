@@ -9,7 +9,7 @@ import { todayInNewYork } from "@/lib/dates";
 import { presentDirectory } from "@/lib/featured";
 import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
-import { getSegment, getSegmentTopic, segments } from "@/lib/segments";
+import { getSegment, getSegmentTopic, segmentDisplayName, segments } from "@/lib/segments";
 
 type Props = {
   params: Promise<{ segment: string }>;
@@ -35,7 +35,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
       : `${count} AI tools for ${segment.name}`;
   return pageMeta({
     title,
-    description: `Directory of AI tools covered by the Vizonix ${segment.name} briefing, each with its own page.`,
+    description: `Directory of AI tools covered by the Vizonix ${segmentDisplayName(segment)} briefing, each with its own page.`,
     canonical: known ? directoryCanonical(segment, topicKey || undefined) : `/${segment.slug}/tools`,
     robots: q ? { index: false, follow: true } : undefined,
   });
@@ -60,7 +60,7 @@ export default async function ToolsPage({ params, searchParams }: Props) {
     segment.slug === "aviation"
       ? `${presented.tools.length} AI tools for aviation: MRO, AOG, parts, and flight ops`
       : `${segment.name} tool directory`;
-  const description = `Directory of AI tools covered by the Vizonix ${segment.name} briefing, each with its own page.`;
+  const description = `Directory of AI tools covered by the Vizonix ${segmentDisplayName(segment)} briefing, each with its own page.`;
   const crumbs = [
     { name: "Vizonix", path: "/" },
     { name: segment.name, path: `/${segment.slug}` },

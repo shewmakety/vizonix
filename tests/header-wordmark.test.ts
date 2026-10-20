@@ -4,6 +4,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText, welcomePlainMessage } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
 import { ISSUE_EMAIL_SUBJECT_PREFIX, issueEmailSubject } from "@/lib/publish";
 import { sectionWordmark } from "@/lib/site";
 
@@ -26,16 +28,19 @@ describe("header wordmark", () => {
       const html = renderToStaticMarkup(createElement(SiteHeader));
       expect(html).toContain('class="brand-mark">V</span>');
       expect(html).toContain('class="brand-name">Vizonix</span>');
-      expect(html).not.toContain("Vizonix - Aviation");
+      expect(html).not.toContain("AI &amp; Robotics News For Aviation");
     }
   });
 
-  it("reads Vizonix - Aviation on aviation pages", () => {
+  it("reads Vizonix - AI & Robotics News For Aviation on aviation pages", () => {
+    const wordmark = escapeHtml(sectionWordmark(segmentDisplayName(getSegment("aviation")!)));
+    expect(wordmark).toBe("Vizonix - AI &amp; Robotics News For Aviation");
     for (const path of ["/aviation", "/aviation/issues", "/aviation/issues/2026-10-20", "/aviation/tools"]) {
       pathname.value = path;
       const html = renderToStaticMarkup(createElement(SiteHeader));
       expect(html).toContain('class="brand-mark">V</span>');
-      expect(html).toContain(`class="brand-name">${sectionWordmark("Aviation")}</span>`);
+      expect(html).toContain(`class="brand-name">${wordmark}</span>`);
+      expect(html).toContain('href="/aviation"');
     }
   });
 
@@ -49,15 +54,20 @@ describe("header wordmark", () => {
     const issue = getIssue("aviation", "2026-10-20");
     expect(issue).toBeTruthy();
     if (!issue) return;
-    const wordmark = sectionWordmark("Aviation");
+    const edition = segmentDisplayName(getSegment("aviation")!);
+    const wordmark = sectionWordmark(edition);
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     const email = renderIssueEmail(issue, { mode: "broadcast" });
     const text = renderIssueText(issue, { mode: "broadcast" });
-    expect(html).toContain(`>${wordmark}</a>`);
+    expect(edition).toBe("AI & Robotics News For Aviation");
+    expect(getSegment("aviation")?.slug).toBe("aviation");
+    expect(html).toContain(`>${escapeHtml(wordmark)}</a>`);
+    expect(html).toContain(">Aviation</a>");
     expect(email).toContain(
-      `font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${wordmark}</p>`,
+      `font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${escapeHtml(wordmark)}</p>`,
     );
-    const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(wordmark));
+    expect(email).toContain(`the Vizonix ${escapeHtml(edition)} briefing`);
+    const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(wordmark)));
     expect(masthead).not.toContain("text-transform");
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(issueEmailSubject(issue.subject)).toBe(`${ISSUE_EMAIL_SUBJECT_PREFIX}${issue.subject}`);
@@ -68,6 +78,6 @@ describe("header wordmark", () => {
     const otherEmail = renderIssueEmail(other, { mode: "test" });
     expect(otherHtml).toContain(`>${otherMark}</a>`);
     expect(otherEmail).toContain(`>${otherMark}</p>`);
-    expect(otherEmail).not.toContain(wordmark);
+    expect(otherEmail).not.toContain(escapeHtml(wordmark));
   });
 });

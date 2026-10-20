@@ -15,7 +15,7 @@ describe("What We Do and the shared issue header", () => {
   it("uses one constant on every issue page and email, ahead of the body", () => {
     expect(whatWeDo.heading).toBe("What We Do");
     expect(whatWeDo.copy).toBe(
-      "The VIZONIX Daily is a free, five-minute briefing on how AI is changing aviation operations. Each weekday we pick the news that matters to MROs, operators and suppliers, explain it in plain English, and show where to put AI to work.",
+      "The VIZONIX Daily is a free, five-minute briefing on how AI and robotics are changing aviation operations. Each weekday we pick the news that matters to MROs, operators and suppliers, explain it in plain English, and show where to put AI and robotics to work.",
     );
     expect(whatWeDo.copy).not.toMatch(/[\u2013\u2014]/);
     expect(whatWeDo.copy).not.toMatch(/legal|warehousing|marketing/i);

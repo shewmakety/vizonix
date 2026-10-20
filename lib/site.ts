@@ -14,7 +14,7 @@ export const editor = {
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
   heading: "What We Do",
-  copy: "The VIZONIX Daily is a free, five-minute briefing on how AI is changing aviation operations. Each weekday we pick the news that matters to MROs, operators and suppliers, explain it in plain English, and show where to put AI to work.",
+  copy: "The VIZONIX Daily is a free, five-minute briefing on how AI and robotics are changing aviation operations. Each weekday we pick the news that matters to MROs, operators and suppliers, explain it in plain English, and show where to put AI and robotics to work.",
 } as const;
 
 /** Public profiles. Do not add a URL that is not live. */
@@ -30,7 +30,7 @@ export function siteUrl(): string {
   return raw.replace(/\/$/, "");
 }
 
-/** Navy wordmark for a section, for example "Vizonix - Aviation". */
+/** Navy wordmark for a section, for example "Vizonix - AI & Robotics News For Aviation". */
 export function sectionWordmark(sectionName: string): string {
   return `${site.name} - ${sectionName}`;
 }

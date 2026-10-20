@@ -345,7 +345,7 @@ async function main() {
     if (!aviation.includes("Tool Highlights")) {
       throw new Error("Aviation page is missing Tool Highlights.");
     }
-    if (!aviation.includes("AI for Aviation: the free daily briefing")) {
+    if (!aviation.includes("AI &amp; Robotics News For Aviation") && !aviation.includes("AI & Robotics News For Aviation")) {
       throw new Error("Aviation page is missing its heading.");
     }
     if (aviation.includes("Site banner, open")) {

@@ -12,7 +12,7 @@ import {
 import { unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl, sectionWordmark, site, whatWeDo } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
 import { formatIsoDay, issueDateline } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
@@ -344,6 +344,7 @@ function issueHeaderHtml(title: string, dateline: string): string {
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const absolute = true;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
@@ -404,7 +405,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     <tr>
       <td align="center">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
-          ${emailMasthead(sectionName)}
+          ${emailMasthead(editionName)}
           ${issueHeaderHtml(issue.subject, issueDateline(sectionName, issue))}
           ${linkRow}
           ${intro}
@@ -450,7 +451,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="padding:8px 28px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
               <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#1e4636;">Read this issue on the web</a></p>
-              <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(sectionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
+              <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
               <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#1e4636;">Unsubscribe</a></p>
             </td>
           </tr>
@@ -465,6 +466,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
 export function renderIssueText(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const directory = absoluteUrl(`/${issue.segment}/tools`);
@@ -477,7 +479,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   }
 
   const lines = [
-    sectionWordmark(sectionName),
+    sectionWordmark(editionName),
     issue.subject,
     issueDateline(sectionName, issue),
     "",

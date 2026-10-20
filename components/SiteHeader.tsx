@@ -8,7 +8,7 @@ import {
   segmentHomeHref,
   segmentSubscribeHref,
 } from "@/lib/segment-memory";
-import { getSegment, isToolDirectoryPath } from "@/lib/segments";
+import { getSegment, isToolDirectoryPath, segmentDisplayName } from "@/lib/segments";
 import { sectionWordmark, site } from "@/lib/site";
 
 function current(active: boolean): "page" | undefined {
@@ -24,7 +24,7 @@ export function SiteHeader() {
   const onSubscribe = pathname === subscribeHref || pathname === "/subscribe" || pathname.startsWith("/subscribe/");
   const sectionSlug = pathname.split("/").filter(Boolean)[0];
   const section = sectionSlug ? getSegment(sectionSlug) : undefined;
-  const wordmark = section?.status === "active" ? sectionWordmark(section.name) : site.name;
+  const wordmark = section?.status === "active" ? sectionWordmark(segmentDisplayName(section)) : site.name;
 
   return (
     <header className="site-header">

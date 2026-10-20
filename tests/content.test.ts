@@ -1,13 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
   getSegment,
   isToolDirectoryPath,
+  segmentDisplayName,
   segments,
   toolDirectoryHref,
   toolsIndexPath,
@@ -156,8 +158,9 @@ describe("segment config and sample content", () => {
     expect(html).toContain("Tool Directory");
     expect(html).toContain("Read on the web");
     expect(html).toContain(`href="${issueUrl}"`);
-    expect(html.indexOf("Vizonix - Aviation")).toBeLessThan(html.indexOf("Tool Directory"));
-    expect(text.startsWith("Vizonix - Aviation\n")).toBe(true);
+    const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
+    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("Tool Directory"));
+    expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(html.indexOf("Tool Directory")).toBeLessThan(html.indexOf(aviation.lead.title));
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);

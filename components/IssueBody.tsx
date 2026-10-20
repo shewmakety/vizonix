@@ -15,7 +15,7 @@ import {
   type Ramp,
   type SponsorCreative,
 } from "@/lib/schema";
-import { getSegment } from "@/lib/segments";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
 import { editor, sectionWordmark } from "@/lib/site";
 
 function SectionIcon({ topic, size = 40 }: { topic: string | undefined; size?: number }) {
@@ -166,13 +166,14 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
+  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const publishedLabel = formatIssueDate(issue);
   return (
     <article>
       <Crumbs
         items={[
-          { name: sectionWordmark(sectionName), href: "/" },
+          { name: sectionWordmark(editionName), href: "/" },
           { name: sectionName, href: `/${issue.segment}` },
           { name: "Issues", href: `/${issue.segment}/issues` },
           { name: publishedLabel },
