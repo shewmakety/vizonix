@@ -65,11 +65,23 @@ const issueToolSchema = z.object({
 
 export type IssueTool = z.infer<typeof issueToolSchema>;
 
+const roboticsItemSchema = z.object({
+  headline: z.string().trim().min(1).max(180),
+  summary: z.string().trim().min(1).max(1200),
+  whyItMatters: z.string().trim().min(1).max(1200),
+  sourceName: z.string().trim().min(1).max(120),
+  sourceUrl: href,
+});
+
+export type RoboticsItem = z.infer<typeof roboticsItemSchema>;
+
 const issueSectionSchema = z.object({
   topic: z.string().trim().min(1).max(120),
   intro: z.string().trim().min(1).max(1200).optional(),
   introSourceUrl: href.optional(),
   coverageNote: z.string().trim().min(1).max(500).optional(),
+  /** One robotics note beside the AI tools. Omitted sections stay AI-only. */
+  robotics: roboticsItemSchema.optional(),
   tools: z.array(issueToolSchema).min(1).max(8),
 });
 
@@ -276,6 +288,7 @@ export type IssueSectionView = {
   intro?: string;
   introSourceUrl?: string;
   coverageNote?: string;
+  robotics?: RoboticsItem;
   tools: IssueTool[];
 };
 

@@ -468,7 +468,8 @@ input:focus, select:focus, textarea:focus {
   .form-ok { color: #8FBC8F; }
   input, select, textarea, .skip, .mock, .mock-mail { color: #1c1915; }
   .issue-dateline,
-  .what-we-do-heading { color: var(--section-number); }
+  .what-we-do-heading,
+  .robotics-label { color: var(--section-number); }
   .what-we-do { border-top-color: var(--section-number); }
 }
 .side-card { position: sticky; top: 1rem; }
@@ -570,6 +571,22 @@ input:focus, select:focus, textarea:focus {
   white-space: nowrap;
 }
 .tool-directory-list .blurb.sponsored-blurb p + p { margin-top: 0.35rem; }
+.robotics-item {
+  max-width: 40rem;
+  margin: 0 0 1.4rem;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+}
+.robotics-label {
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #14532D;
+}
+.robotics-item h3 { margin: 0 0 0.45rem; }
 .tool-list, .link-list { padding-left: 1.1rem; }
 .tool-list li, .link-list li { margin: 0 0 0.9rem; }
 .steps { padding-left: 1.2rem; }

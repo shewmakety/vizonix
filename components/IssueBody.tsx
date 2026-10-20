@@ -13,6 +13,7 @@ import {
   type Issue,
   type IssueSectionView,
   type Ramp,
+  type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
@@ -65,6 +66,7 @@ function ToolSection({
           ) : null}
         </p>
       ) : null}
+      {section.robotics ? <RoboticsItemView item={section.robotics} payoff={payoff} /> : null}
       <ul className="tool-list">
         {section.tools.map((tool) => (
           <li key={tool.slug}>
@@ -86,6 +88,22 @@ function ToolSection({
         ))}
       </ul>
     </section>
+  );
+}
+
+function RoboticsItemView({ item, payoff }: { item: RoboticsItem; payoff: string }) {
+  return (
+    <aside className="robotics-item">
+      <p className="robotics-label">Robotics</p>
+      <h3>{item.headline}</h3>
+      <p>{item.summary}</p>
+      <p>
+        <strong>{payoff}.</strong> {item.whyItMatters}
+      </p>
+      <p className="meta">
+        Source: <a href={publicHref(item.sourceUrl)}>{item.sourceName}</a>
+      </p>
+    </aside>
   );
 }
 

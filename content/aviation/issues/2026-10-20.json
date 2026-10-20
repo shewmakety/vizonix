@@ -3,12 +3,12 @@
   "date": "2026-10-20",
   "publishedAt": "2026-10-20T05:45:00-04:00",
   "sample": false,
-  "subject": "When should a predictive alert ground an aircraft? Plus 7 places to put AI to work",
-  "preheader": "Delta TechOps, Lufthansa Technik and Trax on false alerts, plus Web Manuals at NBAA-BACE, PROS Kairos, AI-tracked AOG shipments and new Claude and Copilot options.",
+  "subject": "When should a predictive alert ground an aircraft? Plus 7 places to put AI and robotics to work",
+  "preheader": "Delta TechOps, Lufthansa Technik and Trax on false alerts, plus drone inspections, hangar robots, AI-tracked AOG shipments and new Claude and Copilot options.",
   "lead": {
     "kicker": "Top story",
     "title": "False alerts are the real test of predictive maintenance, say Delta TechOps, Lufthansa Technik and Trax",
-    "summary": "Aviation Week reported on October 19 that airlines and MROs are getting more careful about when a predictive alert is strong enough to trigger maintenance. \"There is no single accuracy threshold that automatically triggers maintenance action,\" says Alice Belcher, director of predictive technology engineering at Delta TechOps, where algorithms are back-tested against historical data and then reviewed by teams that include former line technicians before anything reaches the hangar. Lufthansa Technik's AVIATAR team scores models on precision (how often a predicted fault is confirmed) and recall (how often a real fault is missed), and sets a higher bar for systems where a failure could cause an AOG, delay or cancellation. Trax warns that repeated alerts with no finding make technicians skeptical of the whole system, and recommends keeping lower-confidence alerts with engineering.",
+    "summary": "Aviation Week reported on October 19 that airlines and MROs are getting more careful about when a predictive alert is strong enough to trigger maintenance. \"There is no single accuracy threshold that automatically triggers maintenance action,\" says Alice Belcher, director of predictive technology engineering at Delta TechOps, where algorithms are back-tested against historical data and then reviewed by teams that include former line technicians before anything reaches the hangar. Lufthansa Technik's AVIATAR team scores models on precision (how often a predicted fault is confirmed) and recall (how often a real fault is missed), and sets a higher bar for systems where a failure could cause an AOG, delay or cancellation. Trax warns that repeated alerts with no finding make technicians skeptical of the whole system, and recommends keeping lower-confidence alerts with engineering. The rest of this issue pairs that question with robotics now showing up in training, inspections, stores and AOG moves.",
     "whyItMatters": "A false alert costs an inspection, maybe a removed part and ground time. A missed one costs an AOG. Before you buy or expand a predictive tool, ask the vendor for its precision and recall on your fleet's history, set a stricter threshold only for systems that can strand an aircraft, and route low-confidence alerts to engineering first so your technicians keep trusting the alerts that matter.",
     "sourceName": "Aviation Week, October 19, 2026",
     "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems"
@@ -54,6 +54,13 @@
     {
       "topic": "Recruiting",
       "coverageNote": "Thin today: we did not find a new, verified AI recruiting launch for pilots or technicians in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "Savannah Tech and USI launch a drone workforce training program",
+        "summary": "A Georgia technical college and Unmanned Safety Institute started a professional drone training program, WTOC reported on October 9, part of a wider push by USI into courses for people who maintain unmanned aircraft. Read it lightly, as a workforce pipeline signal: more people learning to fly and fix the drones that are starting to appear around hangar inspections, not a new airline or MRO recruiting product.",
+        "whyItMatters": "Shops that want inspection drones will need people who can fly and maintain them. A training pipeline is an early lead on where that labor may come from, which is cheaper than bidding against every other MRO for the same few technicians.",
+        "sourceName": "WTOC",
+        "sourceUrl": "https://www.wtoc.com/2026/10/09/savannah-tech-usi-launch-drone-training-program/"
+      },
       "tools": [
         {
           "name": "Amelia",
@@ -69,6 +76,13 @@
     },
     {
       "topic": "Sales and marketing",
+      "robotics": {
+        "headline": "Jet Aviation takes its Iris drone and AI inspections to NBAA",
+        "summary": "Jet Aviation is promoting automated drone inspections that produce a digital report of an aircraft's exterior, which customers can use for pre-purchase checks, paint assessments and condition records. Inspection data is becoming something an MRO can package and sell. Jet Aviation, October 15.",
+        "whyItMatters": "A drone inspection you can hand a buyer as a condition record is a product, not only a shop task. If customers will pay for the report on a pre-purchase or a paint job, the drone time can be billed instead of given away inside a bigger check.",
+        "sourceName": "Jet Aviation",
+        "sourceUrl": "https://www.jetaviation.com/perspectives/advancing-aircraft-inspections-through-drone-and-ai-technology/"
+      },
       "tools": [
         {
           "name": "PROS Kairos",
@@ -97,6 +111,13 @@
       "intro": "See today's top story for how Delta TechOps, Lufthansa Technik and Trax decide when a predictive alert should trigger work.",
       "introSourceUrl": "https://aviationweek.com/mro/emerging-technologies/false-alerts-test-trust-predictive-maintenance-systems",
       "coverageNote": "Thin today: no new predictive maintenance product launch we could verify, so this is the established tool behind the Lufthansa Technik comments in the top story.",
+      "robotics": {
+        "headline": "US Air Force moves to Phase Three of drone and ground-robot aircraft inspections",
+        "summary": "Per Asylon Robotics, the company has a Phase Three contract with Warner Robins Air Logistics Complex for MARIA, a US Air Force program that pairs an aerial drone and a robot dog with LiDAR and a digital twin to run repeatable aircraft inspections. This is Asylon's October 17 account of a military program, not a commercial airline launch. Inspections that repeat the same way each time produce a condition history you can trend.",
+        "whyItMatters": "Repeatable inspections are what make a condition trend trustworthy. If a drone and a ground robot record the same surfaces the same way, you spend less time arguing over whether a mark is new, which is the costly part of an unplanned finding.",
+        "sourceName": "Asylon Robotics",
+        "sourceUrl": "https://asylonrobotics.com/resources/blog/usaf-deploys-drones-and-ground-robots-to-speed-autonomous-aircraft-inspection/"
+      },
       "tools": [
         {
           "name": "AVIATAR Predictive Health Analytics",
@@ -113,6 +134,13 @@
     {
       "topic": "Maintenance activity optimization",
       "coverageNote": "Thin today: no new, verified AI launch for maintenance planning in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "ST Engineering uses drones and robot arms to cut inspection time",
+        "summary": "Aviation Week reported on October 16 that at ST Engineering's Changi Creek hangar, drones and robot arms inspect the aircraft. Drones cover the top of a widebody in about 1.5 hours instead of 1.5 days with a boom lift and two or three people, and AI visual inspection of landing gear and APUs cuts inspection time by 83%. ST Engineering says tools that prove out will roll out to its global sites in one to two years. This note is the inspection method, not the new hangar's capacity.",
+        "whyItMatters": "Swapping a day of boom-lift work and two or three people for about 1.5 hours of drone time is hangar capacity you can sell. The same is true of an 83% cut in landing-gear and APU visual inspection time, if the method still satisfies the inspection your manual requires.",
+        "sourceName": "Aviation Week",
+        "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/gallery-tech-innovations-st-engineerings-new-changi-creek-mro-facility"
+      },
       "tools": [
         {
           "name": "SB/AD Extraction Agent",
@@ -129,6 +157,13 @@
     {
       "topic": "Troubleshooting support",
       "coverageNote": "Thin today: one update, announced at NBAA-BACE, and detail beyond the headline is limited so far.",
+      "robotics": {
+        "headline": "FAA guidance on where robots, drones and remote inspection fit in maintenance",
+        "summary": "FAA guidance on the Cleared for Takeoff blog covers robotic systems, remote visual inspection, augmented reality and drones for reaching hard spots and bringing a remote expert in on a hard fault. The guidance says these tools support required inspections and do not replace them: tactile checks and nondestructive testing still need a qualified mechanic, and drones fall under Part 107. The page carries a last-updated stamp, not a publication date.",
+        "whyItMatters": "Using a drone or a remote camera on a required inspection, without knowing what still needs a mechanic's hands, is how a finding gets rejected and the job gets done twice. Staying on the FAA's line, support tool versus required inspection, protects the work you bill.",
+        "sourceName": "FAA",
+        "sourceUrl": "https://www.faa.gov/blog/clearedfortakeoff/aircraft-maintenance-under-remote-control"
+      },
       "tools": [
         {
           "name": "Web Manuals Amelia AI Compliance Assistant",
@@ -145,6 +180,13 @@
     {
       "topic": "Warehousing",
       "coverageNote": "Thin today: no new, verified AI warehousing launch for aviation in the last few days, so this is one established tool from our directory.",
+      "robotics": {
+        "headline": "Humanoid robots and AMRs move parts from Kardex stores to the hangar",
+        "summary": "At the same ST Engineering site, Aviation Week describes a different job from the inspections above. Tools and parts sit in a Kardex automated storage system, humanoid robots still in testing sort the picks into boxes, three AMRs deliver them, and an autonomous vehicle carries loads up to 500 kg. ST Engineering estimates 20,000 km of walking and about 7,800 to 8,000 labor-hours saved a year.",
+        "whyItMatters": "Walking parts across a large campus is paid time that does not turn a wrench. If those hours and those kilometers come off the clock, the same stores team can feed more bays without adding headcount.",
+        "sourceName": "Aviation Week",
+        "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/gallery-tech-innovations-st-engineerings-new-changi-creek-mro-facility"
+      },
       "tools": [
         {
           "name": "Syncron Parts Planning",
@@ -161,6 +203,13 @@
     {
       "topic": "AOG support: parts, rotables and technicians",
       "coverageNote": "For AOG technician sourcing we again found no verified AI tool. SalesPatriot is a defense sustainment deal, included because the workflow applies to any parts desk.",
+      "robotics": {
+        "headline": "Magnetic MRO's driverless shuttles now run airside at Tallinn",
+        "summary": "Auve Tech MiCa shuttles carry technicians, tools and spare parts between Magnetic MRO's hangars at Tallinn, about 1,000 km a week at 99.9% autonomy, with one remote supervisor for several vehicles and no safety operator on board. MRO Business Today, October 19. It points to faster moves of parts and people across a large airfield when an aircraft is down.",
+        "whyItMatters": "On an AOG, the delay is often the walk or the truck between hangars, not the repair itself. A shuttle that is already running can put the technician and the part at the aircraft sooner, and one supervisor covering several vehicles costs less than a driver in each.",
+        "sourceName": "MRO Business Today",
+        "sourceUrl": "https://mrobusinesstoday.com/magnetic-mro-advances-autonomous-airside-logistics-at-tallinn-airport/"
+      },
       "tools": [
         {
           "name": "Sensos live tracking for JSSI Parts & Engines",
@@ -268,6 +317,10 @@
         "definition": "A set of rules a computer follows to reach a result, such as flagging a part that may fail. Delta checks those rules against old flight data before they reach the hangar."
       },
       {
+        "term": "AMR",
+        "definition": "Short for autonomous mobile robot. A cart that drives itself, here from the parts store to the hangar. The ST Engineering site uses three of them to deliver picks."
+      },
+      {
         "term": "API",
         "definition": "A connection that lets one program ask another for data, or to take an action, without someone retyping it. Claude's listed price is charged per million tokens over this connection."
       },
@@ -280,8 +333,16 @@
         "definition": "An AI assistant built into apps you already use. Here it is Microsoft 365 Copilot, which can draft in Word or Excel while you choose which model does the work."
       },
       {
+        "term": "Digital twin",
+        "definition": "A software copy of a real aircraft, updated as inspections and sensors add measurements. It is the record you compare over time, not a second airplane."
+      },
+      {
         "term": "False alert",
         "definition": "A warning that maintenance is needed when nothing is actually wrong. It still costs an inspection, a pulled part, or time on the ground, and too many of them teach technicians to ignore the system."
+      },
+      {
+        "term": "LiDAR",
+        "definition": "A sensor that measures distance with pulses of light and builds a three-dimensional picture. The US Air Force inspection program Asylon describes uses it so each aircraft scan can be compared with the last one."
       },
       {
         "term": "Low-confidence alert",

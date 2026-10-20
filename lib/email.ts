@@ -7,6 +7,7 @@ import {
   type Issue,
   type IssueSectionView,
   type Ramp,
+  type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
@@ -120,6 +121,7 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
       }</p>`
     : "";
   const tools = toolEmailRows(section, payoff, absolute, heading === productivitySectionTopic ? "4px 24px 18px" : "8px 28px 16px");
+  const robotics = roboticsEmailHtml(section.robotics, payoff, absolute);
   if (heading === productivitySectionTopic) {
     return `
           <tr>
@@ -133,6 +135,7 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
                   </td>
                 </tr>
                 ${tools}
+                ${robotics}
               </table>
             </td>
           </tr>`;
@@ -145,7 +148,22 @@ function sectionEmailHtml(section: IssueSectionView, payoff: string, absolute: b
               ${intro}
             </td>
           </tr>
-          ${tools}`;
+          ${tools}
+          ${robotics}`;
+}
+
+function roboticsEmailHtml(item: RoboticsItem | undefined, payoff: string, absolute: boolean): string {
+  if (!item) return "";
+  return `
+      <tr>
+        <td style="padding:4px 28px 8px;font-family:Georgia,serif;color:#1c1915;">
+          <p style="margin:18px 0 8px;padding:14px 0 0;border-top:1px solid #d5cdc0;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;letter-spacing:0.12em;text-transform:uppercase;color:#14532D;">Robotics</p>
+          <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.2;color:#1c1915;">${escapeHtml(item.headline)}</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(item.summary)}</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#3d3832;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(item.whyItMatters)}</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(item.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(item.sourceName)}</a></p>
+        </td>
+      </tr>`;
 }
 
 function toolEmailRows(section: IssueSectionView, payoff: string, absolute: boolean, cellPadding: string): string {
@@ -268,6 +286,17 @@ function sectionEmailText(section: IssueSectionView, payoff: string): string[] {
     lines.push(tool.summary, `${payoff}. ${tool.whyItMatters}`, tool.pricing, href(tool.url, true));
     if (tool.sourceUrl) lines.push(`Source: ${href(tool.sourceUrl, true)}`);
     lines.push("");
+  }
+  if (section.robotics) {
+    const item = section.robotics;
+    lines.push(
+      "ROBOTICS",
+      item.headline,
+      item.summary,
+      `${payoff}. ${item.whyItMatters}`,
+      `Source: ${item.sourceName} (${href(item.sourceUrl, true)})`,
+      "",
+    );
   }
   return lines;
 }

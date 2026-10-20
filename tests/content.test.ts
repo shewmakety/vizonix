@@ -64,7 +64,7 @@ describe("segment config and sample content", () => {
     expect(issues.map((issue) => issue.date)).toEqual(["2026-10-20", "2026-10-19", "2026-10-16"]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "When should a predictive alert ground an aircraft? Plus 7 places to put AI to work",
+      "When should a predictive alert ground an aircraft? Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
