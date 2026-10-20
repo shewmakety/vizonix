@@ -1,5 +1,6 @@
 import fs from "fs";
 import { AppError } from "../lib/errors";
+import { indexNowKeyForPublish } from "../lib/indexnow";
 import { publishIssue } from "../lib/publish";
 
 function argValue(flag: string): string | undefined {
@@ -18,6 +19,7 @@ async function main() {
   }
 
   const raw = JSON.parse(fs.readFileSync(file, "utf8"));
+  process.env.INDEXNOW_KEY = indexNowKeyForPublish();
   const result = await publishIssue(raw, {
     send: process.argv.includes("--send"),
     write: !process.argv.includes("--no-write"),
