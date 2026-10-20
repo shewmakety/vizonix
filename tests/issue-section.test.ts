@@ -14,7 +14,7 @@ describe("issue section headings", () => {
     expect(issue).toBeTruthy();
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
     const topics = [
-      ["01", "recruiting-pilots-and-technicians", "Recruiting pilots and technicians"],
+      ["01", "recruiting", "Recruiting"],
       ["02", "sales-and-marketing", "Sales and marketing"],
       ["03", "predictive-maintenance", "Predictive maintenance"],
       ["04", "maintenance-activity-optimization", "Maintenance activity optimization"],
@@ -75,7 +75,7 @@ describe("issue section headings", () => {
       'style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">01</td>',
     );
     expect(email).toContain(
-      'style="padding:0;font-family:Georgia,\'Times New Roman\',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">Recruiting pilots and technicians</td>',
+      'style="padding:0;font-family:Georgia,\'Times New Roman\',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">Recruiting</td>',
     );
     expect(email).toContain(
       `style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:36px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${productivitySectionTopic}</td>`,
@@ -89,7 +89,7 @@ describe("issue section headings", () => {
     expect(html).not.toContain("section-icon");
     expect(email).not.toContain("<img");
     expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
-    expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting pilots and technicians</h2>');
+    expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting</h2>');
     expect(email.indexOf(">01<")).toBeLessThan(email.indexOf(">08<"));
     expect(email.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
       email.indexOf(productivitySectionTopic),

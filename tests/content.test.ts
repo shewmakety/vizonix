@@ -147,7 +147,7 @@ describe("segment config and sample content", () => {
     expect(html).toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(html).toContain("See founding sponsor rates");
     expect(html).toContain("https://www.vizonix.com/sponsor");
-    expect(html).toContain("Recruiting pilots and technicians");
+    expect(html).toContain(">Recruiting</td>");
     expect(html).toContain("Thin this week: we did not find a verified, aviation-specific AI recruiting launch");
     expect(html).toContain("https://www.atec-amt.org/news/aviation-technical-workforce-expansion-continues-amid-strong-demand");
     const directory = absoluteUrl("/aviation/tools");

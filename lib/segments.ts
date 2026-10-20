@@ -62,11 +62,11 @@ export const segments: Segment[] = [
     topics: [
       {
         key: "recruiting-pilots-and-technicians",
-        label: "Recruiting (pilots & technicians)",
-        phrase: "recruiting pilots and technicians",
+        label: "Recruiting",
+        phrase: "recruiting",
         intro:
           "These listings cover software that helps an airline, MRO, or repair station hire pilots and technicians. The group includes applicant tracking, skills matching, and interview tools aimed at aviation roles.",
-        issueTopic: "Recruiting pilots and technicians",
+        issueTopic: "Recruiting",
       },
       {
         key: "sales-and-marketing",

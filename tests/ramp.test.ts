@@ -36,7 +36,7 @@ function withRamp(issue: Issue): Issue {
 }
 
 afterEach(() => {
-  delete sectionIconFiles["Recruiting pilots and technicians"];
+  delete sectionIconFiles["Recruiting"];
   delete process.env.SECTION_ICON_BASE_URL;
 });
 
@@ -90,7 +90,7 @@ describe("The Ramp", () => {
 
   it("shows a section icon only when that topic is mapped", () => {
     const issue = getIssue("aviation", "2026-10-20")!;
-    sectionIconFiles["Recruiting pilots and technicians"] = "recruiting.png";
+    sectionIconFiles["Recruiting"] = "recruiting.png";
     const unmapped = renderToStaticMarkup(createElement(IssueBody, { issue }));
     expect(unmapped).not.toContain("section-icon");
 

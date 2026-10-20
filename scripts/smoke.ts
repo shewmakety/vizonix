@@ -14,7 +14,7 @@ const pages: Array<[string, string]> = [
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
   ["/aviation/tools", "Airvoyant"],
-  ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting pilots and technicians in aviation"],
+  ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting in aviation"],
   ["/aviation/tools/topic/sales-and-marketing", "AI tools for sales and marketing in aviation"],
   ["/aviation/tools/topic/predictive-maintenance", "AI tools for predictive maintenance in aviation"],
   ["/aviation/tools/topic/maintenance-optimization", "AI tools for maintenance optimization in aviation"],
