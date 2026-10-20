@@ -75,12 +75,22 @@ function href(value: string, absolute: boolean): string {
   return absolute ? (safe.startsWith("/") ? absoluteUrl(safe) : safe) : safe;
 }
 
+function emailIconCell(topic: string, alt: string, size: number): string {
+  const icon = sectionIconUrl(topic, "email");
+  if (!icon) return "";
+  return `<td valign="middle" style="padding:0 18px 0 0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(alt)}" width="${size}" height="${size}" style="display:block;border:0;width:${size}px;height:${size}px;" /></td>`;
+}
+
+function emailIconHeading(iconKey: string, visible: string, headingStyle: string, iconPx: number): string {
+  const icon = emailIconCell(iconKey, iconKey, iconPx);
+  const heading = `<h2 style="${headingStyle}">${escapeHtml(visible)}</h2>`;
+  if (!icon) return heading;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;"><tr>${icon}<td valign="middle">${heading}</td></tr></table>`;
+}
+
 function sectionEmailHeading(heading: string, index: number, size = 30): string {
   const number = String(index + 1).padStart(2, "0");
-  const icon = sectionIconUrl(heading);
-  const iconCell = icon
-    ? `<td valign="middle" style="padding:0 12px 0 0;"><img src="${escapeHtml(icon)}" alt="" width="32" height="32" style="display:block;border:0;width:32px;height:32px;" /></td>`
-    : "";
+  const iconCell = emailIconCell(heading, heading, size >= 36 ? 40 : 34);
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;border-top:2px solid #1c1915;">
               <tr>
                 <td style="padding:16px 0 0;">
@@ -186,7 +196,18 @@ function rampEmailHtml(ramp: Ramp | undefined): string {
   return `
           <tr>
             <td style="padding:48px 28px 0;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0 0 12px;padding:16px 0 0;border-top:2px solid #1c1915;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;">The Ramp</h2>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 12px;border-top:2px solid #1c1915;">
+                <tr>
+                  <td style="padding:16px 0 0;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                      <tr>
+                        ${emailIconCell("The Ramp", "The Ramp", 34)}
+                        <td valign="middle" style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">The Ramp</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
               ${intro}
               ${cards}
             </td>
@@ -350,7 +371,12 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="padding:8px 28px 0;font-family:Georgia,serif;color:#1c1915;">
               <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#5f584e;">${escapeHtml(issue.lead.kicker)}</p>
-              <h1 style="margin:8px 0;font-size:28px;line-height:1.2;font-weight:normal;">${escapeHtml(issue.lead.title)}</h1>
+              <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:8px 0;">
+                <tr>
+                  ${emailIconCell(issue.lead.kicker, issue.lead.kicker, 34)}
+                  <td valign="middle"><h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:normal;">${escapeHtml(issue.lead.title)}</h1></td>
+                </tr>
+              </table>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;">${escapeHtml(issue.lead.summary)}</p>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;"><strong>${escapeHtml(payoff)}.</strong> ${escapeHtml(issue.lead.whyItMatters)}</p>
               <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Source: <a href="${escapeHtml(href(issue.lead.sourceUrl, absolute))}" style="color:#1e4636;">${escapeHtml(issue.lead.sourceName)}</a></p>
@@ -366,14 +392,14 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${slotHtml(secondary, absolute)}
           <tr>
             <td style="padding:8px 28px 16px;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0 0 8px;font-size:22px;font-weight:normal;">${escapeHtml(issue.playbook.title)}</h2>
+              ${emailIconHeading("Playbook", issue.playbook.title, "margin:0;font-size:22px;font-weight:normal;", 26)}
               <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(issue.playbook.intro)}</p>
               <ol style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${steps}</ol>
             </td>
           </tr>
           <tr>
             <td style="padding:0 28px 8px;font-family:Georgia,serif;color:#1c1915;">
-              <h2 style="margin:0 0 8px;font-size:22px;font-weight:normal;">Quick links</h2>
+              ${emailIconHeading("Quick links", "Quick links", "margin:0;font-size:22px;font-weight:normal;", 26)}
               <ul style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${links}</ul>
             </td>
           </tr>

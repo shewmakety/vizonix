@@ -320,11 +320,19 @@ input:focus, select:focus, textarea:focus {
 }
 .section-icon {
   flex: none;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
+  max-width: none;
   object-fit: contain;
   align-self: center;
 }
+.headed {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 0.6rem;
+}
+.headed > h2 { margin: 0; }
 .issue-section.productivity {
   padding: 32px 28px 24px;
   border: 1px solid #14532D;
@@ -334,8 +342,15 @@ input:focus, select:focus, textarea:focus {
 .issue-section.productivity .section-title {
   font-size: clamp(36px, 4.8vw, 48px);
 }
+.issue-section.productivity .section-icon {
+  width: 48px;
+  height: 48px;
+}
 .ramp { margin-top: 48px; }
 .ramp-heading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
   margin: 0 0 12px;
   padding: 16px 0 0;
   border-top: 2px solid var(--ink);
@@ -365,6 +380,9 @@ input:focus, select:focus, textarea:focus {
   .issue-section.productivity {
     background: #1c2c24;
     border-color: #8FBC8F;
+  }
+  .section-icon {
+    filter: invert(1) hue-rotate(180deg);
   }
 }
 @media (prefers-color-scheme: dark) {

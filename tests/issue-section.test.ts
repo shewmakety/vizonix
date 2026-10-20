@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail } from "@/lib/email";
+import { sectionIconBaseUrl } from "@/lib/icons";
 import { issueSchema, productivitySectionTopic } from "@/lib/schema";
 
 describe("issue section headings", () => {
@@ -84,10 +85,36 @@ describe("issue section headings", () => {
     expect(html).toContain('class="issue-section productivity"');
     expect(css).toContain(".issue-section.productivity");
     expect(css).toContain("font-size: clamp(36px, 4.8vw, 48px)");
+    expect(css).toContain("width: 40px");
+    expect(css).toContain(".issue-section.productivity .section-icon");
+    expect(css).toContain("width: 48px");
     expect(html).not.toContain("The Ramp");
     expect(email).not.toContain("The Ramp");
-    expect(html).not.toContain("section-icon");
-    expect(email).not.toContain("<img");
+    const icons = [
+      ["Recruiting", "recruiting", 40, 34],
+      ["Sales and marketing", "sales", 40, 34],
+      ["Predictive maintenance", "predictive", 40, 34],
+      ["Maintenance activity optimization", "maintenance", 40, 34],
+      ["Troubleshooting support", "troubleshooting", 40, 34],
+      ["Warehousing", "warehousing", 40, 34],
+      ["AOG support: parts, rotables and technicians", "aog", 40, 34],
+      [productivitySectionTopic, "ai-tools", 48, 40],
+      ["Top story", "top-story", 40, 34],
+      ["Playbook", "playbook", 40, 26],
+      ["Quick links", "quick-links", 40, 26],
+    ] as const;
+    for (const [alt, stem, webPx, emailPx] of icons) {
+      expect(html).toContain(
+        `class="section-icon" src="${sectionIconBaseUrl}/${stem}.svg" alt="" width="${webPx}" height="${webPx}"`,
+      );
+      expect(email).toContain(
+        `src="${sectionIconBaseUrl}/${stem}@2x.png" alt="${alt}" width="${emailPx}" height="${emailPx}"`,
+      );
+      expect(email).toContain(`width:${emailPx}px;height:${emailPx}px;`);
+    }
+    expect(html).not.toContain("@2x.png");
+    expect(email).not.toContain(".svg");
+    expect(html.match(/class="section-icon"/g)).toHaveLength(icons.length);
     expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
     expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting</h2>');
     expect(email.indexOf(">01<")).toBeLessThan(email.indexOf(">08<"));

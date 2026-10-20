@@ -16,6 +16,12 @@ import {
 import { getSegment } from "@/lib/segments";
 import { editor } from "@/lib/site";
 
+function SectionIcon({ topic, size = 40 }: { topic: string | undefined; size?: number }) {
+  const src = sectionIconUrl(topic, "web");
+  if (!src) return null;
+  return <img className="section-icon" src={src} alt="" width={size} height={size} />;
+}
+
 function sectionAnchor(topic: string): string {
   const slug = topic
     .toLowerCase()
@@ -35,12 +41,11 @@ function ToolSection({
 }) {
   const topic = section.topic ?? "Tool Highlights";
   const number = String(index + 1).padStart(2, "0");
-  const icon = sectionIconUrl(topic);
   const productivity = topic === productivitySectionTopic;
   return (
     <section className={productivity ? "issue-section productivity" : "issue-section"}>
       <h2 className="section-heading" id={sectionAnchor(topic)}>
-        {icon ? <img className="section-icon" src={icon} alt="" width={36} height={36} /> : null}
+        <SectionIcon topic={topic} size={productivity ? 48 : 40} />
         <span className="section-number" aria-hidden="true">
           {number}
         </span>
@@ -85,7 +90,10 @@ function ToolSection({
 function RampView({ ramp }: { ramp: Ramp }) {
   return (
     <section className="ramp">
-      <h2 className="ramp-heading">The Ramp</h2>
+      <h2 className="ramp-heading">
+        <SectionIcon topic="The Ramp" />
+        <span>The Ramp</span>
+      </h2>
       {ramp.intro ? <p>{ramp.intro}</p> : null}
       {ramp.posts.map((post) => (
         <article className="ramp-card" key={post.url}>
@@ -166,7 +174,10 @@ export function IssueBody({ issue }: { issue: Issue }) {
       <SlotView name="primary" creative={issue.sponsors.primary} />
       <section>
         <p className="kicker">{issue.lead.kicker}</p>
-        <h2>{issue.lead.title}</h2>
+        <div className="headed">
+          <SectionIcon topic={issue.lead.kicker} />
+          <h2>{issue.lead.title}</h2>
+        </div>
         <p>{issue.lead.summary}</p>
         <p>
           <strong>{payoff}.</strong> {issue.lead.whyItMatters}
@@ -191,7 +202,10 @@ export function IssueBody({ issue }: { issue: Issue }) {
       ))}
       <SlotView name="secondary" creative={issue.sponsors.secondary} />
       <section>
-        <h2>{issue.playbook.title}</h2>
+        <div className="headed">
+          <SectionIcon topic="Playbook" />
+          <h2>{issue.playbook.title}</h2>
+        </div>
         <p>{issue.playbook.intro}</p>
         <ol className="steps">
           {issue.playbook.steps.map((step) => (
@@ -200,7 +214,10 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </ol>
       </section>
       <section>
-        <h2>Quick links</h2>
+        <div className="headed">
+          <SectionIcon topic="Quick links" />
+          <h2>Quick links</h2>
+        </div>
         <ul className="link-list">
           {issue.quickLinks.map((link) => (
             <li key={link.url}>

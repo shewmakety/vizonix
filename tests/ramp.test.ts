@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
-import { sectionIconFiles } from "@/lib/icons";
+import { sectionIconBaseUrl, sectionIconFiles } from "@/lib/icons";
 import { issueSchema, type Issue } from "@/lib/schema";
 
 const post = {
@@ -35,8 +35,10 @@ function withRamp(issue: Issue): Issue {
   };
 }
 
+const recruitingStem = sectionIconFiles.Recruiting;
+
 afterEach(() => {
-  delete sectionIconFiles["Recruiting"];
+  if (recruitingStem) sectionIconFiles.Recruiting = recruitingStem;
   delete process.env.SECTION_ICON_BASE_URL;
 });
 
@@ -77,9 +79,15 @@ describe("The Ramp", () => {
     expect(html).not.toContain("widgets.js");
     expect(html).not.toContain("platform.twitter.com");
 
+    expect(html).toContain(
+      `class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg" alt="" width="40" height="40"`,
+    );
     const email = renderIssueEmail(withRamp(issue), { mode: "test" });
     expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf("The Ramp"));
     expect(email.indexOf("The Ramp")).toBeLessThan(email.indexOf(">01<"));
+    expect(email).toContain(
+      `src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="34" height="34"`,
+    );
     expect(email).toContain("View on X");
     expect(email).toContain("font-style:italic");
     expect(email).not.toContain("<script");
@@ -88,19 +96,21 @@ describe("The Ramp", () => {
     expect(text).toContain(`View on X: ${post.url}`);
   });
 
-  it("shows a section icon only when that topic is mapped", () => {
+  it("omits an icon when the topic is not mapped and honors a base URL override", () => {
     const issue = getIssue("aviation", "2026-10-20")!;
-    sectionIconFiles["Recruiting"] = "recruiting.png";
+    delete sectionIconFiles.Recruiting;
     const unmapped = renderToStaticMarkup(createElement(IssueBody, { issue }));
-    expect(unmapped).not.toContain("section-icon");
+    expect(unmapped).not.toContain("/recruiting.svg");
+    expect(unmapped).toContain(`${sectionIconBaseUrl}/sales.svg`);
 
+    sectionIconFiles.Recruiting = recruitingStem;
     process.env.SECTION_ICON_BASE_URL = "https://cdn.example.com/icons";
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
-    expect(html).toContain('class="section-icon" src="https://cdn.example.com/icons/recruiting.png"');
-    expect(html.match(/section-icon/g)).toHaveLength(1);
+    expect(html).toContain('class="section-icon" src="https://cdn.example.com/icons/recruiting.svg"');
+    expect(html).not.toContain(sectionIconBaseUrl);
 
     const email = renderIssueEmail(issue, { mode: "test" });
-    expect(email).toContain('src="https://cdn.example.com/icons/recruiting.png"');
-    expect(email.match(/src="https:\/\/cdn\.example\.com\/icons\/recruiting\.png"/g)).toHaveLength(1);
+    expect(email).toContain('src="https://cdn.example.com/icons/recruiting@2x.png" alt="Recruiting" width="34" height="34"');
+    expect(email).not.toContain(sectionIconBaseUrl);
   });
 });
