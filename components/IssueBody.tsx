@@ -16,7 +16,7 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
-import { editor } from "@/lib/site";
+import { editor, sectionWordmark } from "@/lib/site";
 
 function SectionIcon({ topic, size = 40 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
@@ -165,20 +165,21 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
 
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
+  const sectionName = segment?.name ?? issue.segment;
   const payoff = segment?.payoffLabel ?? "Why it matters";
   const publishedLabel = formatIssueDate(issue);
   return (
     <article>
       <Crumbs
         items={[
-          { name: "Vizonix", href: "/" },
-          { name: segment?.name ?? issue.segment, href: `/${issue.segment}` },
+          { name: sectionWordmark(sectionName), href: "/" },
+          { name: sectionName, href: `/${issue.segment}` },
           { name: "Issues", href: `/${issue.segment}/issues` },
           { name: publishedLabel },
         ]}
       />
       <h1 className="issue-title">{issue.subject}</h1>
-      <p className="issue-dateline">{issueDateline(segment?.name ?? issue.segment, issue)}</p>
+      <p className="issue-dateline">{issueDateline(sectionName, issue)}</p>
       <WhatWeDo />
       {issue.sample ? (
         <p className="notice">

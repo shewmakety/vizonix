@@ -322,6 +322,14 @@ export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, s
   };
 }
 
+function emailMasthead(sectionName: string): string {
+  return `<tr>
+            <td style="background:#13233b;padding:22px 28px;">
+              <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${escapeHtml(sectionWordmark(sectionName))}</p>
+            </td>
+          </tr>`;
+}
+
 function issueHeaderHtml(title: string, dateline: string): string {
   return `<tr>
             <td style="padding:28px 28px 0;font-family:Georgia,'Times New Roman',serif;color:#1c1915;">
@@ -396,11 +404,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     <tr>
       <td align="center">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
-          <tr>
-            <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">${escapeHtml(sectionWordmark(sectionName))}</p>
-            </td>
-          </tr>
+          ${emailMasthead(sectionName)}
           ${issueHeaderHtml(issue.subject, issueDateline(sectionName, issue))}
           ${linkRow}
           ${intro}
@@ -589,11 +593,7 @@ export function welcomePlainMessage(
     <tr>
       <td align="center">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#fbfaf6;">
-          <tr>
-            <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
-              <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">${escapeHtml(sectionWordmark(sectionName))}</p>
-            </td>
-          </tr>
+          ${emailMasthead(sectionName)}
           <tr>
             <td style="padding:22px 28px 8px;">${welcomeIntroHtml(sectionName)}</td>
           </tr>
