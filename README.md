@@ -49,7 +49,7 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `GITHUB_TOKEN` | Vercel publish and bookings | Fine-grained token, Contents read and write, this repo only. |
 | `GITHUB_REPO` | Same | `owner/name`. |
 | `GITHUB_BRANCH` | Same | Defaults to `main`. |
-| `INDEXNOW_KEY` | IndexNow | Hex key, 8 to 128 characters. The public file is `/{key}.txt`. Set this in Vercel. Do not commit the value. |
+| `INDEXNOW_KEY` | IndexNow | Optional override. Hex key, 8 to 128 characters. When this is unset, `scripts/publish-issue.ts` uses the committed key `37974ccaf24526ab8e10a675a3fa4935`. The public file is [https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt](https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt). |
 | `UNIPILE_DSN` | LinkedIn post | Unipile API base, for example `https://api1.unipile.com:13111`. |
 | `UNIPILE_API_KEY` | LinkedIn post | Sent as `X-API-KEY`. Do not commit it. |
 | `UNIPILE_ACCOUNT_ID` | LinkedIn post | Optional. First LinkedIn account is used when this is empty, and the id is logged. |

@@ -2,9 +2,19 @@ import { absoluteUrl, siteUrl } from "@/lib/site";
 
 const KEY_PATTERN = /^[a-f0-9]{8,128}$/i;
 
+/** Public IndexNow key. Served at /{key}.txt. Not a secret. */
+export const INDEXNOW_PUBLIC_KEY = "37974ccaf24526ab8e10a675a3fa4935";
+
 export function indexNowKey(): string | undefined {
   const key = process.env.INDEXNOW_KEY?.trim() ?? "";
   return KEY_PATTERN.test(key) ? key : undefined;
+}
+
+/** Env wins. The committed key is used when INDEXNOW_KEY is missing or not a hex key. */
+export function indexNowKeyForPublish(envValue: string | undefined = process.env.INDEXNOW_KEY): string {
+  const fromEnv = envValue?.trim() ?? "";
+  if (KEY_PATTERN.test(fromEnv)) return fromEnv;
+  return INDEXNOW_PUBLIC_KEY;
 }
 
 /** Middleware rewrite target for https://host/{key}.txt */
