@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Crumbs } from "@/components/Crumbs";
-import { formatIsoDay, formatIssueDate } from "@/lib/dates";
+import { WhatWeDo } from "@/components/WhatWeDo";
+import { formatIsoDay, formatIssueDate, issueDateline } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl } from "@/lib/icons";
@@ -176,16 +177,15 @@ export function IssueBody({ issue }: { issue: Issue }) {
           { name: publishedLabel },
         ]}
       />
+      <h1 className="issue-title">{issue.subject}</h1>
+      <p className="issue-dateline">{issueDateline(segment?.name ?? issue.segment, issue)}</p>
+      <WhatWeDo />
       {issue.sample ? (
         <p className="notice">
           <strong>Sample issue.</strong> The tools and sponsor below are fictional placeholders so the
           format can be reviewed. They are not endorsements and not paid placements.
         </p>
       ) : null}
-      <p className="kicker">
-        {segment?.name} - {publishedLabel}
-      </p>
-      <h1>{issue.subject}</h1>
       <p className="meta">
         <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
       </p>

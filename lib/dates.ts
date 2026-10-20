@@ -68,6 +68,11 @@ export function formatIssueDate(issue: { date: string }): string {
   return formatLongDate(issue.date);
 }
 
+/** Segment and calendar date under the issue title, on the web and in email. */
+export function issueDateline(segmentName: string, issue: { date: string }): string {
+  return `${segmentName} - ${formatIssueDate(issue)}`;
+}
+
 /** Open Graph footer. The calendar date stays in front of the preheader. */
 export function issueDateLine(issue: { date: string; preheader?: string }): string {
   const label = formatIssueDate(issue);

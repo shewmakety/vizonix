@@ -10,10 +10,10 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
-import { absoluteUrl, sectionWordmark, site } from "@/lib/site";
+import { absoluteUrl, sectionWordmark, site, whatWeDo } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment } from "@/lib/segments";
-import { formatIsoDay, formatIssueDate } from "@/lib/dates";
+import { formatIsoDay, issueDateline } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
 
@@ -322,6 +322,17 @@ export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, s
   };
 }
 
+function issueHeaderHtml(title: string, dateline: string): string {
+  return `<tr>
+            <td style="padding:28px 28px 0;font-family:Georgia,'Times New Roman',serif;color:#1c1915;">
+              <h1 style="margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1.15;font-weight:normal;color:#1c1915;">${escapeHtml(title)}</h1>
+              <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;letter-spacing:0.04em;color:#14532D;">${escapeHtml(dateline)}</p>
+              <h2 style="margin:0 0 8px;padding:16px 0 0;border-top:2px solid #14532D;font-family:Georgia,'Times New Roman',serif;font-size:24px;font-style:italic;font-weight:normal;line-height:1.15;color:#14532D;">${escapeHtml(whatWeDo.heading)}</h2>
+              <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;color:#1c1915;">${escapeHtml(whatWeDo.copy)}</p>
+            </td>
+          </tr>`;
+}
+
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
@@ -388,9 +399,9 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="background:#13233b;padding:22px 28px;font-family:Georgia,serif;color:#f4f1ea;">
               <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;">${escapeHtml(sectionWordmark(sectionName))}</p>
-              <p style="margin:8px 0 0;font-size:16px;">${escapeHtml(formatIssueDate(issue))}</p>
             </td>
           </tr>
+          ${issueHeaderHtml(issue.subject, issueDateline(sectionName, issue))}
           ${linkRow}
           ${intro}
           ${sample}
@@ -401,7 +412,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:8px 0;">
                 <tr>
                   ${emailIconCell(issue.lead.kicker, issue.lead.kicker, 34)}
-                  <td valign="middle"><h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:normal;">${escapeHtml(issue.lead.title)}</h1></td>
+                  <td valign="middle"><h2 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.2;font-weight:normal;color:#1c1915;">${escapeHtml(issue.lead.title)}</h2></td>
                 </tr>
               </table>
               <p style="margin:0 0 10px;font-family:Arial,sans-serif;font-size:16px;line-height:1.55;">${escapeHtml(issue.lead.summary)}</p>
@@ -463,7 +474,11 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
 
   const lines = [
     sectionWordmark(sectionName),
-    formatIssueDate(issue),
+    issue.subject,
+    issueDateline(sectionName, issue),
+    "",
+    whatWeDo.heading.toUpperCase(),
+    whatWeDo.copy,
     "",
     `Tool Directory: ${directory}`,
     `Read on the web: ${archive}`,
