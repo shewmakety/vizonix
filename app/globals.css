@@ -639,7 +639,21 @@ dl.facts dt { color: var(--muted); }
 }
 .wrap.dashboard-wrap { width: min(1180px, calc(100% - 2rem)); }
 .dashboard-body { padding: 20px 0 8px; }
-.dashboard-signup { margin-top: 1.25rem; }
+.dash-side .dashboard-signup { margin-top: 12px; }
+.dash-side .form-card {
+  background: #ffffff;
+  border: 1px solid #dfe3ea;
+  border-radius: 8px;
+  padding: 18px;
+}
+.dash-side .form-card h2 {
+  margin: 0 0 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #13233b;
+}
 .issue-masthead {
   background: #13233b;
   color: #ffffff;
@@ -704,6 +718,7 @@ dl.facts dt { color: var(--muted); }
   border-radius: 8px;
   color: #13233b;
 }
+.dashboard .ramp { margin-top: 16px; }
 .top-story { border-top: 5px solid #14532D; padding: 22px; }
 .dash-card, .dashboard .ramp { padding: 18px; }
 .dash-tile { border: 1px solid #dfe3ea; padding: 16px; }

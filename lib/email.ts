@@ -242,6 +242,35 @@ function rampEmailText(ramp: Ramp | undefined): string[] {
   return lines;
 }
 
+const nextIssueNote =
+  "Free, one section at a time. We send a confirmation email first. You can leave from any issue.";
+
+function nextIssueEmailHtml(segmentSlug: string, sectionName: string): string {
+  const join = absoluteUrl("/join");
+  const issues = absoluteUrl(`/${segmentSlug}/issues`);
+  return `
+          <tr>
+            <td style="padding:14px 20px 0;">
+              <div style="background:#ffffff;border-radius:8px;padding:18px;">
+                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.2;color:#13233b;">Get the next issue</h2>
+                <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#4a5262;">${escapeHtml(nextIssueNote)}</p>
+                <a href="${escapeHtml(join)}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:8px 14px;border-radius:4px;">Send confirmation</a>
+                <p style="margin:12px 0 0;font-family:Arial,sans-serif;font-size:13px;"><a href="${escapeHtml(issues)}" style="color:#14532D;">All ${escapeHtml(sectionName)} issues</a></p>
+              </div>
+            </td>
+          </tr>`;
+}
+
+function nextIssueEmailText(segmentSlug: string, sectionName: string): string[] {
+  return [
+    "GET THE NEXT ISSUE",
+    nextIssueNote,
+    `Send confirmation: ${absoluteUrl("/join")}`,
+    `All ${sectionName} issues: ${absoluteUrl(`/${segmentSlug}/issues`)}`,
+    "",
+  ];
+}
+
 function glossaryEmailHtml(issue: Issue): string {
   const entries = sortedGlossary(issue.glossary);
   if (entries.length === 0) return "";
@@ -556,7 +585,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               </div>
             </td>
           </tr>
-          ${rampEmailHtml(issue.ramp)}
+          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment)}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
@@ -577,6 +606,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
             </td>
           </tr>
           ${slotHtml(classified, absolute)}
+          ${rampEmailHtml(issue.ramp)}
           ${glossaryEmailHtml(issue)}
           <tr>
             <td style="padding:16px 20px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
@@ -637,7 +667,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
-    ...rampEmailText(issue.ramp),
+    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment),
     ...sectionsForReader(issue, options.excludedSections).flatMap((section) => sectionEmailText(section)),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
@@ -648,6 +678,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...issue.quickLinks.map((link) => `${link.title}: ${href(link.url, true)} (${link.note})`),
     "",
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
+    ...rampEmailText(issue.ramp),
     ...glossaryEmailText(issue),
     `Read this issue on the web: ${archive}`,
     `Forward this: ${mailto}`,

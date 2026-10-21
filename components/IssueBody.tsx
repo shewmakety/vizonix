@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Crumbs } from "@/components/Crumbs";
+import { SignupForm } from "@/components/SignupForm";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { formatIsoDay, formatIssueDate } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
@@ -274,7 +275,12 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </section>
           <div className="dash-side">
             <WhatWeDo />
-            {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
+            <aside className="side-card dashboard-signup">
+              <SignupForm defaultSegment={issue.segment} showSegment={false} heading="Get the next issue" />
+              <p className="meta" style={{ marginTop: "1rem" }}>
+                <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
+              </p>
+            </aside>
           </div>
         </div>
         {sections.map((section, index) => (
@@ -310,6 +316,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </section>
         </div>
         <SlotView name="classified" creative={issue.sponsors.classified} />
+        {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
         <GlossaryView issue={issue} />
         <ForwardLink issue={issue} />
         <p className="meta">

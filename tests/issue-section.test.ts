@@ -89,7 +89,8 @@ describe("issue section headings", () => {
     expect(css).toContain("width: 28px");
     expect(css).toContain(".issue-section.productivity .section-icon");
     expect(css).toContain("width: 36px");
-    expect(html).not.toContain("The Ramp");
+    expect(html).not.toContain('class="ramp-heading"');
+    expect(html).not.toContain("/the-ramp.svg");
     expect(email).not.toContain("The Ramp");
     const icons = [
       ["Recruiting", "recruiting", 28, 28],
