@@ -4,7 +4,7 @@ import { WhatWeDo } from "@/components/WhatWeDo";
 import { formatIsoDay } from "@/lib/dates";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
-import { sectionIconUrl } from "@/lib/icons";
+import { sectionIconUrl, toolboxIllustrationUrl } from "@/lib/icons";
 import {
   chipLabel,
   forwardMailto,
@@ -27,8 +27,8 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
-import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site, visitToolboxLabel } from "@/lib/site";
-import { toolboxPathFor } from "@/lib/toolbox";
+import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site, toolboxCard } from "@/lib/site";
+import { toolboxCardHref } from "@/lib/toolbox";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
@@ -230,6 +230,25 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
   );
 }
 
+function ToolboxCard({ segment }: { segment: string }) {
+  const href = toolboxCardHref(segment, "issue");
+  if (!href) return null;
+  return (
+    <aside className="issue-toolbox">
+      <div className="issue-toolbox-art">
+        <img src={toolboxIllustrationUrl("web")} alt="" width={1120} height={480} />
+      </div>
+      <div className="issue-toolbox-copy">
+        <h2>{toolboxCard.heading}</h2>
+        <p>{toolboxCard.line}</p>
+        <a className="button" href={href}>
+          {toolboxCard.button}
+        </a>
+      </div>
+    </aside>
+  );
+}
+
 function ForwardLink({ issue }: { issue: Issue }) {
   return (
     <p className="issue-share">
@@ -244,7 +263,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
   const sections = issueSections(issue);
   const ratesUrl = sectionSponsorRatesUrl(issue);
   const mailto = forwardMailto(issue);
-  const toolboxPath = toolboxPathFor(issue.segment);
   return (
     <article className="dashboard">
       <header className="issue-masthead">
@@ -256,12 +274,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </p>
           <p className="issue-share">
             <a href={mailto}>Forward this</a>
-            {toolboxPath ? (
-              <>
-                {" · "}
-                <a href={toolboxPath}>{visitToolboxLabel}</a>
-              </>
-            ) : null}
           </p>
         </div>
       </header>
@@ -289,6 +301,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
             );
           })}
         </nav>
+        <ToolboxCard segment={issue.segment} />
         <SlotView name="primary" creative={issue.sponsors.primary} />
         <div className="dash-hero">
           <section className="top-story">

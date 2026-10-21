@@ -5,7 +5,8 @@ import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { sitemapPaths } from "@/lib/site-index";
-import { absoluteUrl } from "@/lib/site";
+import { sectionIconBaseUrl } from "@/lib/icons";
+import { absoluteUrl, toolboxCard } from "@/lib/site";
 import { filterToolbox, listToolbox, toolboxCategories } from "@/lib/toolbox";
 
 describe("aviation toolbox", () => {
@@ -45,14 +46,23 @@ describe("aviation toolbox", () => {
     expect(issue).toBeTruthy();
     if (!issue) return;
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
-    expect(html).toContain('href="/aviation/toolbox"');
-    expect(html).toContain("Visit the Toolbox");
+    expect(html).toContain('href="/aviation/toolbox?src=issue"');
+    expect(html).toContain(toolboxCard.heading);
+    expect(html).toContain(toolboxCard.line);
+    expect(html).toContain(toolboxCard.button);
+    expect(html).toContain(`${sectionIconBaseUrl}/toolbox.svg`);
+    expect(html).not.toContain("Visit the Toolbox");
     const email = renderIssueEmail(issue, { mode: "test" });
     const text = renderIssueText(issue, { mode: "test" });
-    const url = absoluteUrl("/aviation/toolbox");
+    const url = absoluteUrl("/aviation/toolbox?src=email");
     expect(email).toContain(`href="${url}"`);
-    expect(email).toContain("Visit the Toolbox");
-    expect(text).toContain(`Visit the Toolbox: ${url}`);
+    expect(email).toContain(`${sectionIconBaseUrl}/toolbox@2x.png`);
+    expect(email).toContain(toolboxCard.heading);
+    expect(email).toContain(toolboxCard.button);
+    expect(email).not.toContain("Visit the Toolbox");
+    expect(text).toContain(toolboxCard.heading);
+    expect(text).toContain(toolboxCard.line);
+    expect(text).toContain(`${toolboxCard.button}: ${url}`);
     expect(email).not.toContain("Nordic Dino");
     expect(text).not.toContain("Nordic Dino");
   });

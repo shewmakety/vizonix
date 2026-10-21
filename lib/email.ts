@@ -1,4 +1,4 @@
-import { sectionIconUrl } from "@/lib/icons";
+import { sectionIconUrl, toolboxIllustrationUrl } from "@/lib/icons";
 import {
   productivitySectionTopic,
   rampHandle,
@@ -19,7 +19,7 @@ import {
   sectionWordmark,
   signupBlockHeading,
   site,
-  visitToolboxLabel,
+  toolboxCard,
   whatWeDo,
 } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
@@ -34,7 +34,8 @@ import {
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import { sectionsForReader } from "@/lib/personalize";
-import { getSegment, segmentDisplayName, toolDirectoryPath } from "@/lib/segments";
+import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { toolboxCardHref } from "@/lib/toolbox";
 import { formatIsoDay } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
@@ -423,11 +424,31 @@ export type IssueRenderOptions = {
 };
 
 function issueDirectoryLink(segmentSlug: string): { href: string; label: string } {
-  const segment = getSegment(segmentSlug);
-  if (segment?.slug === "aviation") {
-    return { href: absoluteUrl(toolDirectoryPath(segment)), label: visitToolboxLabel };
-  }
   return { href: absoluteUrl(`/${segmentSlug}/tools`), label: "Tool Directory" };
+}
+
+function toolboxCardEmailHtml(segmentSlug: string): string {
+  const path = toolboxCardHref(segmentSlug, "email");
+  if (!path) return "";
+  const img = toolboxIllustrationUrl("email");
+  return `<tr>
+            <td style="padding:14px 20px 0;">
+              <div style="background:#ffffff;border:1px solid #dfe3ea;border-radius:8px;overflow:hidden;text-align:center;">
+                <img src="${escapeHtml(img)}" alt="" width="560" height="240" style="display:block;width:100%;max-width:560px;height:auto;border:0;margin:0 auto;background:#f4f1ea;" />
+                <div style="padding:18px 22px 22px;font-family:Arial,Helvetica,sans-serif;">
+                  <h2 style="margin:0 0 8px;font-size:24px;line-height:1.2;font-weight:800;color:#13233b;">${escapeHtml(toolboxCard.heading)}</h2>
+                  <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCard.line)}</p>
+                  <a href="${escapeHtml(absoluteUrl(path))}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:10px 16px;border-radius:4px;">${escapeHtml(toolboxCard.button)}</a>
+                </div>
+              </div>
+            </td>
+          </tr>`;
+}
+
+function toolboxCardText(segmentSlug: string): string[] {
+  const path = toolboxCardHref(segmentSlug, "email");
+  if (!path) return [];
+  return [toolboxCard.heading, toolboxCard.line, `${toolboxCard.button}: ${absoluteUrl(path)}`, ""];
 }
 
 function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): string {
@@ -580,21 +601,27 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const sample = issue.sample
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
-  const directoryLink = issueDirectoryLink(issue.segment);
-  const directory = directoryLink.href;
-  const linkRow = `<tr>
+  const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
+  const readOnWeb = `<a href="${escapeHtml(archive)}" style="color:#14532D;text-decoration:underline;">Read on the web</a>`;
+  const linkRow = directoryLink
+    ? `<tr>
             <td style="padding:8px 20px 0;">
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    <a href="${escapeHtml(directory)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
+                    <a href="${escapeHtml(directoryLink.href)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
                   </td>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;color:#8a8175;padding:0 8px;">|</td>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    <a href="${escapeHtml(archive)}" style="color:#14532D;text-decoration:underline;">Read on the web</a>
+                    ${readOnWeb}
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>`
+    : `<tr>
+            <td style="padding:8px 20px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
+              ${readOnWeb}
             </td>
           </tr>`;
   const product = issue.lead.productUrl
@@ -626,6 +653,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${forwardEmailHtml(issue)}
           ${linkRow}
           ${jumpEmailHtml(visibleSections)}
+          ${toolboxCardEmailHtml(issue.segment)}
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
@@ -699,8 +727,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const segment = getSegment(issue.segment);
   const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
-  const directoryLink = issueDirectoryLink(issue.segment);
-  const directory = directoryLink.href;
+  const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
   const unsubscribe = issueUnsubscribe(issue.segment, options);
   const preferences = issuePreferences(options);
   const mailto = forwardMailto(issue);
@@ -724,7 +751,8 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
-    `${directoryLink.label}: ${directory}`,
+    ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
+    ...toolboxCardText(issue.segment),
     `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),

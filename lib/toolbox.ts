@@ -38,6 +38,13 @@ export function toolboxPathFor(segmentSlug: string): string | null {
   return segmentSlug === "aviation" ? "/aviation/toolbox" : null;
 }
 
+/** Issue card link. Email and the web issue use different src values. */
+export function toolboxCardHref(segmentSlug: string, src: "email" | "issue"): string | null {
+  const path = toolboxPathFor(segmentSlug);
+  if (!path) return null;
+  return `${path}?src=${src}`;
+}
+
 export function listToolbox(): ToolboxEntry[] {
   if (cached) return cached;
   const file = path.join(process.cwd(), "content", "aviation", "toolbox.json");

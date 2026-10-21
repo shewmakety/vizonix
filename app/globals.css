@@ -1010,6 +1010,44 @@ dl.facts dt { color: var(--muted); }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
+.issue-toolbox {
+  margin: 4px 0 16px;
+  background: #ffffff;
+  border: 1px solid #dfe3ea;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+.issue-toolbox-art { background: #f4f1ea; }
+.issue-toolbox img {
+  display: block;
+  width: min(100%, 720px);
+  height: auto;
+  margin: 0 auto;
+  background: #f4f1ea;
+}
+.issue-toolbox-copy { padding: 18px 22px 22px; }
+.issue-toolbox h2 {
+  margin: 0 0 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #13233b;
+}
+.issue-toolbox p {
+  margin: 0 auto 14px;
+  max-width: 36rem;
+  color: #4a5262;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.issue-toolbox a.button {
+  color: #f7f4ee;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+}
 .toolbox-card {
   background: #ffffff;
   border: 1px solid #dfe3ea;

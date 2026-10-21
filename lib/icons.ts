@@ -58,3 +58,10 @@ export function sectionIconUrl(
   const name = variant === "email" ? `${stem}@2x.png` : `${stem}.svg`;
   return `${base}/${name}`;
 }
+
+/** Large toolbox card art. SVG on the site, @2x PNG in email. Same public base as the section icons. */
+export function toolboxIllustrationUrl(variant: SectionIconVariant = "web"): string {
+  const base = iconBase();
+  const name = variant === "email" ? "toolbox@2x.png" : "toolbox.svg";
+  return `${base}/${name}`;
+}

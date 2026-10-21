@@ -482,8 +482,16 @@ async function main() {
       throw new Error("Toolbox filter included a tool outside the query.");
     }
     const issuePage = await fetch(`${base}/aviation/issues/2026-10-21`).then((response) => response.text());
-    if (!issuePage.includes('href="/aviation/toolbox"') || !issuePage.includes("Visit the Toolbox")) {
-      throw new Error("Issue page is missing the Toolbox link.");
+    if (
+      !issuePage.includes('href="/aviation/toolbox?src=issue"') ||
+      !issuePage.includes("The Vizonix Toolbox") ||
+      !issuePage.includes("Open the Toolbox") ||
+      !issuePage.includes("toolbox.svg")
+    ) {
+      throw new Error("Issue page is missing the Toolbox card.");
+    }
+    if (issuePage.includes("Visit the Toolbox")) {
+      throw new Error("Issue page still has the one-line Toolbox link.");
     }
     const topicPage = await fetch(`${base}/aviation/tools/topic/predictive-maintenance`).then((response) => response.text());
     if (!topicPage.includes("AI tools for predictive maintenance in aviation")) {

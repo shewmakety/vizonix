@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { sectionIconBaseUrl, sectionIconFiles, sectionIconUrl } from "@/lib/icons";
+import { sectionIconBaseUrl, sectionIconFiles, sectionIconUrl, toolboxIllustrationUrl } from "@/lib/icons";
 
 const recruitingStem = sectionIconFiles.Recruiting;
 
@@ -17,6 +17,8 @@ describe("section icons", () => {
     );
     expect(sectionIconUrl("The Ramp")).toBe(`${sectionIconBaseUrl}/the-ramp.svg`);
     expect(sectionIconUrl("Quick links", "email")).toBe(`${sectionIconBaseUrl}/quick-links@2x.png`);
+    expect(toolboxIllustrationUrl()).toBe(`${sectionIconBaseUrl}/toolbox.svg`);
+    expect(toolboxIllustrationUrl("email")).toBe(`${sectionIconBaseUrl}/toolbox@2x.png`);
   });
 
   it("returns nothing for an unmapped heading and keeps an absolute file URL", () => {

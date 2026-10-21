@@ -23,8 +23,12 @@ export const signupBlockHeading = "Sign-Up Now";
 /** Public page where a new reader picks topics. Preferences needs a signed email link. */
 export const customizeWebPath = "/join";
 
-/** One-line link to the Aviation Toolbox. The email does not list the tools. */
-export const visitToolboxLabel = "Visit the Toolbox";
+/** Card on the aviation issue page and in the issue email. The email does not list the tools. */
+export const toolboxCard = {
+  heading: "The Vizonix Toolbox",
+  line: "Every AI and robotics tool worth knowing for aviation, in one place",
+  button: "Open the Toolbox",
+} as const;
 
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
