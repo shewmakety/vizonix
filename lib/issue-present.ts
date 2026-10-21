@@ -38,6 +38,12 @@ export function forwardMailto(issue: Pick<Issue, "segment" | "date" | "subject">
   return `mailto:?subject=${encodeURIComponent(issue.subject)}&body=${encodeURIComponent(forwardIssueUrl(issue))}`;
 }
 
+/** Kicker on a filled section sponsor. */
+export const sectionSponsorKicker = "Section sponsor";
+
+/** Placeholder when a numbered section has no sponsor of its own. */
+export const sectionSponsorOpenLabel = "Sponsor this section - Open";
+
 /** Gold line under the issue title. The site masthead keeps the shorter edition name. */
 export function issueHeaderLine(issue: Pick<Issue, "segment" | "date">): string {
   const segment = getSegment(issue.segment);

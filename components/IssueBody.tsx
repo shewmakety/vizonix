@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SignupForm } from "@/components/SignupForm";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { formatIsoDay } from "@/lib/dates";
-import { resolveSlot, type SlotName } from "@/lib/email";
+import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl } from "@/lib/icons";
 import {
@@ -10,6 +10,8 @@ import {
   forwardMailto,
   issueHeaderLine,
   sectionAnchor,
+  sectionSponsorKicker,
+  sectionSponsorOpenLabel,
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import {
@@ -84,7 +86,38 @@ function RoboticsTile({ item }: { item: RoboticsItem }) {
   );
 }
 
-function ToolSection({ section, index }: { section: IssueSectionView; index: number }) {
+function SectionSponsor({ section, ratesUrl }: { section: IssueSectionView; ratesUrl: string }) {
+  const sponsor = section.sponsor;
+  if (!sponsor) {
+    return (
+      <p className="section-sponsor open">
+        <a href={publicHref(ratesUrl)}>{sectionSponsorOpenLabel}</a>
+      </p>
+    );
+  }
+  return (
+    <aside className="section-sponsor">
+      <p className="section-sponsor-kicker">{sectionSponsorKicker}</p>
+      <a href={publicHref(sponsor.url)} rel="sponsored">
+        {sponsor.logo ? <img src={publicHref(sponsor.logo)} alt="" width={28} height={28} /> : null}
+        <span>
+          <strong>{sponsor.name}</strong>
+          <span className="section-sponsor-line">{sponsor.line}</span>
+        </span>
+      </a>
+    </aside>
+  );
+}
+
+function ToolSection({
+  section,
+  index,
+  ratesUrl,
+}: {
+  section: IssueSectionView;
+  index: number;
+  ratesUrl: string;
+}) {
   const topic = section.topic ?? "Tool Highlights";
   const number = String(index + 1).padStart(2, "0");
   const productivity = topic === productivitySectionTopic;
@@ -97,6 +130,7 @@ function ToolSection({ section, index }: { section: IssueSectionView; index: num
         <SectionIcon topic={topic} size={productivity ? 36 : 28} />
         <span className="section-title">{topic}</span>
       </h2>
+      <SectionSponsor section={section} ratesUrl={ratesUrl} />
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
       {section.intro ? (
         <p className="section-intro">
@@ -207,6 +241,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
   const sections = issueSections(issue);
+  const ratesUrl = sectionSponsorRatesUrl(issue);
   const mailto = forwardMailto(issue);
   return (
     <article className="dashboard">
@@ -279,7 +314,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </div>
         </div>
         {sections.map((section, index) => (
-          <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} />
+          <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />
         ))}
         <SlotView name="secondary" creative={issue.sponsors.secondary} />
         <div className="dash-split">

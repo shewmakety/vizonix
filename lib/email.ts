@@ -19,6 +19,8 @@ import {
   forwardedSubscribeUrl,
   issueHeaderLine,
   sectionAnchor,
+  sectionSponsorKicker,
+  sectionSponsorOpenLabel,
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import { sectionsForReader } from "@/lib/personalize";
@@ -73,6 +75,11 @@ export function resolveSlot(name: SlotName, creative: SponsorCreative | null): R
       sample: false,
     },
   };
+}
+
+/** Rates link used by the primary sponsor block, so an open section points at the same page. */
+export function sectionSponsorRatesUrl(issue: Pick<Issue, "sponsors">): string {
+  return resolveSlot("primary", issue.sponsors.primary).creative.ctaUrl;
 }
 
 function slotLabel(name: SlotName): string {
@@ -132,10 +139,35 @@ function sectionEmailHeading(heading: string, index: number, productivity: boole
             </table>`;
 }
 
-function sectionEmailHtml(section: IssueSectionView, absolute: boolean, index: number): string {
+function sectionSponsorEmailHtml(section: IssueSectionView, absolute: boolean, ratesUrl: string): string {
+  const shell =
+    "margin:0 0 12px;padding:8px 10px;background:#f7f5f0;border:1px solid #e4dfd4;border-radius:6px;font-family:Arial,Helvetica,sans-serif;";
+  const sponsor = section.sponsor;
+  if (!sponsor) {
+    return `<div style="${shell}background:transparent;border-style:dashed;border-color:#e0d9cc;"><a href="${escapeHtml(href(ratesUrl, absolute))}" style="color:#6b645b;font-size:12px;font-weight:700;letter-spacing:0.02em;text-decoration:none;">${escapeHtml(sectionSponsorOpenLabel)}</a></div>`;
+  }
+  const logo = sponsor.logo
+    ? `<td valign="middle" style="padding:0 10px 0 0;"><img src="${escapeHtml(href(sponsor.logo, absolute))}" alt="" width="28" height="28" style="display:block;border:0;width:28px;height:28px;" /></td>`
+    : "";
+  return `<div style="${shell}">
+            <p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#8a8175;">${escapeHtml(sectionSponsorKicker)}</p>
+            <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+              <tr>
+                ${logo}
+                <td valign="middle">
+                  <a href="${escapeHtml(href(sponsor.url, absolute))}" rel="sponsored" style="color:#13233b;font-size:14px;font-weight:700;text-decoration:none;">${escapeHtml(sponsor.name)}</a>
+                  <div style="font-size:13px;line-height:1.4;color:#4a5262;">${escapeHtml(sponsor.line)}</div>
+                </td>
+              </tr>
+            </table>
+          </div>`;
+}
+
+function sectionEmailHtml(section: IssueSectionView, absolute: boolean, index: number, ratesUrl: string): string {
   const heading = section.topic ?? "Tool Highlights";
   const productivity = heading === productivitySectionTopic;
   const prose = productivity ? "#ffffff" : "#1c1915";
+  const sponsor = sectionSponsorEmailHtml(section, absolute, ratesUrl);
   const note = section.coverageNote
     ? `<p style="margin:8px 0 0;padding:10px 12px;background:#f7efe2;border:1px solid #e0cfae;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;">${escapeHtml(section.coverageNote)}</p>`
     : "";
@@ -147,7 +179,7 @@ function sectionEmailHtml(section: IssueSectionView, absolute: boolean, index: n
       }</p>`
     : "";
   const tiles = `${roboticsEmailHtml(section.robotics, absolute)}${toolEmailRows(section, absolute)}`;
-  const block = `${sectionEmailHeading(heading, index, productivity)}${note}${intro}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="vz-stack" style="border-collapse:collapse;">${tiles}</table>`;
+  const block = `${sectionEmailHeading(heading, index, productivity)}${sponsor}${note}${intro}<table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="vz-stack" style="border-collapse:collapse;">${tiles}</table>`;
   if (productivity) {
     return `
           <tr>
@@ -299,8 +331,14 @@ function glossaryEmailText(issue: Issue): string[] {
   return lines;
 }
 
-function sectionEmailText(section: IssueSectionView): string[] {
-  const lines = [section.topic ? section.topic.toUpperCase() : "TOOL HIGHLIGHTS"];
+function sectionSponsorText(section: IssueSectionView, ratesUrl: string): string[] {
+  const sponsor = section.sponsor;
+  if (!sponsor) return [`${sectionSponsorOpenLabel}: ${href(ratesUrl, true)}`];
+  return [sectionSponsorKicker.toUpperCase(), sponsor.name, sponsor.line, href(sponsor.url, true)];
+}
+
+function sectionEmailText(section: IssueSectionView, ratesUrl: string): string[] {
+  const lines = [section.topic ? section.topic.toUpperCase() : "TOOL HIGHLIGHTS", ...sectionSponsorText(section, ratesUrl)];
   if (section.coverageNote) lines.push(section.coverageNote);
   if (section.intro) {
     lines.push(section.intro);
@@ -493,9 +531,10 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const secondary = resolveSlot("secondary", issue.sponsors.secondary);
   const classified = resolveSlot("classified", issue.sponsors.classified);
   const visibleSections = sectionsForReader(issue, options.excludedSections);
+  const ratesUrl = sectionSponsorRatesUrl(issue);
 
   const tools = visibleSections
-    .map((section, index) => sectionEmailHtml(section, absolute, index))
+    .map((section, index) => sectionEmailHtml(section, absolute, index, ratesUrl))
     .join("");
 
   const steps = issue.playbook.steps
@@ -668,7 +707,9 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
     ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment),
-    ...sectionsForReader(issue, options.excludedSections).flatMap((section) => sectionEmailText(section)),
+    ...sectionsForReader(issue, options.excludedSections).flatMap((section) =>
+      sectionEmailText(section, sectionSponsorRatesUrl(issue)),
+    ),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
     issue.playbook.intro,

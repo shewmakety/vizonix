@@ -90,7 +90,7 @@ export function planIssueDelivery(subscribers: readonly string[], prefs: readonl
   return groups;
 }
 
-/** Drop optional topic sections the reader turned off. Lead, Ramp, and sponsors are not in this list. */
+/** Drop optional topic sections the reader turned off. A section sponsor leaves with its section. Lead, Ramp, and the issue sponsor slots stay. */
 export function sectionsForReader(issue: Issue, excluded: readonly string[] | undefined): IssueSectionView[] {
   const blocked = new Set<string>(normalizeExcluded(excluded ?? []));
   if (blocked.size === 0) return issueSections(issue);

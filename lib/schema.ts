@@ -75,6 +75,16 @@ const roboticsItemSchema = z.object({
 
 export type RoboticsItem = z.infer<typeof roboticsItemSchema>;
 
+/** Paid line at the top of one numbered section. Absent sections show an open placeholder. */
+export const sectionSponsorSchema = z.object({
+  name: z.string().trim().min(1).max(120),
+  line: z.string().trim().min(1).max(200),
+  url: href,
+  logo: href.optional(),
+});
+
+export type SectionSponsor = z.infer<typeof sectionSponsorSchema>;
+
 const issueSectionSchema = z.object({
   topic: z.string().trim().min(1).max(120),
   intro: z.string().trim().min(1).max(1200).optional(),
@@ -82,6 +92,8 @@ const issueSectionSchema = z.object({
   coverageNote: z.string().trim().min(1).max(500).optional(),
   /** One robotics note beside the AI tools. Omitted sections stay AI-only. */
   robotics: roboticsItemSchema.optional(),
+  /** Omitted when the section has no sponsor. The page then shows the open placeholder. */
+  sponsor: sectionSponsorSchema.optional(),
   tools: z.array(issueToolSchema).min(1).max(8),
 });
 
@@ -289,6 +301,7 @@ export type IssueSectionView = {
   introSourceUrl?: string;
   coverageNote?: string;
   robotics?: RoboticsItem;
+  sponsor?: SectionSponsor;
   tools: IssueTool[];
 };
 
