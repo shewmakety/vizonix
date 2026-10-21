@@ -1,7 +1,13 @@
 import { spawn, type ChildProcess } from "child_process";
 import fs from "fs";
 import path from "path";
+import { latestPublishedIssue } from "../lib/content";
 import { checkLinks } from "./check-links";
+
+/** Match React text escaping so a subject with & or < still matches the page. */
+function htmlText(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 const port = 3456;
 const base = `http://127.0.0.1:${port}`;
@@ -117,7 +123,16 @@ async function main() {
     if (!join.includes("Suggest a topic") || !join.includes("Top story, The Ramp, and sponsor slots")) {
       throw new Error("Join page is missing the topic picker.");
     }
-    if (!join.includes("When should a predictive alert ground an aircraft") || !join.includes("What We Do")) {
+    const latest = latestPublishedIssue("aviation");
+    const headline = latest ? htmlText(latest.subject).trim() : "";
+    if (
+      !latest ||
+      !headline ||
+      !join.includes("Latest issue") ||
+      !join.includes(headline) ||
+      !join.includes("What We Do") ||
+      !join.includes(`/aviation/issues/${latest.date}`)
+    ) {
       throw new Error("Join page is missing the latest issue preview.");
     }
     if (join.includes("hello@")) throw new Error("Join page uses the wrong contact address.");
