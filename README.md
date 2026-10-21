@@ -108,7 +108,7 @@ On Vercel the route commits the JSON through the GitHub API (`GITHUB_TOKEN`, `GI
 
 `POST /api/subscribe` creates a Resend contact with `unsubscribed: true`, adds the section segment, and emails a confirm link. The reader is not subscribed until they open `/confirm` and submit. That second step avoids mail clients that prefetch links.
 
-Unsubscribe is `/unsubscribe`. The broadcast footer also includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}`.
+Unsubscribe only happens from the signed link at the bottom of a briefing email. `/unsubscribe` accepts that token and does not email a link to an address someone types in. Broadcasts put Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` in the footer so each recipient gets their own link. Welcome emails and single test sends use a signed link on this site, plus `List-Unsubscribe` and `List-Unsubscribe-Post` headers.
 
 ## Vercel
 

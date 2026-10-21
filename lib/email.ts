@@ -11,6 +11,7 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
+import { signToken, tokenSecret } from "@/lib/tokens";
 import { absoluteUrl, sectionWordmark, site, whatWeDo } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
@@ -345,10 +346,46 @@ function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): str
   return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl(unsubscribePath(segmentSlug));
 }
 
+/** Signed link for one reader. Broadcasts keep Resend's per-recipient placeholder instead. */
+export function signedUnsubscribeUrl(email: string, segmentSlug: string): string | undefined {
+  const secret = tokenSecret();
+  if (!secret) return undefined;
+  return absoluteUrl(
+    unsubscribePath(
+      segmentSlug,
+      signToken({ email, segment: segmentSlug, purpose: "unsubscribe" }, secret),
+    ),
+  );
+}
+
+/** One-click clients POST the List-Unsubscribe URL, so that URL is the API, not the page. */
+export function oneClickUnsubscribeUrl(unsubscribeUrl: string): string {
+  let parsed: URL;
+  try {
+    parsed = new URL(unsubscribeUrl);
+  } catch {
+    return unsubscribeUrl;
+  }
+  const token = parsed.searchParams.get("token");
+  if (!token) return unsubscribeUrl;
+  const endpoint = new URL("/api/unsubscribe", parsed.origin);
+  endpoint.searchParams.set("token", token);
+  return endpoint.toString();
+}
+
 export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, string> {
-  return {
-    "List-Unsubscribe": `<${unsubscribeUrl}>`,
+  const target = oneClickUnsubscribeUrl(unsubscribeUrl);
+  const headers: Record<string, string> = {
+    "List-Unsubscribe": `<${target}>`,
   };
+  try {
+    if (new URL(target).pathname === "/api/unsubscribe") {
+      headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click";
+    }
+  } catch {
+    // A placeholder or relative link cannot take the one-click POST header.
+  }
+  return headers;
 }
 
 /** Cream band above the navy bar. A spacer row holds in Gmail and Outlook, which drop body margin. */
@@ -690,28 +727,6 @@ export function confirmationEmail(input: {
       </td>
     </tr>
   </table>
-</body>
-</html>`;
-  return { subject, html, text };
-}
-
-export function unsubscribeLinkEmail(input: {
-  sectionName: string;
-  unsubscribeUrl: string;
-}): { html: string; text: string; subject: string } {
-  const subject = `Unsubscribe from the Vizonix ${input.sectionName} briefing`;
-  const text = [
-    `Use this link to leave the Vizonix ${input.sectionName} briefing:`,
-    input.unsubscribeUrl,
-    "",
-    "The link is good for 180 days. If you did not ask for it, you can ignore this email.",
-  ].join("\n");
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,sans-serif;color:#1c1915;">
-  <p style="margin:24px;">Use this link to leave the Vizonix ${escapeHtml(input.sectionName)} briefing:</p>
-  <p style="margin:24px;"><a href="${escapeHtml(input.unsubscribeUrl)}">Unsubscribe</a></p>
-  <p style="margin:24px;color:#5f584e;">If you did not ask for this, ignore the email.</p>
 </body>
 </html>`;
   return { subject, html, text };

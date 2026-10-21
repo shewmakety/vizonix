@@ -90,7 +90,7 @@ export function buildLlmsTxt(): string {
     "",
     "## Optional",
     `- [Terms](${absoluteUrl("/terms")})`,
-    `- [Unsubscribe](${absoluteUrl("/unsubscribe")})`,
+    `- [Unsubscribe](${absoluteUrl("/unsubscribe")}): only the signed link from a briefing email works. There is no form that emails a fresh link.`,
   ];
   return `${lines.join("\n")}\n`;
 }

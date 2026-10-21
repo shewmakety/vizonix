@@ -19,7 +19,7 @@ export default function SubscribePage() {
             section you picked arrives on weekday mornings.
           </p>
           <p>Aviation is the launch section.</p>
-          <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
+          <p>Leave any time from the unsubscribe link at the bottom of any briefing email.</p>
         </div>
         <SignupForm />
       </div>
