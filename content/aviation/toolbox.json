@@ -1,0 +1,1112 @@
+[
+  {
+    "name": "8130-3 and EASA Form 1 extractor",
+    "vendor": "UpBrains AI",
+    "use": "Reads an FAA 8130-3 or EASA Form 1 and pulls the fields off the certificate.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://upbrains.ai/extractors/faa-form8130-3-esea-form1-extractor"
+  },
+  {
+    "name": "Aerobotix",
+    "vendor": "Aerobotix",
+    "use": "Robots that paint, sand and inspect aerospace parts and airframes.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://aerobotix.com/"
+  },
+  {
+    "name": "Aerogility",
+    "vendor": "Aerogility",
+    "use": "Forecasts heavy checks and engine shop visits from a model of the fleet.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.aerogility.com/"
+  },
+  {
+    "name": "AeroParts-AI",
+    "vendor": "AeroParts-AI",
+    "use": "Matches a part request to the market and estimates a fair price.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.aeroparts-ai.com/"
+  },
+  {
+    "name": "AeroQuote",
+    "vendor": "AeroQuote",
+    "use": "Reads an AOG parts email, asks suppliers for quotes and waits for a person to send the reply.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://aeroquote.app/"
+  },
+  {
+    "name": "Aerowash",
+    "vendor": "Aerowash",
+    "use": "A remote-controlled washing robot that cleans a fuselage with a guided brush program.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.aerowash.com/products-and-services/"
+  },
+  {
+    "name": "AHEAD",
+    "vendor": "Embraer",
+    "use": "Aircraft Health Analysis and Diagnosis uses analytics and AI on sensor data, aircraft history and environment to predict E-Jet maintenance needs.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.embraer.com/commercial-aviation-service-support/digital-solutions/en/"
+  },
+  {
+    "name": "AI Concierge for FBOs (beta)",
+    "vendor": "21X and FlightBridge",
+    "use": "Takes routine FBO requests by phone, text and email and files them in FlightBridge.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://home.flightbridge.com/"
+  },
+  {
+    "name": "AI Sales Intelligence",
+    "vendor": "CAMP Aviate (formerly Component Control's Quantum Control)",
+    "use": "Suggests a price for aviation parts and MRO quotes.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://campaviate.aero/ai-sales-intelligence/"
+  },
+  {
+    "name": "Aiir",
+    "vendor": "Aiir Innovations",
+    "use": "Reads borescope video and flags engine defects so an inspector can finish the check faster.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://aiir.nl/"
+  },
+  {
+    "name": "Airvoyant",
+    "vendor": "AAR",
+    "use": "Searches inventory, collects quotes and recommends a parts purchase for airlines and MROs.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.airvoyant.com/"
+  },
+  {
+    "name": "AISmartPlan",
+    "vendor": "AISmartPlan",
+    "use": "Assigns engineers to aircraft and tasks from the flight schedule and who is available.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://aismartplan.com/"
+  },
+  {
+    "name": "Amber AI",
+    "vendor": "Locatory.com",
+    "use": "Reads an RFQ, matches it to supplier stock and searches the Locatory marketplace.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.locatory.com/amber-a-i-email-tool/"
+  },
+  {
+    "name": "Amelia",
+    "vendor": "PartsBase",
+    "use": "Builds parts and repair RFQs, tracks open quotes and looks up what the market is paying.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.partsbase.com/"
+  },
+  {
+    "name": "Amelia",
+    "vendor": "The Airline Pilot Club",
+    "use": "Assesses pilot candidates and connects flight schools with airlines that are hiring.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://theairlinepilotclub.com/"
+  },
+  {
+    "name": "AMOS AI document scanning and Amy assistant",
+    "vendor": "Swiss AviationSoftware (Swiss-AS)",
+    "use": "Scans receiving documents and quotations inside the AMOS maintenance system.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.swiss-as.com/"
+  },
+  {
+    "name": "AOG Parts Sourcing",
+    "vendor": "BotMinds",
+    "use": "Asks stores, brokers and partner airlines for an AOG part at the same time, then waits for a buyer to approve.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.botminds.ai/solutions/aog-parts-sourcing"
+  },
+  {
+    "name": "Ascentia",
+    "vendor": "Collins Aerospace",
+    "use": "Watches aircraft health, tracks an AOG and groups repeat defects written in free text.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.collinsaerospace.com/what-we-do/industries/commercial-aviation/analytics-solutions/ascentia-analytics-services"
+  },
+  {
+    "name": "Auto-DollyTug",
+    "vendor": "Aurrigo",
+    "use": "An electric tug that carries one cargo container and can tow dollies without a driver.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://aurrigo.com/auto-dollytug/"
+  },
+  {
+    "name": "Avathon for Aerospace",
+    "vendor": "Avathon",
+    "use": "Predicts which components are wearing out and guides a technician through the diagnosis.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://avathon.com/industries/aerospace/"
+  },
+  {
+    "name": "AVIATAR Predictive Health Analytics",
+    "vendor": "Lufthansa Technik",
+    "use": "Predicts component failures from flight data and can send the next action into AMOS or Trax.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.lufthansa-technik.com/en/aviatar"
+  },
+  {
+    "name": "AVIATAR Technical Repetitives Examination",
+    "vendor": "Lufthansa Technik",
+    "use": "Reads technical log write-ups, assigns an ATA chapter and flags defects that keep coming back.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.lufthansa-technik.com/en/aviatar-adds-technical-repetitives-examination-to-its-reliability-suite-f58a894db33f64fd"
+  },
+  {
+    "name": "AviatorJob",
+    "vendor": "AviatorJob",
+    "use": "Checks licences and type ratings, scores candidates and pre-qualifies them in a chat.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.aviatorjob.com/"
+  },
+  {
+    "name": "aviOS",
+    "vendor": "Ironfleet",
+    "use": "Answers a plain-language maintenance question from your manuals and shows the page it used.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://ironfleet.ai/avios"
+  },
+  {
+    "name": "AvSight Intelligence",
+    "vendor": "AvSight",
+    "use": "Prices parts RFQs, builds quotes from email and follows up on quotes still open.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://avsight.net/intelligence-by-feature/"
+  },
+  {
+    "name": "Bluetail AI",
+    "vendor": "Bluetail",
+    "use": "Reads aircraft records and helps a records team find gaps before a sale or a heavy check.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://bluetail.aero/"
+  },
+  {
+    "name": "CANARD",
+    "vendor": "ITE",
+    "use": "Drones that inspect runway lights and navigation aids on a civil or military airfield.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://canarddrones.com/"
+  },
+  {
+    "name": "Canva Magic Studio",
+    "vendor": "Canva",
+    "use": "Makes and edits a simple graphic from a short prompt.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.canva.com/magic/"
+  },
+  {
+    "name": "ChatGPT",
+    "vendor": "OpenAI",
+    "use": "Drafts, summarizes and answers questions in a browser.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://chatgpt.com/"
+  },
+  {
+    "name": "Cirium Journey",
+    "vendor": "Cirium",
+    "use": "Answers questions about delays, routes and fleets from Cirium's aviation data.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.cirium.com/analytics-services/aviation-ai/"
+  },
+  {
+    "name": "Claude",
+    "vendor": "Anthropic",
+    "use": "Reads long documents and drafts a reply in plain language.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://claude.ai/"
+  },
+  {
+    "name": "ConnieAI",
+    "vendor": "Charter and Go",
+    "use": "Answers charter questions, fills in missing trip details and helps build a quote.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.charterandgo.com/"
+  },
+  {
+    "name": "DeepSeek",
+    "vendor": "DeepSeek",
+    "use": "A chat assistant for drafting and everyday questions.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.deepseek.com/"
+  },
+  {
+    "name": "Defect Analysis (next generation)",
+    "vendor": "Veryon",
+    "use": "Groups repeat defects, flags suspect parts and drafts a summary a reliability engineer can check.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"
+  },
+  {
+    "name": "Donecle",
+    "vendor": "Donecle",
+    "use": "Flies a drone around an aircraft, finds dents and lightning damage, and writes the inspection report.",
+    "categories": [
+      "Troubleshooting support",
+      "Robotics"
+    ],
+    "tags": [
+      "AI",
+      "Robotics"
+    ],
+    "url": "https://www.donecle.com/"
+  },
+  {
+    "name": "Elevatus",
+    "vendor": "Elevatus",
+    "use": "Sources candidates, runs video assessments and moves them through hiring.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.elevatus.io/"
+  },
+  {
+    "name": "ElevenLabs",
+    "vendor": "ElevenLabs",
+    "use": "Turns written text into spoken audio.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://elevenlabs.io/"
+  },
+  {
+    "name": "EMX Vision",
+    "vendor": "EmpowerMX",
+    "use": "Estimates parts, skills and how long an aircraft check will take.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.empowermx.com/emx-vision/"
+  },
+  {
+    "name": "ePlaneAI",
+    "vendor": "ePlaneAI",
+    "use": "Reads parts RFQs, drafts a quote and forecasts which stock to reorder.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.eplaneai.com/solutions/parts-suppliers"
+  },
+  {
+    "name": "EZTow",
+    "vendor": "TractEasy",
+    "use": "A driverless tow tractor that moves baggage and cargo between the terminal and the aircraft.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://tracteasy.com/eztow/"
+  },
+  {
+    "name": "Fathom",
+    "vendor": "Fathom",
+    "use": "Records a call and writes the notes.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.fathom.ai/"
+  },
+  {
+    "name": "Fetcherr",
+    "vendor": "Fetcherr",
+    "use": "Sets airline ticket prices from a model of how the market is moving.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.fetcherr.io/"
+  },
+  {
+    "name": "FL3XX AI: Quote",
+    "vendor": "FL3XX",
+    "use": "Reads a charter request email and starts a quote inside FL3XX.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.fl3xx.com/fl3xx-ai-quote"
+  },
+  {
+    "name": "Flight Leads",
+    "vendor": "Levo",
+    "use": "Matches charter requests to a fleet's live schedule and prices each trip from the operator's own rules.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://levo.aero/"
+  },
+  {
+    "name": "FLYR",
+    "vendor": "FLYR",
+    "use": "Sets airline fares and ancillary prices from demand.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://flyr.com/"
+  },
+  {
+    "name": "Gemini",
+    "vendor": "Google",
+    "use": "Answers questions and works with the files you already keep in Google.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://gemini.google.com/"
+  },
+  {
+    "name": "Grok",
+    "vendor": "xAI",
+    "use": "Answers questions in a chat, including from X.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://grok.com/"
+  },
+  {
+    "name": "HIRE Ai",
+    "vendor": "FlightAtom",
+    "use": "Tests pilot applicants online, including an English check scored against the ICAO scale.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.flightatom.com/products/hire.html"
+  },
+  {
+    "name": "HireVue",
+    "vendor": "HireVue",
+    "use": "Scores video interviews and assessments for high-volume hiring.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.hirevue.com/"
+  },
+  {
+    "name": "Honeywell Ensemble",
+    "vendor": "Honeywell Aerospace",
+    "use": "Watches engine data such as vibration and temperature and flags parts that may fail next.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.honeywellaerospace.com/us/en/insights/articles/how-honeywell-ensemble-uses-ai-to-predict-engine-health"
+  },
+  {
+    "name": "IFS Intelligence",
+    "vendor": "IFS",
+    "use": "Answers questions across live maintenance data and prepares actions a person still approves.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.ifs.com/en/products/ai/ifs-intelligence"
+  },
+  {
+    "name": "Insight Accelerator",
+    "vendor": "Boeing Global Services",
+    "use": "Lets airline engineers build maintenance alerts from flight data without writing code.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://services.boeing.com/maintenance-engineering/maintenance-optimization/insight-accelerator"
+  },
+  {
+    "name": "JETNET AI",
+    "vendor": "JETNET",
+    "use": "Answers questions about business-aircraft fleets, owners and sales from JETNET's data.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.jetnet.com/"
+  },
+  {
+    "name": "Le Chat",
+    "vendor": "Mistral",
+    "use": "A chat assistant for drafting and everyday questions.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://chat.mistral.ai/"
+  },
+  {
+    "name": "LinkaPilot",
+    "vendor": "LinkaPilot",
+    "use": "Matches aviation CVs to openings and checks that the person and the company are real.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.linkapilot.org/"
+  },
+  {
+    "name": "Lokad for Aerospace",
+    "vendor": "Lokad",
+    "use": "Forecasts which parts an MRO or airline should buy, repair or move.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.lokad.com/aerospace-inventory-forecasting/"
+  },
+  {
+    "name": "Mainblades",
+    "vendor": "Mainblades",
+    "use": "Flies a drone over the airframe for visual, lightning and paint checks, then helps review the photos.",
+    "categories": [
+      "Troubleshooting support",
+      "Robotics"
+    ],
+    "tags": [
+      "AI",
+      "Robotics"
+    ],
+    "url": "https://www.mainblades.com/"
+  },
+  {
+    "name": "Maintenance Insight",
+    "vendor": "StandardAero",
+    "use": "Predictive maintenance and reliability tools that use AI, machine learning and digital twins to analyze engine failure modes and inform work scoping.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://standardaero.com/standardaero-wins-predictive-engine-maintenance-contract-supporting-the-united-states-air-forces-f100-220-engine-program/"
+  },
+  {
+    "name": "Mentor Visual iQ+",
+    "vendor": "Waygate Technologies (Baker Hughes)",
+    "use": "A borescope that points the inspector at likely defects on GE engines.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.waygate-tech.com/"
+  },
+  {
+    "name": "Meta AI",
+    "vendor": "Meta",
+    "use": "A chat assistant inside Meta's apps.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.meta.ai/"
+  },
+  {
+    "name": "Microsoft Copilot",
+    "vendor": "Microsoft",
+    "use": "Drafts and summarizes inside Word, Excel, Outlook and Teams.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://copilot.microsoft.com/"
+  },
+  {
+    "name": "Midjourney",
+    "vendor": "Midjourney",
+    "use": "Makes images from a text prompt.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.midjourney.com/"
+  },
+  {
+    "name": "MILE",
+    "vendor": "MRO-PRO",
+    "use": "Reads task cards and defects, then forecasts the non-routine work a check will find.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.mro-pro.com/"
+  },
+  {
+    "name": "MiR",
+    "vendor": "Mobile Industrial Robots",
+    "use": "Autonomous carts that carry parts and pallets through a warehouse or shop.",
+    "categories": [
+      "Warehousing",
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://mobile-industrial-robots.com/"
+  },
+  {
+    "name": "Nordic Dino",
+    "vendor": "Nordic Dino",
+    "use": "Washes narrow-body and wide-body aircraft with a robot brush instead of a full manual crew.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.nordicdino.com/"
+  },
+  {
+    "name": "Notion AI",
+    "vendor": "Notion",
+    "use": "Summarizes notes and drafts a page inside Notion.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.notion.com/product/ai"
+  },
+  {
+    "name": "Otter.ai",
+    "vendor": "Otter.ai",
+    "use": "Turns a meeting into a transcript and a short summary.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://otter.ai/"
+  },
+  {
+    "name": "Perplexity",
+    "vendor": "Perplexity",
+    "use": "Answers a question and shows the pages it used.",
+    "categories": [
+      "General AI Productivity Tools"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.perplexity.ai/"
+  },
+  {
+    "name": "PROGNOS for Aircraft",
+    "vendor": "AFI KLM E&M",
+    "use": "Reads aircraft sensor data and warns of a fault tens of flights before it happens.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.afiklmem.com/en/solutions/prognos-for-aircraft"
+  },
+  {
+    "name": "PROS Kairos",
+    "vendor": "PROS",
+    "use": "Lets airline pricing analysts ask questions of their own data and hand work to agents.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://pros.com/"
+  },
+  {
+    "name": "ProvenAir",
+    "vendor": "ProvenAir Technologies",
+    "use": "Reads maintenance records and builds a back-to-birth trace for life-limited parts.",
+    "categories": [
+      "Warehousing",
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://provenair.com/"
+  },
+  {
+    "name": "SalesPatriot",
+    "vendor": "SalesPatriot",
+    "use": "Turns a parts or repair request, in whatever format it arrives, into a reply a person can approve.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://salespatriot.com/"
+  },
+  {
+    "name": "SB/AD Extraction Agent",
+    "vendor": "Ramco Systems",
+    "use": "Watches for new service bulletins and airworthiness directives and checks which aircraft they apply to.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.ramco.com/blog/aviation/agentic-ai-for-aviation-maintenance"
+  },
+  {
+    "name": "Sensos",
+    "vendor": "Sensos",
+    "use": "Cellular labels that report where a parts shipment is, plus shock, tamper and temperature.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://sensos.io/"
+  },
+  {
+    "name": "Servigistics",
+    "vendor": "PTC",
+    "use": "Plans how many spare parts to stock so the right part is on the shelf.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.ptc.com/en/products/servigistics"
+  },
+  {
+    "name": "Skelex 360",
+    "vendor": "Skelex",
+    "use": "A passive exoskeleton that supports the shoulders during overhead maintenance work.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.skelex.com/"
+  },
+  {
+    "name": "SkySelect",
+    "vendor": "SkySelect",
+    "use": "Matches a part request to suppliers and helps send the quote.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.skyselect.com/"
+  },
+  {
+    "name": "Skywise Fleet Performance+",
+    "vendor": "Skywise (Airbus)",
+    "use": "Predicts faults from Airbus fleet data and spots defects that keep coming back.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.skywise.com/en/digital-solutions/technical-operations/fleet-performance"
+  },
+  {
+    "name": "SmartMatch",
+    "vendor": "Aviation Job Search",
+    "use": "Matches pilots and technicians to aviation job openings.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://recruiting.aviationjobsearch.com/smartmatch"
+  },
+  {
+    "name": "Sorva",
+    "vendor": "Sorva",
+    "use": "Calls inbound MRO leads, asks qualifying questions and sends the sales team a summary.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.sorva.ai/"
+  },
+  {
+    "name": "Spaero Assist",
+    "vendor": "Spaero",
+    "use": "Sends one parts request to your marketplaces, collects the quotes and reads the certificates.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://spaero.co.uk/buy/assist/"
+  },
+  {
+    "name": "SUITX",
+    "vendor": "Ottobock",
+    "use": "Shoulder and back exoskeletons that take weight off overhead work and lifting.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.suitx.com/"
+  },
+  {
+    "name": "Syncron Parts Planning",
+    "vendor": "Syncron",
+    "use": "Forecasts spare-parts demand so an airline stocks what it will actually use.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.syncron.com/"
+  },
+  {
+    "name": "Tailsight",
+    "vendor": "Tailsight",
+    "use": "Plans airline maintenance around aircraft, people and parts.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://tailsight.ai/"
+  },
+  {
+    "name": "TalentVista",
+    "vendor": "TalentVista",
+    "use": "Screens and interviews candidates for aviation jobs.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://talentvista.ai/"
+  },
+  {
+    "name": "TaxiBot",
+    "vendor": "Smart Airport Systems",
+    "use": "A pilot-controlled tractor that taxis an airliner without running the engines.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.smart-airport-systems.com/solution/taxibot/"
+  },
+  {
+    "name": "Universal Robots",
+    "vendor": "Universal Robots",
+    "use": "Collaborative robot arms used in aerospace for assembly, inspection and moving parts.",
+    "categories": [
+      "Robotics"
+    ],
+    "tags": [
+      "Robotics"
+    ],
+    "url": "https://www.universal-robots.com/"
+  },
+  {
+    "name": "Virtualitics Iris",
+    "vendor": "Virtualitics",
+    "use": "Predicts which aircraft are ready to fly and suggests a schedule from maintenance data.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.virtualitics.com/"
+  },
+  {
+    "name": "Web Manuals Amelia AI Compliance Assistant",
+    "vendor": "Web Manuals",
+    "use": "Searches an operator's manuals and flags rule changes that may affect them.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://webmanuals.aero/product-tour/amelia-ai"
+  },
+  {
+    "name": "webAI Frontline",
+    "vendor": "webAI",
+    "use": "Answers a maintenance question from your approved manuals on the device, with the source page.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.webai.com/platform/webai-frontline"
+  },
+  {
+    "name": "Zingly agentic voice AI",
+    "vendor": "Zingly.ai",
+    "use": "Answers inbound airline calls, looks up the booking and passes the caller to a person when needed.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.zingly.ai/"
+  },
+  {
+    "name": "Zymbly",
+    "vendor": "Zymbly",
+    "use": "Listens to a technician describe a fault, suggests a fix and drafts the logbook entry.",
+    "categories": [
+      "Troubleshooting support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.zymbly.com/"
+  }
+]

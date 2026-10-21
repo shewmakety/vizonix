@@ -23,6 +23,9 @@ export const signupBlockHeading = "Sign-Up Now";
 /** Public page where a new reader picks topics. Preferences needs a signed email link. */
 export const customizeWebPath = "/join";
 
+/** One-line link to the Aviation Toolbox. The email does not list the tools. */
+export const visitToolboxLabel = "Visit the Toolbox";
+
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
   heading: "What We Do",

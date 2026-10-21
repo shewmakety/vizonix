@@ -21,6 +21,7 @@ const pages: Array<[string, string]> = [
   ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
+  ["/aviation/toolbox", "Airvoyant"],
   ["/aviation/tools", "Airvoyant"],
   ["/aviation/tools/topic/recruiting-pilots-and-technicians", "AI tools for recruiting in aviation"],
   ["/aviation/tools/topic/sales-and-marketing", "AI tools for sales and marketing in aviation"],
@@ -339,8 +340,8 @@ async function main() {
     if (home.includes("nav-soon") || home.includes(">Soon<")) {
       throw new Error("Segment links are still in the header.");
     }
-    if (!home.includes("Tool Directory") || !home.includes('href="/aviation/tools"')) {
-      throw new Error("Home header is missing the Tool Directory link.");
+    if (!home.includes("Toolbox") || !home.includes('href="/aviation/toolbox"')) {
+      throw new Error("Home header is missing the Toolbox link.");
     }
     if (!home.includes("Free daily AI briefing for a specific business.")) {
       throw new Error("Home is missing the marketing landing heading.");
@@ -407,8 +408,8 @@ async function main() {
     }
 
     const about = await fetch(`${base}/about`).then((response) => response.text());
-    if (!about.includes("Tool Directory") || !about.includes('href="/aviation/tools"')) {
-      throw new Error("About header is missing the default Tool Directory link.");
+    if (!about.includes("Toolbox") || !about.includes('href="/aviation/toolbox"')) {
+      throw new Error("About header is missing the default Toolbox link.");
     }
 
     const aviation = await fetch(`${base}/aviation`).then((response) => response.text());
@@ -432,8 +433,8 @@ async function main() {
     if (!head.includes("application/rss+xml") || !head.includes("/aviation/feed.xml")) {
       throw new Error("Aviation head is missing the RSS alternate link.");
     }
-    if (!aviation.includes("Tool Directory") || !aviation.includes('href="/aviation/tools"')) {
-      throw new Error("Aviation header is missing its Tool Directory link.");
+    if (!aviation.includes("Toolbox") || !aviation.includes('href="/aviation/toolbox"')) {
+      throw new Error("Aviation header is missing its Toolbox link.");
     }
 
     for (const path of ["/legal", "/warehousing", "/marketing-sales", "/legal/confirm"]) {
@@ -450,40 +451,39 @@ async function main() {
       }
     }
 
-    const directory = await fetch(`${base}/aviation/tools`).then((response) => response.text());
-    if (!directory.includes("Tool directory") || !directory.includes('aria-pressed="true"')) {
-      throw new Error("Tool directory is missing the view toggle.");
+    const oldDirectory = await fetch(`${base}/aviation/tools`, { redirect: "manual" });
+    const oldLocation = oldDirectory.headers.get("location") ?? "";
+    if (![301, 308].includes(oldDirectory.status) || !oldLocation.endsWith("/aviation/toolbox")) {
+      throw new Error(`Old tool directory did not redirect to the Toolbox (${oldDirectory.status} ${oldLocation}).`);
     }
-    if (!directory.includes('aria-current="page"') || !directory.includes("Tool Directory")) {
-      throw new Error("Tool Directory is not marked active on the directory page.");
+    const directory = await fetch(`${base}/aviation/toolbox`).then((response) => response.text());
+    if (!directory.includes("Aviation Toolbox") || !directory.includes('aria-pressed="true"')) {
+      throw new Error("Toolbox is missing its heading or category filter.");
     }
-    if (!directory.includes("tool-grid") || directory.includes("tool-directory-list")) {
-      throw new Error("The default directory view is not cards.");
+    if (!directory.includes('aria-current="page"') || !directory.includes("Toolbox")) {
+      throw new Error("Toolbox is not marked active in the header.");
     }
-    if (!directory.includes("Search tools") || !directory.includes('aria-label="Topics"')) {
-      throw new Error("Tool directory is missing topic chips or search.");
+    if (!directory.includes("Search the Toolbox") || !directory.includes('aria-label="Categories"')) {
+      throw new Error("Toolbox is missing category chips or search.");
     }
-    if (!directory.includes("Predictive Maintenance")) {
-      throw new Error("Tool directory is missing topic chips.");
+    if (!directory.includes("Predictive maintenance") || !directory.includes("Robotics")) {
+      throw new Error("Toolbox is missing category chips.");
     }
-    const listView = await fetch(`${base}/aviation/tools?view=list`).then((response) => response.text());
-    if (!listView.includes("tool-directory-list") || !listView.includes("Airvoyant")) {
-      throw new Error("The list view did not render tool names.");
+    if (!directory.includes("Donecle") || !directory.includes("Nordic Dino")) {
+      throw new Error("Toolbox is missing a researched robotics entry.");
     }
-    const filtered = await fetch(`${base}/aviation/tools?topic=predictive-maintenance&q=Veryon&view=list`).then(
-      (response) => response.text(),
-    );
-    if (!filtered.includes("tool-directory-list") || !filtered.includes("Defect Analysis")) {
-      throw new Error("Topic and search filter did not render the matching tool.");
+    const filtered = await fetch(
+      `${base}/aviation/toolbox?category=predictive-maintenance&q=Veryon`,
+    ).then((response) => response.text());
+    if (!filtered.includes("Defect Analysis") || !filtered.includes('aria-pressed="true"')) {
+      throw new Error("Toolbox category and search filter did not render the matching tool.");
     }
-    if (filtered.includes("Airvoyant") || filtered.includes("TalentVista")) {
-      throw new Error("Topic and search filter included a tool outside the query.");
+    if (filtered.includes("Airvoyant") || filtered.includes("TalentVista") || filtered.includes("Nordic Dino")) {
+      throw new Error("Toolbox filter included a tool outside the query.");
     }
-    if (!filtered.includes("/aviation/tools/topic/predictive-maintenance")) {
-      throw new Error("Filtered directory did not canonicalize to the topic page.");
-    }
-    if (!filtered.includes('aria-pressed="true"')) {
-      throw new Error("Filtered directory is missing a pressed topic chip.");
+    const issuePage = await fetch(`${base}/aviation/issues/2026-10-21`).then((response) => response.text());
+    if (!issuePage.includes('href="/aviation/toolbox"') || !issuePage.includes("Visit the Toolbox")) {
+      throw new Error("Issue page is missing the Toolbox link.");
     }
     const topicPage = await fetch(`${base}/aviation/tools/topic/predictive-maintenance`).then((response) => response.text());
     if (!topicPage.includes("AI tools for predictive maintenance in aviation")) {

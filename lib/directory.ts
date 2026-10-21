@@ -1,6 +1,6 @@
 import type { DirectoryView } from "@/lib/directory-view";
 import type { ToolEntry } from "@/lib/schema";
-import { type Segment, type SegmentTopic, topicPagePath } from "@/lib/segments";
+import { getSegment, toolDirectoryPath, type Segment, type SegmentTopic, topicPagePath } from "@/lib/segments";
 
 export const otherTopicKey = "other";
 
@@ -57,8 +57,14 @@ export function directoryChips(
 ): DirectoryChip[] {
   const known = knownTopicKeys(topics);
   const untagged = tools.filter((tool) => toolTopicKeys(tool).every((key) => !known.has(key))).length;
+  const segment = getSegment(segmentSlug);
   const chips: DirectoryChip[] = [
-    { key: "all", label: "All", count: tools.length, href: `/${segmentSlug}/tools` },
+    {
+      key: "all",
+      label: "All",
+      count: tools.length,
+      href: segment ? toolDirectoryPath(segment) : `/${segmentSlug}/tools`,
+    },
     ...topics.map((topic) => ({
       key: topic.key,
       label: topic.label,
@@ -98,5 +104,5 @@ export function directoryCanonical(segment: Segment, topicKey: string | undefine
     const topic = segment.topics?.find((item) => item.key === topicKey);
     if (topic) return topicPagePath(segment.slug, topic.key);
   }
-  return `/${segment.slug}/tools`;
+  return toolDirectoryPath(segment);
 }

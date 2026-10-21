@@ -8,7 +8,7 @@ import { breadcrumbJsonLd, toolJsonLd } from "@/lib/jsonld";
 import { pageMeta } from "@/lib/meta";
 import { formatIssueDate, todayInNewYork } from "@/lib/dates";
 import { isFeaturedActive } from "@/lib/featured";
-import { getSegment, segmentTopics, topicPagePath } from "@/lib/segments";
+import { getSegment, segmentTopics, toolDirectoryLabel, toolDirectoryPath, topicPagePath } from "@/lib/segments";
 import { issuesMentioningTool, relatedTools, toolPageTitle } from "@/lib/tool-page";
 
 type Props = { params: Promise<{ segment: string; slug: string }> };
@@ -49,7 +49,7 @@ export default async function ToolPage({ params }: Props) {
   const crumbs = [
     { name: "Vizonix", path: "/" },
     { name: segment.name, path: `/${segment.slug}` },
-    { name: "Tool directory", path: `/${segment.slug}/tools` },
+    { name: toolDirectoryLabel(segment), path: toolDirectoryPath(segment) },
     ...(topicCrumb ? [{ name: topicCrumb.label, path: topicPagePath(segment.slug, topicCrumb.key) }] : []),
     { name: tool.name, path: `/${segment.slug}/tools/${tool.slug}` },
   ];

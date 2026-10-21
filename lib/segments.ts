@@ -207,7 +207,13 @@ export function segmentCardPillClass(segment: Segment): string {
 export const toolsIndexPath: string | null = null;
 
 export function toolDirectoryPath(segment: Segment): string {
+  if (segment.slug === "aviation") return `/${segment.slug}/toolbox`;
   return `/${segment.slug}/tools`;
+}
+
+/** Nav and crumb label. Aviation's directory is the Toolbox. */
+export function toolDirectoryLabel(segment: Segment): string {
+  return segment.slug === "aviation" ? "Toolbox" : "Tool directory";
 }
 
 function normalizePath(pathname: string): string {
@@ -243,7 +249,7 @@ export function isToolDirectoryPath(pathname: string, indexPath: string | null =
     if (path === index || path.startsWith(`${index}/`)) return true;
   }
   const [slug, section] = path.split("/").filter(Boolean);
-  return Boolean(slug && section === "tools" && getSegment(slug));
+  return Boolean(slug && (section === "tools" || section === "toolbox") && getSegment(slug));
 }
 
 export function segmentResendId(segment: Segment): string | undefined {

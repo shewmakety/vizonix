@@ -5,7 +5,7 @@ import { listIssues, listTools } from "@/lib/content";
 import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
 import { cleanSource } from "@/lib/reader-sections";
-import { activeSegments, getSegment, segmentDisplayName } from "@/lib/segments";
+import { activeSegments, getSegment, segmentDisplayName, toolDirectoryLabel, toolDirectoryPath } from "@/lib/segments";
 
 type Props = {
   params: Promise<{ segment: string }>;
@@ -55,8 +55,8 @@ export default async function SegmentPage({ params, searchParams }: Props) {
               <Link className="button" href={`/${segment.slug}/issues`}>
                 Issue archive
               </Link>
-              <Link className="button secondary" href={`/${segment.slug}/tools`}>
-                Tool directory
+              <Link className="button secondary" href={toolDirectoryPath(segment)}>
+                {toolDirectoryLabel(segment)}
               </Link>
             </div>
           </div>

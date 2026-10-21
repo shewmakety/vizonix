@@ -27,7 +27,8 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
-import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site } from "@/lib/site";
+import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site, visitToolboxLabel } from "@/lib/site";
+import { toolboxPathFor } from "@/lib/toolbox";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
@@ -243,6 +244,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
   const sections = issueSections(issue);
   const ratesUrl = sectionSponsorRatesUrl(issue);
   const mailto = forwardMailto(issue);
+  const toolboxPath = toolboxPathFor(issue.segment);
   return (
     <article className="dashboard">
       <header className="issue-masthead">
@@ -254,6 +256,12 @@ export function IssueBody({ issue }: { issue: Issue }) {
           </p>
           <p className="issue-share">
             <a href={mailto}>Forward this</a>
+            {toolboxPath ? (
+              <>
+                {" · "}
+                <a href={toolboxPath}>{visitToolboxLabel}</a>
+              </>
+            ) : null}
           </p>
         </div>
       </header>

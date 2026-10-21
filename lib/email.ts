@@ -19,6 +19,7 @@ import {
   sectionWordmark,
   signupBlockHeading,
   site,
+  visitToolboxLabel,
   whatWeDo,
 } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
@@ -33,7 +34,7 @@ import {
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import { sectionsForReader } from "@/lib/personalize";
-import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { getSegment, segmentDisplayName, toolDirectoryPath } from "@/lib/segments";
 import { formatIsoDay } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
@@ -421,6 +422,14 @@ export type IssueRenderOptions = {
   excludedSections?: readonly string[];
 };
 
+function issueDirectoryLink(segmentSlug: string): { href: string; label: string } {
+  const segment = getSegment(segmentSlug);
+  if (segment?.slug === "aviation") {
+    return { href: absoluteUrl(toolDirectoryPath(segment)), label: visitToolboxLabel };
+  }
+  return { href: absoluteUrl(`/${segmentSlug}/tools`), label: "Tool Directory" };
+}
+
 function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): string {
   if (options.unsubscribeUrl) return options.unsubscribeUrl;
   return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl(unsubscribePath(segmentSlug));
@@ -571,13 +580,14 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const sample = issue.sample
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
-  const directory = absoluteUrl(`/${issue.segment}/tools`);
+  const directoryLink = issueDirectoryLink(issue.segment);
+  const directory = directoryLink.href;
   const linkRow = `<tr>
             <td style="padding:8px 20px 0;">
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    <a href="${escapeHtml(directory)}" style="color:#14532D;text-decoration:underline;">Tool Directory</a>
+                    <a href="${escapeHtml(directory)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
                   </td>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;color:#8a8175;padding:0 8px;">|</td>
                   <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
@@ -689,7 +699,8 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const segment = getSegment(issue.segment);
   const editionName = segment ? segmentDisplayName(segment) : issue.segment;
   const archive = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
-  const directory = absoluteUrl(`/${issue.segment}/tools`);
+  const directoryLink = issueDirectoryLink(issue.segment);
+  const directory = directoryLink.href;
   const unsubscribe = issueUnsubscribe(issue.segment, options);
   const preferences = issuePreferences(options);
   const mailto = forwardMailto(issue);
@@ -713,7 +724,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
-    `Tool Directory: ${directory}`,
+    `${directoryLink.label}: ${directory}`,
     `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),

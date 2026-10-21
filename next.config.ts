@@ -2,6 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: "/aviation/tools",
+        destination: "/aviation/toolbox",
+        permanent: true,
+      },
+    ];
+  },
   htmlLimitedBots: /.*/,
   outputFileTracingIncludes: {
     "/api/checkout": ["./content/**/*"],
@@ -15,6 +24,7 @@ const nextConfig: NextConfig = {
     "/[segment]/issues": ["./content/**/*"],
     "/[segment]/issues/[date]": ["./content/**/*"],
     "/[segment]/tools": ["./content/**/*"],
+    "/[segment]/toolbox": ["./content/**/*"],
     "/[segment]/tools/[slug]": ["./content/**/*"],
     "/[segment]/tools/topic/[topic]": ["./content/**/*"],
     "/llms.txt": ["./content/**/*"],

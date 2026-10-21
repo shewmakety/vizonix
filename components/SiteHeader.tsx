@@ -44,7 +44,7 @@ export function SiteHeader() {
             href={segmentDirectoryHref(pathname, rememberedSlug)}
             aria-current={current(isToolDirectoryPath(pathname))}
           >
-            Tool Directory
+            Toolbox
           </Link>
         </nav>
         <Link className="header-cta" href={subscribeHref} aria-current={current(onSubscribe)}>
