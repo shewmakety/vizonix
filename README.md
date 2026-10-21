@@ -31,7 +31,9 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | Variable | Required for | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production links | Canonical URL, no trailing slash. Default `https://vizonix.com`. |
-| `TOKEN_SECRET` | Signup | HMAC secret for confirm and unsubscribe links. |
+| `TOKEN_SECRET` | Signup | HMAC secret for confirm, unsubscribe, and topic links. |
+| `SUPABASE_URL` | Topic choices | Project URL. Server only. Do not prefix with `NEXT_PUBLIC_`. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Topic choices | Service role key for `subscriber_prefs` and `topic_suggestions`. Server only. |
 | `PUBLISH_SECRET` | `POST /api/publish` and `POST /api/linkedin-post` | Bearer token. |
 | `RESEND_API_KEY` | Email and the list | Resend API key. |
 | `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <admin@vizonix.com>`. |
@@ -80,7 +82,9 @@ npm run publish-issue -- content/drafts/example-aviation.json --send --test-to y
 
 The script writes `content/{segment}/issues/{date}.json`. Commit and push that file so Vercel deploys the archive page. Then send.
 
-`--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it creates a Resend broadcast and sends it. Sample issues are refused unless you pass `--allow-sample`.
+`--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it loads confirmed contacts, groups them by the topics they turned off, and sends one Resend batch per group. Readers with no saved topics get the full issue. A batch is one rendered issue, delivered as separate copies so each footer link is signed for that reader. Resend allows 100 emails per batch, so a larger group is split, with an idempotency key on each chunk. `--test-to` still sends one full copy to that address and does not load the list. `--no-write` skips the file write and the IndexNow ping. Sample issues are refused unless you pass `--allow-sample`.
+
+Apply `supabase/migrations/20261021143000_reader_personalization.sql` in the Supabase SQL editor before the first personalized send. The app does not apply it. If `SUPABASE_URL` or `SUPABASE_SERVICE_ROLE_KEY` is unset, the send logs a warning and every confirmed subscriber gets the full issue. If those variables are set and the read fails, the issue is not emailed.
 
 A real broadcast can also post the issue to the Vizonix LinkedIn company page. Set `LINKEDIN_AUTOPOST=true` plus `UNIPILE_DSN` and `UNIPILE_API_KEY`. A test send, a sample issue, and `--no-linkedin` do not post. The API body field `"linkedin": false` is the same opt-out. After a successful post, the marker `content/{segment}/linkedin/{date}.json` blocks a second post. On Vercel that marker is committed with `GITHUB_TOKEN`. The LinkedIn step never fails the publish after the email has gone out.
 
@@ -106,9 +110,11 @@ On Vercel the route commits the JSON through the GitHub API (`GITHUB_TOKEN`, `GI
 
 ## Signup
 
-`POST /api/subscribe` creates a Resend contact with `unsubscribed: true`, adds the section segment, and emails a confirm link. The reader is not subscribed until they open `/confirm` and submit. That second step avoids mail clients that prefetch links.
+`POST /api/subscribe` creates a Resend contact with `unsubscribed: true`, adds the section segment, and emails a confirm link. The reader is not subscribed until they open `/confirm` and submit. That second step avoids mail clients that prefetch links. Topic checkboxes and an optional suggestion travel in that confirm link and are written to Supabase only after confirm. `/join` is the same form for a link such as `/join?src=linkedin`. The `src` value is stored with the preference row and the suggestion.
 
-Unsubscribe is `/unsubscribe`. The broadcast footer also includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}`.
+`/preferences?token=` lets a reader change topics without an account. Each reader email footer includes Manage your topics. `POST /api/preferences` and `POST /api/suggest` check that token.
+
+Unsubscribe is `/unsubscribe`. A single test copy still uses a normal Resend send. A list send uses the batch API, with a signed unsubscribe link and a `List-Unsubscribe` header, because a broadcast cannot vary the sections per reader.
 
 ## Vercel
 

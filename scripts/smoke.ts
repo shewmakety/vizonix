@@ -37,6 +37,8 @@ const pages: Array<[string, string]> = [
   ["/privacy", "Resend"],
   ["/terms", "not legal advice"],
   ["/subscribe", "Aviation is the launch section"],
+  ["/join", "What you get"],
+  ["/preferences", "Manage your topics"],
   ["/confirm", "confirmation"],
   ["/unsubscribe", "Unsubscribe"],
   ["/llms.txt", "Aviation"],
@@ -110,6 +112,24 @@ async function main() {
       await expectPage(pathname, snippet);
     }
 
+    const join = await fetch(`${base}/join?src=linkedin`).then((response) => response.text());
+    if (!join.includes("Suggest a topic") || !join.includes("Top story, The Ramp, and sponsor slots")) {
+      throw new Error("Join page is missing the topic picker.");
+    }
+    if (!join.includes("When should a predictive alert ground an aircraft") || !join.includes("What We Do")) {
+      throw new Error("Join page is missing the latest issue preview.");
+    }
+    if (join.includes("hello@")) throw new Error("Join page uses the wrong contact address.");
+
+    const subscribePage = await fetch(`${base}/subscribe`).then((response) => response.text());
+    if (!subscribePage.includes("Suggest a topic") || !subscribePage.includes("Recruiting")) {
+      throw new Error("Subscribe page is missing the topic picker.");
+    }
+    const aviationPage = await fetch(`${base}/aviation`).then((response) => response.text());
+    if (!aviationPage.includes("Suggest a topic")) {
+      throw new Error("Aviation page is missing the topic picker.");
+    }
+
     await expectStatus("/api/subscribe", { method: "POST", body: "not-json" }, 400);
     await expectStatus(
       "/api/subscribe",
@@ -125,6 +145,26 @@ async function main() {
       200,
     );
     await expectStatus("/api/confirm", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
+    await expectStatus("/api/preferences", { method: "POST", body: "not-json" }, 400);
+    await expectStatus("/api/suggest", { method: "POST", body: "not-json" }, 400);
+    await expectStatus(
+      "/api/preferences",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token: "not-a-token", excludedSections: [] }),
+      },
+      400,
+    );
+    await expectStatus(
+      "/api/suggest",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token: "not-a-token", text: "Hangar robots" }),
+      },
+      400,
+    );
     await expectStatus("/api/unsubscribe", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/publish", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 401);
     await expectStatus("/api/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);

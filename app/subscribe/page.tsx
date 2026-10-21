@@ -1,5 +1,6 @@
 import { SignupForm } from "@/components/SignupForm";
 import { pageMeta } from "@/lib/meta";
+import { cleanSource } from "@/lib/reader-sections";
 
 export const metadata = pageMeta({
   title: "Subscribe",
@@ -7,7 +8,12 @@ export const metadata = pageMeta({
   canonical: "/subscribe",
 });
 
-export default function SubscribePage() {
+export default async function SubscribePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ src?: string }>;
+}) {
+  const { src } = await searchParams;
   return (
     <section className="hero">
       <div className="wrap split">
@@ -21,7 +27,7 @@ export default function SubscribePage() {
           <p>Aviation is the launch section.</p>
           <p>Leave any time from the link in the email, or from the unsubscribe page.</p>
         </div>
-        <SignupForm />
+        <SignupForm source={cleanSource(src)} />
       </div>
     </section>
   );

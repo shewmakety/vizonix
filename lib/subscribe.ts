@@ -6,6 +6,9 @@ import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePl
 import { AppError } from "@/lib/errors";
 import { notifyOps } from "@/lib/notify";
 import { subscriberNotice } from "@/lib/owner-alerts";
+import { saveConfirmedChoices } from "@/lib/prefs";
+import { cleanSource, parseExcluded } from "@/lib/reader-sections";
+import { signedReaderLinks } from "@/lib/reader-links";
 import { confirmPath, unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl } from "@/lib/site";
 import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
@@ -26,6 +29,9 @@ export async function startDoubleOptIn(input: {
   segment?: string;
   firstName?: string;
   honeypot?: string;
+  excludedSections?: unknown;
+  suggestion?: unknown;
+  source?: unknown;
 }): Promise<SubscribeResult> {
   if ((input.honeypot ?? "").trim()) {
     return { ok: true, status: "accepted" };
@@ -38,6 +44,21 @@ export async function startDoubleOptIn(input: {
   if (!emailSchema.safeParse(email).success) {
     return { ok: false, status: 400, error: "Enter a valid email address." };
   }
+
+  let excluded: string[] | undefined;
+  if (Array.isArray(input.excludedSections)) {
+    const parsed = parseExcluded(input.excludedSections.map((value) => String(value)));
+    if (!parsed.ok) return { ok: false, status: 400, error: parsed.error };
+    excluded = parsed.excluded;
+  }
+  let suggestion: string | undefined;
+  if (typeof input.suggestion === "string" && input.suggestion.trim()) {
+    suggestion = input.suggestion.trim();
+    if (suggestion.length > 500) {
+      return { ok: false, status: 400, error: "Keep the topic suggestion to 500 characters." };
+    }
+  }
+  const source = cleanSource(input.source);
 
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
@@ -78,9 +99,17 @@ export async function startDoubleOptIn(input: {
 
   await resend.contacts.segments.add({ email, segmentId });
 
-  const token = signToken({ email, segment: segment.slug, purpose: "confirm" }, secret);
+  const token = signToken(
+    { email, segment: segment.slug, purpose: "confirm", excluded, suggestion, source },
+    secret,
+  );
   const confirmUrl = absoluteUrl(confirmPath(segment.slug, token));
-  const message = confirmationEmail({ sectionName: segment.name, confirmUrl });
+  const readerLinks = signedReaderLinks(email, segment.slug, secret);
+  const message = confirmationEmail({
+    sectionName: segment.name,
+    confirmUrl,
+    preferencesUrl: readerLinks?.preferencesUrl,
+  });
   const sent = await resend.emails.send({
     from,
     to: [email],
@@ -116,19 +145,18 @@ async function sendWelcomeEmail(
     console.error(`Welcome email was not sent for ${input.segment.slug}: EMAIL_FROM is not set.`);
     return;
   }
-  const secret = tokenSecret();
-  const unsubscribeUrl = secret
-    ? absoluteUrl(
-        unsubscribePath(
-          input.segment.slug,
-          signToken({ email: input.email, segment: input.segment.slug, purpose: "unsubscribe" }, secret),
-        ),
-      )
-    : absoluteUrl(unsubscribePath(input.segment.slug));
+  const links = signedReaderLinks(input.email, input.segment.slug);
+  const unsubscribeUrl = links?.unsubscribeUrl ?? absoluteUrl(unsubscribePath(input.segment.slug));
+  const preferencesUrl = links?.preferencesUrl;
   const issue = latestPublishedIssue(input.segment.slug);
   const message = issue
-    ? welcomeIssueMessage(issue, unsubscribeUrl)
-    : welcomePlainMessage(input.segment.name, absoluteUrl(`/${input.segment.slug}`), unsubscribeUrl);
+    ? welcomeIssueMessage(issue, unsubscribeUrl, preferencesUrl)
+    : welcomePlainMessage(
+        input.segment.name,
+        absoluteUrl(`/${input.segment.slug}`),
+        unsubscribeUrl,
+        preferencesUrl,
+      );
   try {
     const sent = await resend.emails.send(
       {
@@ -209,6 +237,13 @@ export async function confirmSubscription(
     }
     alreadyInSegment = true;
   }
+  await saveConfirmedChoices({
+    email: payload.email,
+    segment: segment.slug,
+    excluded: payload.excluded,
+    suggestion: payload.suggestion,
+    source: payload.source,
+  });
   if (!(wasConfirmed && alreadyInSegment)) {
     await sendWelcomeEmail(resend, { email: payload.email, segment });
     try {
@@ -250,7 +285,12 @@ export async function requestUnsubscribeLink(input: {
   }
   const token = signToken({ email, segment: segment.slug, purpose: "unsubscribe" }, secret);
   const unsubscribeUrl = absoluteUrl(unsubscribePath(segment.slug, token));
-  const message = unsubscribeLinkEmail({ sectionName: segment.name, unsubscribeUrl });
+  const readerLinks = signedReaderLinks(email, segment.slug, secret);
+  const message = unsubscribeLinkEmail({
+    sectionName: segment.name,
+    unsubscribeUrl,
+    preferencesUrl: readerLinks?.preferencesUrl,
+  });
   const resend = new Resend(apiKey);
   const sent = await resend.emails.send({
     from,

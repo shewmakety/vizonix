@@ -98,6 +98,8 @@ describe("welcome email on confirm", () => {
     expect(payload.text).toContain("Tool Directory: https://vizonix.com/aviation/tools");
     expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-20");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
+    expect(payload.html).toContain("Manage your topics");
+    expect(payload.html).toContain("/preferences?token=");
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");
     expect(payload.text).toContain("Unsubscribe:");

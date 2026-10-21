@@ -90,6 +90,12 @@ export function unsubscribePath(segmentSlug: string, token?: string): string {
   return `/${segmentSlug}/unsubscribe?token=${encodeURIComponent(token)}`;
 }
 
+/** Signed reader page. No section prefix, because the token carries the section. */
+export function preferencesPath(token?: string): string {
+  if (!token) return "/preferences";
+  return `/preferences?token=${encodeURIComponent(token)}`;
+}
+
 /** /aviation/confirm rewrites to /confirm. Other section URLs stay put. */
 export function segmentAliasRewrite(pathname: string): string | null {
   const parts = pathname.split("/").filter(Boolean);
