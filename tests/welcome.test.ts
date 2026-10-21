@@ -101,7 +101,8 @@ describe("welcome email on confirm", () => {
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");
     expect(payload.text).toContain("Unsubscribe:");
-    expect(payload.headers["List-Unsubscribe"]).toContain("/aviation/unsubscribe?token=");
+    expect(payload.headers["List-Unsubscribe"]).toContain("/api/unsubscribe?token=");
+    expect(payload.headers["List-Unsubscribe-Post"]).toBe("List-Unsubscribe=One-Click");
     expect(options.idempotencyKey).toBe(welcomeIdempotencyKey("reader@example.com", "aviation"));
     expect(`${payload.subject}\n${payload.html}\n${payload.text}`).not.toMatch(/[\u2013\u2014]/);
     const owner = resend.send.mock.calls.find((call) =>

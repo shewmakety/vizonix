@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { formatShortDate, isIsoDate } from "@/lib/dates";
-import { renderIssueEmail, renderIssueText } from "@/lib/email";
+import { listUnsubscribeHeaders, renderIssueEmail, renderIssueText, signedUnsubscribeUrl } from "@/lib/email";
 import { AppError } from "@/lib/errors";
 import { writeIssueFile } from "@/lib/content";
 import { githubConfigured, writeRepoFile } from "@/lib/github";
@@ -139,17 +139,20 @@ export async function sendIssue(
         503,
       );
     }
+    const unsubscribeUrl = signedUnsubscribeUrl(testTo, segment.slug);
     const result = await resend.emails.send({
       from,
       to: [testTo],
       subject: issueEmailSubject(issue.subject, issue.date),
-      html: renderIssueEmail(issue, { mode: "test" }),
-      text: renderIssueText(issue, { mode: "test" }),
+      html: renderIssueEmail(issue, { mode: "test", unsubscribeUrl }),
+      text: renderIssueText(issue, { mode: "test", unsubscribeUrl }),
+      ...(unsubscribeUrl ? { headers: listUnsubscribeHeaders(unsubscribeUrl) } : {}),
     });
     if (result.error) throw new AppError(result.error.message, 502);
     return { mode: "test", id: result.data?.id };
   }
 
+  // Broadcast create has no headers field. The footer placeholder is the per-recipient unsubscribe link.
   const result = await resend.broadcasts.create({
     segmentId: segmentId as string,
     from,
