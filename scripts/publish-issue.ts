@@ -15,6 +15,9 @@ async function main() {
     console.error(
       "Usage: npm run publish-issue -- content/drafts/example-aviation.json [--send] [--allow-sample] [--test-to you@example.com] [--no-write] [--no-linkedin]",
     );
+    console.error(
+      "A real send groups confirmed subscribers by the sections they turned off and emails each reader once. --no-write also skips the IndexNow ping.",
+    );
     process.exit(1);
   }
 

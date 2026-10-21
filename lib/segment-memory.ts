@@ -90,6 +90,10 @@ export function unsubscribePath(segmentSlug: string, token?: string): string {
   return `/${segmentSlug}/unsubscribe?token=${encodeURIComponent(token)}`;
 }
 
+export function preferencesPath(token: string): string {
+  return `/preferences?token=${encodeURIComponent(token)}`;
+}
+
 /** /aviation/confirm rewrites to /confirm. Other section URLs stay put. */
 export function segmentAliasRewrite(pathname: string): string | null {
   const parts = pathname.split("/").filter(Boolean);

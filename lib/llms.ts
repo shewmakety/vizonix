@@ -83,6 +83,7 @@ export function buildLlmsTxt(): string {
     "## Site",
     `- [About](${absoluteUrl("/about")})`,
     `- [Subscribe](${absoluteUrl("/subscribe")}): double opt-in. The address is not on the list until the reader confirms.`,
+    `- [Join](${absoluteUrl("/join")}): aviation signup with a section picker and a preview of the latest issue.`,
     `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
     `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships, the Featured listing, and the founding offer.`,

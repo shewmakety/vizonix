@@ -20,6 +20,38 @@ describe("signed links", () => {
     expect(verifyToken(token, "other-secret", "confirm")).toBeNull();
   });
 
+  it("keeps signup choices on a confirm token and signs a preferences link", () => {
+    const now = Date.parse("2026-10-21T12:00:00.000Z");
+    const token = signToken(
+      {
+        email: "Reader@Hangar.Example",
+        segment: "aviation",
+        purpose: "confirm",
+        pending: { excluded: ["Warehousing"], suggestion: "Hangar robots", source: "linkedin" },
+      },
+      secret,
+      now,
+    );
+    const payload = verifyToken(token, secret, "confirm", now + 1000);
+    expect(payload?.email).toBe("reader@hangar.example");
+    expect(payload?.pending).toEqual({
+      excluded: ["Warehousing"],
+      suggestion: "Hangar robots",
+      source: "linkedin",
+    });
+    expect(verifyToken(token, secret, "preferences", now + 1000)).toBeNull();
+
+    const preferences = signToken(
+      { email: "reader@hangar.example", segment: "aviation", purpose: "preferences", pending: { excluded: ["Warehousing"] } },
+      secret,
+      now,
+    );
+    const managed = verifyToken(preferences, secret, "preferences", now + 1000);
+    expect(managed?.email).toBe("reader@hangar.example");
+    expect(managed?.pending).toBeUndefined();
+    expect(verifyToken(preferences, secret, "preferences", now + 1000 * 60 * 60 * 24 * 181)).toBeNull();
+  });
+
   it("rejects an expired token", () => {
     const token = signToken(
       { email: "reader@firm.example", segment: "legal", purpose: "confirm" },

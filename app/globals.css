@@ -282,6 +282,20 @@ input:focus, select:focus, textarea:focus {
 }
 .check { display: flex; gap: 0.55rem; align-items: flex-start; margin-top: 0.8rem; font-size: 0.95rem; }
 .check input { width: auto; margin-top: 0.25rem; }
+fieldset.section-picks {
+  border: 0;
+  margin: 0.9rem 0 0;
+  padding: 0;
+}
+fieldset.section-picks legend {
+  font-weight: 650;
+  font-size: 0.92rem;
+  padding: 0;
+}
+.section-picks .check { margin-top: 0.35rem; }
+.section-picks .form-note { margin: 0.35rem 0 0; }
+textarea.short { min-height: 4.5rem; }
+.join-preview { padding-bottom: 1rem; }
 .form-note { color: var(--muted); font-size: 0.9rem; }
 .form-error { color: var(--danger); }
 .form-ok { color: var(--pine); }

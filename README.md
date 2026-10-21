@@ -31,7 +31,9 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | Variable | Required for | Purpose |
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production links | Canonical URL, no trailing slash. Default `https://vizonix.com`. |
-| `TOKEN_SECRET` | Signup | HMAC secret for confirm and unsubscribe links. |
+| `TOKEN_SECRET` | Signup and preferences | HMAC secret for confirm, unsubscribe, and manage-topics links. |
+| `SUPABASE_URL` | Reader preferences | Project URL. Server only. Apply `supabase/migrations/20261021120000_reader_personalization.sql` before using it. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Reader preferences | Service role key. Server only. Never use a `NEXT_PUBLIC_` name. |
 | `PUBLISH_SECRET` | `POST /api/publish` and `POST /api/linkedin-post` | Bearer token. |
 | `RESEND_API_KEY` | Email and the list | Resend API key. |
 | `EMAIL_FROM` | Email | Verified sender, for example `Vizonix <admin@vizonix.com>`. |
@@ -80,7 +82,9 @@ npm run publish-issue -- content/drafts/example-aviation.json --send --test-to y
 
 The script writes `content/{segment}/issues/{date}.json`. Commit and push that file so Vercel deploys the archive page. Then send.
 
-`--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it creates a Resend broadcast and sends it. Sample issues are refused unless you pass `--allow-sample`.
+`--send` without a segment id sends one message to `--test-to` or `RESEND_TEST_TO`. With a segment id, it loads confirmed subscribers in that segment, groups them by the sections they turned off, and sends each group with the Resend batch API. Readers with no saved preferences get the full issue. The command checks that every confirmed subscriber is targeted once and logs the counts. `--test-to` still sends one full copy and does not mail the list. `--no-write` skips the issue file and the IndexNow ping. Sample issues are refused unless you pass `--allow-sample`.
+
+A real list send is still reported as a broadcast for the LinkedIn step: a test send does not post. Resend idempotency keys stop a second send of the same issue to the same readers for 24 hours.
 
 A real broadcast can also post the issue to the Vizonix LinkedIn company page. Set `LINKEDIN_AUTOPOST=true` plus `UNIPILE_DSN` and `UNIPILE_API_KEY`. A test send, a sample issue, and `--no-linkedin` do not post. The API body field `"linkedin": false` is the same opt-out. After a successful post, the marker `content/{segment}/linkedin/{date}.json` blocks a second post. On Vercel that marker is committed with `GITHUB_TOKEN`. The LinkedIn step never fails the publish after the email has gone out.
 
@@ -108,7 +112,13 @@ On Vercel the route commits the JSON through the GitHub API (`GITHUB_TOKEN`, `GI
 
 `POST /api/subscribe` creates a Resend contact with `unsubscribed: true`, adds the section segment, and emails a confirm link. The reader is not subscribed until they open `/confirm` and submit. That second step avoids mail clients that prefetch links.
 
-Unsubscribe is `/unsubscribe`. The broadcast footer also includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}`.
+The signup form lists the optional aviation sections, all checked, plus an optional topic suggestion. Those choices ride in the confirm link and are written to Supabase only after the reader confirms. Top story, The Ramp, and sponsor slots stay on. `/join` is the short landing page for a campaign link such as `?src=linkedin`. The source is stored with the preference row and with any suggestion.
+
+`/preferences?token=` is a signed link, the same HMAC pattern as unsubscribe, with no login. `POST /api/preferences` and `POST /api/suggest` check that token. Every reader email footer includes Manage your topics.
+
+Apply `supabase/migrations/20261021120000_reader_personalization.sql` yourself. Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` on the server. Until those are set, signup and confirm still work, and a list send gives every confirmed reader the full issue.
+
+Unsubscribe is `/unsubscribe`. Issue mail to one address uses a signed unsubscribe link. A shared template can still carry Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` placeholder.
 
 ## Vercel
 
