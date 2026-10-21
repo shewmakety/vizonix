@@ -6,7 +6,7 @@ import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { sitemapPaths } from "@/lib/site-index";
 import { sectionIconBaseUrl } from "@/lib/icons";
-import { absoluteUrl, toolboxCard } from "@/lib/site";
+import { absoluteUrl, toolboxCard, toolboxCardIcon } from "@/lib/site";
 import { filterToolbox, listToolbox, toolboxCategories } from "@/lib/toolbox";
 
 describe("aviation toolbox", () => {
@@ -51,18 +51,29 @@ describe("aviation toolbox", () => {
     expect(html).toContain(toolboxCard.line);
     expect(html).toContain(toolboxCard.button);
     expect(html).toContain(`${sectionIconBaseUrl}/toolbox.svg`);
+    expect(html).toContain(`width="${toolboxCardIcon.width}"`);
+    expect(html).toContain(`height="${toolboxCardIcon.height}"`);
+    expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf('class="issue-toolbox"'));
+    expect(html.indexOf('class="issue-toolbox"')).toBeLessThan(html.indexOf('class="glossary-heading"'));
     expect(html).not.toContain("Visit the Toolbox");
     const email = renderIssueEmail(issue, { mode: "test" });
     const text = renderIssueText(issue, { mode: "test" });
     const url = absoluteUrl("/aviation/toolbox?src=email");
     expect(email).toContain(`href="${url}"`);
     expect(email).toContain(`${sectionIconBaseUrl}/toolbox@2x.png`);
+    expect(email).toContain(`width="${toolboxCardIcon.width}"`);
+    expect(email).toContain(`height="${toolboxCardIcon.height}"`);
+    expect(email).not.toContain('width="560" height="240"');
     expect(email).toContain(toolboxCard.heading);
     expect(email).toContain(toolboxCard.button);
+    expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(toolboxCard.heading));
+    expect(email.indexOf(toolboxCard.heading)).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
     expect(email).not.toContain("Visit the Toolbox");
     expect(text).toContain(toolboxCard.heading);
     expect(text).toContain(toolboxCard.line);
     expect(text).toContain(`${toolboxCard.button}: ${url}`);
+    expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf(toolboxCard.heading));
+    expect(text.indexOf(toolboxCard.heading)).toBeLessThan(text.indexOf("AI GLOSSARY"));
     expect(email).not.toContain("Nordic Dino");
     expect(text).not.toContain("Nordic Dino");
   });

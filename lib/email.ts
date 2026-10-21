@@ -20,6 +20,7 @@ import {
   signupBlockHeading,
   site,
   toolboxCard,
+  toolboxCardIcon,
   whatWeDo,
 } from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
@@ -431,16 +432,19 @@ function toolboxCardEmailHtml(segmentSlug: string): string {
   const path = toolboxCardHref(segmentSlug, "email");
   if (!path) return "";
   const img = toolboxIllustrationUrl("email");
+  const { width, height } = toolboxCardIcon;
   return `<tr>
-            <td style="padding:14px 20px 0;">
-              <div style="background:#ffffff;border:1px solid #dfe3ea;border-radius:8px;overflow:hidden;text-align:center;">
-                <img src="${escapeHtml(img)}" alt="" width="560" height="240" style="display:block;width:100%;max-width:560px;height:auto;border:0;margin:0 auto;background:#f4f1ea;" />
-                <div style="padding:18px 22px 22px;font-family:Arial,Helvetica,sans-serif;">
-                  <h2 style="margin:0 0 8px;font-size:24px;line-height:1.2;font-weight:800;color:#13233b;">${escapeHtml(toolboxCard.heading)}</h2>
-                  <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCard.line)}</p>
-                  <a href="${escapeHtml(absoluteUrl(path))}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:10px 16px;border-radius:4px;">${escapeHtml(toolboxCard.button)}</a>
-                </div>
-              </div>
+            <td style="padding:16px 20px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#ffffff;border:1px solid #dfe3ea;border-radius:8px;">
+                <tr>
+                  <td align="center" style="padding:18px 22px 22px;font-family:Arial,Helvetica,sans-serif;">
+                    <img src="${escapeHtml(img)}" alt="" width="${width}" height="${height}" style="display:block;width:${width}px;height:${height}px;border:0;margin:0 auto 12px;background:#f4f1ea;" />
+                    <h2 style="margin:0 0 8px;font-size:24px;line-height:1.2;font-weight:800;color:#13233b;">${escapeHtml(toolboxCard.heading)}</h2>
+                    <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCard.line)}</p>
+                    <a href="${escapeHtml(absoluteUrl(path))}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:10px 16px;border-radius:4px;">${escapeHtml(toolboxCard.button)}</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>`;
 }
@@ -653,7 +657,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${forwardEmailHtml(issue)}
           ${linkRow}
           ${jumpEmailHtml(visibleSections)}
-          ${toolboxCardEmailHtml(issue.segment)}
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
@@ -704,6 +707,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           </tr>
           ${slotHtml(classified, absolute)}
           ${rampEmailHtml(issue.ramp)}
+          ${toolboxCardEmailHtml(issue.segment)}
           ${glossaryEmailHtml(issue)}
           <tr>
             <td style="padding:16px 20px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
@@ -752,7 +756,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     whatWeDo.copy,
     "",
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
-    ...toolboxCardText(issue.segment),
     `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),
@@ -781,6 +784,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     "",
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
     ...rampEmailText(issue.ramp),
+    ...toolboxCardText(issue.segment),
     ...glossaryEmailText(issue),
     `Read this issue on the web: ${archive}`,
     `Forward this: ${mailto}`,

@@ -493,6 +493,15 @@ async function main() {
     if (issuePage.includes("Visit the Toolbox")) {
       throw new Error("Issue page still has the one-line Toolbox link.");
     }
+    const rampAt = issuePage.indexOf('class="ramp-heading"');
+    const toolboxAt = issuePage.indexOf('class="issue-toolbox"');
+    const glossaryAt = issuePage.indexOf('class="glossary-heading"');
+    if (rampAt < 0 || toolboxAt < rampAt || glossaryAt < toolboxAt) {
+      throw new Error("Toolbox card is not between The Ramp and the glossary.");
+    }
+    if (!issuePage.includes('width="149"') || !issuePage.includes('height="64"')) {
+      throw new Error("Toolbox illustration is not the small in-card size.");
+    }
     const topicPage = await fetch(`${base}/aviation/tools/topic/predictive-maintenance`).then((response) => response.text());
     if (!topicPage.includes("AI tools for predictive maintenance in aviation")) {
       throw new Error("Topic page is missing its heading.");
