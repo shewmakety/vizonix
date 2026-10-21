@@ -38,7 +38,8 @@ describe("Option B scannable dashboard", () => {
     expect(html).toContain("Pick your topics - get only the sections you care about");
     expect(html).toContain('href="/join">Customize your issue</a>');
     expect(html.indexOf('aria-hidden="true">08<')).toBeLessThan(html.indexOf('class="ramp-heading"'));
-    expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf('class="glossary-heading"'));
+    expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf('class="issue-toolbox"'));
+    expect(html.indexOf('class="issue-toolbox"')).toBeLessThan(html.indexOf('class="glossary-heading"'));
     expect(decodeURIComponent(forwardMailto(issue))).toContain(forwardIssueUrl(issue));
     expect(forwardIssueUrl(issue)).toContain("?src=forward");
 
@@ -67,13 +68,15 @@ describe("Option B scannable dashboard", () => {
     expect(email).toContain("Pick your topics - get only the sections you care about");
     expect(email).toContain(">Customize your issue</a>");
     expect(email.indexOf(`>${productivitySectionTopic}</td>`)).toBeLessThan(email.indexOf(">The Ramp</td>"));
-    expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
+    expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf("The Vizonix Toolbox"));
+    expect(email.indexOf("The Vizonix Toolbox")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
     expect(text.indexOf(issue.lead.title)).toBeLessThan(text.indexOf("SIGN-UP NOW"));
     expect(text.indexOf("SIGN-UP NOW")).toBeLessThan(text.indexOf("RECRUITING"));
     expect(text).toContain("Pick your topics - get only the sections you care about");
     expect(text).toContain("Customize your issue:");
     expect(text.indexOf("QUICK LINKS")).toBeLessThan(text.indexOf("THE RAMP"));
-    expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("AI GLOSSARY"));
+    expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("The Vizonix Toolbox"));
+    expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.indexOf("AI GLOSSARY"));
 
     expect(text.indexOf(`Forwarded this? Subscribe! ${forwardedSubscribeUrl}`)).toBeLessThan(
       text.indexOf(issue.lead.title),

@@ -172,10 +172,12 @@ describe("segment config and sample content", () => {
     expect(html.indexOf(escapeHtml(dateline))).toBeGreaterThan(-1);
     expect(html.indexOf(escapeHtml(dateline))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
-    expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(aviation.lead.title));
+    expect(html.indexOf(aviation.lead.title)).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(">Unsubscribe</a>"));
     expect(text).toContain(`Open the Toolbox: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);
-    expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.indexOf(aviation.lead.title));
+    expect(text.indexOf(aviation.lead.title)).toBeLessThan(text.indexOf("The Vizonix Toolbox"));
+    expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.indexOf("Read this issue on the web"));
     expect(text).not.toContain("Nordic Dino");
     expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");
