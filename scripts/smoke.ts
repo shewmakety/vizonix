@@ -486,7 +486,7 @@ async function main() {
       !issuePage.includes('href="/aviation/toolbox?src=issue"') ||
       !issuePage.includes("The Vizonix Toolbox") ||
       !issuePage.includes("Open the Toolbox") ||
-      !issuePage.includes("toolbox.svg")
+      !issuePage.includes("toolbox-v2.svg")
     ) {
       throw new Error("Issue page is missing the Toolbox card.");
     }
@@ -499,8 +499,8 @@ async function main() {
     if (rampAt < 0 || toolboxAt < rampAt || glossaryAt < toolboxAt) {
       throw new Error("Toolbox card is not between The Ramp and the glossary.");
     }
-    if (!issuePage.includes('width="149"') || !issuePage.includes('height="64"')) {
-      throw new Error("Toolbox illustration is not the small in-card size.");
+    if (!issuePage.includes('width="80"') || !issuePage.includes('height="64"')) {
+      throw new Error("Toolbox icon is not the 64px in-card size.");
     }
     const topicPage = await fetch(`${base}/aviation/tools/topic/predictive-maintenance`).then((response) => response.text());
     if (!topicPage.includes("AI tools for predictive maintenance in aviation")) {

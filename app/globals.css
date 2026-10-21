@@ -1020,10 +1020,9 @@ dl.facts dt { color: var(--muted); }
 }
 .issue-toolbox img {
   display: block;
-  width: 149px;
+  width: 80px;
   height: 64px;
   margin: 0 auto 12px;
-  background: #f4f1ea;
 }
 .issue-toolbox h2 {
   margin: 0 0 8px;

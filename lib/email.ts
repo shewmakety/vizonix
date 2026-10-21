@@ -438,7 +438,7 @@ function toolboxCardEmailHtml(segmentSlug: string): string {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#ffffff;border:1px solid #dfe3ea;border-radius:8px;">
                 <tr>
                   <td align="center" style="padding:18px 22px 22px;font-family:Arial,Helvetica,sans-serif;">
-                    <img src="${escapeHtml(img)}" alt="" width="${width}" height="${height}" style="display:block;width:${width}px;height:${height}px;border:0;margin:0 auto 12px;background:#f4f1ea;" />
+                    <img src="${escapeHtml(img)}" alt="" width="${width}" height="${height}" style="display:block;width:${width}px;height:${height}px;border:0;margin:0 auto 12px;" />
                     <h2 style="margin:0 0 8px;font-size:24px;line-height:1.2;font-weight:800;color:#13233b;">${escapeHtml(toolboxCard.heading)}</h2>
                     <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCard.line)}</p>
                     <a href="${escapeHtml(absoluteUrl(path))}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:10px 16px;border-radius:4px;">${escapeHtml(toolboxCard.button)}</a>

@@ -50,7 +50,7 @@ describe("aviation toolbox", () => {
     expect(html).toContain(toolboxCard.heading);
     expect(html).toContain(toolboxCard.line);
     expect(html).toContain(toolboxCard.button);
-    expect(html).toContain(`${sectionIconBaseUrl}/toolbox.svg`);
+    expect(html).toContain(`${sectionIconBaseUrl}/toolbox-v2.svg`);
     expect(html).toContain(`width="${toolboxCardIcon.width}"`);
     expect(html).toContain(`height="${toolboxCardIcon.height}"`);
     expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf('class="issue-toolbox"'));
@@ -60,7 +60,7 @@ describe("aviation toolbox", () => {
     const text = renderIssueText(issue, { mode: "test" });
     const url = absoluteUrl("/aviation/toolbox?src=email");
     expect(email).toContain(`href="${url}"`);
-    expect(email).toContain(`${sectionIconBaseUrl}/toolbox@2x.png`);
+    expect(email).toContain(`${sectionIconBaseUrl}/toolbox-v2@2x.png`);
     expect(email).toContain(`width="${toolboxCardIcon.width}"`);
     expect(email).toContain(`height="${toolboxCardIcon.height}"`);
     expect(email).not.toContain('width="560" height="240"');

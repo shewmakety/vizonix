@@ -30,8 +30,8 @@ export const toolboxCard = {
   button: "Open the Toolbox",
 } as const;
 
-/** Display size of the toolbox drawing inside the issue card. Height is the icon size. Width keeps the 1120x480 drawing in proportion. */
-export const toolboxCardIcon = { width: 149, height: 64 } as const;
+/** Display size of the toolbox icon inside the issue card. Slightly wide, and tall enough to read at 64px. */
+export const toolboxCardIcon = { width: 80, height: 64 } as const;
 
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
