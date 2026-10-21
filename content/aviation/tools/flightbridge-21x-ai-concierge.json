@@ -1,0 +1,17 @@
+{
+  "slug": "flightbridge-21x-ai-concierge",
+  "segment": "aviation",
+  "name": "AI Concierge for FBOs (beta)",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "21X and FlightBridge",
+  "summary": "Previewed at NBAA-BACE on October 20. 21X's conversational AI takes routine FBO customer requests by phone, text and email, and FlightBridge's Model Context Protocol tools turn each conversation into a structured request inside the FlightBridge workflows FBO teams already use. First scenarios include hotel and rental car bookings, catering and FBO service requests. It is in beta with select mutual customers, and general availability has not been announced. Live demos are at booths 2961 (21X) and 3963 (FlightBridge).",
+  "paragraphs": [
+    "Previewed at NBAA-BACE on October 20. 21X's conversational AI takes routine FBO customer requests by phone, text and email, and FlightBridge's Model Context Protocol tools turn each conversation into a structured request inside the FlightBridge workflows FBO teams already use. First scenarios include hotel and rental car bookings, catering and FBO service requests. It is in beta with select mutual customers, and general availability has not been announced. Live demos are at booths 2961 (21X) and 3963 (FlightBridge)."
+  ],
+  "whyItMatters": "After-hours calls that go to voicemail are lost fuel, hangar and catering revenue. An AI that captures the request properly while your staff still fulfill it lets a small front desk answer every customer. At the booth, ask to see what happens with a request it cannot handle, and who sees it first.",
+  "pricing": "Not announced (beta)",
+  "sourceUrl": "https://www.prnewswire.com/news-releases/21x-and-flightbridge-preview-ai-concierge-for-private-aviation-302913971.html",
+  "url": "https://home.flightbridge.com/"
+}
