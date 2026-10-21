@@ -1,0 +1,17 @@
+{
+  "slug": "zingly-voice-ai",
+  "segment": "aviation",
+  "name": "Zingly agentic voice AI",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Zingly.ai",
+  "summary": "Pegasus Airlines' innovation lab has invested in Zingly.ai and made it a design partner (LARA, October 20). The first guest service use case is live: the AI answers inbound calls in natural conversation, connects to Pegasus's existing systems to resolve the request during the call, and hands the caller to a human agent with the full conversation context when needed. The roadmap runs to mid-2027 and targets the top 10 guest service use cases, starting in Turkish.",
+  "paragraphs": [
+    "Pegasus Airlines' innovation lab has invested in Zingly.ai and made it a design partner (LARA, October 20). The first guest service use case is live: the AI answers inbound calls in natural conversation, connects to Pegasus's existing systems to resolve the request during the call, and hands the caller to a human agent with the full conversation context when needed. The roadmap runs to mid-2027 and targets the top 10 guest service use cases, starting in Turkish."
+  ],
+  "whyItMatters": "Every call that ends with the change made, instead of a callback, saves agent time and keeps a booking or ancillary sale from walking away. The number to ask any voice AI vendor for is the share of calls resolved without a handoff, measured on your own top call types.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.laranews.net/pegasus-airlines-to-bring-agentic-voice-ai-to-guest-service/",
+  "url": "https://www.zingly.ai/"
+}
