@@ -303,24 +303,8 @@
       "definition": "AI built from several agents that hand work to each other to finish a job. Rolls-Royce's Optimiser uses separate agents for the engine, the workscope, the shop and the supplier, with people overseeing the plan."
     },
     {
-      "term": "API",
-      "definition": "A connection that lets one program pull data from another, or ask it to act, without anyone retyping it. Virtualitics uses API integrations so its readiness view updates live."
-    },
-    {
       "term": "Autonomous",
       "definition": "Able to do a task, such as driving a cargo route or flying a takeoff, without a person steering every move. Most systems here are still supervised by a person who can step in."
-    },
-    {
-      "term": "Azure AI Foundry",
-      "definition": "Microsoft's cloud service for building AI applications. Boeing built Dataliner on it, which matters mainly for where your data is processed and stored."
-    },
-    {
-      "term": "Back-test",
-      "definition": "Running a tool on your own past records to see what it would have recommended and whether that would have paid off, before you trust it with live decisions."
-    },
-    {
-      "term": "Beta",
-      "definition": "A product the maker is still finishing and offering to a limited group. Expect changes, and treat results as a trial rather than a promise."
     },
     {
       "term": "Conversational AI",
@@ -335,30 +319,6 @@
       "definition": "A software copy of a real engine, aircraft or facility, updated with measurements so you can track condition or test a plan without touching the real thing."
     },
     {
-      "term": "Drone",
-      "definition": "A small uncrewed aircraft. In maintenance, drones carry cameras over the top of an aircraft so technicians do not need lifts or scaffolding for a visual check."
-    },
-    {
-      "term": "FOD",
-      "definition": "Foreign object debris: loose items such as bolts, stones or packaging on ramps and taxiways that can be sucked into an engine or cut a tire."
-    },
-    {
-      "term": "FSDO",
-      "definition": "Flight Standards District Office, the local FAA office that oversees operators and repair stations and receives compliance reports."
-    },
-    {
-      "term": "Ground station",
-      "definition": "A control position on the ground from which a remote pilot supervises an aircraft that has no pilot on board. Reliable Robotics says that step is at least three years away."
-    },
-    {
-      "term": "Handoff",
-      "definition": "The moment an AI passes a customer to a human agent. A good handoff carries the whole conversation over so the customer does not start again."
-    },
-    {
-      "term": "Interactive slide",
-      "definition": "A presentation slide that viewers can click to filter a chart, expand a step or move along a timeline, instead of a fixed picture."
-    },
-    {
       "term": "Model Context Protocol",
       "definition": "A common way to plug an AI assistant into another system so it can look things up or create a request there under rules that system sets. Often shortened to MCP."
     },
@@ -369,10 +329,6 @@
     {
       "term": "Probabilistic forecasting",
       "definition": "A forecast that gives a range of possible demand with the odds of each, rather than one number. It suits parts that are needed rarely and unpredictably."
-    },
-    {
-      "term": "Proof of concept",
-      "definition": "A short, limited trial in real conditions to check that a technology works and is worth buying before a full rollout."
     },
     {
       "term": "Retrofit autonomy",

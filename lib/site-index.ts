@@ -1,7 +1,7 @@
 import { allIssues, allTools, issueModifiedInstant, toolUpdatedAt } from "@/lib/content";
 import { clampInstant } from "@/lib/dates";
 import { toolTopicKeys } from "@/lib/directory";
-import { segments, topicPagePath } from "@/lib/segments";
+import { segments, toolDirectoryPath, topicPagePath } from "@/lib/segments";
 
 export type IndexPath = {
   path: string;
@@ -26,7 +26,7 @@ export function allIndexPaths(): IndexPath[] {
     paths.push(
       { path: `/${segment.slug}`, sample: false },
       { path: `/${segment.slug}/issues`, sample: false },
-      { path: `/${segment.slug}/tools`, sample: false },
+      { path: toolDirectoryPath(segment), sample: false },
     );
     for (const topic of segment.topics ?? []) {
       paths.push({ path: topicPagePath(segment.slug, topic.key), sample: false });
@@ -94,7 +94,7 @@ export function sitemapEntries(now = new Date()): SitemapEntry[] {
     dates.set(`/${segment.slug}`, newestIssue);
     dates.set(`/${segment.slug}/issues`, newestIssue);
     dates.set(
-      `/${segment.slug}/tools`,
+      toolDirectoryPath(segment),
       latest(
         segmentTools.map((tool) => toolInstant.get(tool.slug + tool.segment) ?? epoch),
         epoch,

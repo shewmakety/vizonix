@@ -78,7 +78,7 @@ describe("tool directory topics", () => {
 
   it("builds shareable chip links, topic pages, and canonical URLs", () => {
     const chips = directoryChips("aviation", topics, tools, "query");
-    expect(chips.find((chip) => chip.key === "all")?.href).toBe("/aviation/tools");
+    expect(chips.find((chip) => chip.key === "all")?.href).toBe("/aviation/toolbox");
     expect(chips.find((chip) => chip.key === "predictive-maintenance")).toMatchObject({
       label: "Predictive Maintenance",
       count: 11,
@@ -106,8 +106,8 @@ describe("tool directory topics", () => {
     expect(directoryCanonical(aviation, "predictive-maintenance")).toBe(
       "/aviation/tools/topic/predictive-maintenance",
     );
-    expect(directoryCanonical(aviation, "other")).toBe("/aviation/tools");
-    expect(directoryCanonical(aviation, undefined)).toBe("/aviation/tools");
+    expect(directoryCanonical(aviation, "other")).toBe("/aviation/toolbox");
+    expect(directoryCanonical(aviation, undefined)).toBe("/aviation/toolbox");
     const topic = topics.find((item) => item.key === "predictive-maintenance");
     expect(topic).toBeTruthy();
     if (!topic) return;

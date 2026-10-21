@@ -92,10 +92,12 @@ describe("welcome email on confirm", () => {
       "Boeing launches Dataliner, an AI platform that looks across the whole fleet instead of one tail at a time",
     );
     expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-10-21");
-    expect(payload.html).toContain("https://vizonix.com/aviation/tools");
-    expect(payload.html).toContain("Tool Directory");
+    expect(payload.html).toContain("https://vizonix.com/aviation/toolbox?src=email");
+    expect(payload.html).toContain("The Vizonix Toolbox");
+    expect(payload.html).toContain("Open the Toolbox");
+    expect(payload.html).not.toContain("Visit the Toolbox");
     expect(payload.html).toContain("Read on the web");
-    expect(payload.text).toContain("Tool Directory: https://vizonix.com/aviation/tools");
+    expect(payload.text).toContain("Open the Toolbox: https://vizonix.com/aviation/toolbox?src=email");
     expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-21");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
     expect(payload.html).toContain("Manage your topics");

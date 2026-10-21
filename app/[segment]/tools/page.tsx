@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Crumbs } from "@/components/Crumbs";
 import { DirectoryBrowser } from "@/components/DirectoryBrowser";
 import { JsonLd } from "@/components/JsonLd";
@@ -43,6 +43,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 
 export default async function ToolsPage({ params, searchParams }: Props) {
   const { segment: slug } = await params;
+  if (slug === "aviation") permanentRedirect("/aviation/toolbox");
   const query = await searchParams;
   const segment = getSegment(slug);
   if (!segment || segment.status === "planned") notFound();

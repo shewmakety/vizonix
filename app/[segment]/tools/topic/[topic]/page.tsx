@@ -13,6 +13,8 @@ import {
   getSegment,
   getSegmentTopic,
   segments,
+  toolDirectoryLabel,
+  toolDirectoryPath,
   topicPageDescription,
   topicPageHeading,
   topicPagePath,
@@ -63,7 +65,7 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
   const crumbs = [
     { name: "Vizonix", path: "/" },
     { name: segment.name, path: `/${segment.slug}` },
-    { name: "Tool directory", path: `/${segment.slug}/tools` },
+    { name: toolDirectoryLabel(segment), path: toolDirectoryPath(segment) },
     { name: topic.label, path },
   ];
 
@@ -74,7 +76,7 @@ export default async function TopicToolsPage({ params, searchParams }: Props) {
           items={[
             { name: "Vizonix", href: "/" },
             { name: segment.name, href: `/${segment.slug}` },
-            { name: "Tool directory", href: `/${segment.slug}/tools` },
+            { name: toolDirectoryLabel(segment), href: toolDirectoryPath(segment) },
             { name: topic.label },
           ]}
         />
