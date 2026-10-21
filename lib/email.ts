@@ -512,6 +512,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   <title>${escapeHtml(issue.subject)}</title>
   <style>
     @media only screen and (max-width: 620px) {
+      .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
     }
   </style>
@@ -522,7 +523,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     ${emailMastheadGap()}
     <tr>
       <td align="center" style="background:#f3f4f6;">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#f3f4f6;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="vz-wrap" style="width:600px;max-width:600px;table-layout:fixed;word-break:break-word;background:#f3f4f6;">
           ${issueHeaderHtml(issue.subject, issueHeaderLine(issue))}
           ${forwardEmailHtml(issue)}
           ${linkRow}

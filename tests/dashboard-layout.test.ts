@@ -37,7 +37,8 @@ describe("Option B scannable dashboard", () => {
     expect(forwardIssueUrl(issue)).toContain("?src=forward");
 
     expect(email).toContain('width="600"');
-    expect(email).toContain("max-width:100%");
+    expect(email).toContain("max-width:600px");
+    expect(email).toContain(".vz-wrap { width: 100% !important; max-width: 100% !important; }");
     expect(email).not.toContain('width="50%"');
     expect(email).toContain(".vz-stack");
     expect(email).toContain('height="32"');

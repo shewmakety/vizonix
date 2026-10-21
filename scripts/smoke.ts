@@ -1,7 +1,8 @@
 import { spawn, type ChildProcess } from "child_process";
 import fs from "fs";
 import path from "path";
-import { latestPublishedIssue } from "../lib/content";
+import { getIssue, latestPublishedIssue } from "../lib/content";
+import { issueHeaderLine } from "../lib/issue-present";
 import { checkLinks } from "./check-links";
 
 /** Match React text escaping so a subject with & or < still matches the page. */
@@ -235,14 +236,16 @@ async function main() {
     }
     // The issue date is the dateline under the title. Ramp bylines keep each post's own day,
     // including Monday, October 19, 2026, so that string on the page is not a shifted issue date.
-    if (!tuesdayIssue.includes('class="issue-dateline">Aviation - Tuesday, October 20, 2026')) {
+    const tuesdayDateline = `class="issue-dateline">${issueHeaderLine(getIssue("aviation", "2026-10-20")!).replaceAll("&", "&amp;")}`;
+    if (!tuesdayIssue.includes(tuesdayDateline) || !tuesdayDateline.includes("Tuesday, October 20, 2026")) {
       throw new Error("The October 20 issue date did not stay on Tuesday, October 20, 2026.");
     }
     const wednesdayIssue = await fetch(`${base}/aviation/issues/2026-10-21`).then((response) => response.text());
     if (wednesdayIssue.includes("noindex")) {
       throw new Error("The October 21 aviation issue is marked noindex.");
     }
-    if (!wednesdayIssue.includes('class="issue-dateline">Aviation - Wednesday, October 21, 2026')) {
+    const wednesdayDateline = `class="issue-dateline">${issueHeaderLine(getIssue("aviation", "2026-10-21")!).replaceAll("&", "&amp;")}`;
+    if (!wednesdayIssue.includes(wednesdayDateline) || !wednesdayDateline.includes("Wednesday, October 21, 2026")) {
       throw new Error("The October 21 issue date did not stay on Wednesday, October 21, 2026.");
     }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
