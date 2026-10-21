@@ -62,7 +62,7 @@ describe("Option B scannable dashboard", () => {
     expect(email.indexOf("background:#f4f1ea")).toBeLessThan(email.indexOf("background:#13233b"));
     expect(email.indexOf("What We Do")).toBeLessThan(email.indexOf("Get the next issue"));
     expect(email.indexOf("Get the next issue")).toBeLessThan(email.indexOf(">01</td>"));
-    expect(email.indexOf(">AI Productivity Tools</td>")).toBeLessThan(email.indexOf(">The Ramp</td>"));
+    expect(email.indexOf(`>${productivitySectionTopic}</td>`)).toBeLessThan(email.indexOf(">The Ramp</td>"));
     expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
     expect(text.indexOf(issue.lead.title)).toBeLessThan(text.indexOf("GET THE NEXT ISSUE"));
     expect(text.indexOf("GET THE NEXT ISSUE")).toBeLessThan(text.indexOf("RECRUITING"));

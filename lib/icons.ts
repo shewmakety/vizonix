@@ -18,6 +18,7 @@ export const sectionIconFiles: Record<string, string> = {
   Warehousing: "warehousing",
   "AOG support": "aog",
   "AI Productivity Tools": "ai-tools",
+  "General AI Productivity Tools": "ai-tools",
   "The Ramp": "the-ramp",
   "Top story": "top-story",
   Playbook: "playbook",

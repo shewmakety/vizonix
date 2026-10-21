@@ -64,7 +64,7 @@ export function PreferencesForm({
       <SectionChoices segment={segment} excluded={excluded} />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
-          {status.kind === "working" ? "Saving" : "Save topics"}
+          {status.kind === "working" ? "Saving" : "Update My Preferences"}
         </button>
       </div>
       {status.kind === "error" ? <p className="form-error">{status.message}</p> : null}

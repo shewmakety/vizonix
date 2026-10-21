@@ -22,7 +22,7 @@ describe("issue section headings", () => {
       ["05", "troubleshooting-support", "Troubleshooting support"],
       ["06", "warehousing", "Warehousing"],
       ["07", "aog-support-parts-rotables-and-technicians", "AOG support: parts, rotables and technicians"],
-      ["08", "ai-productivity-tools", productivitySectionTopic],
+      ["08", "general-ai-productivity-tools", productivitySectionTopic],
     ] as const;
     for (const [number, id, topic] of topics) {
       expect(html).toContain(`id="${id}"`);

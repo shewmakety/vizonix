@@ -12,11 +12,15 @@ export function SignupForm({
   defaultSegment = featuredSegment().slug,
   showSegment = true,
   heading = "Get the briefing",
+  submitLabel = "Send confirmation",
+  pendingLabel = "Sending",
   source,
 }: {
   defaultSegment?: string;
   showSegment?: boolean;
   heading?: string;
+  submitLabel?: string;
+  pendingLabel?: string;
   source?: string;
 }) {
   const remembered = useRememberedSlug();
@@ -102,7 +106,7 @@ export function SignupForm({
       </div>
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
-          {status.kind === "working" ? "Sending" : "Send confirmation"}
+          {status.kind === "working" ? pendingLabel : submitLabel}
         </button>
       </div>
       {status.kind === "error" ? <p className="form-error">{status.message}</p> : null}

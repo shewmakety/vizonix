@@ -38,9 +38,11 @@ export function forwardMailto(issue: Pick<Issue, "segment" | "date" | "subject">
   return `mailto:?subject=${encodeURIComponent(issue.subject)}&body=${encodeURIComponent(forwardIssueUrl(issue))}`;
 }
 
-/** Gold line under the issue title: wordmark, then the calendar date. */
+/** Gold line under the issue title. The site masthead keeps the shorter edition name. */
 export function issueHeaderLine(issue: Pick<Issue, "segment" | "date">): string {
   const segment = getSegment(issue.segment);
   const edition = segment ? segmentDisplayName(segment) : issue.segment;
-  return `${sectionWordmark(edition)} · ${formatIssueDate(issue)}`;
+  const lineEdition =
+    edition === "AI & Robotics News For Aviation" ? `Customizable ${edition}` : edition;
+  return `${sectionWordmark(lineEdition)} · ${formatIssueDate(issue)}`;
 }

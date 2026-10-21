@@ -88,7 +88,7 @@ const issueSectionSchema = z.object({
 export type IssueSection = z.infer<typeof issueSectionSchema>;
 
 /** Last section on a sectioned issue, after the industry topics. */
-export const productivitySectionTopic = "AI Productivity Tools";
+export const productivitySectionTopic = "General AI Productivity Tools";
 
 const rampStatusUrl = z
   .string()

@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { Crumbs } from "@/components/Crumbs";
 import { SignupForm } from "@/components/SignupForm";
 import { WhatWeDo } from "@/components/WhatWeDo";
-import { formatIsoDay, formatIssueDate } from "@/lib/dates";
+import { formatIsoDay } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl } from "@/lib/icons";
@@ -25,8 +24,8 @@ import {
   type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
-import { getSegment, segmentDisplayName } from "@/lib/segments";
-import { editor, sectionWordmark, site } from "@/lib/site";
+import { getSegment } from "@/lib/segments";
+import { editor, site } from "@/lib/site";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
@@ -207,22 +206,12 @@ function ForwardLink({ issue }: { issue: Issue }) {
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
-  const editionName = segment ? segmentDisplayName(segment) : issue.segment;
-  const publishedLabel = formatIssueDate(issue);
   const sections = issueSections(issue);
   const mailto = forwardMailto(issue);
   return (
     <article className="dashboard">
       <header className="issue-masthead">
         <div className="wrap dashboard-wrap">
-          <Crumbs
-            items={[
-              { name: sectionWordmark(editionName), href: "/" },
-              { name: sectionName, href: `/${issue.segment}` },
-              { name: "Issues", href: `/${issue.segment}/issues` },
-              { name: publishedLabel },
-            ]}
-          />
           <h1 className="issue-title">{issue.subject}</h1>
           <p className="issue-dateline">{issueHeaderLine(issue)}</p>
           <p className="issue-share">
@@ -276,7 +265,13 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <div className="dash-side">
             <WhatWeDo />
             <aside className="side-card dashboard-signup">
-              <SignupForm defaultSegment={issue.segment} showSegment={false} heading="Get the next issue" />
+              <SignupForm
+                defaultSegment={issue.segment}
+                showSegment={false}
+                heading="Get the next issue"
+                submitLabel="Update My Preferences"
+                pendingLabel="Saving"
+              />
               <p className="meta" style={{ marginTop: "1rem" }}>
                 <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
               </p>

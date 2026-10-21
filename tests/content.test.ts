@@ -4,6 +4,7 @@ import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
+import { issueHeaderLine } from "@/lib/issue-present";
 import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
@@ -67,7 +68,7 @@ describe("segment config and sample content", () => {
       "Boeing brings AI to fleet-wide maintenance data. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
-    expect(issues[0].sections?.at(-1)?.topic).toBe("AI Productivity Tools");
+    expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
       "linkapilot",
       "zingly-voice-ai",
@@ -93,7 +94,7 @@ describe("segment config and sample content", () => {
     expect(first?.sponsors.classified).toBeNull();
     expect(first?.subject).toBe("AI moves into the hangar, plus 7 places to put it to work");
     expect(first?.sections).toHaveLength(8);
-    expect(first?.sections?.at(-1)?.topic).toBe("AI Productivity Tools");
+    expect(first?.sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(first?.sections?.some((section) => section.coverageNote)).toBe(true);
     expect(issueTools(first!)).toHaveLength(15);
     expect(issueTools(first!).map((tool) => tool.slug)).toContain("airvoyant");
@@ -163,7 +164,10 @@ describe("segment config and sample content", () => {
     expect(html).toContain("Read on the web");
     expect(html).toContain(`href="${issueUrl}"`);
     const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
-    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("Tool Directory"));
+    const dateline = issueHeaderLine(aviation);
+    expect(dateline.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
+    expect(html.indexOf(escapeHtml(dateline))).toBeGreaterThan(-1);
+    expect(html.indexOf(escapeHtml(dateline))).toBeLessThan(html.indexOf("Tool Directory"));
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(html.indexOf("Tool Directory")).toBeLessThan(html.indexOf(aviation.lead.title));
     expect(text).toContain(`Tool Directory: ${directory}`);
@@ -173,9 +177,9 @@ describe("segment config and sample content", () => {
     expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
     expect(html.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
-      html.indexOf(">AI Productivity Tools</td>"),
+      html.indexOf(">General AI Productivity Tools</td>"),
     );
-    expect(html.indexOf(">AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
     expect(html).toContain("https://copilot.microsoft.com/");
     expect(html).toContain("https://otter.ai/");
     expect(html).toContain("https://www.notion.com/product/ai");

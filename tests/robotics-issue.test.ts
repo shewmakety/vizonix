@@ -23,7 +23,7 @@ describe("October 20 robotics notes", () => {
     const withRobotics = sections.slice(0, 7);
     expect(withRobotics.every((section) => section.robotics)).toBe(true);
     expect(sections[7]?.robotics).toBeUndefined();
-    expect(sections[7]?.topic).toBe("AI Productivity Tools");
+    expect(sections[7]?.topic).toBe("General AI Productivity Tools");
 
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     const email = renderIssueEmail(issue, { mode: "broadcast" });

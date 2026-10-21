@@ -7,8 +7,18 @@ export const optionalSections = [
   "Troubleshooting support",
   "Warehousing",
   "AOG support: parts, rotables and technicians",
-  "AI Productivity Tools",
+  "General AI Productivity Tools",
 ] as const;
+
+/** Names already stored on reader rows. They map onto the current topic. */
+const legacySectionNames: Record<string, OptionalSection> = {
+  "AI Productivity Tools": "General AI Productivity Tools",
+};
+
+function canonicalSection(value: string): string {
+  const trimmed = value.trim();
+  return legacySectionNames[trimmed] ?? trimmed;
+}
 
 export type OptionalSection = (typeof optionalSections)[number];
 
@@ -30,12 +40,12 @@ export function cleanSource(value: unknown): string | undefined {
   return cleaned || undefined;
 }
 
-/** Catalog order, unknown names dropped, duplicates removed. */
+/** Catalog order, unknown names dropped, duplicates removed. Old stored names map to the current topic. */
 export function normalizeExcluded(values: readonly string[]): OptionalSection[] {
   const picked = new Set<string>();
   for (const value of values) {
-    const trimmed = value.trim();
-    if (allowed.has(trimmed)) picked.add(trimmed);
+    const name = canonicalSection(value);
+    if (allowed.has(name)) picked.add(name);
   }
   return optionalSections.filter((section) => picked.has(section));
 }
@@ -44,9 +54,9 @@ export function parseExcluded(
   values: readonly string[],
 ): { ok: true; excluded: OptionalSection[] } | { ok: false; error: string } {
   for (const value of values) {
-    const trimmed = value.trim();
-    if (!trimmed) continue;
-    if (!allowed.has(trimmed)) return { ok: false, error: "Unknown topic." };
+    const name = canonicalSection(value);
+    if (!name) continue;
+    if (!allowed.has(name)) return { ok: false, error: "Unknown topic." };
   }
   return { ok: true, excluded: normalizeExcluded(values) };
 }
