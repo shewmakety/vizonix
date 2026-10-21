@@ -979,7 +979,7 @@ dl.facts dt { color: var(--muted); }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  align-items: end;
+  align-items: flex-end;
   margin: 0 0 16px;
 }
 .toolbox-search label {
