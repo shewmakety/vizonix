@@ -169,13 +169,13 @@ describe("segment config and sample content", () => {
     expect(text).toContain(`Tool Directory: ${directory}`);
     expect(text).toContain(`Read on the web: ${issueUrl}`);
     expect(text.indexOf("Tool Directory:")).toBeLessThan(text.indexOf(aviation.lead.title));
-    expect(html).toContain("Why it can make you money.");
+    expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
-    expect(html.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
-      html.indexOf("AI Productivity Tools"),
+    expect(html.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+      html.indexOf(">AI Productivity Tools</td>"),
     );
-    expect(html.indexOf("AI Productivity Tools")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html.indexOf(">AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
     expect(html).toContain("https://copilot.microsoft.com/");
     expect(html).toContain("https://otter.ai/");
     expect(html).toContain("https://www.notion.com/product/ai");
@@ -197,7 +197,7 @@ describe("segment config and sample content", () => {
     expect(otherHtml).toContain(`href="${absoluteUrl("/field-service/tools")}"`);
     expect(otherText).toContain(`Tool Directory: ${absoluteUrl("/field-service/tools")}`);
     expect(otherText).toContain(absoluteUrl("/field-service/unsubscribe"));
-    expect(otherHtml).toContain("Why it matters.");
+    expect(otherHtml).toContain("$ Why it pays:");
     expect(otherHtml).not.toContain("Why it can make you money.");
     expect(otherHtml).not.toContain("Why it can make the operation money.");
   });

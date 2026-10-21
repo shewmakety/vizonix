@@ -42,10 +42,10 @@ export default async function IssuePage({ params }: Props) {
 
   return (
     <>
-      <section className="hero">
-        <div className="wrap issue-layout">
-          <IssueBody issue={issue} />
-          <aside className="side-card">
+      <section className="hero dashboard-hero">
+        <IssueBody issue={issue} />
+        <div className="wrap dashboard-wrap">
+          <aside className="side-card dashboard-signup">
             <SignupForm defaultSegment={segment.slug} showSegment={false} heading="Get the next issue" />
             <p className="meta" style={{ marginTop: "1rem" }}>
               <Link href={`/${segment.slug}/issues`}>All {segment.name} issues</Link>

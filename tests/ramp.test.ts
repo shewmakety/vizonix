@@ -68,7 +68,7 @@ describe("The Ramp", () => {
 
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: withRamp(issue) }));
     expect(html.indexOf(issue.lead.title)).toBeLessThan(html.indexOf("The Ramp"));
-    expect(html.indexOf("The Ramp")).toBeLessThan(html.indexOf(">01<"));
+    expect(html.indexOf("The Ramp")).toBeLessThan(html.indexOf('aria-hidden="true">01<'));
     expect(html).toContain('class="ramp-heading"');
     expect(html).not.toContain('class="section-number" aria-hidden="true">00');
     expect(html).toContain('class="ramp-quote"');
@@ -82,13 +82,13 @@ describe("The Ramp", () => {
     expect(html).not.toContain("platform.twitter.com");
 
     expect(html).toContain(
-      `class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg" alt="" width="40" height="40"`,
+      `class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg" alt="" width="24" height="24"`,
     );
     const email = renderIssueEmail(withRamp(issue), { mode: "test" });
     expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf("The Ramp"));
-    expect(email.indexOf("The Ramp")).toBeLessThan(email.indexOf(">01<"));
+    expect(email.indexOf("The Ramp")).toBeLessThan(email.indexOf(">01</td>"));
     expect(email).toContain(
-      `src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="34" height="34"`,
+      `src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="24" height="24"`,
     );
     expect(email).toContain("View on X");
     expect(email).toContain("font-style:italic");
@@ -108,11 +108,11 @@ describe("The Ramp", () => {
     const email = renderIssueEmail(issue, { mode: "broadcast" });
     const text = renderIssueText(issue, { mode: "test" });
     expect(html.indexOf(issue.lead.title)).toBeLessThan(html.indexOf("The Ramp"));
-    expect(html.indexOf("The Ramp")).toBeLessThan(html.indexOf(">01<"));
+    expect(html.indexOf("The Ramp")).toBeLessThan(html.indexOf('aria-hidden="true">01<'));
     expect(html).toContain(`class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg"`);
-    expect(email).toContain(`src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="34" height="34"`);
+    expect(email).toContain(`src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="24" height="24"`);
     expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf("The Ramp"));
-    expect(email.indexOf("The Ramp")).toBeLessThan(email.indexOf(">01<"));
+    expect(email.indexOf("The Ramp")).toBeLessThan(email.indexOf(">01</td>"));
     expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("RECRUITING"));
     expect(html).not.toContain("Synergix");
     expect(email).not.toContain("Synergix");
@@ -143,7 +143,7 @@ describe("The Ramp", () => {
     expect(html).not.toContain(sectionIconBaseUrl);
 
     const email = renderIssueEmail(issue, { mode: "test" });
-    expect(email).toContain('src="https://cdn.example.com/icons/recruiting@2x.png" alt="Recruiting" width="34" height="34"');
+    expect(email).toContain('src="https://cdn.example.com/icons/recruiting@2x.png" alt="Recruiting" width="28" height="28"');
     expect(email).not.toContain(sectionIconBaseUrl);
   });
 });

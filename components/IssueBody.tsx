@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { Crumbs } from "@/components/Crumbs";
 import { WhatWeDo } from "@/components/WhatWeDo";
-import { formatIsoDay, formatIssueDate, issueDateline } from "@/lib/dates";
+import { formatIsoDay, formatIssueDate } from "@/lib/dates";
 import { resolveSlot, type SlotName } from "@/lib/email";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl } from "@/lib/icons";
+import {
+  chipLabel,
+  forwardMailto,
+  issueHeaderLine,
+  sectionAnchor,
+  whyItPaysLabel,
+} from "@/lib/issue-present";
 import {
   issueSections,
   productivitySectionTopic,
@@ -12,51 +19,87 @@ import {
   sortedGlossary,
   type Issue,
   type IssueSectionView,
+  type IssueTool,
   type Ramp,
   type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
-import { editor, sectionWordmark } from "@/lib/site";
+import { editor, sectionWordmark, site } from "@/lib/site";
 
-function SectionIcon({ topic, size = 40 }: { topic: string | undefined; size?: number }) {
+function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
   if (!src) return null;
-  return <img className="section-icon" src={src} alt="" width={size} height={size} />;
+  return (
+    <img
+      className="section-icon"
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      style={{ width: size, height: size }}
+    />
+  );
 }
 
-function sectionAnchor(topic: string): string {
-  const slug = topic
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return slug || "section";
+function WhyPays({ text }: { text: string }) {
+  return (
+    <p className="why-pays">
+      <strong>{whyItPaysLabel}:</strong> {text}
+    </p>
+  );
 }
 
-function ToolSection({
-  section,
-  payoff,
-  index,
-}: {
-  section: IssueSectionView;
-  payoff: string;
-  index: number;
-}) {
+function ToolTile({ tool }: { tool: IssueTool }) {
+  return (
+    <article className="dash-tile">
+      <span className="dash-tag">AI tool</span>
+      <h3>
+        <Link href={publicHref(tool.url)}>{tool.name}</Link>
+        {tool.company ? <span className="tile-company"> - {tool.company}</span> : null}
+      </h3>
+      <p>{tool.summary}</p>
+      <WhyPays text={tool.whyItMatters} />
+      <p className="meta">{tool.pricing}</p>
+      {tool.sourceUrl ? (
+        <p className="meta">
+          Source: <a href={publicHref(tool.sourceUrl)}>{tool.sourceUrl}</a>
+        </p>
+      ) : null}
+    </article>
+  );
+}
+
+function RoboticsTile({ item }: { item: RoboticsItem }) {
+  return (
+    <article className="dash-tile">
+      <span className="dash-tag robotics-label">Robotics</span>
+      <h3>{item.headline}</h3>
+      <p>{item.summary}</p>
+      <WhyPays text={item.whyItMatters} />
+      <p className="meta">
+        Source: <a href={publicHref(item.sourceUrl)}>{item.sourceName}</a>
+      </p>
+    </article>
+  );
+}
+
+function ToolSection({ section, index }: { section: IssueSectionView; index: number }) {
   const topic = section.topic ?? "Tool Highlights";
   const number = String(index + 1).padStart(2, "0");
   const productivity = topic === productivitySectionTopic;
   return (
-    <section className={productivity ? "issue-section productivity" : "issue-section"}>
-      <h2 className="section-heading" id={sectionAnchor(topic)}>
-        <SectionIcon topic={topic} size={productivity ? 48 : 40} />
+    <section className={productivity ? "issue-section productivity" : "issue-section"} id={sectionAnchor(topic)}>
+      <h2 className="section-heading">
         <span className="section-number" aria-hidden="true">
           {number}
         </span>
+        <SectionIcon topic={topic} size={productivity ? 36 : 28} />
         <span className="section-title">{topic}</span>
       </h2>
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
       {section.intro ? (
-        <p>
+        <p className="section-intro">
           {section.intro}
           {section.introSourceUrl ? (
             <>
@@ -66,44 +109,13 @@ function ToolSection({
           ) : null}
         </p>
       ) : null}
-      {section.robotics ? <RoboticsItemView item={section.robotics} payoff={payoff} /> : null}
-      <ul className="tool-list">
+      <div className="dash-grid">
+        {section.robotics ? <RoboticsTile item={section.robotics} /> : null}
         {section.tools.map((tool) => (
-          <li key={tool.slug}>
-            <h3>
-              <Link href={publicHref(tool.url)}>{tool.name}</Link>
-            </h3>
-            {tool.company ? <p className="meta">{tool.company}</p> : null}
-            <p>{tool.summary}</p>
-            <p>
-              <strong>{payoff}.</strong> {tool.whyItMatters}
-            </p>
-            <p className="meta">{tool.pricing}</p>
-            {tool.sourceUrl ? (
-              <p className="meta">
-                Source: <a href={publicHref(tool.sourceUrl)}>{tool.sourceUrl}</a>
-              </p>
-            ) : null}
-          </li>
+          <ToolTile key={tool.slug} tool={tool} />
         ))}
-      </ul>
+      </div>
     </section>
-  );
-}
-
-function RoboticsItemView({ item, payoff }: { item: RoboticsItem; payoff: string }) {
-  return (
-    <aside className="robotics-item">
-      <p className="robotics-label">Robotics</p>
-      <h3>{item.headline}</h3>
-      <p>{item.summary}</p>
-      <p>
-        <strong>{payoff}.</strong> {item.whyItMatters}
-      </p>
-      <p className="meta">
-        Source: <a href={publicHref(item.sourceUrl)}>{item.sourceName}</a>
-      </p>
-    </aside>
   );
 }
 
@@ -111,18 +123,20 @@ function RampView({ ramp }: { ramp: Ramp }) {
   return (
     <section className="ramp">
       <h2 className="ramp-heading">
-        <SectionIcon topic="The Ramp" />
+        <SectionIcon topic="The Ramp" size={24} />
         <span>The Ramp</span>
       </h2>
-      {ramp.intro ? <p>{ramp.intro}</p> : null}
+      {ramp.intro ? <p className="ramp-intro">{ramp.intro}</p> : null}
       {ramp.posts.map((post) => (
         <article className="ramp-card" key={post.url}>
-          <blockquote className="ramp-quote">{post.text}</blockquote>
           <p className="ramp-byline">
-            {post.author} <span>{rampHandle(post.handle)}</span>{" "}
-            <span className="meta">{formatIsoDay(post.postedAt)}</span>
+            <span>{rampHandle(post.handle)}</span>
+            {post.note ? <> {post.note}</> : null}
           </p>
-          {post.note ? <p className="meta">{post.note}</p> : null}
+          <blockquote className="ramp-quote">{post.text}</blockquote>
+          <p className="meta">
+            {post.author} <span className="meta">{formatIsoDay(post.postedAt)}</span>
+          </p>
           <p className="ramp-link">
             <a href={publicHref(post.url)}>View on X</a>
           </p>
@@ -138,14 +152,16 @@ function GlossaryView({ issue }: { issue: Issue }) {
   return (
     <section className="glossary">
       <h2 className="glossary-heading">AI Glossary</h2>
-      <dl>
-        {entries.map((entry) => (
-          <div key={entry.term}>
-            <dt className="glossary-term">{entry.term}</dt>
-            <dd className="glossary-definition">{entry.definition}</dd>
-          </div>
-        ))}
-      </dl>
+      <table className="glossary-table">
+        <tbody>
+          {entries.map((entry) => (
+            <tr key={entry.term}>
+              <td className="glossary-term">{entry.term}</td>
+              <td className="glossary-definition">{entry.definition}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }
@@ -164,9 +180,7 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
         </a>
       </p>
       <p>{slot.creative.copy}</p>
-      {slot.creative.sample ? (
-        <p className="meta">Sample sponsor. Not a paid placement.</p>
-      ) : null}
+      {slot.creative.sample ? <p className="meta">Sample sponsor. Not a paid placement.</p> : null}
       <p className="slot-actions">
         <a href={publicHref(slot.creative.ctaUrl)} rel={slot.house ? undefined : "sponsored"}>
           {slot.creative.cta}
@@ -181,93 +195,129 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
   );
 }
 
+function ForwardLink({ issue }: { issue: Issue }) {
+  return (
+    <p className="issue-share">
+      <a href={forwardMailto(issue)}>Forward this</a>
+    </p>
+  );
+}
+
 export function IssueBody({ issue }: { issue: Issue }) {
   const segment = getSegment(issue.segment);
   const sectionName = segment?.name ?? issue.segment;
   const editionName = segment ? segmentDisplayName(segment) : issue.segment;
-  const payoff = segment?.payoffLabel ?? "Why it matters";
   const publishedLabel = formatIssueDate(issue);
+  const sections = issueSections(issue);
+  const mailto = forwardMailto(issue);
   return (
-    <article>
-      <Crumbs
-        items={[
-          { name: sectionWordmark(editionName), href: "/" },
-          { name: sectionName, href: `/${issue.segment}` },
-          { name: "Issues", href: `/${issue.segment}/issues` },
-          { name: publishedLabel },
-        ]}
-      />
-      <h1 className="issue-title">{issue.subject}</h1>
-      <p className="issue-dateline">{issueDateline(sectionName, issue)}</p>
-      <WhatWeDo />
-      {issue.sample ? (
-        <p className="notice">
-          <strong>Sample issue.</strong> The tools and sponsor below are fictional placeholders so the
-          format can be reviewed. They are not endorsements and not paid placements.
-        </p>
-      ) : null}
-      <p className="meta">
-        <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
-      </p>
-      <p className="lede">{issue.preheader}</p>
-      <SlotView name="primary" creative={issue.sponsors.primary} />
-      <section>
-        <p className="kicker">{issue.lead.kicker}</p>
-        <div className="headed">
-          <SectionIcon topic={issue.lead.kicker} />
-          <h2>{issue.lead.title}</h2>
+    <article className="dashboard">
+      <header className="issue-masthead">
+        <div className="wrap dashboard-wrap">
+          <Crumbs
+            items={[
+              { name: sectionWordmark(editionName), href: "/" },
+              { name: sectionName, href: `/${issue.segment}` },
+              { name: "Issues", href: `/${issue.segment}/issues` },
+              { name: publishedLabel },
+            ]}
+          />
+          <h1 className="issue-title">{issue.subject}</h1>
+          <p className="issue-dateline">{issueHeaderLine(issue)}</p>
+          <p className="issue-share">
+            <a href={mailto}>Forward this</a>
+          </p>
         </div>
-        <p>{issue.lead.summary}</p>
-        <p>
-          <strong>{payoff}.</strong> {issue.lead.whyItMatters}
-        </p>
-        <p className="meta">
-          Source: <a href={publicHref(issue.lead.sourceUrl)}>{issue.lead.sourceName}</a>
-        </p>
-        {issue.lead.productUrl ? (
-          <p className="meta">
-            Product: <a href={publicHref(issue.lead.productUrl)}>{issue.lead.productUrl}</a>
+      </header>
+      <div className="wrap dashboard-wrap dashboard-body">
+        {issue.sample ? (
+          <p className="notice">
+            <strong>Sample issue.</strong> The tools and sponsor below are fictional placeholders so the format
+            can be reviewed. They are not endorsements and not paid placements.
           </p>
         ) : null}
-      </section>
-      {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
-      {issueSections(issue).map((section, index) => (
-        <ToolSection
-          key={section.topic ?? `tools-${index}`}
-          section={section}
-          payoff={payoff}
-          index={index}
-        />
-      ))}
-      <SlotView name="secondary" creative={issue.sponsors.secondary} />
-      <section>
-        <div className="headed">
-          <SectionIcon topic="Playbook" />
-          <h2>{issue.playbook.title}</h2>
+        <p className="jump-label">Jump to</p>
+        <nav className="jump-row" aria-label="Jump to">
+          {sections.map((section, index) => {
+            const topic = section.topic ?? "Tool Highlights";
+            const productivity = topic === productivitySectionTopic;
+            const number = String(index + 1).padStart(2, "0");
+            return (
+              <a
+                key={topic}
+                className={productivity ? "jump-chip productivity" : "jump-chip"}
+                href={`#${sectionAnchor(topic)}`}
+              >
+                <b>{number}</b> {chipLabel(topic)}
+              </a>
+            );
+          })}
+        </nav>
+        <SlotView name="primary" creative={issue.sponsors.primary} />
+        <div className="dash-hero">
+          <section className="top-story">
+            <p className="top-kicker">
+              <SectionIcon topic={issue.lead.kicker} size={28} />
+              <span>{issue.lead.kicker}</span>
+            </p>
+            <h2>{issue.lead.title}</h2>
+            <p>{issue.lead.summary}</p>
+            <WhyPays text={issue.lead.whyItMatters} />
+            <p className="meta">
+              Source: <a href={publicHref(issue.lead.sourceUrl)}>{issue.lead.sourceName}</a>
+            </p>
+            {issue.lead.productUrl ? (
+              <p className="meta">
+                Product: <a href={publicHref(issue.lead.productUrl)}>{issue.lead.productUrl}</a>
+              </p>
+            ) : null}
+          </section>
+          <div className="dash-side">
+            <WhatWeDo />
+            {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
+          </div>
         </div>
-        <p>{issue.playbook.intro}</p>
-        <ol className="steps">
-          {issue.playbook.steps.map((step) => (
-            <li key={step}>{step}</li>
-          ))}
-        </ol>
-      </section>
-      <section>
-        <div className="headed">
-          <SectionIcon topic="Quick links" />
-          <h2>Quick links</h2>
+        {sections.map((section, index) => (
+          <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} />
+        ))}
+        <SlotView name="secondary" creative={issue.sponsors.secondary} />
+        <div className="dash-split">
+          <section className="dash-card">
+            <div className="headed">
+              <SectionIcon topic="Playbook" size={24} />
+              <h2>{issue.playbook.title}</h2>
+            </div>
+            <p>{issue.playbook.intro}</p>
+            <ol className="steps">
+              {issue.playbook.steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </section>
+          <section className="dash-card">
+            <div className="headed">
+              <SectionIcon topic="Quick links" size={24} />
+              <h2>Quick links</h2>
+            </div>
+            <ul className="link-list">
+              {issue.quickLinks.map((link) => (
+                <li key={link.url}>
+                  <a href={publicHref(link.url)}>{link.title}</a>
+                  <span className="meta"> {link.note}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
-        <ul className="link-list">
-          {issue.quickLinks.map((link) => (
-            <li key={link.url}>
-              <a href={publicHref(link.url)}>{link.title}</a>
-              <span className="meta"> {link.note}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <SlotView name="classified" creative={issue.sponsors.classified} />
-      <GlossaryView issue={issue} />
+        <SlotView name="classified" creative={issue.sponsors.classified} />
+        <GlossaryView issue={issue} />
+        <ForwardLink issue={issue} />
+        <p className="meta">
+          <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
+          {" · "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      </div>
     </article>
   );
 }

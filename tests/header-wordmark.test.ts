@@ -68,7 +68,7 @@ describe("header wordmark", () => {
     expect(html).toContain(`>${escapeHtml(wordmark)}</a>`);
     expect(html).toContain(">Aviation</a>");
     expect(email).toContain(
-      `font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${escapeHtml(wordmark)}</p>`,
+      `font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;line-height:1.4;color:#c9b98f;">${escapeHtml(wordmark)}`,
     );
     expect(email).toContain(`the Vizonix ${escapeHtml(edition)} briefing`);
     const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(wordmark)));
@@ -87,7 +87,7 @@ describe("header wordmark", () => {
     const otherHtml = renderToStaticMarkup(createElement(IssueBody, { issue: other }));
     const otherEmail = renderIssueEmail(other, { mode: "test" });
     expect(otherHtml).toContain(`>${otherMark}</a>`);
-    expect(otherEmail).toContain(`>${otherMark}</p>`);
+    expect(otherEmail).toContain(`color:#c9b98f;">${otherMark}`);
     expect(otherEmail).not.toContain(escapeHtml(wordmark));
   });
 });
