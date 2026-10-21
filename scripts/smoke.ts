@@ -178,7 +178,11 @@ async function main() {
       {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ token: "not-a-token", text: "Hangar robots" }),
+        body: JSON.stringify({
+          token: "not-a-token",
+          text: "Hangar robots",
+          turnstileToken: "XXXX.DUMMY.TOKEN.XXXX",
+        }),
       },
       400,
     );
