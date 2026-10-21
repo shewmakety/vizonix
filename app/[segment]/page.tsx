@@ -4,9 +4,13 @@ import { SignupForm } from "@/components/SignupForm";
 import { listIssues, listTools } from "@/lib/content";
 import { formatIssueDate } from "@/lib/dates";
 import { pageMeta } from "@/lib/meta";
+import { cleanSource } from "@/lib/reader-sections";
 import { activeSegments, getSegment, segmentDisplayName } from "@/lib/segments";
 
-type Props = { params: Promise<{ segment: string }> };
+type Props = {
+  params: Promise<{ segment: string }>;
+  searchParams: Promise<{ src?: string }>;
+};
 
 export function generateStaticParams() {
   return activeSegments().map((segment) => ({ segment: segment.slug }));
@@ -26,8 +30,9 @@ export async function generateMetadata({ params }: Props) {
   });
 }
 
-export default async function SegmentPage({ params }: Props) {
+export default async function SegmentPage({ params, searchParams }: Props) {
   const { segment: slug } = await params;
+  const { src } = await searchParams;
   const segment = getSegment(slug);
   if (!segment || segment.status !== "active") notFound();
   const issues = listIssues(segment.slug);
@@ -55,7 +60,12 @@ export default async function SegmentPage({ params }: Props) {
               </Link>
             </div>
           </div>
-          <SignupForm defaultSegment={segment.slug} showSegment={false} heading="Subscribe to Vizonix" />
+          <SignupForm
+            defaultSegment={segment.slug}
+            showSegment={false}
+            heading="Subscribe to Vizonix"
+            source={cleanSource(src)}
+          />
         </div>
       </section>
 

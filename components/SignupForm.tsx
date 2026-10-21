@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SectionChoices } from "@/components/SectionChoices";
 import { useRememberedSlug } from "@/components/useRememberedSlug";
+import { excludedFromFormData } from "@/lib/reader-sections";
 import { activeSegments, featuredSegment, getSegment } from "@/lib/segments";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
@@ -10,10 +12,12 @@ export function SignupForm({
   defaultSegment = featuredSegment().slug,
   showSegment = true,
   heading = "Get the briefing",
+  source,
 }: {
   defaultSegment?: string;
   showSegment?: boolean;
   heading?: string;
+  source?: string;
 }) {
   const remembered = useRememberedSlug();
   const [segment, setSegment] = useState(defaultSegment);
@@ -29,6 +33,9 @@ export function SignupForm({
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    const chosenSegment = String(form.get("segment") ?? segment);
+    const excludedSections = excludedFromFormData(form, chosenSegment);
+    const suggestion = String(form.get("suggestion") ?? "").trim();
     setStatus({ kind: "working", message: "" });
     const response = await fetch("/api/subscribe", {
       method: "POST",
@@ -36,8 +43,11 @@ export function SignupForm({
       body: JSON.stringify({
         email: form.get("email"),
         firstName: form.get("firstName"),
-        segment: form.get("segment"),
+        segment: chosenSegment,
         company_website: form.get("company_website"),
+        ...(excludedSections !== undefined ? { excludedSections } : {}),
+        ...(suggestion ? { suggestion } : {}),
+        ...(source ? { source } : {}),
       }),
     });
     const body = (await response.json()) as { error?: string; message?: string; status?: string };
@@ -85,6 +95,7 @@ export function SignupForm({
       ) : (
         <input type="hidden" name="segment" value={defaultSegment} />
       )}
+      <SectionChoices key={segment} segment={segment} />
       <div className="hp" aria-hidden="true">
         <label htmlFor="company_website">Company website</label>
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />

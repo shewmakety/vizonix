@@ -693,6 +693,16 @@ dl.facts dt { color: var(--muted); }
   margin: 0.75rem 0 0;
   font-size: 0.92rem;
 }
+.topic-picker {
+  border: 0;
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+.topic-picker legend {
+  font-weight: 650;
+  font-size: 0.92rem;
+  padding: 0;
+}
 .mock-cta {
   display: inline-block;
   margin: 0.45rem 0.4rem 0 0;

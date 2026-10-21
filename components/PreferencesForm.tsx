@@ -1,0 +1,74 @@
+"use client";
+
+import { useState } from "react";
+import { SectionChoices } from "@/components/SectionChoices";
+import { excludedFromFormData } from "@/lib/reader-sections";
+
+type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
+
+export function PreferencesForm({
+  token,
+  segment,
+  excluded,
+}: {
+  token: string;
+  segment: string;
+  excluded: string[];
+}) {
+  const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const excludedSections = excludedFromFormData(form, segment) ?? [];
+    const suggestion = String(form.get("suggestion") ?? "").trim();
+    setStatus({ kind: "working", message: "" });
+
+    const saved = await fetch("/api/preferences", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ token, excludedSections }),
+    });
+    const savedBody = (await saved.json()) as { error?: string; message?: string };
+    if (!saved.ok) {
+      setStatus({ kind: "error", message: savedBody.error || "Could not save those topics." });
+      return;
+    }
+
+    if (!suggestion) {
+      setStatus({ kind: "ok", message: savedBody.message || "Topics saved." });
+      return;
+    }
+
+    const suggested = await fetch("/api/suggest", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ token, text: suggestion, source: "preferences" }),
+    });
+    const suggestedBody = (await suggested.json()) as { error?: string };
+    if (!suggested.ok) {
+      setStatus({
+        kind: "error",
+        message: `Topics saved. The suggestion was not sent. ${suggestedBody.error || "Try it again."}`,
+      });
+      return;
+    }
+    setStatus({ kind: "ok", message: "Topics saved, and the suggestion was sent." });
+    const field = event.currentTarget.elements.namedItem("suggestion");
+    if (field instanceof HTMLTextAreaElement) field.value = "";
+  }
+
+  return (
+    <form className="form-card" onSubmit={onSubmit}>
+      <h2>Your topics</h2>
+      <SectionChoices segment={segment} excluded={excluded} />
+      <div className="actions">
+        <button className="button" type="submit" disabled={status.kind === "working"}>
+          {status.kind === "working" ? "Saving" : "Save topics"}
+        </button>
+      </div>
+      {status.kind === "error" ? <p className="form-error">{status.message}</p> : null}
+      {status.kind === "ok" ? <p className="form-ok">{status.message}</p> : null}
+    </form>
+  );
+}

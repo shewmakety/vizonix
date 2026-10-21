@@ -9,6 +9,9 @@ export async function POST(request: Request) {
     segment?: string;
     firstName?: string;
     company_website?: string;
+    excludedSections?: unknown;
+    suggestion?: unknown;
+    source?: unknown;
   };
   try {
     body = (await request.json()) as typeof body;
@@ -21,6 +24,9 @@ export async function POST(request: Request) {
     segment: body.segment,
     firstName: body.firstName,
     honeypot: body.company_website,
+    excludedSections: body.excludedSections,
+    suggestion: body.suggestion,
+    source: body.source,
   });
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: result.status });

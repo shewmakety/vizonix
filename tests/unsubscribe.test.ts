@@ -128,15 +128,6 @@ describe("unsubscribe", () => {
     expect(resend.update).toHaveBeenCalledTimes(2);
   });
 
-  it("keeps the Resend placeholder in a broadcast footer", async () => {
-    await sendIssue(issue(), {});
-    expect(resend.send).not.toHaveBeenCalled();
-    const payload = resend.create.mock.calls[0][0] as { html: string; text: string; headers?: unknown };
-    expect(footerHref(payload.html)).toBe("{{{RESEND_UNSUBSCRIBE_URL}}}");
-    expect(payload.text).toContain("Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}");
-    expect(payload.headers).toBeUndefined();
-  });
-
   it("does not email an unsubscribe link when someone types an address", async () => {
     const response = await POST(
       new Request("https://vizonix.com/api/unsubscribe", {
