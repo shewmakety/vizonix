@@ -23,6 +23,45 @@ const href = z
     return httpUrl.safeParse(value).success;
   }, "Link must be a site path or an http(s) URL");
 
+/**
+ * General aviation, business, and IT vocabulary. A glossary may define only
+ * terms specific to AI and robotics, such as LLM, agent, computer vision, AMR, and cobot.
+ */
+export const nonAiGlossaryTerms = [
+  "algorithm",
+  "api",
+  "azure ai foundry",
+  "back test",
+  "back tested",
+  "backtest",
+  "backtested",
+  "beta",
+  "drone",
+  "fod",
+  "fsdo",
+  "ground station",
+  "hand off",
+  "handoff",
+  "interactive slide",
+  "proof of concept",
+  "pss",
+  "public beta",
+  "subprocessor",
+] as const;
+
+/** Lowercase, hyphen-insensitive key for glossary term checks. */
+export function glossaryTermKey(term: string): string {
+  return term.trim().toLowerCase().replace(/-/g, " ").replace(/\s+/g, " ");
+}
+
+const nonAiGlossaryTermKeys = new Set(nonAiGlossaryTerms.map((term) => glossaryTermKey(term)));
+
+/** True when the term is general aviation, business, or IT vocabulary. */
+export function isGeneralGlossaryTerm(term: string): boolean {
+  const key = glossaryTermKey(term);
+  return nonAiGlossaryTermKeys.has(key) || nonAiGlossaryTermKeys.has(key.replace(/ /g, ""));
+}
+
 export const sponsorSchema = z
   .object({
     name: z.string().trim().min(1).max(120),
@@ -192,7 +231,7 @@ export const issueSchema = z
       )
       .min(1)
       .max(12),
-    /** Plain-language definitions for terms used in this issue. Omitted issues skip the glossary. */
+    /** Plain-language definitions for AI and robotics terms used in this issue. Omitted issues skip the glossary. */
     glossary: z
       .array(
         z.object({
@@ -236,7 +275,7 @@ export const issueSchema = z
     }
     const glossaryTerms = new Set<string>();
     for (const [index, entry] of (issue.glossary ?? []).entries()) {
-      const key = entry.term.toLowerCase();
+      const key = glossaryTermKey(entry.term);
       if (glossaryTerms.has(key)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -245,6 +284,13 @@ export const issueSchema = z
         });
       }
       glossaryTerms.add(key);
+      if (isGeneralGlossaryTerm(entry.term)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["glossary", index, "term"],
+          message: `Glossary terms must be specific to AI and robotics. "${entry.term}" is general aviation, business, or IT vocabulary.`,
+        });
+      }
     }
 
     if (issue.sections && issue.sections.length > 0) {

@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
-import { issueSchema, sortedGlossary, type Issue } from "@/lib/schema";
+import { isGeneralGlossaryTerm, issueSchema, sortedGlossary, type Issue } from "@/lib/schema";
 
 function editorialText(issue: Issue): string {
   const parts = [
@@ -101,5 +101,42 @@ describe("AI glossary", () => {
         ],
       }).success,
     ).toBe(false);
+  });
+
+  it("keeps the October 21 glossary to AI and robotics terms", () => {
+    const issue = getIssue("aviation", "2026-10-21")!;
+    expect(issue.glossary?.map((entry) => entry.term)).toEqual([
+      "Agent",
+      "Agentic AI",
+      "Autonomous",
+      "Conversational AI",
+      "Copilot",
+      "Digital twin",
+      "Model Context Protocol",
+      "Predictive maintenance",
+      "Probabilistic forecasting",
+      "Retrofit autonomy",
+      "Robotic arm",
+      "Rover",
+      "Voice AI",
+    ]);
+  });
+
+  it("rejects general aviation, business, and IT glossary terms", () => {
+    const issue = getIssue("aviation", "2026-10-16")!;
+    for (const term of ["FOD", "API", "Proof of concept", "Back-tested", "Public beta"]) {
+      const parsed = issueSchema.safeParse({
+        ...issue,
+        glossary: [{ term, definition: "A general term that does not belong in this list." }],
+      });
+      expect(parsed.success, term).toBe(false);
+      if (!parsed.success) {
+        expect(parsed.error.issues.some((item) => item.message.includes("specific to AI and robotics"))).toBe(true);
+      }
+    }
+    expect(isGeneralGlossaryTerm("LLM")).toBe(false);
+    expect(isGeneralGlossaryTerm("computer vision")).toBe(false);
+    expect(isGeneralGlossaryTerm("AMR")).toBe(false);
+    expect(isGeneralGlossaryTerm("cobot")).toBe(false);
   });
 });

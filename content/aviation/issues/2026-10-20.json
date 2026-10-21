@@ -313,20 +313,8 @@
         "definition": "AI that hands work from one agent to the next so a job gets finished, such as turning a parts request into a quote a buyer can approve. It is built to complete a task, not only to chat."
       },
       {
-        "term": "Algorithm",
-        "definition": "A set of rules a computer follows to reach a result, such as flagging a part that may fail. Delta checks those rules against old flight data before they reach the hangar."
-      },
-      {
         "term": "AMR",
         "definition": "Short for autonomous mobile robot. A cart that drives itself, here from the parts store to the hangar. The ST Engineering site uses three of them to deliver picks."
-      },
-      {
-        "term": "API",
-        "definition": "A connection that lets one program ask another for data, or to take an action, without someone retyping it. Claude's listed price is charged per million tokens over this connection."
-      },
-      {
-        "term": "Back-tested",
-        "definition": "Checked against old records to see whether an alert would have been right. If it would have flagged too many healthy parts, it is not ready for the hangar."
       },
       {
         "term": "Copilot",
@@ -369,20 +357,8 @@
         "definition": "Using data from the aircraft to flag a part before it fails, so the shop can plan the work. The open question is how sure the alert must be before you pull the aircraft."
       },
       {
-        "term": "PSS",
-        "definition": "Passenger service system, the airline computer that holds bookings and tickets. A tool that sits on top of it lets you try AI bookings without replacing that system."
-      },
-      {
-        "term": "Public beta",
-        "definition": "A new feature the maker lets paying customers try while it is still being finished. Treat the output as a draft and check every figure before it goes to a customer or a regulator."
-      },
-      {
         "term": "Recall",
         "definition": "Of the real faults that happened, the share the tool caught. Low recall means it missed failures, and a miss on the wrong system becomes an AOG."
-      },
-      {
-        "term": "Subprocessor",
-        "definition": "Another company that handles data for the product you bought. Microsoft requires an admin to allow Anthropic before Copilot will use Claude."
       },
       {
         "term": "Threshold",
