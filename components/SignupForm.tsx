@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SectionPicker } from "@/components/SectionPicker";
 import { useRememberedSlug } from "@/components/useRememberedSlug";
+import { cleanSource, includedFromExcluded } from "@/lib/reader-topics";
 import { activeSegments, featuredSegment, getSegment } from "@/lib/segments";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
@@ -10,14 +12,19 @@ export function SignupForm({
   defaultSegment = featuredSegment().slug,
   showSegment = true,
   heading = "Get the briefing",
+  source,
 }: {
   defaultSegment?: string;
   showSegment?: boolean;
   heading?: string;
+  source?: string;
 }) {
   const remembered = useRememberedSlug();
   const [segment, setSegment] = useState(defaultSegment);
   const [touched, setTouched] = useState(false);
+  const [included, setIncluded] = useState<string[]>(() => includedFromExcluded([]));
+  const [suggestion, setSuggestion] = useState("");
+  const [campaign, setCampaign] = useState(source ?? "");
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
 
   useEffect(() => {
@@ -25,6 +32,12 @@ export function SignupForm({
     if (!showSegment || touched || !known || known.status !== "active") return;
     setSegment(known.slug);
   }, [remembered, showSegment, touched]);
+
+  useEffect(() => {
+    if (source) return;
+    const fromQuery = cleanSource(new URLSearchParams(window.location.search).get("src"));
+    if (fromQuery) setCampaign(fromQuery);
+  }, [source]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,6 +51,9 @@ export function SignupForm({
         firstName: form.get("firstName"),
         segment: form.get("segment"),
         company_website: form.get("company_website"),
+        includedSections: segment === "aviation" ? included : undefined,
+        suggestion,
+        source: campaign || undefined,
       }),
     });
     const body = (await response.json()) as { error?: string; message?: string; status?: string };
@@ -51,6 +67,8 @@ export function SignupForm({
         : "Check your inbox for a confirmation email. You are not on the list until you click it.";
     setStatus({ kind: "ok", message: body.message || message });
     event.currentTarget.reset();
+    setIncluded(includedFromExcluded([]));
+    setSuggestion("");
   }
 
   return (
@@ -85,6 +103,15 @@ export function SignupForm({
       ) : (
         <input type="hidden" name="segment" value={defaultSegment} />
       )}
+      {segment === "aviation" ? (
+        <SectionPicker
+          idPrefix="signup"
+          included={included}
+          onIncluded={setIncluded}
+          suggestion={suggestion}
+          onSuggestion={setSuggestion}
+        />
+      ) : null}
       <div className="hp" aria-hidden="true">
         <label htmlFor="company_website">Company website</label>
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />

@@ -2,11 +2,33 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const send = vi.hoisted(() => vi.fn(async () => ({ data: { id: "email_1" }, error: null })));
 const create = vi.hoisted(() => vi.fn(async () => ({ data: { id: "bcast_1" }, error: null })));
+const batchSend = vi.hoisted(() => vi.fn(async () => ({ data: { data: [{ id: "batch_1" }] }, error: null })));
+const listContacts = vi.hoisted(() =>
+  vi.fn(async () => ({
+    data: {
+      object: "list",
+      has_more: false,
+      data: [
+        {
+          id: "contact_1",
+          email: "reader@example.com",
+          unsubscribed: false,
+          created_at: "2026-10-20T00:00:00.000Z",
+          first_name: null,
+          last_name: null,
+        },
+      ],
+    },
+    error: null,
+  })),
+);
 
 vi.mock("resend", () => ({
   Resend: class {
     emails = { send };
     broadcasts = { create };
+    batch = { send: batchSend };
+    contacts = { list: listContacts };
   },
 }));
 
@@ -16,7 +38,7 @@ import { buildLinkedInPost } from "@/lib/linkedin";
 import { ISSUE_EMAIL_SUBJECT_PREFIX, issueEmailSubject, sendIssue } from "@/lib/publish";
 import type { Issue } from "@/lib/schema";
 
-const envKeys = ["RESEND_API_KEY", "EMAIL_FROM", "RESEND_SEGMENT_ID_AVIATION", "RESEND_TEST_TO"] as const;
+const envKeys = ["RESEND_API_KEY", "EMAIL_FROM", "RESEND_SEGMENT_ID_AVIATION", "RESEND_TEST_TO", "TOKEN_SECRET"] as const;
 const saved: Record<string, string | undefined> = {};
 
 function issue(): Issue {
@@ -28,9 +50,12 @@ function issue(): Issue {
 beforeEach(() => {
   send.mockClear();
   create.mockClear();
+  batchSend.mockClear();
+  listContacts.mockClear();
   for (const key of envKeys) saved[key] = process.env[key];
   process.env.RESEND_API_KEY = "re_test";
   process.env.EMAIL_FROM = "Vizonix <admin@vizonix.com>";
+  process.env.TOKEN_SECRET = "subject-test-secret";
   delete process.env.RESEND_SEGMENT_ID_AVIATION;
   delete process.env.RESEND_TEST_TO;
 });
@@ -62,7 +87,10 @@ describe("issue email subject", () => {
 
     process.env.RESEND_SEGMENT_ID_AVIATION = "seg_aviation";
     await sendIssue(issue(), {});
-    expect(create).toHaveBeenCalledWith(expect.objectContaining({ subject }));
+    expect(batchSend).toHaveBeenCalled();
+    const batch = (batchSend.mock.calls as unknown as Array<[Array<{ subject: string }>]>)[0]?.[0];
+    expect(batch?.[0]?.subject).toBe(subject);
+    expect(create).not.toHaveBeenCalled();
 
     await sendIssue({ ...issue(), subject }, { testTo: "reader@example.com" });
     expect(send).toHaveBeenLastCalledWith(expect.objectContaining({ subject }));

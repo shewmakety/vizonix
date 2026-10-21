@@ -18,6 +18,19 @@ import { formatIsoDay, issueDateline } from "@/lib/dates";
 
 export type SlotName = "primary" | "secondary" | "classified";
 
+/** Replaced per reader when a group shares one rendered issue. */
+export const PREFERENCES_URL_MARKER = "{{preferences_url}}";
+export const UNSUBSCRIBE_URL_MARKER = "{{unsubscribe_url}}";
+
+export function applyReaderLinks(
+  body: string,
+  links: { preferencesUrl: string; unsubscribeUrl: string },
+): string {
+  return body
+    .replaceAll(PREFERENCES_URL_MARKER, links.preferencesUrl)
+    .replaceAll(UNSUBSCRIBE_URL_MARKER, links.unsubscribeUrl);
+}
+
 export type ResolvedSlot = {
   name: SlotName;
   label: string;
@@ -330,7 +343,7 @@ function slotHtml(slot: ResolvedSlot, absolute: boolean): string {
 }
 
 export type IssueRenderOptions = {
-  mode: "broadcast" | "test";
+  mode: "broadcast" | "test" | "personal";
   /** HTML inserted under the masthead. Caller must escape any untrusted text. */
   introHtml?: string;
   /** Plain-text block inserted under the masthead. */
@@ -338,11 +351,26 @@ export type IssueRenderOptions = {
   preheader?: string;
   /** Overrides the footer unsubscribe link. Broadcast issues keep the Resend placeholder. */
   unsubscribeUrl?: string;
+  /** Signed manage link. Personal sends substitute PREFERENCES_URL_MARKER per reader. */
+  preferencesUrl?: string;
+  /** Section topics to leave out. Top story, The Ramp, and sponsor slots stay. */
+  excludedSections?: string[];
 };
+
+function sectionsForRender(issue: Issue, excluded: string[] | undefined): IssueSectionView[] {
+  const skip = new Set((excluded ?? []).map((topic) => topic.trim().toLowerCase()));
+  return issueSections(issue).filter((section) => !skip.has((section.topic ?? "").trim().toLowerCase()));
+}
 
 function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): string {
   if (options.unsubscribeUrl) return options.unsubscribeUrl;
-  return options.mode === "broadcast" ? "{{{RESEND_UNSUBSCRIBE_URL}}}" : absoluteUrl(unsubscribePath(segmentSlug));
+  if (options.mode === "broadcast") return "{{{RESEND_UNSUBSCRIBE_URL}}}";
+  if (options.mode === "personal") return UNSUBSCRIBE_URL_MARKER;
+  return absoluteUrl(unsubscribePath(segmentSlug));
+}
+
+function preferencesHref(options: IssueRenderOptions): string {
+  return options.preferencesUrl || PREFERENCES_URL_MARKER;
 }
 
 export function listUnsubscribeHeaders(unsubscribeUrl: string): Record<string, string> {
@@ -393,7 +421,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   const secondary = resolveSlot("secondary", issue.sponsors.secondary);
   const classified = resolveSlot("classified", issue.sponsors.classified);
 
-  const tools = issueSections(issue)
+  const tools = sectionsForRender(issue, options.excludedSections)
     .map((section, index) => sectionEmailHtml(section, payoff, absolute, index))
     .join("");
 
@@ -489,6 +517,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
             <td style="padding:8px 28px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
               <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#1e4636;">Read this issue on the web</a></p>
               <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
+              <p style="margin:0 0 8px;"><a href="${escapeHtml(preferencesHref(options))}" style="color:#1e4636;">Manage your topics</a></p>
               <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#1e4636;">Unsubscribe</a></p>
             </td>
           </tr>
@@ -539,7 +568,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
     ...rampEmailText(issue.ramp),
-    ...issueSections(issue).flatMap((section) => sectionEmailText(section, payoff)),
+    ...sectionsForRender(issue, options.excludedSections).flatMap((section) => sectionEmailText(section, payoff)),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
     issue.playbook.title.toUpperCase(),
     issue.playbook.intro,
@@ -551,6 +580,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
     ...glossaryEmailText(issue),
     `Read this issue on the web: ${archive}`,
+    `Manage your topics: ${preferencesHref(options)}`,
     `Unsubscribe: ${unsubscribe}`,
   ];
   return `${lines.join("\n")}\n`;
@@ -590,7 +620,11 @@ export type WelcomeMessage = {
 };
 
 /** Daily-issue layout with a short welcome above it. */
-export function welcomeIssueMessage(issue: Issue, unsubscribeUrl: string): WelcomeMessage {
+export function welcomeIssueMessage(
+  issue: Issue,
+  unsubscribeUrl: string,
+  preferencesUrl?: string,
+): WelcomeMessage {
   const sectionName = getSegment(issue.segment)?.name ?? issue.segment;
   const issueUrl = absoluteUrl(`/${issue.segment}/issues/${issue.date}`);
   const paragraphs = welcomeParagraphs(sectionName, issueUrl);
@@ -601,11 +635,13 @@ export function welcomeIssueMessage(issue: Issue, unsubscribeUrl: string): Welco
       introHtml: welcomeIntroHtml(sectionName, issueUrl),
       preheader: paragraphs[0],
       unsubscribeUrl,
+      preferencesUrl,
     }),
     text: renderIssueText(issue, {
       mode: "test",
       introText: paragraphs.join("\n\n"),
       unsubscribeUrl,
+      preferencesUrl,
     }),
     headers: listUnsubscribeHeaders(unsubscribeUrl),
   };
@@ -616,9 +652,16 @@ export function welcomePlainMessage(
   sectionName: string,
   sectionUrl: string,
   unsubscribeUrl: string,
+  preferencesUrl?: string,
 ): WelcomeMessage {
   const paragraphs = welcomeParagraphs(sectionName);
-  const text = [...paragraphs, `Section: ${sectionUrl}`, `Unsubscribe: ${unsubscribeUrl}`].join("\n\n");
+  const manageUrl = preferencesUrl || PREFERENCES_URL_MARKER;
+  const text = [
+    ...paragraphs,
+    `Section: ${sectionUrl}`,
+    `Manage your topics: ${manageUrl}`,
+    `Unsubscribe: ${unsubscribeUrl}`,
+  ].join("\n\n");
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -640,6 +683,7 @@ export function welcomePlainMessage(
           <tr>
             <td style="padding:0 28px 28px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1c1915;">
               <p style="margin:0 0 12px;"><a href="${escapeHtml(sectionUrl)}" style="color:#1e4636;">Visit the ${escapeHtml(sectionName)} section</a></p>
+              <p style="margin:0 0 8px;font-size:13px;color:#5f584e;"><a href="${escapeHtml(manageUrl)}" style="color:#1e4636;">Manage your topics</a></p>
               <p style="margin:0;font-size:13px;color:#5f584e;"><a href="${escapeHtml(unsubscribeUrl)}" style="color:#1e4636;">Unsubscribe</a></p>
             </td>
           </tr>
@@ -660,7 +704,9 @@ export function welcomePlainMessage(
 export function confirmationEmail(input: {
   sectionName: string;
   confirmUrl: string;
+  preferencesUrl?: string;
 }): { html: string; text: string; subject: string } {
+  const manageUrl = input.preferencesUrl || PREFERENCES_URL_MARKER;
   const subject = `Confirm your Vizonix ${input.sectionName} briefing`;
   const text = [
     `Confirm your Vizonix ${input.sectionName} briefing.`,
@@ -669,6 +715,8 @@ export function confirmationEmail(input: {
     input.confirmUrl,
     "",
     "If you did not ask for this, ignore the email. The address will stay off the list.",
+    "",
+    `Manage your topics: ${manageUrl}`,
   ].join("\n");
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -683,7 +731,8 @@ export function confirmationEmail(input: {
               <p style="margin:0 0 12px;">Confirm your Vizonix ${escapeHtml(input.sectionName)} briefing.</p>
               <p style="margin:0 0 16px;">You are not subscribed until you confirm. The link is good for 48 hours.</p>
               <p style="margin:0 0 16px;"><a href="${escapeHtml(input.confirmUrl)}" style="background:#1e4636;color:#f7f4ee;padding:12px 16px;text-decoration:none;display:inline-block;">Confirm subscription</a></p>
-              <p style="margin:0;font-size:13px;color:#5f584e;">If you did not ask for this, ignore the email. The address will stay off the list.</p>
+              <p style="margin:0 0 12px;font-size:13px;color:#5f584e;">If you did not ask for this, ignore the email. The address will stay off the list.</p>
+              <p style="margin:0;font-size:13px;"><a href="${escapeHtml(manageUrl)}" style="color:#1e4636;">Manage your topics</a></p>
             </td>
           </tr>
         </table>
@@ -698,13 +747,17 @@ export function confirmationEmail(input: {
 export function unsubscribeLinkEmail(input: {
   sectionName: string;
   unsubscribeUrl: string;
+  preferencesUrl?: string;
 }): { html: string; text: string; subject: string } {
+  const manageUrl = input.preferencesUrl || PREFERENCES_URL_MARKER;
   const subject = `Unsubscribe from the Vizonix ${input.sectionName} briefing`;
   const text = [
     `Use this link to leave the Vizonix ${input.sectionName} briefing:`,
     input.unsubscribeUrl,
     "",
     "The link is good for 180 days. If you did not ask for it, you can ignore this email.",
+    "",
+    `Manage your topics: ${manageUrl}`,
   ].join("\n");
   const html = `<!DOCTYPE html>
 <html lang="en">
@@ -712,6 +765,7 @@ export function unsubscribeLinkEmail(input: {
   <p style="margin:24px;">Use this link to leave the Vizonix ${escapeHtml(input.sectionName)} briefing:</p>
   <p style="margin:24px;"><a href="${escapeHtml(input.unsubscribeUrl)}">Unsubscribe</a></p>
   <p style="margin:24px;color:#5f584e;">If you did not ask for this, ignore the email.</p>
+  <p style="margin:24px;"><a href="${escapeHtml(manageUrl)}">Manage your topics</a></p>
 </body>
 </html>`;
   return { subject, html, text };

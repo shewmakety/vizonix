@@ -37,7 +37,9 @@ const pages: Array<[string, string]> = [
   ["/about", "rate card"],
   ["/privacy", "Resend"],
   ["/terms", "not legal advice"],
-  ["/subscribe", "Aviation is the launch section"],
+  ["/subscribe", "Suggest a topic"],
+  ["/join", "The weekday AI briefing for aviation."],
+  ["/preferences", "Manage your topics"],
   ["/confirm", "confirmation"],
   ["/unsubscribe", "Unsubscribe"],
   ["/llms.txt", "Aviation"],
@@ -125,6 +127,17 @@ async function main() {
       },
       200,
     );
+    await expectStatus("/api/preferences", { method: "POST", body: "not-json" }, 400);
+    await expectStatus(
+      "/api/preferences",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token: "not-a-token", excludedSections: [] }),
+      },
+      400,
+    );
+    await expectStatus("/api/suggest", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/confirm", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/unsubscribe", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/publish", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 401);

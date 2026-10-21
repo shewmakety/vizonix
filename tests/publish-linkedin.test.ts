@@ -12,12 +12,39 @@ vi.mock("resend", () => ({
   Resend: class {
     emails = { send: vi.fn(async () => ({ data: { id: "email_1" }, error: null })) };
     broadcasts = { create: vi.fn(async () => ({ data: { id: "bcast_1" }, error: null })) };
+    batch = { send: vi.fn(async () => ({ data: { data: [{ id: "batch_1" }] }, error: null })) };
+    contacts = {
+      list: vi.fn(async () => ({
+        data: {
+          object: "list",
+          has_more: false,
+          data: [
+            {
+              id: "contact_1",
+              email: "reader@example.com",
+              unsubscribed: false,
+              created_at: "2026-10-16T00:00:00.000Z",
+              first_name: null,
+              last_name: null,
+            },
+          ],
+        },
+        error: null,
+      })),
+    };
   },
 }));
 
 import { publishIssue } from "@/lib/publish";
 
-const envKeys = ["RESEND_API_KEY", "EMAIL_FROM", "RESEND_SEGMENT_ID_AVIATION", "RESEND_TEST_TO", "INDEXNOW_KEY"] as const;
+const envKeys = [
+  "RESEND_API_KEY",
+  "EMAIL_FROM",
+  "RESEND_SEGMENT_ID_AVIATION",
+  "RESEND_TEST_TO",
+  "INDEXNOW_KEY",
+  "TOKEN_SECRET",
+] as const;
 const saved: Record<string, string | undefined> = {};
 
 function aviationIssue(): unknown {
@@ -42,6 +69,7 @@ describe("publish LinkedIn wiring", () => {
     process.env.RESEND_API_KEY = "re_test";
     process.env.EMAIL_FROM = "Vizonix <admin@vizonix.com>";
     process.env.RESEND_SEGMENT_ID_AVIATION = "seg_aviation";
+    process.env.TOKEN_SECRET = "linkedin-test-secret";
     delete process.env.RESEND_TEST_TO;
     delete process.env.INDEXNOW_KEY;
     const payload = aviationIssue();

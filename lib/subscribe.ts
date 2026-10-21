@@ -6,6 +6,15 @@ import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePl
 import { AppError } from "@/lib/errors";
 import { notifyOps } from "@/lib/notify";
 import { subscriberNotice } from "@/lib/owner-alerts";
+import { readerLinks } from "@/lib/reader-links";
+import {
+  cleanSource,
+  OPTIONAL_AVIATION_SECTIONS,
+  parseIncluded,
+  parseSuggestion,
+  type PendingChoices,
+} from "@/lib/reader-topics";
+import { persistReaderChoices } from "@/lib/reader-store";
 import { confirmPath, unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl } from "@/lib/site";
 import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
@@ -21,11 +30,43 @@ function missingConfig(message: string): SubscribeResult {
   return { ok: false, status: 503, error: message };
 }
 
+function pendingChoices(input: {
+  includedSections?: unknown;
+  suggestion?: unknown;
+  source?: unknown;
+}): { ok: true; pending?: PendingChoices } | { ok: false; error: string } {
+  const suggestionRaw = String(input.suggestion ?? "").trim();
+  const source = cleanSource(input.source);
+  const hasChoices = Array.isArray(input.includedSections) || Boolean(suggestionRaw) || Boolean(source);
+  if (!hasChoices) return { ok: true };
+  const included = parseIncluded(
+    Array.isArray(input.includedSections) ? input.includedSections : [...OPTIONAL_AVIATION_SECTIONS],
+  );
+  if (!included.ok) return included;
+  let suggestion: string | undefined;
+  if (suggestionRaw) {
+    const parsed = parseSuggestion(input.suggestion);
+    if (!parsed.ok) return parsed;
+    suggestion = parsed.text;
+  }
+  return {
+    ok: true,
+    pending: {
+      excluded: included.excluded,
+      ...(suggestion ? { suggestion } : {}),
+      ...(source ? { source } : {}),
+    },
+  };
+}
+
 export async function startDoubleOptIn(input: {
   email?: string;
   segment?: string;
   firstName?: string;
   honeypot?: string;
+  includedSections?: unknown;
+  suggestion?: unknown;
+  source?: unknown;
 }): Promise<SubscribeResult> {
   if ((input.honeypot ?? "").trim()) {
     return { ok: true, status: "accepted" };
@@ -38,6 +79,8 @@ export async function startDoubleOptIn(input: {
   if (!emailSchema.safeParse(email).success) {
     return { ok: false, status: 400, error: "Enter a valid email address." };
   }
+  const choices = pendingChoices(input);
+  if (!choices.ok) return { ok: false, status: 400, error: choices.error };
 
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
@@ -55,6 +98,23 @@ export async function startDoubleOptIn(input: {
 
   if (existing.data && existing.data.unsubscribed === false) {
     await resend.contacts.segments.add({ email, segmentId });
+    if (choices.pending) {
+      const saved = await persistReaderChoices({
+        email,
+        segment: segment.slug,
+        excluded: choices.pending.excluded,
+        suggestion: choices.pending.suggestion,
+        source: choices.pending.source,
+        recordSuggestion: Boolean(choices.pending.suggestion),
+      });
+      if (!saved.ok && saved.reason !== "not_configured") {
+        return {
+          ok: false,
+          status: 502,
+          error: "That address is already confirmed, but the topic choices could not be saved.",
+        };
+      }
+    }
     return { ok: true, status: "already_subscribed" };
   }
 
@@ -78,9 +138,17 @@ export async function startDoubleOptIn(input: {
 
   await resend.contacts.segments.add({ email, segmentId });
 
-  const token = signToken({ email, segment: segment.slug, purpose: "confirm" }, secret);
+  const token = signToken(
+    { email, segment: segment.slug, purpose: "confirm", pending: choices.pending },
+    secret,
+  );
   const confirmUrl = absoluteUrl(confirmPath(segment.slug, token));
-  const message = confirmationEmail({ sectionName: segment.name, confirmUrl });
+  const links = readerLinks(email, segment.slug, secret);
+  const message = confirmationEmail({
+    sectionName: segment.name,
+    confirmUrl,
+    preferencesUrl: links.preferencesUrl,
+  });
   const sent = await resend.emails.send({
     from,
     to: [email],
@@ -117,18 +185,19 @@ async function sendWelcomeEmail(
     return;
   }
   const secret = tokenSecret();
-  const unsubscribeUrl = secret
-    ? absoluteUrl(
-        unsubscribePath(
-          input.segment.slug,
-          signToken({ email: input.email, segment: input.segment.slug, purpose: "unsubscribe" }, secret),
-        ),
-      )
+  const links = secret ? readerLinks(input.email, input.segment.slug, secret) : undefined;
+  const unsubscribeUrl = links
+    ? links.unsubscribeUrl
     : absoluteUrl(unsubscribePath(input.segment.slug));
   const issue = latestPublishedIssue(input.segment.slug);
   const message = issue
-    ? welcomeIssueMessage(issue, unsubscribeUrl)
-    : welcomePlainMessage(input.segment.name, absoluteUrl(`/${input.segment.slug}`), unsubscribeUrl);
+    ? welcomeIssueMessage(issue, unsubscribeUrl, links?.preferencesUrl)
+    : welcomePlainMessage(
+        input.segment.name,
+        absoluteUrl(`/${input.segment.slug}`),
+        unsubscribeUrl,
+        links?.preferencesUrl,
+      );
   try {
     const sent = await resend.emails.send(
       {
@@ -209,6 +278,19 @@ export async function confirmSubscription(
     }
     alreadyInSegment = true;
   }
+  if (payload.pending) {
+    const saved = await persistReaderChoices({
+      email: payload.email,
+      segment: segment.slug,
+      excluded: payload.pending.excluded,
+      suggestion: payload.pending.suggestion,
+      source: payload.pending.source,
+      recordSuggestion: Boolean(payload.pending.suggestion) && !(wasConfirmed && alreadyInSegment),
+    });
+    if (!saved.ok && saved.reason !== "not_configured") {
+      console.error(`Reader prefs were not saved for ${segment.slug}: ${saved.reason}`);
+    }
+  }
   if (!(wasConfirmed && alreadyInSegment)) {
     await sendWelcomeEmail(resend, { email: payload.email, segment });
     try {
@@ -250,7 +332,12 @@ export async function requestUnsubscribeLink(input: {
   }
   const token = signToken({ email, segment: segment.slug, purpose: "unsubscribe" }, secret);
   const unsubscribeUrl = absoluteUrl(unsubscribePath(segment.slug, token));
-  const message = unsubscribeLinkEmail({ sectionName: segment.name, unsubscribeUrl });
+  const links = readerLinks(email, segment.slug, secret);
+  const message = unsubscribeLinkEmail({
+    sectionName: segment.name,
+    unsubscribeUrl,
+    preferencesUrl: links.preferencesUrl,
+  });
   const resend = new Resend(apiKey);
   const sent = await resend.emails.send({
     from,
