@@ -22,7 +22,7 @@ describe("issue section headings", () => {
       ["05", "troubleshooting-support", "Troubleshooting support"],
       ["06", "warehousing", "Warehousing"],
       ["07", "aog-support-parts-rotables-and-technicians", "AOG support: parts, rotables and technicians"],
-      ["08", "ai-productivity-tools", productivitySectionTopic],
+      ["08", "general-ai-productivity-tools", productivitySectionTopic],
     ] as const;
     for (const [number, id, topic] of topics) {
       expect(html).toContain(`id="${id}"`);
@@ -39,27 +39,28 @@ describe("issue section headings", () => {
     const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
     const heading = css.slice(css.indexOf(".section-heading {"), css.indexOf(".section-number {"));
     expect(heading).toContain("display: flex");
-    expect(heading).toContain("align-items: baseline");
-    expect(heading).toContain("gap: 18px");
-    expect(heading).toContain("border-top: 2px solid var(--ink)");
-    expect(heading).toContain("padding: 16px 0 0");
-    expect(heading).toContain("margin: 0 0 22px");
-    expect(heading).toContain("font-size: clamp(30px, 4vw, 40px)");
+    expect(heading).toContain("align-items: center");
+    expect(heading).toContain("gap: 12px");
+    expect(heading).toContain("border-bottom: 3px solid #13233b");
+    expect(heading).toContain("padding: 0 0 6px");
+    expect(heading).toContain("margin: 0 0 8px");
+    expect(heading).toContain("font-size: 24px");
+    expect(heading).toContain("font-weight: 800");
     expect(heading).toContain("line-height: 1.15");
     expect(heading).not.toContain("border-radius");
     expect(heading).not.toContain("#14532D");
-    expect(css).toContain(".issue-section { margin-top: 48px; }");
+    expect(heading).not.toContain("font-size: 18px");
+    expect(css).toContain(".issue-section { margin-top: 30px; }");
     const number = css.slice(css.indexOf(".section-number {"), css.indexOf(".section-title {"));
-    expect(number).toContain("font-size: clamp(30px, 4vw, 40px)");
-    expect(number).toContain("font-weight: 600");
-    expect(number).toContain("letter-spacing: 0.08em");
-    expect(number).toContain("color: var(--section-number)");
+    expect(number).toContain("font-size: 40px");
+    expect(number).toContain("font-weight: 800");
+    expect(number).toContain("letter-spacing: 0");
+    expect(number).toContain("color: #c9b98f");
     expect(number).not.toContain("font-size: 18px");
     expect(css).toContain("--section-number: #14532D");
     expect(css).toContain("font-style: italic");
     expect(css).not.toContain("font-size: 26px");
     expect(css).not.toContain("font-size: 22px");
-    expect(css).not.toContain("font-size: 18px");
     expect(css).not.toContain("border-radius: 999px");
     expect(css).not.toContain("#166534");
     const dark = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
@@ -70,38 +71,39 @@ describe("issue section headings", () => {
     expect(email).not.toContain("section-heading");
     expect(email).not.toContain("section-number");
     expect(email).not.toContain("issue-section");
-    expect(email).toContain("border-top:2px solid #1c1915");
-    expect(email).toContain('valign="baseline"');
+    expect(email).toContain("border-bottom:3px solid #13233b");
+    expect(email).toContain('valign="middle"');
     expect(email).toContain(
-      'style="padding:0 18px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:600;font-style:normal;letter-spacing:0.08em;line-height:1.15;color:#14532D;">01</td>',
+      'style="font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;line-height:1;color:#c9b98f;">01</td>',
     );
     expect(email).toContain(
-      'style="padding:0;font-family:Georgia,\'Times New Roman\',serif;font-size:30px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">Recruiting</td>',
+      'style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
     );
     expect(email).toContain(
-      `style="padding:0;font-family:Georgia,'Times New Roman',serif;font-size:36px;font-style:italic;font-weight:normal;line-height:1.15;color:#1c1915;">${productivitySectionTopic}</td>`,
+      `style="font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
     );
-    expect(email).toContain("border:1px solid #14532D;background:#f6f4ee");
+    expect(email).toContain("background:#14532D;border-radius:10px");
     expect(html).toContain('class="issue-section productivity"');
     expect(css).toContain(".issue-section.productivity");
-    expect(css).toContain("font-size: clamp(36px, 4.8vw, 48px)");
-    expect(css).toContain("width: 40px");
+    expect(css).toContain("font-size: 30px");
+    expect(css).toContain("width: 28px");
     expect(css).toContain(".issue-section.productivity .section-icon");
-    expect(css).toContain("width: 48px");
-    expect(html).not.toContain("The Ramp");
+    expect(css).toContain("width: 36px");
+    expect(html).not.toContain('class="ramp-heading"');
+    expect(html).not.toContain("/the-ramp.svg");
     expect(email).not.toContain("The Ramp");
     const icons = [
-      ["Recruiting", "recruiting", 40, 34],
-      ["Sales and marketing", "sales", 40, 34],
-      ["Predictive maintenance", "predictive", 40, 34],
-      ["Maintenance activity optimization", "maintenance", 40, 34],
-      ["Troubleshooting support", "troubleshooting", 40, 34],
-      ["Warehousing", "warehousing", 40, 34],
-      ["AOG support: parts, rotables and technicians", "aog", 40, 34],
-      [productivitySectionTopic, "ai-tools", 48, 40],
-      ["Top story", "top-story", 40, 34],
-      ["Playbook", "playbook", 40, 26],
-      ["Quick links", "quick-links", 40, 26],
+      ["Recruiting", "recruiting", 28, 28],
+      ["Sales and marketing", "sales", 28, 28],
+      ["Predictive maintenance", "predictive", 28, 28],
+      ["Maintenance activity optimization", "maintenance", 28, 28],
+      ["Troubleshooting support", "troubleshooting", 28, 28],
+      ["Warehousing", "warehousing", 28, 28],
+      ["AOG support: parts, rotables and technicians", "aog", 28, 28],
+      [productivitySectionTopic, "ai-tools", 36, 36],
+      ["Top story", "top-story", 28, 28],
+      ["Playbook", "playbook", 24, 24],
+      ["Quick links", "quick-links", 24, 24],
     ] as const;
     for (const [alt, stem, webPx, emailPx] of icons) {
       expect(html).toContain(
@@ -117,9 +119,9 @@ describe("issue section headings", () => {
     expect(html.match(/class="section-icon"/g)).toHaveLength(icons.length);
     expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
     expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting</h2>');
-    expect(email.indexOf(">01<")).toBeLessThan(email.indexOf(">08<"));
-    expect(email.indexOf("AOG support: parts, rotables and technicians")).toBeLessThan(
-      email.indexOf(productivitySectionTopic),
+    expect(email.indexOf(">01</td>")).toBeLessThan(email.indexOf(">08</td>"));
+    expect(email.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+      email.indexOf(`>${productivitySectionTopic}</td>`),
     );
   });
 

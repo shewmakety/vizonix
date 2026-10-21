@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { IssueBody } from "@/components/IssueBody";
 import { JsonLd } from "@/components/JsonLd";
-import { SignupForm } from "@/components/SignupForm";
 import { allIssues, getIssue, issueModifiedInstant } from "@/lib/content";
 import { calendarInstant } from "@/lib/dates";
 import { breadcrumbJsonLd, issueJsonLd } from "@/lib/jsonld";
@@ -42,16 +40,8 @@ export default async function IssuePage({ params }: Props) {
 
   return (
     <>
-      <section className="hero">
-        <div className="wrap issue-layout">
-          <IssueBody issue={issue} />
-          <aside className="side-card">
-            <SignupForm defaultSegment={segment.slug} showSegment={false} heading="Get the next issue" />
-            <p className="meta" style={{ marginTop: "1rem" }}>
-              <Link href={`/${segment.slug}/issues`}>All {segment.name} issues</Link>
-            </p>
-          </aside>
-        </div>
+      <section className="hero dashboard-hero">
+        <IssueBody issue={issue} />
       </section>
       <JsonLd
         data={[

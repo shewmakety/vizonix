@@ -8,6 +8,7 @@ import { escapeHtml } from "@/lib/html";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
 import { formatShortDate } from "@/lib/dates";
 import { ISSUE_EMAIL_SUBJECT_PREFIX, issueEmailSubject } from "@/lib/publish";
+import { issueHeaderLine } from "@/lib/issue-present";
 import { sectionWordmark } from "@/lib/site";
 
 const pathname = vi.hoisted(() => ({ value: "/" }));
@@ -65,13 +66,16 @@ describe("header wordmark", () => {
     const text = renderIssueText(issue, { mode: "broadcast" });
     expect(edition).toBe("AI & Robotics News For Aviation");
     expect(getSegment("aviation")?.slug).toBe("aviation");
-    expect(html).toContain(`>${escapeHtml(wordmark)}</a>`);
-    expect(html).toContain(">Aviation</a>");
+    const gold = issueHeaderLine(issue);
+    expect(gold.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
+    expect(html).not.toContain('class="crumbs"');
+    expect(html).toContain(`<p class="issue-dateline">${escapeHtml(gold)}</p>`);
     expect(email).toContain(
-      `font-family:Georgia,'Times New Roman',serif;font-size:23px;letter-spacing:0.01em;line-height:1.15;color:#f6f3ec;">${escapeHtml(wordmark)}</p>`,
+      `font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;line-height:1.4;color:#c9b98f;">${escapeHtml(gold)}</p>`,
     );
     expect(email).toContain(`the Vizonix ${escapeHtml(edition)} briefing`);
-    const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(wordmark)));
+    expect(email).not.toContain(`the Vizonix Customizable ${escapeHtml(edition)} briefing`);
+    const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(gold)));
     expect(masthead).not.toContain("text-transform");
     const gap = email.slice(0, email.indexOf("background:#13233b"));
     expect(gap).toContain('height="32"');
@@ -86,8 +90,9 @@ describe("header wordmark", () => {
     const otherMark = sectionWordmark("field-service");
     const otherHtml = renderToStaticMarkup(createElement(IssueBody, { issue: other }));
     const otherEmail = renderIssueEmail(other, { mode: "test" });
-    expect(otherHtml).toContain(`>${otherMark}</a>`);
-    expect(otherEmail).toContain(`>${otherMark}</p>`);
+    expect(otherHtml).toContain(`<p class="issue-dateline">${otherMark}`);
+    expect(otherHtml).not.toContain('class="crumbs"');
+    expect(otherEmail).toContain(`color:#c9b98f;">${otherMark}`);
     expect(otherEmail).not.toContain(escapeHtml(wordmark));
   });
 });

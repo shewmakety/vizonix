@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
+import { rateLimit, requestIp } from "@/lib/rate-limit";
 import { startDoubleOptIn } from "@/lib/subscribe";
+import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
+  const ip = requestIp(request);
+  if (!rateLimit(`${ip}:subscribe`)) {
+    return NextResponse.json({ error: "Too many requests. Try again shortly." }, { status: 429 });
+  }
+
   let body: {
     email?: string;
     segment?: string;
@@ -12,11 +19,30 @@ export async function POST(request: Request) {
     excludedSections?: unknown;
     suggestion?: unknown;
     source?: unknown;
+    turnstileToken?: unknown;
+    "cf-turnstile-response"?: unknown;
   };
   try {
     body = (await request.json()) as typeof body;
   } catch {
     return NextResponse.json({ error: "Send JSON with an email and a section." }, { status: 400 });
+  }
+
+  if ((body.company_website ?? "").trim()) {
+    return NextResponse.json({
+      ok: true,
+      status: "accepted",
+      message: "Check your inbox for a confirmation email. You are not on the list until you click it.",
+    });
+  }
+
+  const verified = await verifyTurnstile({
+    token: turnstileTokenFrom(body),
+    action: "signup",
+    remoteip: ip,
+  });
+  if (!verified.ok) {
+    return NextResponse.json({ error: verified.error }, { status: verified.status });
   }
 
   const result = await startDoubleOptIn({

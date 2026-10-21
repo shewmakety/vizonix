@@ -51,6 +51,9 @@ describe("reader groups", () => {
     if (!issue) return;
     const unknown = parseExcluded(["Not a section"]);
     expect(unknown.ok).toBe(false);
+    const renamed = parseExcluded(["AI Productivity Tools"]);
+    expect(renamed.ok).toBe(true);
+    if (renamed.ok) expect(renamed.excluded).toEqual(["General AI Productivity Tools"]);
     const parsed = parseExcluded([" Warehousing ", "Recruiting"]);
     expect(parsed.ok).toBe(true);
     if (!parsed.ok) return;

@@ -70,11 +70,11 @@ describe("AI glossary", () => {
 
     let previous = -1;
     for (const entry of sortedGlossary(issue.glossary)) {
-      const at = html.indexOf(`class="glossary-term">${entry.term}</dt>`);
+      const at = html.indexOf(`class="glossary-term">${entry.term}</td>`);
       expect(at).toBeGreaterThan(previous);
-      expect(html).toContain(`class="glossary-definition">${entry.definition.replaceAll("'", "&#x27;")}</dd>`);
+      expect(html).toContain(`class="glossary-definition">${entry.definition.replaceAll("'", "&#x27;")}</td>`);
       expect(email).toContain(
-        `font-style:italic;font-weight:bold;line-height:1.2;color:#1c1915;">${entry.term}</p>`,
+        `class="glossary-term" style="font-size:13px;font-weight:700;color:#13233b;padding:6px 10px 6px 0;width:30%;border-top:1px solid #eceff3;font-family:Arial,Helvetica,sans-serif;">${entry.term}</td>`,
       );
       expect(email).toContain(entry.definition.replaceAll("'", "&#39;"));
       previous = at;

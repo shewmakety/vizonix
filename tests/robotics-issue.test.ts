@@ -23,16 +23,16 @@ describe("October 20 robotics notes", () => {
     const withRobotics = sections.slice(0, 7);
     expect(withRobotics.every((section) => section.robotics)).toBe(true);
     expect(sections[7]?.robotics).toBeUndefined();
-    expect(sections[7]?.topic).toBe("AI Productivity Tools");
+    expect(sections[7]?.topic).toBe("General AI Productivity Tools");
 
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     const email = renderIssueEmail(issue, { mode: "broadcast" });
     const text = renderIssueText(issue, { mode: "broadcast" });
-    expect(html.match(/class="robotics-label"/g)).toHaveLength(7);
-    expect(email.match(/>Robotics<\/p>/g)).toHaveLength(7);
+    expect(html.match(/robotics-label/g)).toHaveLength(7);
+    expect(email.match(/>Robotics<\/span>/g)).toHaveLength(7);
     expect(text.match(/^ROBOTICS$/gm)).toHaveLength(7);
-    expect(html).toContain("Why it can make you money.");
-    expect(email).toContain("<strong>Why it can make you money.</strong>");
+    expect(html).toContain("$ Why it pays:");
+    expect(email).toContain("<strong>$ Why it pays:</strong>");
 
     const recruiting = withRobotics[0]?.robotics;
     expect(recruiting?.summary).toContain("workforce pipeline signal");
@@ -66,7 +66,7 @@ describe("October 20 robotics notes", () => {
       expect(email).toContain(item.headline.replaceAll("'", "&#39;"));
       expect(email).toContain(`href="${item.sourceUrl}"`);
       expect(text).toContain(`Source: ${item.sourceName} (${item.sourceUrl})`);
-      expect(text).toContain(`Why it can make you money. ${item.whyItMatters}`);
+      expect(text).toContain(`$ Why it pays: ${item.whyItMatters}`);
     }
 
     const joined = JSON.stringify(issue);

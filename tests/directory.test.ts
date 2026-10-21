@@ -27,9 +27,9 @@ describe("tool directory topics", () => {
 
   it("maps every Oct 16 issue section onto a directory topic and tool", () => {
     const issue = getIssue("aviation", "2026-10-16");
-    const industry = issue?.sections?.filter((section) => section.topic !== "AI Productivity Tools") ?? [];
+    const industry = issue?.sections?.filter((section) => section.topic !== "General AI Productivity Tools") ?? [];
     expect(issue?.sections).toHaveLength(8);
-    expect(issue?.sections?.at(-1)?.topic).toBe("AI Productivity Tools");
+    expect(issue?.sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(industry).toHaveLength(7);
     expect(topics.filter((topic) => topic.issueTopic).map((topic) => topic.issueTopic)).toEqual(
       industry.map((section) => section.topic),

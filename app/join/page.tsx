@@ -59,8 +59,8 @@ export default async function JoinPage({
             <h2>Latest issue</h2>
             <Link href={`/${segment.slug}/issues/${issue.date}`}>Read the full issue</Link>
           </div>
-          <p className="issue-dateline">{issueDateline(segment.name, issue)}</p>
-          <h3 className="issue-title">{issue.subject}</h3>
+          <p className="meta">{issueDateline(segment.name, issue)}</p>
+          <h3>{issue.subject}</h3>
           <WhatWeDo />
           {preview.map((section, index) => {
             const topic = section.topic ?? "Tool Highlights";

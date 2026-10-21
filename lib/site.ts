@@ -11,10 +11,22 @@ export const editor = {
   path: "/about#editor",
 };
 
+/** Short line under the issue title and in the sign-up block. Regular hyphen. */
+export const customizePitch = "Pick your topics - get only the sections you care about";
+
+/** Link label for the topic picker. Email uses the signed manage-topics URL. */
+export const customizeLinkLabel = "Customize your issue";
+
+/** Heading of the issue sign-up card on the web and in the email. */
+export const signupBlockHeading = "Sign-Up Now";
+
+/** Public page where a new reader picks topics. Preferences needs a signed email link. */
+export const customizeWebPath = "/join";
+
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
   heading: "What We Do",
-  copy: "The VIZONIX Daily is a free, five-minute briefing on how AI and robotics are changing aviation operations. Each weekday we pick the news that matters to MROs, operators and suppliers, explain it in plain English, and show where to put AI and robotics to work.",
+  copy: "The VIZONIX Daily is a new, free briefing that helps aviation leaders put AI and robotics to work. Every weekday we pick the developments that matter to MROs, operators and suppliers, explain them in plain English, and show where they pay off. Choose the topics you care about, and we'll tailor every issue to you.",
 } as const;
 
 /** Public profiles. Do not add a URL that is not live. */

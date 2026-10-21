@@ -32,6 +32,8 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production links | Canonical URL, no trailing slash. Default `https://vizonix.com`. |
 | `TOKEN_SECRET` | Signup | HMAC secret for confirm, unsubscribe, and topic links. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Signup | Cloudflare Turnstile site key for the sign-up and suggestion forms. Required in production. |
+| `TURNSTILE_SECRET_KEY` | Signup | Server-side Turnstile secret. Required in production. Never prefix it with `NEXT_PUBLIC_`. |
 | `SUPABASE_URL` | Topic choices | Project URL. Server only. Do not prefix with `NEXT_PUBLIC_`. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Topic choices | Service role key for `subscriber_prefs` and `topic_suggestions`. Server only. |
 | `PUBLISH_SECRET` | `POST /api/publish` and `POST /api/linkedin-post` | Bearer token. |
@@ -69,7 +71,7 @@ Issues and tools are JSON in the repo.
 - `content/drafts/` is not published until the script copies a file into `issues/`
 - `content/bookings.json` stores paid reservations with no email address and no card data
 
-An issue has one lead, industry topic sections, then one `AI Productivity Tools` section, one playbook, quick links, and three sponsor slots: `primary`, `secondary`, and `classified`. Tools can sit in a flat `tools` array or in `sections`, which group them by topic and can carry an intro and a coverage note. When `sections` is set, the last section must be titled `AI Productivity Tools` and it must come after the industry topics. That section covers general-purpose productivity AI for any business user: writing, meetings and notes, email, scheduling, research, spreadsheets, presentations, and automation. Use real products, an accurate one-line description, and the official URL. The website renders that heading in the same gray pill as the other topic headings. The email includes it as a normal section heading. Empty slots render as house ads. A sponsor object with `"house": true` is also a house ad and is not marked as a paid placement. Word ceilings match the rate card: primary 110, secondary 60, classified 35.
+An issue has one lead, industry topic sections, then one `General AI Productivity Tools` section, one playbook, quick links, and three sponsor slots: `primary`, `secondary`, and `classified`. Tools can sit in a flat `tools` array or in `sections`, which group them by topic and can carry an intro and a coverage note. When `sections` is set, the last section must be titled `General AI Productivity Tools` and it must come after the industry topics. That section covers general-purpose productivity AI for any business user: writing, meetings and notes, email, scheduling, research, spreadsheets, presentations, and automation. Use real products, an accurate one-line description, and the official URL. The website renders that heading in the same gray pill as the other topic headings. The email includes it as a normal section heading. Empty slots render as house ads. Each numbered section can also carry an optional `sponsor` with `name`, `line`, `url`, and an optional `logo`. With none set, the section shows "Sponsor this section - Open" and links to the same rates page as the primary sponsor block. That line is part of the section, so a reader who turns the topic off does not see it. A sponsor object with `"house": true` is also a house ad and is not marked as a paid placement. Word ceilings match the rate card: primary 110, secondary 60, classified 35.
 
 The aviation issue (`2026-10-16`) is the first real issue. It is indexable and listed in the sitemap. A section URL that is not in `lib/segments.ts` as `active` returns a 404 and is left out of the sitemap.
 
@@ -210,7 +212,7 @@ GitHub Actions runs `npm test`, `npm run build`, and `npm run smoke` on every pu
 
 These are outside the repo:
 
-1. Set the env vars in Vercel. The list Ty must set is the table above. Minimum for a public deploy of the sample site: `NEXT_PUBLIC_SITE_URL`. Minimum before collecting emails: `TOKEN_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, and `RESEND_SEGMENT_ID_AVIATION`. Minimum before charging a sponsor: the Stripe keys, the aviation Price ids, `STRIPE_WEBHOOK_SECRET`, and `GITHUB_TOKEN` plus `GITHUB_REPO` so bookings are saved.
+1. Set the env vars in Vercel. The list Ty must set is the table above. Minimum for a public deploy of the sample site: `NEXT_PUBLIC_SITE_URL`. Minimum before collecting emails: `TOKEN_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, `RESEND_SEGMENT_ID_AVIATION`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. Production sign-ups fail closed when either Turnstile key is missing. Tests and preview can use Cloudflare's always-pass keys (`1x00000000000000000000AA` and `1x0000000000000000000000000000000AA`) or leave them unset. Minimum before charging a sponsor: the Stripe keys, the aviation Price ids, `STRIPE_WEBHOOK_SECRET`, and `GITHUB_TOKEN` plus `GITHUB_REPO` so bookings are saved.
 2. The Resend domain `vizonix.com` is already verified. Create the Aviation segment, then set `RESEND_API_KEY` and `EMAIL_FROM`.
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.
