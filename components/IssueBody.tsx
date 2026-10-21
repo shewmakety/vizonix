@@ -27,7 +27,7 @@ import {
   type SponsorCreative,
 } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
-import { editor, site } from "@/lib/site";
+import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site } from "@/lib/site";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
   const src = sectionIconUrl(topic, "web");
@@ -249,6 +249,9 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <div className="wrap dashboard-wrap">
           <h1 className="issue-title">{issue.subject}</h1>
           <p className="issue-dateline">{issueHeaderLine(issue)}</p>
+          <p className="issue-customize">
+            {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
+          </p>
           <p className="issue-share">
             <a href={mailto}>Forward this</a>
           </p>
@@ -303,7 +306,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
               <SignupForm
                 defaultSegment={issue.segment}
                 showSegment={false}
-                heading="Get the next issue"
+                heading={signupBlockHeading}
                 submitLabel="Update My Preferences"
                 pendingLabel="Saving"
               />

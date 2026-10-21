@@ -11,6 +11,18 @@ export const editor = {
   path: "/about#editor",
 };
 
+/** Short line under the issue title and in the sign-up block. Regular hyphen. */
+export const customizePitch = "Pick your topics - get only the sections you care about";
+
+/** Link label for the topic picker. Email uses the signed manage-topics URL. */
+export const customizeLinkLabel = "Customize your issue";
+
+/** Heading of the issue sign-up card on the web and in the email. */
+export const signupBlockHeading = "Sign-Up Now";
+
+/** Public page where a new reader picks topics. Preferences needs a signed email link. */
+export const customizeWebPath = "/join";
+
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
   heading: "What We Do",

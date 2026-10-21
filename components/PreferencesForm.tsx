@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SectionChoices } from "@/components/SectionChoices";
+import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { excludedFromFormData } from "@/lib/reader-sections";
 
 type Status = { kind: "idle" | "working" | "ok" | "error"; message: string };
@@ -16,12 +17,23 @@ export function PreferencesForm({
   excluded: string[];
 }) {
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    const honeypot = String(form.get("company_website") ?? "");
+    if (honeypot.trim()) {
+      setStatus({ kind: "ok", message: "Topics saved." });
+      return;
+    }
     const excludedSections = excludedFromFormData(form, segment) ?? [];
     const suggestion = String(form.get("suggestion") ?? "").trim();
+    if (suggestion && !turnstileToken) {
+      setStatus({ kind: "error", message: "Verification is still loading. Try again." });
+      return;
+    }
     setStatus({ kind: "working", message: "" });
 
     const saved = await fetch("/api/preferences", {
@@ -43,8 +55,15 @@ export function PreferencesForm({
     const suggested = await fetch("/api/suggest", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ token, text: suggestion, source: "preferences" }),
+      body: JSON.stringify({
+        token,
+        text: suggestion,
+        source: "preferences",
+        turnstileToken,
+        company_website: honeypot,
+      }),
     });
+    turnstile.current?.reset();
     const suggestedBody = (await suggested.json()) as { error?: string };
     if (!suggested.ok) {
       setStatus({
@@ -62,6 +81,11 @@ export function PreferencesForm({
     <form className="form-card" onSubmit={onSubmit}>
       <h2>Your topics</h2>
       <SectionChoices segment={segment} excluded={excluded} />
+      <div className="hp" aria-hidden="true">
+        <label htmlFor="preferences-company-website">Company website</label>
+        <input id="preferences-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
+      </div>
+      <TurnstileField ref={turnstile} action="suggest" onToken={setTurnstileToken} />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Saving" : "Update My Preferences"}

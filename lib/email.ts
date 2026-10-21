@@ -11,7 +11,16 @@ import {
 } from "@/lib/schema";
 import { unsubscribePath } from "@/lib/segment-memory";
 import { signToken, tokenSecret } from "@/lib/tokens";
-import { absoluteUrl, sectionWordmark, site, whatWeDo } from "@/lib/site";
+import {
+  absoluteUrl,
+  customizeLinkLabel,
+  customizePitch,
+  customizeWebPath,
+  sectionWordmark,
+  signupBlockHeading,
+  site,
+  whatWeDo,
+} from "@/lib/site";
 import { escapeHtml, publicHref } from "@/lib/html";
 import {
   chipLabel,
@@ -277,15 +286,16 @@ function rampEmailText(ramp: Ramp | undefined): string[] {
 const nextIssueNote =
   "Free, one section at a time. We send a confirmation email first. You can leave from any issue.";
 
-function nextIssueEmailHtml(segmentSlug: string, sectionName: string): string {
-  const join = absoluteUrl("/join");
+function nextIssueEmailHtml(segmentSlug: string, sectionName: string, preferencesUrl: string): string {
+  const join = absoluteUrl(customizeWebPath);
   const issues = absoluteUrl(`/${segmentSlug}/issues`);
   return `
           <tr>
             <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.2;color:#13233b;">Get the next issue</h2>
-                <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#4a5262;">${escapeHtml(nextIssueNote)}</p>
+                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.2;color:#13233b;">${escapeHtml(signupBlockHeading)}</h2>
+                ${customizeEmailHtml(preferencesUrl, false)}
+                <p style="margin:12px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#4a5262;">${escapeHtml(nextIssueNote)}</p>
                 <a href="${escapeHtml(join)}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:8px 14px;border-radius:4px;">Send confirmation</a>
                 <p style="margin:12px 0 0;font-family:Arial,sans-serif;font-size:13px;"><a href="${escapeHtml(issues)}" style="color:#14532D;">All ${escapeHtml(sectionName)} issues</a></p>
               </div>
@@ -293,11 +303,13 @@ function nextIssueEmailHtml(segmentSlug: string, sectionName: string): string {
           </tr>`;
 }
 
-function nextIssueEmailText(segmentSlug: string, sectionName: string): string[] {
+function nextIssueEmailText(segmentSlug: string, sectionName: string, preferencesUrl: string): string[] {
   return [
-    "GET THE NEXT ISSUE",
+    signupBlockHeading.toUpperCase(),
+    customizePitch,
+    `${customizeLinkLabel}: ${preferencesUrl}`,
     nextIssueNote,
-    `Send confirmation: ${absoluteUrl("/join")}`,
+    `Send confirmation: ${absoluteUrl(customizeWebPath)}`,
     `All ${sectionName} issues: ${absoluteUrl(`/${segmentSlug}/issues`)}`,
     "",
   ];
@@ -475,11 +487,19 @@ function emailMasthead(sectionName: string): string {
           </tr>`;
 }
 
-function issueHeaderHtml(title: string, dateline: string): string {
+function customizeEmailHtml(href: string, onNavy: boolean): string {
+  const text = onNavy ? "#e7e1d4" : "#4a5262";
+  const link = onNavy ? "#c9b98f" : "#14532D";
+  return `<p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;color:${text};">${escapeHtml(customizePitch)}</p>
+              <p style="margin:4px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;"><a href="${escapeHtml(href)}" style="color:${link};font-weight:700;text-decoration:underline;">${escapeHtml(customizeLinkLabel)}</a></p>`;
+}
+
+function issueHeaderHtml(title: string, dateline: string, preferencesUrl: string): string {
   return `<tr>
             <td style="background:#13233b;padding:26px 20px;">
               <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${escapeHtml(title)}</h1>
               <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;line-height:1.4;color:#c9b98f;">${escapeHtml(dateline)}</p>
+              ${customizeEmailHtml(preferencesUrl, true)}
             </td>
           </tr>`;
 }
@@ -592,7 +612,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     <tr>
       <td align="center" style="background:#f3f4f6;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="vz-wrap" style="width:600px;max-width:600px;table-layout:fixed;word-break:break-word;background:#f3f4f6;">
-          ${issueHeaderHtml(issue.subject, issueHeaderLine(issue))}
+          ${issueHeaderHtml(issue.subject, issueHeaderLine(issue), issuePreferences(options))}
           ${forwardEmailHtml(issue)}
           ${linkRow}
           ${jumpEmailHtml(visibleSections)}
@@ -624,7 +644,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               </div>
             </td>
           </tr>
-          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment)}
+          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment, issuePreferences(options))}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
@@ -684,6 +704,8 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     sectionWordmark(editionName),
     issue.subject,
     issueHeaderLine(issue),
+    customizePitch,
+    `${customizeLinkLabel}: ${preferences}`,
     "",
     `Forwarded this? Subscribe! ${forwardedSubscribeUrl}`,
     `Forward this: ${mailto}`,
@@ -706,7 +728,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
-    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment),
+    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment, preferences),
     ...sectionsForReader(issue, options.excludedSections).flatMap((section) =>
       sectionEmailText(section, sectionSponsorRatesUrl(issue)),
     ),

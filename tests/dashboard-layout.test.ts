@@ -33,8 +33,10 @@ describe("Option B scannable dashboard", () => {
     expect(html).toContain(`href="${mailto}"`);
     expect(html.match(/>Forward this</g)).toHaveLength(2);
     expect(html.indexOf("Jump to")).toBeLessThan(html.indexOf(issue.lead.title));
-    expect(html.indexOf('class="what-we-do-heading"')).toBeLessThan(html.indexOf("Get the next issue"));
-    expect(html.indexOf("Get the next issue")).toBeLessThan(html.indexOf('aria-hidden="true">01<'));
+    expect(html.indexOf('class="what-we-do-heading"')).toBeLessThan(html.indexOf("Sign-Up Now"));
+    expect(html.indexOf("Sign-Up Now")).toBeLessThan(html.indexOf('aria-hidden="true">01<'));
+    expect(html).toContain("Pick your topics - get only the sections you care about");
+    expect(html).toContain('href="/join">Customize your issue</a>');
     expect(html.indexOf('aria-hidden="true">08<')).toBeLessThan(html.indexOf('class="ramp-heading"'));
     expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf('class="glossary-heading"'));
     expect(decodeURIComponent(forwardMailto(issue))).toContain(forwardIssueUrl(issue));
@@ -60,12 +62,16 @@ describe("Option B scannable dashboard", () => {
     expect(email).toContain(">07</b> AOG support</a>");
     expect(email).toContain(">AOG support: parts, rotables and technicians</td>");
     expect(email.indexOf("background:#f4f1ea")).toBeLessThan(email.indexOf("background:#13233b"));
-    expect(email.indexOf("What We Do")).toBeLessThan(email.indexOf("Get the next issue"));
-    expect(email.indexOf("Get the next issue")).toBeLessThan(email.indexOf(">01</td>"));
+    expect(email.indexOf("What We Do")).toBeLessThan(email.indexOf("Sign-Up Now"));
+    expect(email.indexOf("Sign-Up Now")).toBeLessThan(email.indexOf(">01</td>"));
+    expect(email).toContain("Pick your topics - get only the sections you care about");
+    expect(email).toContain(">Customize your issue</a>");
     expect(email.indexOf(`>${productivitySectionTopic}</td>`)).toBeLessThan(email.indexOf(">The Ramp</td>"));
     expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
-    expect(text.indexOf(issue.lead.title)).toBeLessThan(text.indexOf("GET THE NEXT ISSUE"));
-    expect(text.indexOf("GET THE NEXT ISSUE")).toBeLessThan(text.indexOf("RECRUITING"));
+    expect(text.indexOf(issue.lead.title)).toBeLessThan(text.indexOf("SIGN-UP NOW"));
+    expect(text.indexOf("SIGN-UP NOW")).toBeLessThan(text.indexOf("RECRUITING"));
+    expect(text).toContain("Pick your topics - get only the sections you care about");
+    expect(text).toContain("Customize your issue:");
     expect(text.indexOf("QUICK LINKS")).toBeLessThan(text.indexOf("THE RAMP"));
     expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("AI GLOSSARY"));
 

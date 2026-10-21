@@ -32,6 +32,8 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | Production links | Canonical URL, no trailing slash. Default `https://vizonix.com`. |
 | `TOKEN_SECRET` | Signup | HMAC secret for confirm, unsubscribe, and topic links. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Signup | Cloudflare Turnstile site key for the sign-up and suggestion forms. Required in production. |
+| `TURNSTILE_SECRET_KEY` | Signup | Server-side Turnstile secret. Required in production. Never prefix it with `NEXT_PUBLIC_`. |
 | `SUPABASE_URL` | Topic choices | Project URL. Server only. Do not prefix with `NEXT_PUBLIC_`. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Topic choices | Service role key for `subscriber_prefs` and `topic_suggestions`. Server only. |
 | `PUBLISH_SECRET` | `POST /api/publish` and `POST /api/linkedin-post` | Bearer token. |
@@ -210,7 +212,7 @@ GitHub Actions runs `npm test`, `npm run build`, and `npm run smoke` on every pu
 
 These are outside the repo:
 
-1. Set the env vars in Vercel. The list Ty must set is the table above. Minimum for a public deploy of the sample site: `NEXT_PUBLIC_SITE_URL`. Minimum before collecting emails: `TOKEN_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, and `RESEND_SEGMENT_ID_AVIATION`. Minimum before charging a sponsor: the Stripe keys, the aviation Price ids, `STRIPE_WEBHOOK_SECRET`, and `GITHUB_TOKEN` plus `GITHUB_REPO` so bookings are saved.
+1. Set the env vars in Vercel. The list Ty must set is the table above. Minimum for a public deploy of the sample site: `NEXT_PUBLIC_SITE_URL`. Minimum before collecting emails: `TOKEN_SECRET`, `RESEND_API_KEY`, `EMAIL_FROM`, `RESEND_SEGMENT_ID_AVIATION`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. Production sign-ups fail closed when either Turnstile key is missing. Tests and preview can use Cloudflare's always-pass keys (`1x00000000000000000000AA` and `1x0000000000000000000000000000000AA`) or leave them unset. Minimum before charging a sponsor: the Stripe keys, the aviation Price ids, `STRIPE_WEBHOOK_SECRET`, and `GITHUB_TOKEN` plus `GITHUB_REPO` so bookings are saved.
 2. The Resend domain `vizonix.com` is already verified. Create the Aviation segment, then set `RESEND_API_KEY` and `EMAIL_FROM`.
 3. Create the Stripe products, prices, the FOUNDING promotion code, and the webhook.
 4. Point `vizonix.com` at Vercel.

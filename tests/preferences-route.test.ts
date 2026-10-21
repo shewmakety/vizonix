@@ -1,8 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { signToken } from "@/lib/tokens";
 import { resetRateLimits } from "@/lib/rate-limit";
+import { signToken } from "@/lib/tokens";
+import { TURNSTILE_TEST_SECRET } from "@/lib/turnstile";
+import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
 
-const envKeys = ["TOKEN_SECRET", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"] as const;
+const envKeys = ["TOKEN_SECRET", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "TURNSTILE_SECRET_KEY", "VERCEL_ENV"] as const;
 const saved: Record<string, string | undefined> = {};
 
 function token(purpose: "preferences" | "confirm" = "preferences"): string {
@@ -22,6 +24,8 @@ beforeEach(() => {
   process.env.TOKEN_SECRET = "route-secret";
   process.env.SUPABASE_URL = "https://example.supabase.co";
   process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+  process.env.TURNSTILE_SECRET_KEY = TURNSTILE_TEST_SECRET;
+  process.env.VERCEL_ENV = "preview";
   resetRateLimits();
 });
 
@@ -77,7 +81,12 @@ describe("preference routes", () => {
     const missing = await POST(request("/api/suggest", { token: token(), text: "   " }));
     expect(missing.status).toBe(400);
     const response = await POST(
-      request("/api/suggest", { token: token(), text: "  Hangar robots  ", source: "LinkedIn!" }),
+      request("/api/suggest", {
+        token: token(),
+        text: "  Hangar robots  ",
+        source: "LinkedIn!",
+        turnstileToken: TURNSTILE_TEST_TOKEN,
+      }),
     );
     expect(response.status).toBe(200);
     const stored = JSON.parse(String((fetchMock.mock.calls[0] as unknown as [string, RequestInit])[1].body)) as {
@@ -92,6 +101,16 @@ describe("preference routes", () => {
       source: "linkedin",
       status: "new",
     });
-    expect((await POST(request("/api/suggest", { token: token("confirm"), text: "Hangar robots" }))).status).toBe(400);
+    expect(
+      (
+        await POST(
+          request("/api/suggest", {
+            token: token("confirm"),
+            text: "Hangar robots",
+            turnstileToken: TURNSTILE_TEST_TOKEN,
+          }),
+        )
+      ).status,
+    ).toBe(400);
   });
 });
