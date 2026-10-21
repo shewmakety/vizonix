@@ -1,0 +1,17 @@
+{
+  "slug": "virtualitics-iris",
+  "segment": "aviation",
+  "name": "Virtualitics Iris",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Virtualitics",
+  "summary": "On October 20, Virtualitics said the US Marine Corps' 2nd Marine Aircraft Wing renewed its contract for the company's AI readiness platform, now supporting six of seven MV-22 Osprey squadrons at Marine Corps Air Station New River. Virtualitics describes it as an AI-driven predictive maintenance and readiness solution. New capabilities include live data updates through API integrations and AI-enabled flight schedule creation and recommendations. This is a military program.",
+  "paragraphs": [
+    "On October 20, Virtualitics said the US Marine Corps' 2nd Marine Aircraft Wing renewed its contract for the company's AI readiness platform, now supporting six of seven MV-22 Osprey squadrons at Marine Corps Air Station New River. Virtualitics describes it as an AI-driven predictive maintenance and readiness solution. New capabilities include live data updates through API integrations and AI-enabled flight schedule creation and recommendations. This is a military program."
+  ],
+  "whyItMatters": "Readiness problems build across maintenance, material, manpower and schedules, as Virtualitics puts it, and commercial operators face the same mix. The money is in one view that shows which aircraft will not be available next week and why, so you reschedule before a missed flight costs you.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.prnewswire.com/news-releases/forging-the-future-of-usmc-aviation-readiness-virtualitics-secures-a-strategic-renewal-of-2nd-maw-contract-302913567.html",
+  "url": "https://www.virtualitics.com/"
+}

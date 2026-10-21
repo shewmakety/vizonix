@@ -114,7 +114,7 @@ On Vercel the route commits the JSON through the GitHub API (`GITHUB_TOKEN`, `GI
 
 `/preferences?token=` lets a reader change topics without an account. Each reader email footer includes Manage your topics. `POST /api/preferences` and `POST /api/suggest` check that token.
 
-Unsubscribe is `/unsubscribe`. A single test copy still uses a normal Resend send. A list send uses the batch API, with a signed unsubscribe link and a `List-Unsubscribe` header, because a broadcast cannot vary the sections per reader.
+Unsubscribe only happens from the signed link at the bottom of a briefing email. `/unsubscribe` accepts that token and does not email a link to an address someone types in. A single test copy still uses a normal Resend send. A list send uses the batch API, one rendered issue per exclusion set, with a signed unsubscribe link and a signed topic link for each reader. The visible unsubscribe link opens this site. `List-Unsubscribe` uses `/api/unsubscribe?token=` and `List-Unsubscribe-Post` so a mail client can leave in one click. A broadcast cannot vary the sections per reader, so the list send does not use one.
 
 ## Vercel
 

@@ -52,6 +52,7 @@ describe("site copy", () => {
     expect(paths).not.toContain("/legal/tools");
     expect(paths).not.toContain("/warehousing");
     expect(paths).not.toContain("/marketing-sales");
+    expect(paths).toContain("/aviation/issues/2026-10-21");
     expect(paths).toContain("/aviation/issues/2026-10-20");
     expect(paths).toContain("/aviation/issues/2026-10-19");
     expect(paths).toContain("/aviation/issues/2026-10-16");
@@ -82,7 +83,7 @@ describe("site copy", () => {
     expect(full).not.toContain("/legal/issues");
     expect(full).not.toContain("/legal/tools");
     expect(full).not.toContain("ClauseHarbor");
-    expect(llms).toContain("/aviation/issues/2026-10-20");
+    expect(llms).toContain("/aviation/issues/2026-10-21");
     expect(llms).toContain("/aviation/issues/2026-10-19");
     expect(llms).toContain("/aviation/issues/2026-10-16");
     expect(llms).toContain("https://pubt.io/view/70BF9BDB3956CE0D9800CFEF0C266E427A42C55B");

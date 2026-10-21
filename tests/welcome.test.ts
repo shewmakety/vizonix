@@ -89,21 +89,22 @@ describe("welcome email on confirm", () => {
     expect(payload.html).toContain("short AI briefing every weekday morning for Aviation");
     expect(payload.html).toContain("admin@vizonix.com");
     expect(payload.html).toContain(
-      "False alerts are the real test of predictive maintenance, say Delta TechOps, Lufthansa Technik and Trax",
+      "Boeing launches Dataliner, an AI platform that looks across the whole fleet instead of one tail at a time",
     );
-    expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-10-20");
+    expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-10-21");
     expect(payload.html).toContain("https://vizonix.com/aviation/tools");
     expect(payload.html).toContain("Tool Directory");
     expect(payload.html).toContain("Read on the web");
     expect(payload.text).toContain("Tool Directory: https://vizonix.com/aviation/tools");
-    expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-20");
+    expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-21");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
     expect(payload.html).toContain("Manage your topics");
     expect(payload.html).toContain("/preferences?token=");
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");
     expect(payload.text).toContain("Unsubscribe:");
-    expect(payload.headers["List-Unsubscribe"]).toContain("/aviation/unsubscribe?token=");
+    expect(payload.headers["List-Unsubscribe"]).toContain("/api/unsubscribe?token=");
+    expect(payload.headers["List-Unsubscribe-Post"]).toBe("List-Unsubscribe=One-Click");
     expect(options.idempotencyKey).toBe(welcomeIdempotencyKey("reader@example.com", "aviation"));
     expect(`${payload.subject}\n${payload.html}\n${payload.text}`).not.toMatch(/[\u2013\u2014]/);
     const owner = resend.send.mock.calls.find((call) =>

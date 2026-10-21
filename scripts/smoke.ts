@@ -9,7 +9,8 @@ const base = `http://127.0.0.1:${port}`;
 const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
-  ["/aviation/issues", "When should a predictive alert ground an aircraft"],
+  ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-21", "Boeing launches Dataliner"],
   ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
   ["/aviation/issues/2026-10-16", "Veryon puts an AI assistant"],
@@ -222,6 +223,13 @@ async function main() {
     if (!tuesdayIssue.includes('class="issue-dateline">Aviation - Tuesday, October 20, 2026')) {
       throw new Error("The October 20 issue date did not stay on Tuesday, October 20, 2026.");
     }
+    const wednesdayIssue = await fetch(`${base}/aviation/issues/2026-10-21`).then((response) => response.text());
+    if (wednesdayIssue.includes("noindex")) {
+      throw new Error("The October 21 aviation issue is marked noindex.");
+    }
+    if (!wednesdayIssue.includes('class="issue-dateline">Aviation - Wednesday, October 21, 2026')) {
+      throw new Error("The October 21 issue date did not stay on Wednesday, October 21, 2026.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -238,6 +246,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-21") ||
       !sitemap.includes("/aviation/issues/2026-10-20") ||
       !sitemap.includes("/aviation/issues/2026-10-19") ||
       !sitemap.includes("/aviation/issues/2026-10-16")
@@ -271,7 +280,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-20")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-21")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);

@@ -1,4 +1,3 @@
-import { RememberedUnsubscribeLink } from "@/components/RememberedLinks";
 import { pageMeta } from "@/lib/meta";
 import { site } from "@/lib/site";
 
@@ -34,9 +33,9 @@ export default function PrivacyPage() {
         </p>
         <h2>Unsubscribe</h2>
         <p>
-          Every issue includes an unsubscribe link. You can also request one from the{" "}
-          <RememberedUnsubscribeLink />. Unsubscribing stops the briefing. Resend
-          stores the contact so we do not keep mailing you by mistake.
+          Every briefing email has an unsubscribe link at the bottom. That link is the way off the
+          list. Unsubscribing stops the briefing. Resend stores the contact so we do not keep mailing
+          you by mistake.
         </p>
         <h2>Sponsorship checkout</h2>
         <p>

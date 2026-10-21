@@ -1,0 +1,17 @@
+{
+  "slug": "rolls-royce-optimiser",
+  "segment": "aviation",
+  "name": "Optimiser",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "Rolls-Royce, built with Microsoft",
+  "summary": "Described by Microsoft on October 21: an agentic AI system Rolls-Royce uses to plan its engine shop visits, close to 1,500 in 2025. An Engine Agent draws on data about individual engines, a Workscope Agent helps determine what maintenance may be needed, Facility Agents weigh shop capacity and capability, and a Supplier Agent handles the supply chain, while people keep oversight. A planning exercise that took four or five people about a week has been materially reduced, and Rolls-Royce says it is helping reduce engine turnaround times. It is still developing.",
+  "paragraphs": [
+    "Described by Microsoft on October 21: an agentic AI system Rolls-Royce uses to plan its engine shop visits, close to 1,500 in 2025. An Engine Agent draws on data about individual engines, a Workscope Agent helps determine what maintenance may be needed, Facility Agents weigh shop capacity and capability, and a Supplier Agent handles the supply chain, while people keep oversight. A planning exercise that took four or five people about a week has been materially reduced, and Rolls-Royce says it is helping reduce engine turnaround times. It is still developing."
+  ],
+  "whyItMatters": "An engine in the shop is an aircraft not earning. Faster re-planning when a part slips or a slot opens means engines go back to airlines sooner. For Rolls-Royce customers the payoff is shorter shop visits; for your own planners, it is a model for splitting a planning job into agents with a person approving the result.",
+  "pricing": "Internal Rolls-Royce system",
+  "sourceUrl": "https://ukstories.microsoft.com/features/rolls-royce-using-ai-agents-to-help-keep-more-aircraft-flying-for-longer/",
+  "url": "https://ukstories.microsoft.com/features/rolls-royce-using-ai-agents-to-help-keep-more-aircraft-flying-for-longer/"
+}

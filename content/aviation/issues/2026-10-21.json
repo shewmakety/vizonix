@@ -1,0 +1,407 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-21",
+  "publishedAt": "2026-10-21T05:45:00-04:00",
+  "sample": false,
+  "subject": "Boeing brings AI to fleet-wide maintenance data. Plus 7 places to put AI and robotics to work",
+  "preheader": "Boeing Dataliner, Rolls-Royce engine planning agents, Wheels Up on Honeywell Ensemble, Korean Air inspection drones, airport robots and new ChatGPT, Gemini and Copilot tools.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Boeing launches Dataliner, an AI platform that looks across the whole fleet instead of one tail at a time",
+    "summary": "Boeing announced Dataliner on October 20, an AI-powered data platform built with Microsoft on Azure AI Foundry. It connects an airline's aviation, maintenance and operational data with Boeing's own aircraft and engineering intelligence, so teams can see aircraft condition, maintenance history and operations across the fleet rather than tail by tail. Airlines keep their data in their own environments and choose what to share, with built-in access controls and encryption. Boeing Global Services CEO Chris Raymond told Aviation Week it \"presents a more integrated picture of decisions for airline operators to use faster.\" Dataliner becomes the foundation for Boeing's digital services, including Airplane Health Management, Insight Accelerator and Maintenance Performance Toolbox, and for two new products, Asset Lifecycle Planning and a TechOps AI Agent. Boeing has not announced pricing, launch customers or a date for the new products. A day later, Microsoft described how Rolls-Royce uses AI agents to plan its engine shop visits (see Maintenance activity optimization).",
+    "whyItMatters": "Repeat defects rarely announce themselves on one aircraft. A fleet-level view is how you spot a part number or fault that is starting to cost you across several tails, then plan the fix into scheduled checks instead of absorbing it as delays and AOGs. Before you sign up, ask Boeing what data leaves your environment, which of your current Boeing digital tools it feeds or replaces, and what the TechOps AI Agent will actually do and when it ships.",
+    "sourceName": "Boeing, October 20, 2026",
+    "sourceUrl": "https://investors.boeing.com/investors/news/press-release-details/2026/Boeing-Introduces-Dataliner-a-New-Aircraft-Data-Intelligence-Platform/default.aspx"
+  },
+  "ramp": {
+    "intro": "The best of what aviation and AI voices were saying on X over the past two days.",
+    "posts": [
+      {
+        "author": "FOX Business",
+        "handle": "@FoxBusiness",
+        "url": "https://x.com/FoxBusiness/status/2112575846833615160",
+        "text": "Boeing is turning to artificial intelligence to help airlines catch potential aircraft problems before they become bigger safety risks.\n\nThe aviation giant is unveiling Dataliner, a new AI-powered platform developed with Microsoft that analyzes maintenance records, aircraft operations, and engineering data to help airlines spot emerging issues across entire fleets.\n\nThe goal is to give airlines a clearer picture of what needs attention and help them make faster maintenance decisions.\n\nBut how much control will airlines have over the information they share? Boeing is addressing that question as it rolls out the technology: https://t.co/ZGyYubIoZq",
+        "postedAt": "2026-10-20T16:05:06Z",
+        "note": "A mainstream business outlet framing Boeing's Dataliner as a safety and maintenance tool, and flagging the question every airline will ask: how much data control do we keep?"
+      },
+      {
+        "author": "Aviation Week",
+        "handle": "@AviationWeek",
+        "url": "https://x.com/AviationWeek/status/2112677243528892514",
+        "text": "📹 How IPOs And AI Are Lifting Bizet Demand\n\nAviation Week's Joe Anselmo and Michael Bruno outline how a rise in the number of IPOs minting new billionaires is good news for the business aviation market, a trend driven by the emergence of AI. ▶️ Watch now. https://t.co/IQekD8Af6B\n\n#NBAA2026 @NBAA",
+        "postedAt": "2026-10-20T22:48:01Z",
+        "note": "Aviation Week's editors link the AI boom to new billionaires and stronger business jet demand, a sales signal for charter, brokers and completions shops."
+      },
+      {
+        "author": "Abhinav Kumar",
+        "handle": "@singhabhinav",
+        "url": "https://x.com/singhabhinav/status/2112590451635003830",
+        "text": "Who pays when an AI agent books you the wrong flight?\n\nNobody knows yet. One travel-industry analysis found no settled case law on travel AI agent liability. California now bars a defendant from blaming the AI system's autonomous operation as a defense, from January 2026. Colorado requires annual impact assessments from deployers, from June 2026.\n\nSo the rules are being written while the agents are already booking.\n\nMy side: the company that sold you the agent should pay. If it can book for you, it can answer for you.\n\nTraveler, app or airline: where do you land?",
+        "postedAt": "2026-10-20T17:03:08Z",
+        "note": "As agents start booking travel, liability for a wrong booking is unsettled. Worth reading alongside Delta's move to block outside agents."
+      },
+      {
+        "author": "Aviation International News",
+        "handle": "@AINonline",
+        "url": "https://x.com/AINonline/status/2112702910916186420",
+        "text": "Taking center stage at #NBAA2026, experts are gathering to discuss cybersecurity, artificial intelligence, transactions, and more.\n\nRead more ⬇️ https://t.co/tTtDxi4YOf",
+        "postedAt": "2026-10-21T00:30:00Z",
+        "note": "AIN on the NBAA-BACE Flight Deck program, where AI sits beside cybersecurity and transactions on the main stage."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "coverageNote": "Thin today: one small new platform, launched in Spain, and the robotics note is a funding story rather than a hiring tool.",
+      "robotics": {
+        "headline": "Reliable Robotics raises $115 million to retrofit autonomy into cargo Caravans",
+        "summary": "TechCrunch reported on October 20 that Reliable Robotics raised $115 million, $90 million in equity led by Nimble Partners plus $25 million of debt from Silicon Valley Bank, taking it past a $1 billion valuation. Its first system, which CEO Robert Rose expects to be certified in 18 to 24 months, handles engine start, taxi, takeoff and landing while the pilot stays aboard and supervises through a touchscreen. Moving the pilot to a ground station is at least three years away. Its own airline, Reliable Airlines, flies six Cessna Caravans with cargo six days a week from Albuquerque. Read it as a long-range staffing signal for feeder cargo, not a hiring tool.",
+        "whyItMatters": "Feeder cargo depends on finding pilots for small aircraft. Retrofit autonomy on airframes you already own is the version worth watching, because it does not need a new aircraft type. Nothing changes in your crew plan yet; track the FAA milestones before your next fleet or crewing decision.",
+        "sourceName": "TechCrunch",
+        "sourceUrl": "https://techcrunch.com/2026/10/20/spacex-alums-aviation-startup-reliable-robotics-lands-115m-topping-1b-valuation/"
+      },
+      "tools": [
+        {
+          "name": "LinkaPilot",
+          "slug": "linkapilot",
+          "company": "LinkaPilot",
+          "summary": "A new aviation job platform for pilots, engineers, cabin crew and aviation companies, reported by Spain's Hispaviación on October 17. It analyzes and structures CV information to assess how well a candidate fits an opening, leaves the selection decision with people, and verifies the identity of professionals and companies before they join.",
+          "whyItMatters": "Generic job boards bury a type rating or a licence under keyword noise, so recruiters end up paying agencies to find people who were already applying. A platform that reads aviation qualifications properly can shorten the time to a shortlist. It is new and early: post one hard-to-fill role and compare the matches with your current channels before paying for anything.",
+          "url": "/aviation/tools/linkapilot",
+          "sourceUrl": "https://www.hispaviacion.es/el-nuevo-punto-de-encuentro-digital-para-los-profesionales-de-la-aviacion/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "Context first: The Verge reported on October 17 that Delta Air Lines is preventing outside AI agents from booking tickets on behalf of users. Airlines are choosing which AI channels to let in, and both items below are operators building AI into their own front door instead.",
+      "introSourceUrl": "https://www.theverge.com/ai-artificial-intelligence/1013195/ai-agents-blocked-web",
+      "robotics": {
+        "headline": "Delhi Airport opens a robotic cafe at Terminal 3",
+        "summary": "ThePrint reported on October 19 that Delhi Airport, operated by the GMR group, has opened a fully automated cafe near Gate 42 in Terminal 3. A robotic arm behind glass makes coffee in two to three minutes and also serves soft-serve ice cream, tea, flavoured milk and snacks, with orders placed and paid cashlessly on a screen. It is airport retail, not an airline or MRO tool.",
+        "whyItMatters": "Gate-area food and drink is ancillary revenue that depends on staffed hours. A kiosk that runs without a barista can keep selling early and late, when a staffed outlet might close. Airport and lounge operators should watch sales per square meter and uptime, not the dancing.",
+        "sourceName": "ThePrint",
+        "sourceUrl": "https://theprint.in/feature/delhi-airports-robotic-cafe-t3/3076141/"
+      },
+      "tools": [
+        {
+          "name": "Zingly agentic voice AI",
+          "slug": "zingly-voice-ai",
+          "company": "Zingly.ai",
+          "summary": "Pegasus Airlines' innovation lab has invested in Zingly.ai and made it a design partner (LARA, October 20). The first guest service use case is live: the AI answers inbound calls in natural conversation, connects to Pegasus's existing systems to resolve the request during the call, and hands the caller to a human agent with the full conversation context when needed. The roadmap runs to mid-2027 and targets the top 10 guest service use cases, starting in Turkish.",
+          "whyItMatters": "Every call that ends with the change made, instead of a callback, saves agent time and keeps a booking or ancillary sale from walking away. The number to ask any voice AI vendor for is the share of calls resolved without a handoff, measured on your own top call types.",
+          "url": "/aviation/tools/zingly-voice-ai",
+          "sourceUrl": "https://www.laranews.net/pegasus-airlines-to-bring-agentic-voice-ai-to-guest-service/",
+          "pricing": "Contact the vendor"
+        },
+        {
+          "name": "AI Concierge for FBOs (beta)",
+          "slug": "flightbridge-21x-ai-concierge",
+          "company": "21X and FlightBridge",
+          "summary": "Previewed at NBAA-BACE on October 20. 21X's conversational AI takes routine FBO customer requests by phone, text and email, and FlightBridge's Model Context Protocol tools turn each conversation into a structured request inside the FlightBridge workflows FBO teams already use. First scenarios include hotel and rental car bookings, catering and FBO service requests. It is in beta with select mutual customers, and general availability has not been announced. Live demos are at booths 2961 (21X) and 3963 (FlightBridge).",
+          "whyItMatters": "After-hours calls that go to voicemail are lost fuel, hangar and catering revenue. An AI that captures the request properly while your staff still fulfill it lets a small front desk answer every customer. At the booth, ask to see what happens with a request it cannot handle, and who sees it first.",
+          "url": "/aviation/tools/flightbridge-21x-ai-concierge",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/21x-and-flightbridge-preview-ai-concierge-for-private-aviation-302913971.html",
+          "pricing": "Not announced (beta)"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "intro": "See today's top story for Boeing's Dataliner, which Boeing says will help airlines anticipate maintenance needs across the fleet.",
+      "introSourceUrl": "https://aviationweek.com/mro/emerging-technologies/boeing-launches-ai-powered-data-platform-digital-services",
+      "robotics": {
+        "headline": "Korean Air targets 2027 for drone-and-rover aircraft inspections",
+        "summary": "Per a Hyundai Economic Daily report (October 15, in Korean), Korean Air is developing an inspection solution in which four drones and two ground rovers photograph an aircraft's exterior, drones from above and rovers from below, and AI flags defects from the images. Korean Air says a visual check that takes 8 to 12 hours on an A380 could drop to under an hour. It targets commercial use in 2027 but still needs performance validation, inclusion in the manufacturer's maintenance manual and international standards for drone inspections.",
+        "whyItMatters": "Turning a long visual check into an hour is ground time you can sell back as flying. Each image set also becomes a dated condition record, which is what trend-based maintenance needs. Treat it as a 2027 option; approval into the maintenance manual is the step to watch.",
+        "sourceName": "Hyundai Economic Daily",
+        "sourceUrl": "https://www.finomy.com/news/articleView.html?idxno=263728"
+      },
+      "tools": [
+        {
+          "name": "Honeywell Ensemble",
+          "slug": "honeywell-ensemble",
+          "company": "Honeywell Aerospace",
+          "summary": "Wheels Up selected Honeywell's Fleet Maintenance Service Plan for its Bombardier Challenger 300 and 350 fleet, announced October 20 at NBAA-BACE. The plan includes Ensemble, which automatically downloads and transmits engine data after every flight so potential engine issues can be detected and addressed before they disrupt flights. It also links operational data with engine build records, engine maintenance records and a digital engine logbook.",
+          "whyItMatters": "Wheels Up's COO tied the deal to the operator's record completion and on-time results. For any fleet, the money is in fewer unscheduled engine events and less manual trend reporting. If your Honeywell engines are on an MSP plan, check whether Ensemble covers your type before buying a separate monitoring tool.",
+          "url": "/aviation/tools/honeywell-ensemble",
+          "sourceUrl": "https://propilotmag.com/honeywell-service/",
+          "pricing": "Available through Honeywell MSP engine programs"
+        },
+        {
+          "name": "Virtualitics Iris",
+          "slug": "virtualitics-iris",
+          "company": "Virtualitics",
+          "summary": "On October 20, Virtualitics said the US Marine Corps' 2nd Marine Aircraft Wing renewed its contract for the company's AI readiness platform, now supporting six of seven MV-22 Osprey squadrons at Marine Corps Air Station New River. Virtualitics describes it as an AI-driven predictive maintenance and readiness solution. New capabilities include live data updates through API integrations and AI-enabled flight schedule creation and recommendations. This is a military program.",
+          "whyItMatters": "Readiness problems build across maintenance, material, manpower and schedules, as Virtualitics puts it, and commercial operators face the same mix. The money is in one view that shows which aircraft will not be available next week and why, so you reschedule before a missed flight costs you.",
+          "url": "/aviation/tools/virtualitics-iris",
+          "sourceUrl": "https://www.prnewswire.com/news-releases/forging-the-future-of-usmc-aviation-readiness-virtualitics-secures-a-strategic-renewal-of-2nd-maw-contract-302913567.html",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "robotics": {
+        "headline": "IER MRO starts building an AI and robotics engine shop at Dubai South",
+        "summary": "Khaleej Aviation reported on October 7 that construction has started on MRO4, the first building of IER MRO Industries' narrowbody engine complex next to Al Maktoum International Airport. IER says the complex is designed as a highly automated shop combining engine and module overhaul with AI-enabled operations, robotics and digital twin technology, starting with CFM56 and LEAP engines. At full scale it targets up to 550 engine shop visits a year. There is no opening date or first customer yet.",
+        "whyItMatters": "Engine shop capacity is what keeps narrowbodies on the ground. New automated capacity in the Gulf could mean more slots and shorter turnaround for CFM56 and LEAP operators. Once the first building opens, ask about slot availability and turnaround commitments.",
+        "sourceName": "Khaleej Aviation",
+        "sourceUrl": "https://khaleejaviation.com/ier-mro-dubai-south-engine-shop-construction/"
+      },
+      "tools": [
+        {
+          "name": "Optimiser",
+          "slug": "rolls-royce-optimiser",
+          "company": "Rolls-Royce, built with Microsoft",
+          "summary": "Described by Microsoft on October 21: an agentic AI system Rolls-Royce uses to plan its engine shop visits, close to 1,500 in 2025. An Engine Agent draws on data about individual engines, a Workscope Agent helps determine what maintenance may be needed, Facility Agents weigh shop capacity and capability, and a Supplier Agent handles the supply chain, while people keep oversight. A planning exercise that took four or five people about a week has been materially reduced, and Rolls-Royce says it is helping reduce engine turnaround times. It is still developing.",
+          "whyItMatters": "An engine in the shop is an aircraft not earning. Faster re-planning when a part slips or a slot opens means engines go back to airlines sooner. For Rolls-Royce customers the payoff is shorter shop visits; for your own planners, it is a model for splitting a planning job into agents with a person approving the result.",
+          "url": "/aviation/tools/rolls-royce-optimiser",
+          "sourceUrl": "https://ukstories.microsoft.com/features/rolls-royce-using-ai-agents-to-help-keep-more-aircraft-flying-for-longer/",
+          "pricing": "Internal Rolls-Royce system"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "Thin today: no new troubleshooting launch in the last few days, so this is a recent update from a tool in our directory. We also found no new robotics item for this topic.",
+      "tools": [
+        {
+          "name": "Bluetail Auto Research",
+          "slug": "bluetail-ai",
+          "company": "Bluetail",
+          "summary": "Available to Bluetail Fleet customers since October 13. Auto Research scans an aircraft's full uploaded record set, identifies every AD, service bulletin, inspection and component that needs proof of compliance, and links each item to the exact document that proves it. The result is a citation-backed report a team can review and hand to its FSDO. Bluetail says it cuts research for conformity inspections, compliance audits and pre-purchase inspections from weeks to days.",
+          "whyItMatters": "That records hunt usually lands on your most experienced technicians, who should be working on aircraft. Days instead of weeks on a pre-buy or audit means faster deals and fewer hours spent in binders. Spot-check its citations on one aircraft whose records you already know well before you rely on it.",
+          "url": "/aviation/tools/bluetail-ai",
+          "sourceUrl": "https://www.einpresswire.com/article/949290662/bluetail-launches-auto-research-cutting-aircraft-compliance-research-from-weeks-to-days",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin today: no new AI warehousing launch for aviation in the last few days, so the AI item is an established tool from our directory. The robotics note is from early October.",
+      "robotics": {
+        "headline": "SATS tests driverless cargo vehicles between Changi terminals and forwarders' warehouses",
+        "summary": "Aviation Pros reported on October 5 that SATS is validating autonomous cargo vehicles under live conditions at Singapore Changi, moving freight between SATS airfreight terminals and freight forwarders' warehouses in the Changi Airfreight Centre Free Trade Zone. The pilot vehicle carries up to 800 kg. SATS says higher-capacity 1,500 kg vehicles and round-the-clock operation could follow as demand grows. The vehicles are fully electric.",
+        "whyItMatters": "Routine runs between terminal and warehouse wait on truck and driver schedules. On-demand driverless moves can cut dwell time for urgent shipments, including AOG parts passing through a cargo hub. Forwarders and parts distributors at large hubs should ask whether the service will be open to them.",
+        "sourceName": "Aviation Pros",
+        "sourceUrl": "https://www.aviationpros.com/ground-support-worldwide/gse/news/55409524/sats-tests-autonomous-cargo-vehicles-at-changi-airport"
+      },
+      "tools": [
+        {
+          "name": "Lokad for aerospace",
+          "slug": "lokad-aerospace",
+          "company": "Lokad",
+          "summary": "Probabilistic forecasting and optimization that tells MROs and airlines what to buy, repair, stage or move, scoring each action in money and layering on SAP, AMOS, Ramco, Maximo or IFS. Air France Industries, Azul and MRO Holdings are among the customers it quotes.",
+          "whyItMatters": "Rotables and repairables tie up the most cash and drive the most AOG buys. Forecasts that give a range of likely demand, not one number, help you decide which parts to stock, repair early or position at an outstation. Lokad starts with a dual run against your current process; ask for that, or a back-test on your own removal history, priced in money before you commit.",
+          "url": "/aviation/tools/lokad-aerospace",
+          "sourceUrl": "https://www.lokad.com/aerospace-inventory-forecasting/",
+          "pricing": "Monthly subscription based on network size"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Context first: GE Aerospace's third-quarter slides (October 20) say removing waste and leveraging AI cut LEAP turnaround time by about two weeks, which combined with other efforts has driven grounded aircraft from engines to nearly zero.",
+      "introSourceUrl": "https://www.geaerospace.com/sites/default/files/geaerospace_webcast_presentation_10202026.pdf",
+      "coverageNote": "Thin today: no new AI parts-sourcing launch in the last few days, so the tool is an established one from our directory. For AOG technician sourcing we again found no verified AI tool.",
+      "robotics": {
+        "headline": "Belo Horizonte airport trials AI robots that haul cargo and pick up FOD",
+        "summary": "TI Inside reported on October 6 that BH Airport in Brazil is running a proof of concept with fully electric autonomous robots from US company Burro, through local partner Tecnoloc. The robots use AI for navigation and route recognition, have moved loads of up to two tonnes over a route of about 1.5 km inside the operational area, and are being tested on collecting FOD (foreign object debris) in aircraft movement areas.",
+        "whyItMatters": "Debris ingested by an engine or cutting a tire can ground an aircraft and bring an expensive unscheduled repair. Routine automated sweeps of ramps and taxiways are cheap AOG prevention, if they prove reliable. Airport operators should ask for detection and pickup rates from the trial.",
+        "sourceName": "TI Inside",
+        "sourceUrl": "https://tiinside.com.br/06/10/2026/bh-airport-da-primeiro-passo-rumo-a-operacao-autonoma-com-prova-de-conceito-de-robos-no-patio/"
+      },
+      "tools": [
+        {
+          "name": "AeroParts-AI",
+          "slug": "aeroparts-ai",
+          "company": "AeroParts-AI",
+          "summary": "AI-driven parts sourcing across a global supplier network. Joramco, the Amman-based MRO owned by Dubai Aerospace Enterprise, signed a one-year agreement at MRO Americas 2026 after validating it in internal testing.",
+          "whyItMatters": "On an AOG, the expensive minutes go to finding who has the part, confirming it fits and judging whether the price is fair. Software that searches suppliers and compares offers helps a buyer commit faster without overpaying. Run it against a recent AOG and see whether it would have found your source sooner.",
+          "url": "/aviation/tools/aeroparts-ai",
+          "sourceUrl": "https://www.aviationbusinessnews.com/industry-news/mro-americas-joramco-signs-aircraft-parts-sourcing-deal-with-aeroparts-ai",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. All three updates arrived or started rolling out this month. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "ChatGPT Slides",
+          "slug": "chatgpt-slides",
+          "company": "OpenAI",
+          "summary": "Released October 20. ChatGPT can build a presentation from a conversation, files or an outline, or follow the style of an example deck you share. Teammates can edit the same deck in real time and leave comments, and you can export to PowerPoint, PDF or Google Slides. Rolling out to eligible Pro, Business and Enterprise users with Space access on the web and in the desktop app.",
+          "whyItMatters": "A customer proposal, a monthly reliability review or a charter sales deck is hours of formatting. Share one of your own past decks so it keeps your look, then check every figure before it goes out.",
+          "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "sourceUrl": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "pricing": "Included in eligible Pro, Business and Enterprise plans"
+        },
+        {
+          "name": "Gemini tools for small businesses",
+          "slug": "gemini-small-business-tools",
+          "company": "Google",
+          "summary": "Announced October 20: a business landing page in the Gemini app, on-brand image creation from your uploaded brand kit using Nano Banana 2.1, a feature that turns messy spreadsheets, receipts and purchase records into financial charts and interactive models, and connections to Google Business Profile, Google Ads, Google Workspace and apps such as Canva, Shopify, Xero and Zoho. Rolling out over the coming days to all Gemini app users.",
+          "whyItMatters": "It is built for owners without a marketing or finance team, which describes many FBOs, flight schools and small repair stations. Use it for the Google Business Profile posts and the monthly cost summary that never get done, and keep a person checking the numbers.",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/new-tools-small-business-owners/",
+          "sourceUrl": "https://blog.google/innovation-and-ai/products/gemini-app/new-tools-small-business-owners/",
+          "pricing": "Rolling out to all Gemini app users"
+        },
+        {
+          "name": "Interactive slides in Copilot for PowerPoint",
+          "slug": "copilot-interactive-slides",
+          "company": "Microsoft",
+          "summary": "Rolling out from mid-October through the end of October 2026 in PowerPoint for Windows, Mac and the web. Copilot builds an interactive slide your audience can click through, such as a dashboard, timeline or comparison, and can fill it from your own Excel workbook or project document. People you share the deck with can use the interactivity without a Copilot license. Interactive slides become static images when printed or exported to PDF.",
+          "whyItMatters": "A fleet availability or AOG dashboard that a customer can filter during the meeting answers questions on the spot instead of in a follow-up email. Copilot can get numbers wrong, so verify the data before you present.",
+          "url": "https://support.microsoft.com/en-us/powerpoint/copilot/create-interactive-slides-with-copilot-in-powerpoint",
+          "sourceUrl": "https://support.microsoft.com/en-us/powerpoint/copilot/create-interactive-slides-with-copilot-in-powerpoint",
+          "pricing": "Included with Copilot in PowerPoint, including Microsoft 365 Copilot Basic and Premium"
+        }
+      ]
+    }
+  ],
+  "playbook": {
+    "title": "Test a fleet-level AI platform on one problem first",
+    "intro": "A simple way to judge Dataliner or any similar platform before you commit, drawn from today's top story. Practical guidance, not regulatory advice; your approved data and procedures still rule.",
+    "steps": [
+      "Pick one recurring problem that costs you money across several tails, such as a repeat defect or a part number with frequent removals.",
+      "List where its data lives today, from the maintenance system and flight data to OEM portals and spreadsheets, and who owns each source.",
+      "Decide before any demo what data may leave your environment and what must stay. These platforms now compete on letting you choose.",
+      "Ask the vendor to run that problem on your own history and show which alerts would have turned a delay into a planned fix.",
+      "Keep a person approving every recommendation for the first 90 days, and track hours saved and delays avoided against the subscription cost."
+    ]
+  },
+  "quickLinks": [
+    {
+      "title": "Six Russian airports cleared to test driverless airside vehicles",
+      "url": "https://www1.ru/en/news/2026/10/10/bespilotnye-masiny-nacnut-rabotat-v-sesti-aeroportax-rossii.html",
+      "note": "A three-year legal regime covers baggage tractors and snow and grass machines at airports including Vnukovo and Pulkovo. Pulkovo's own estimate is at least 25% higher labor productivity."
+    },
+    {
+      "title": "Airbus targets a 50% lower maintenance burden for a future NATO helicopter (not AI)",
+      "url": "https://mrobusinesstoday.com/airbus-targets-50-lower-maintenance-burden-for-future-nato-helicopter/",
+      "note": "The ENGRT program also wants servicing with standard tools and a smaller logistics footprint (MRO Business Today, October 21)."
+    },
+    {
+      "title": "Become a founding sponsor",
+      "url": "/sponsor",
+      "note": "Founding rates for the first 10 sponsors, locked for 3 months."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agent",
+      "definition": "Software that carries out a series of steps toward a goal, such as checking shop capacity or a supplier, instead of only answering one question. A person still approves the decisions that matter."
+    },
+    {
+      "term": "Agentic AI",
+      "definition": "AI built from several agents that hand work to each other to finish a job. Rolls-Royce's Optimiser uses separate agents for the engine, the workscope, the shop and the supplier, with people overseeing the plan."
+    },
+    {
+      "term": "API",
+      "definition": "A connection that lets one program pull data from another, or ask it to act, without anyone retyping it. Virtualitics uses API integrations so its readiness view updates live."
+    },
+    {
+      "term": "Autonomous",
+      "definition": "Able to do a task, such as driving a cargo route or flying a takeoff, without a person steering every move. Most systems here are still supervised by a person who can step in."
+    },
+    {
+      "term": "Azure AI Foundry",
+      "definition": "Microsoft's cloud service for building AI applications. Boeing built Dataliner on it, which matters mainly for where your data is processed and stored."
+    },
+    {
+      "term": "Back-test",
+      "definition": "Running a tool on your own past records to see what it would have recommended and whether that would have paid off, before you trust it with live decisions."
+    },
+    {
+      "term": "Beta",
+      "definition": "A product the maker is still finishing and offering to a limited group. Expect changes, and treat results as a trial rather than a promise."
+    },
+    {
+      "term": "Conversational AI",
+      "definition": "Software that understands ordinary speech or text and replies the same way, such as an assistant that takes a hotel or catering request by phone after hours."
+    },
+    {
+      "term": "Copilot",
+      "definition": "Microsoft's AI assistant built into apps like PowerPoint, Excel and Word. Here it builds slides your audience can click through."
+    },
+    {
+      "term": "Digital twin",
+      "definition": "A software copy of a real engine, aircraft or facility, updated with measurements so you can track condition or test a plan without touching the real thing."
+    },
+    {
+      "term": "Drone",
+      "definition": "A small uncrewed aircraft. In maintenance, drones carry cameras over the top of an aircraft so technicians do not need lifts or scaffolding for a visual check."
+    },
+    {
+      "term": "FOD",
+      "definition": "Foreign object debris: loose items such as bolts, stones or packaging on ramps and taxiways that can be sucked into an engine or cut a tire."
+    },
+    {
+      "term": "FSDO",
+      "definition": "Flight Standards District Office, the local FAA office that oversees operators and repair stations and receives compliance reports."
+    },
+    {
+      "term": "Ground station",
+      "definition": "A control position on the ground from which a remote pilot supervises an aircraft that has no pilot on board. Reliable Robotics says that step is at least three years away."
+    },
+    {
+      "term": "Handoff",
+      "definition": "The moment an AI passes a customer to a human agent. A good handoff carries the whole conversation over so the customer does not start again."
+    },
+    {
+      "term": "Interactive slide",
+      "definition": "A presentation slide that viewers can click to filter a chart, expand a step or move along a timeline, instead of a fixed picture."
+    },
+    {
+      "term": "Model Context Protocol",
+      "definition": "A common way to plug an AI assistant into another system so it can look things up or create a request there under rules that system sets. Often shortened to MCP."
+    },
+    {
+      "term": "Predictive maintenance",
+      "definition": "Using data from the aircraft or engine to flag a likely problem before it causes a failure, so the work can be planned instead of forced by an AOG."
+    },
+    {
+      "term": "Probabilistic forecasting",
+      "definition": "A forecast that gives a range of possible demand with the odds of each, rather than one number. It suits parts that are needed rarely and unpredictably."
+    },
+    {
+      "term": "Proof of concept",
+      "definition": "A short, limited trial in real conditions to check that a technology works and is worth buying before a full rollout."
+    },
+    {
+      "term": "Retrofit autonomy",
+      "definition": "Adding self-flying or self-driving equipment to an aircraft or vehicle that already exists, rather than buying a new design built for it."
+    },
+    {
+      "term": "Robotic arm",
+      "definition": "A programmable mechanical arm that repeats precise movements, such as making coffee at an airport kiosk or holding a camera for an inspection."
+    },
+    {
+      "term": "Rover",
+      "definition": "A small ground robot on wheels. Korean Air's rovers photograph the underside of the aircraft, where drones cannot get a good view."
+    },
+    {
+      "term": "Voice AI",
+      "definition": "AI that answers phone calls in natural speech and can act on the request, such as changing a booking, instead of only routing the call."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI tools for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months, with no more than three sponsors in any issue. If you build AI for aviation, this is your seat at the table.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

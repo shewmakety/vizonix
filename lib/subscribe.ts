@@ -2,7 +2,7 @@ import { createHash } from "crypto";
 import { Resend } from "resend";
 import { z } from "zod";
 import { latestPublishedIssue } from "@/lib/content";
-import { confirmationEmail, unsubscribeLinkEmail, welcomeIssueMessage, welcomePlainMessage } from "@/lib/email";
+import { confirmationEmail, welcomeIssueMessage, welcomePlainMessage } from "@/lib/email";
 import { AppError } from "@/lib/errors";
 import { notifyOps } from "@/lib/notify";
 import { subscriberNotice } from "@/lib/owner-alerts";
@@ -264,47 +264,6 @@ export async function confirmSubscription(
     ok: true,
     message: `${payload.email} is confirmed for the ${segment.name} briefing.`,
     segment: segment.slug,
-  };
-}
-
-export async function requestUnsubscribeLink(input: {
-  email?: string;
-  segment?: string;
-}): Promise<{ ok: true; message: string } | { ok: false; status: number; error: string }> {
-  const segment = getSegment(String(input.segment ?? ""));
-  if (!segment) return { ok: false, status: 400, error: "Choose a section." };
-  const email = String(input.email ?? "").trim().toLowerCase();
-  if (!emailSchema.safeParse(email).success) {
-    return { ok: false, status: 400, error: "Enter a valid email address." };
-  }
-  const secret = tokenSecret();
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM;
-  if (!secret || !apiKey || !from) {
-    return { ok: false, status: 503, error: "Unsubscribe email is not configured yet." };
-  }
-  const token = signToken({ email, segment: segment.slug, purpose: "unsubscribe" }, secret);
-  const unsubscribeUrl = absoluteUrl(unsubscribePath(segment.slug, token));
-  const readerLinks = signedReaderLinks(email, segment.slug, secret);
-  const message = unsubscribeLinkEmail({
-    sectionName: segment.name,
-    unsubscribeUrl,
-    preferencesUrl: readerLinks?.preferencesUrl,
-  });
-  const resend = new Resend(apiKey);
-  const sent = await resend.emails.send({
-    from,
-    to: [email],
-    subject: message.subject,
-    html: message.html,
-    text: message.text,
-  });
-  if (sent.error) {
-    return { ok: false, status: 502, error: "Could not send the unsubscribe email." };
-  }
-  return {
-    ok: true,
-    message: "If that address is on the list, we sent an unsubscribe link.",
   };
 }
 

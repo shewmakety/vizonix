@@ -130,7 +130,9 @@ describe("personalized issue send", () => {
       expect(message.html).toContain("/preferences?token=");
       expect(message.html).not.toContain("__VZ_");
       expect(message.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
-      expect(message.headers["List-Unsubscribe"]).toContain("/aviation/unsubscribe?token=");
+      expect(message.html).toContain("/aviation/unsubscribe?token=");
+      expect(message.headers["List-Unsubscribe"]).toContain("/api/unsubscribe?token=");
+      expect(message.headers["List-Unsubscribe-Post"]).toBe("List-Unsubscribe=One-Click");
       expect(message.subject.startsWith("The VIZONIX Daily:")).toBe(true);
     }
     expect(log.mock.calls.map((call) => call.join(" ")).join("\n")).toContain("3 confirmed subscribers, 2 groups");
