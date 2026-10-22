@@ -339,8 +339,18 @@ async function main() {
     if (sponsor.includes("use the form on this page") || sponsor.includes("$180") || sponsor.includes("$105")) {
       throw new Error("Sponsor page still has the old form wording or the old ladder prices.");
     }
-    if (!sponsor.includes("$175") || !sponsor.includes("$100") || !sponsor.includes("inquiry")) {
-      throw new Error("Sponsor page is missing the rate card prices or the inquiry form.");
+    if (!sponsor.includes("$300") || !sponsor.includes("$175") || !sponsor.includes("Section sponsor") || !sponsor.includes("inquiry")) {
+      throw new Error("Sponsor page is missing the rate card prices, the section sponsor, or the inquiry form.");
+    }
+    if (
+      sponsor.includes("$100") ||
+      sponsor.includes("Section site banner") ||
+      sponsor.includes("Featured tool listing") ||
+      sponsor.includes("Classified") ||
+      sponsor.includes("Bundle") ||
+      sponsor.includes("Two newsletter sponsors")
+    ) {
+      throw new Error("Sponsor page still lists a retired slot or a sponsor cap.");
     }
     if (!sponsor.includes("challenges.cloudflare.com/turnstile")) {
       throw new Error("Sponsor page is missing the Turnstile widget.");

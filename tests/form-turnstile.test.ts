@@ -74,6 +74,8 @@ describe("every public form route rejects a missing or invalid Turnstile token",
       email: "ada@hangar.example",
       promote: "A parts tool",
       message: "We would like a week.",
+      segment: "aviation",
+      placement: "primary",
     };
     const missing = await POST(request("/api/sponsor-inquiry", body));
     expect(missing.status).toBe(403);

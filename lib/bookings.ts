@@ -250,8 +250,7 @@ export async function recordPaidReservation(
       if (existing.some((row) => row.id === reservation.id || row.stripeSessionId === reservation.stripeSessionId)) {
         return { duplicate: true, conflict: null, stored: "supabase" };
       }
-      const conflict =
-        reservation.placement === "featured" ? null : (findConflict(existing, reservation) ?? null);
+      const conflict = findConflict(existing, reservation) ?? null;
       const sponsor = await upsertSponsorFromCheckout({
         company: extras.company ?? "",
         contact: extras.contact ?? "",
@@ -284,8 +283,7 @@ export async function recordPaidReservation(
   if (existing.some((row) => row.id === reservation.id)) {
     return { duplicate: true, conflict: null, stored: "local" };
   }
-  const conflict =
-    reservation.placement === "featured" ? null : (findConflict(existing, reservation) ?? null);
+  const conflict = findConflict(existing, reservation) ?? null;
   try {
     const stored = await saveReservations([...existing, reservation]);
     return { duplicate: false, conflict, stored };

@@ -16,7 +16,7 @@ import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
 const envKeys = [
   "STRIPE_SECRET_KEY",
   "STRIPE_PRICE_AVIATION_PRIMARY",
-  "STRIPE_PRICE_AVIATION_FEATURED",
+  "STRIPE_PRICE_AVIATION_SECONDARY",
   "TURNSTILE_SECRET_KEY",
   "VERCEL_ENV",
 ] as const;
@@ -34,7 +34,7 @@ describe("checkout route", () => {
   beforeEach(() => {
     process.env.STRIPE_SECRET_KEY = "sk_test_checkout";
     process.env.STRIPE_PRICE_AVIATION_PRIMARY = "price_primary";
-    process.env.STRIPE_PRICE_AVIATION_FEATURED = "price_featured";
+    process.env.STRIPE_PRICE_AVIATION_SECONDARY = "price_secondary";
     process.env.TURNSTILE_SECRET_KEY = TURNSTILE_TEST_SECRET;
     process.env.VERCEL_ENV = "preview";
     create.mockReset();
@@ -49,7 +49,7 @@ describe("checkout route", () => {
     }
   });
 
-  it("turns Managed Payments off for one-time and subscription checkout", async () => {
+  it("turns Managed Payments off and refuses a retired placement", async () => {
     const oneTime = await POST(
       request({
         segment: "aviation",
@@ -61,23 +61,19 @@ describe("checkout route", () => {
       }),
     );
     expect(oneTime.status).toBe(200);
-    const subscription = await POST(
+    const retired = await POST(
       request({
         segment: "aviation",
         placement: "featured",
         startDate: "2027-01-04",
         email: "buyer@firm.example",
-        company: "Hangar Co",
-        adCopyUrl: "https://hangar.example/tool",
         turnstileToken: TURNSTILE_TEST_TOKEN,
       }),
     );
-    expect(subscription.status).toBe(200);
-    expect(create).toHaveBeenCalledTimes(2);
-    const modes = create.mock.calls.map((call) => (call[0] as { mode: string; managed_payments: unknown }));
-    expect(modes.map((params) => params.mode).sort()).toEqual(["payment", "subscription"]);
-    for (const params of modes) {
-      expect(params.managed_payments).toEqual({ enabled: false });
-    }
+    expect(retired.status).toBe(400);
+    expect(create).toHaveBeenCalledTimes(1);
+    const params = create.mock.calls[0][0] as { mode: string; managed_payments: unknown };
+    expect(params.mode).toBe("payment");
+    expect(params.managed_payments).toEqual({ enabled: false });
   });
 });

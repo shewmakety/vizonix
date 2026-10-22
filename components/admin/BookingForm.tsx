@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { submitAdmin } from "@/components/admin/submit-admin";
 import { getPlacement, wordCount } from "@/lib/rate-card";
+import { formatForPlacement, sectionLineMax } from "@/lib/sponsor-slots";
 import { bookingStatuses, type BookingStatus } from "@/lib/sponsor-placements";
 import type { PlacementChoice } from "@/lib/sponsor-labels";
 
@@ -48,7 +49,7 @@ export function BookingForm({
   const [working, setWorking] = useState(false);
   const turnstile = useRef<TurnstileHandle>(null);
   const placements = placementsBySegment[values.segment] ?? [];
-  const ceiling = getPlacement(values.placement)?.maxWords ?? null;
+  const ceiling = getPlacement(formatForPlacement(values.placement) ?? "")?.maxWords ?? null;
   const words = values.body.trim() ? wordCount(values.body) : 0;
 
   function set<K extends keyof BookingFormValues>(field: K, value: BookingFormValues[K]) {
@@ -169,7 +170,10 @@ export function BookingForm({
           {words} words. The newsletter ceiling for this placement is {ceiling}.
         </p>
       ) : (
-        <p className="form-note">Section spots use the headline and a short body. Newsletter slots use the body as the ad copy.</p>
+        <p className="form-note">
+          Section spots use the headline and a line of up to {sectionLineMax} characters. Newsletter slots
+          use the body as the ad copy.
+        </p>
       )}
       <label htmlFor="booking-cta">Call to action</label>
       <input id="booking-cta" value={values.cta} onChange={(event) => set("cta", event.target.value)} />

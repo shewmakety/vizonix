@@ -19,14 +19,10 @@ describe("launch rate card", () => {
     expect(price.primary.founding).toBe(150);
     expect(price.secondary.price).toBe(175);
     expect(price.secondary.founding).toBe(90);
-    expect(launchPlacements.map((item) => item.id)).not.toContain("classified");
-    expect(price.banner.price).toBe(100);
-    expect(price.banner.founding).toBe(50);
-    expect(price.featured.price).toBe(150);
-    expect(price.featured.founding).toBe(75);
-    expect(price.featured.unit).toBe("month");
-    expect(price.bundle.price).toBe(500);
-    expect(price.bundle.founding).toBe(250);
+    expect(price.section.price).toBeNull();
+    expect(price.section.founding).toBeNull();
+    expect(price.section.quoted).toBe(true);
+    expect(launchPlacements.map((item) => item.id)).toEqual(["primary", "secondary", "section"]);
     expect(foundingSponsorCap).toBe(10);
   });
 
@@ -41,6 +37,9 @@ describe("launch rate card", () => {
     const rateCard = full.split("## Launch rate card")[1] ?? "";
     expect(full).toContain("Secondary $175");
     expect(full).not.toContain("Classified");
+    expect(full).toContain("Section sponsor: Quote.");
+    expect(rateCard).not.toContain("Featured tool listing");
+    expect(rateCard).not.toContain("Section site banner");
     expect(full).not.toContain("2,500-5,000");
     expect(full).not.toContain("$4,500");
     expect(rateCard).not.toContain("60%");
@@ -50,9 +49,7 @@ describe("launch rate card", () => {
   it("builds stripe env keys without putting secrets in the name", () => {
     expect(stripePriceEnvKey("field-service", "primary", false)).toBe("STRIPE_PRICE_FIELD_SERVICE_PRIMARY");
     expect(stripePriceEnvKey("field-service", "primary", true)).toBe("STRIPE_PRICE_FIELD_SERVICE_PRIMARY_FOUNDING");
-    expect(stripePriceEnvKey("field-service", "classified", false)).toBe(
-      "STRIPE_PRICE_FIELD_SERVICE_CLASSIFIED",
-    );
-    expect(stripeLinkEnvKey("field-service", "bundle")).toBe("NEXT_PUBLIC_STRIPE_LINK_FIELD_SERVICE_BUNDLE");
+    expect(stripePriceEnvKey("field-service", "secondary", false)).toBe("STRIPE_PRICE_FIELD_SERVICE_SECONDARY");
+    expect(stripeLinkEnvKey("field-service", "primary")).toBe("NEXT_PUBLIC_STRIPE_LINK_FIELD_SERVICE_PRIMARY");
   });
 });

@@ -1,6 +1,7 @@
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { formatIsoDay } from "@/lib/dates";
 import { adminSignedIn, loadAdmin } from "@/lib/admin-gate";
+import { placementLabel } from "@/lib/sponsor-labels";
 import { listInquiries } from "@/lib/sponsor-store";
 
 export default async function InquiriesPage() {
@@ -27,6 +28,7 @@ export default async function InquiriesPage() {
                 <th>Company</th>
                 <th>Contact</th>
                 <th>Promote</th>
+                <th>Slot</th>
                 <th>Status</th>
                 <th>Received</th>
               </tr>
@@ -42,6 +44,7 @@ export default async function InquiriesPage() {
                     <div className="meta">{inquiry.email}</div>
                   </td>
                   <td>{inquiry.promote}</td>
+                  <td>{inquiry.placement ? placementLabel(inquiry.segment, inquiry.placement) : ""}</td>
                   <td>{inquiry.status}</td>
                   <td>{inquiry.createdAt ? formatIsoDay(inquiry.createdAt) : ""}</td>
                 </tr>

@@ -3,58 +3,63 @@ import {
   formatUsd,
   foundingLockMonths,
   foundingSponsorCap,
-  getPlacement,
+  launchPlacements,
 } from "@/lib/rate-card";
+import { featuredSegment } from "@/lib/segments";
 import { absoluteUrl, editor, site } from "@/lib/site";
+import { sponsorSlotSpec } from "@/lib/sponsor-slots";
 import { textPdf } from "@/lib/pdf";
 
 export const audienceNumbersLine = "Audience numbers will be published after our first full month.";
 
-export const mediaKitAudience =
-  "The aviation briefing is written for airlines, MROs, parts suppliers, operators, and maintenance and AOG teams.";
+const launch = featuredSegment();
+
+export const mediaKitAudience = `The ${launch.name.toLowerCase()} briefing is written for ${launch.audience}.`;
 
 export const mediaKitFounder = `${editor.name}, founder of AOG Alerts and MRO List, with a career around MROs and AOG desks, publishes Vizonix.`;
 
-const formatIds = ["primary", "secondary", "featured"] as const;
-
 export type MediaKitFormat = {
-  id: (typeof formatIds)[number];
+  id: string;
   name: string;
   summary: string;
+  fields: string;
+  placement: string;
   priceLabel: string;
   foundingLabel: string;
+  quoted: boolean;
 };
 
 export function mediaKitFormats(): MediaKitFormat[] {
-  return formatIds.map((id) => {
-    const placement = getPlacement(id);
-    if (!placement) throw new Error(`Missing placement ${id}`);
-    const unit = placement.unit === "month" ? "month" : "week";
+  return launchPlacements.map((placement) => {
+    const spec = sponsorSlotSpec(placement.id);
     return {
-      id,
+      id: placement.id,
       name: placement.name,
       summary: placement.description,
-      priceLabel: `${formatUsd(placement.price)} per ${unit}`,
-      foundingLabel: `${formatUsd(placement.founding)} per ${unit}`,
+      fields: spec?.fields ?? "",
+      placement: spec?.placement ?? "",
+      priceLabel: placement.price == null ? "Quote" : `${formatUsd(placement.price)} per week`,
+      foundingLabel: placement.founding == null ? "Quote" : `${formatUsd(placement.founding)} per week`,
+      quoted: placement.quoted,
     };
   });
 }
 
-export function mediaKitAlsoLine(): string {
-  const banner = getPlacement("banner");
-  const bundle = getPlacement("bundle");
-  if (!banner || !bundle) return "";
-  return `The rate card also lists a section site banner at ${formatUsd(banner.price)} per week (founding ${formatUsd(banner.founding)}) and a bundle at ${formatUsd(bundle.price)} per week (founding ${formatUsd(bundle.founding)}).`;
-}
-
 export function foundingOfferLine(): string {
-  return `Founding pricing is half the launch price, locked for ${foundingLockMonths} months, capped at ${foundingSponsorCap} founding sponsors total across products.`;
+  return `Founding pricing is half the launch price, locked for ${foundingLockMonths} months, capped at ${foundingSponsorCap} founding sponsors total across products. It applies to primary and secondary. Section sponsors are quoted.`;
 }
 
 export function latestIssuePath(): string | undefined {
-  const issue = latestPublishedIssue("aviation");
+  const issue = latestPublishedIssue(featuredSegment().slug);
   if (!issue || issue.sample) return undefined;
   return `/${issue.segment}/issues/${issue.date}`;
+}
+
+function formatLine(format: MediaKitFormat): string {
+  if (format.quoted) {
+    return `${format.name}: ${format.placement} ${format.summary} ${format.fields} Price: Quote.`;
+  }
+  return `${format.name}: ${format.placement} ${format.summary} ${format.fields} Launch price ${format.priceLabel}. Founding price ${format.foundingLabel}.`;
 }
 
 export function mediaKitParagraphs(): string[] {
@@ -65,12 +70,9 @@ export function mediaKitParagraphs(): string[] {
     mediaKitAudience,
     mediaKitFounder,
     "Formats",
-    ...mediaKitFormats().map(
-      (format) => `${format.name}: ${format.summary} Launch price ${format.priceLabel}. Founding price ${format.foundingLabel}.`,
-    ),
-    mediaKitAlsoLine(),
+    ...mediaKitFormats().map(formatLine),
     foundingOfferLine(),
-    latest ? `Latest issue: ${absoluteUrl(latest)}` : "The latest issue is linked from the aviation archive.",
+    latest ? `Latest issue: ${absoluteUrl(latest)}` : "The latest issue is linked from the archive.",
     "Placement mockups are on the media kit page. This PDF is the text version.",
     audienceNumbersLine,
   ];

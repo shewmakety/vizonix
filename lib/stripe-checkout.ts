@@ -39,16 +39,14 @@ function sessionMetadata(order: PreparedCheckout, quantity: number): Record<stri
 
 /**
  * One discount path only. A founding Price plus a promotion code, or a founding
- * Price plus allow_promotion_codes, would stack. Featured is a subscription.
+ * Price plus allow_promotion_codes, would stack. Checkout sells a one-time week.
  */
 export function buildCheckoutSession(
   order: PreparedCheckout,
   env: CheckoutPriceEnv,
   foundingCount: number,
 ): { ok: true; session: CheckoutSessionDraft } | { ok: false; status: number; error: string } {
-  const featured = order.placement === "featured";
-  const quantity = featured ? 1 : order.quantity;
-  const mode = featured ? "subscription" : "payment";
+  const quantity = order.quantity;
 
   const finish = (
     price: string,
@@ -58,11 +56,10 @@ export function buildCheckoutSession(
     return {
       ok: true,
       session: {
-        mode,
+        mode: "payment",
         line_items: [{ price, quantity }],
         metadata,
         ...discount,
-        ...(mode === "subscription" ? { subscription_data: { metadata } } : {}),
       },
     };
   };

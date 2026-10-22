@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { DeleteForm } from "@/components/admin/DeleteForm";
 import { InquiryForm } from "@/components/admin/InquiryForm";
+import { adminSegments, placementsBySegment } from "@/lib/admin-booking-options";
 import { adminSignedIn, loadAdmin } from "@/lib/admin-gate";
 import { getInquiry } from "@/lib/sponsor-store";
 
@@ -26,6 +27,8 @@ export default async function EditInquiryPage({ params }: Props) {
         method="PATCH"
         path={`/api/admin/inquiries/${inquiry.id}`}
         returnTo="/admin/sponsors/inquiries"
+        segments={adminSegments().map((segment) => ({ id: segment.slug, label: segment.name }))}
+        placementsBySegment={placementsBySegment()}
         initial={{
           name: inquiry.name,
           company: inquiry.company,
@@ -33,6 +36,8 @@ export default async function EditInquiryPage({ params }: Props) {
           promote: inquiry.promote,
           budget: inquiry.budget,
           message: inquiry.message,
+          segment: inquiry.segment,
+          placement: inquiry.placement,
           status: inquiry.status,
         }}
       />

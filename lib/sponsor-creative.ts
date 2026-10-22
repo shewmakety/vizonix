@@ -1,6 +1,13 @@
 import { isIsoDate } from "@/lib/dates";
 import type { Issue, SectionSponsor, SponsorCreative } from "@/lib/schema";
 import { isLiveBookingStatus, sectionSpotIndex } from "@/lib/sponsor-placements";
+import {
+  renderedIssueSlotIds,
+  sectionLineMax,
+  sponsorCopyMax,
+  sponsorCtaMax,
+  sponsorNameMax,
+} from "@/lib/sponsor-slots";
 
 export type SponsorBookingCreative = {
   segment: string;
@@ -16,7 +23,7 @@ export type SponsorBookingCreative = {
   createdAt: string;
 };
 
-const slotNames = ["primary", "secondary", "classified"] as const;
+const slotNames = renderedIssueSlotIds;
 
 type SlotName = (typeof slotNames)[number];
 
@@ -45,15 +52,15 @@ export function bookingCoversDate(booking: Pick<SponsorBookingCreative, "startDa
 
 function slotCreative(booking: SponsorBookingCreative): SponsorCreative | null {
   const url = usableUrl(booking.url);
-  const copy = clip(booking.body, 1200);
-  const name = clip(booking.headline, 120);
+  const copy = clip(booking.body, sponsorCopyMax);
+  const name = clip(booking.headline, sponsorNameMax);
   if (!url || !copy || !name) return null;
   const logo = usableUrl(booking.logo);
   return {
     name,
     url,
     copy,
-    cta: clip(booking.cta, 80) || "Learn more",
+    cta: clip(booking.cta, sponsorCtaMax) || "Learn more",
     ctaUrl: url,
     ...(logo ? { logo } : {}),
     house: false,
@@ -62,8 +69,8 @@ function slotCreative(booking: SponsorBookingCreative): SponsorCreative | null {
 
 function sectionCreative(booking: SponsorBookingCreative): SectionSponsor | null {
   const url = usableUrl(booking.url);
-  const name = clip(booking.headline, 120);
-  const line = clip(booking.body || booking.headline, 200);
+  const name = clip(booking.headline, sponsorNameMax);
+  const line = clip(booking.body || booking.headline, sectionLineMax);
   if (!url || !name || !line) return null;
   const logo = usableUrl(booking.logo);
   return { name, line, url, ...(logo ? { logo } : {}) };

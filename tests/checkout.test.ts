@@ -14,8 +14,7 @@ describe("checkout dates", () => {
       endDate: "2026-10-23",
     });
     expect(reservationWindow("primary", "2026-10-19", 2).endDate).toBe("2026-10-30");
-    expect(reservationWindow("banner", "2026-10-14", 1).endDate).toBe("2026-10-20");
-    expect(reservationWindow("featured", "2026-10-14", 1).endDate).toBe("2026-11-12");
+    expect(reservationWindow("secondary", "2026-10-19", 1).endDate).toBe("2026-10-23");
   });
 
   it("rejects a midweek start for the primary slot and accepts a future Monday", () => {
@@ -98,12 +97,12 @@ describe("checkout dates", () => {
   });
 });
 
-function featuredOrder(overrides: Partial<PreparedCheckout> = {}): PreparedCheckout {
+function weekOrder(overrides: Partial<PreparedCheckout> = {}): PreparedCheckout {
   return {
     segment: "aviation",
-    placement: "featured",
-    startDate: "2026-10-14",
-    endDate: "2026-11-12",
+    placement: "primary",
+    startDate: "2026-10-19",
+    endDate: "2026-10-23",
     quantity: 1,
     email: "buyer@firm.example",
     company: "Hangar Co",
@@ -120,104 +119,55 @@ function expectNoStack(session: CheckoutSessionDraft) {
   expect(stacked).toBe(false);
 }
 
-describe("featured checkout", () => {
-  it("requires the company and URL, and allows another featured listing in the same window", () => {
-    const missing = parseCheckoutRequest(
-      {
-        segment: "aviation",
-        placement: "featured",
-        startDate: "2026-10-14",
-        email: "buyer@firm.example",
-        quantity: 1,
-      },
-      { now, reservations: [] },
-    );
-    expect(missing.ok).toBe(false);
-
-    const manyMonths = parseCheckoutRequest(
-      {
-        segment: "aviation",
-        placement: "featured",
-        startDate: "2026-10-14",
-        email: "buyer@firm.example",
-        company: "Hangar Co",
-        adCopyUrl: "https://hangar.example/tool",
-        quantity: 2,
-      },
-      { now, reservations: [] },
-    );
-    expect(manyMonths.ok).toBe(false);
-
-    const overlap = parseCheckoutRequest(
-      {
-        segment: "aviation",
-        placement: "featured",
-        startDate: "2026-10-14",
-        email: "buyer@firm.example",
-        company: "Hangar Co",
-        adCopyUrl: "https://hangar.example/tool",
-        exclusivity: true,
-      },
-      {
-        now,
-        reservations: [
-          {
-            id: "cs_featured",
-            stripeSessionId: "cs_featured",
-            segment: "aviation",
-            placement: "featured",
-            startDate: "2026-10-14",
-            endDate: "2026-11-12",
-            founding: true,
-            exclusivityRequested: false,
-            status: "paid",
-            createdAt: "2026-10-14T00:00:00.000Z",
-          },
-        ],
-      },
-    );
-    expect(overlap.ok).toBe(true);
-    if (overlap.ok) expect(overlap.value.exclusivityRequested).toBe(false);
-
-    const accepted = parseCheckoutRequest(
-      {
-        segment: "aviation",
-        placement: "featured",
-        startDate: "2026-10-14",
-        email: "buyer@firm.example",
-        company: "Hangar Co",
-        adCopyUrl: "https://hangar.example/tool",
-        exclusivity: true,
-      },
-      { now, reservations: [] },
-    );
-    expect(accepted.ok).toBe(true);
-    if (accepted.ok) {
-      expect(accepted.value.endDate).toBe("2026-11-12");
-      expect(accepted.value.exclusivityRequested).toBe(false);
+describe("checkout session", () => {
+  it("rejects retired placements and quoted section spots", () => {
+    for (const placement of ["featured", "banner", "bundle", "classified"]) {
+      const retired = parseCheckoutRequest(
+        {
+          segment: "aviation",
+          placement,
+          startDate: "2026-10-19",
+          email: "buyer@firm.example",
+          quantity: 1,
+        },
+        { now, reservations: [] },
+      );
+      expect(retired.ok).toBe(false);
+      if (!retired.ok) expect(retired.error).toBe("Choose a placement.");
     }
+    const quoted = parseCheckoutRequest(
+      {
+        segment: "aviation",
+        placement: "01",
+        startDate: "2026-10-19",
+        email: "buyer@firm.example",
+      },
+      { now, reservations: [] },
+    );
+    expect(quoted.ok).toBe(false);
+    if (!quoted.ok) expect(quoted.error).toBe("That section sponsorship is quoted. Use the inquiry form.");
   });
 
-  it("sells Featured as a subscription and does not stack the founding discount", () => {
+  it("does not stack the founding discount", () => {
     const prices = {
       standardPrice: "price_standard",
       foundingPrice: "price_founding",
       promotionCode: "promo_founding",
     };
-    const founding = buildCheckoutSession(featuredOrder({ founding: true }), prices, 3);
+    const founding = buildCheckoutSession(weekOrder({ founding: true }), prices, 3);
     expect(founding.ok).toBe(true);
     if (founding.ok) {
-      expect(founding.session.mode).toBe("subscription");
+      expect(founding.session.mode).toBe("payment");
       expect(founding.session.line_items).toEqual([{ price: "price_standard", quantity: 1 }]);
       expect(founding.session.discounts).toEqual([{ promotion_code: "promo_founding" }]);
       expect(founding.session.allow_promotion_codes).toBeUndefined();
-      expect(founding.session.subscription_data?.metadata.founding).toBe("true");
+      expect(founding.session.subscription_data).toBeUndefined();
       expect(founding.session.metadata.company).toBe("Hangar Co");
       expectNoStack(founding.session);
     }
 
     const priceOnly = buildCheckoutSession(
-      featuredOrder({ founding: true }),
+      weekOrder({ founding: true }),
       { standardPrice: "price_standard", foundingPrice: "price_founding" },
       0,
     );
@@ -229,12 +179,12 @@ describe("featured checkout", () => {
       expectNoStack(priceOnly.session);
     }
 
-    const full = buildCheckoutSession(featuredOrder({ founding: true }), prices, 10);
+    const full = buildCheckoutSession(weekOrder({ founding: true }), prices, 10);
     expect(full.ok).toBe(false);
     if (!full.ok) expect(full.status).toBe(409);
 
     const standard = buildCheckoutSession(
-      featuredOrder({ placement: "primary", quantity: 2, endDate: "2026-10-30" }),
+      weekOrder({ quantity: 2, endDate: "2026-10-30" }),
       { standardPrice: "price_primary" },
       0,
     );

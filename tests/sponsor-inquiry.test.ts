@@ -9,7 +9,9 @@ describe("sponsor inquiry", () => {
       email: "Ada@Hangar.Example",
       promote: "A parts search tool",
       budget: "$150 to $300",
-      message: "We would like the founding Featured listing.",
+      message: "We would like the founding primary week.",
+      segment: "aviation",
+      placement: "01",
     });
     expect(parsed.ok).toBe(true);
     if (parsed.ok) {
@@ -30,6 +32,8 @@ describe("sponsor inquiry", () => {
       promote: "A tool",
       budget: "$1",
       message: "Hello",
+      segment: "aviation",
+      placement: "primary",
     });
     expect(bad.ok).toBe(false);
 

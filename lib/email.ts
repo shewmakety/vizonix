@@ -43,9 +43,10 @@ import {
   toolDirectoryLabel,
   toolDirectoryPath,
 } from "@/lib/segments";
+import { sponsorSlotSpec, type RenderedIssueSlotId } from "@/lib/sponsor-slots";
 import { toolboxCardHref } from "@/lib/toolbox";
 
-export type SlotName = "primary" | "secondary" | "classified";
+export type SlotName = RenderedIssueSlotId;
 
 export type ResolvedSlot = {
   name: SlotName;
@@ -61,10 +62,6 @@ const houseCopy: Record<SlotName, { copy: string; cta: string }> = {
   },
   secondary: {
     copy: "This mid-issue slot is open. About 50 words and one link.",
-    cta: "View the rate card",
-  },
-  classified: {
-    copy: "This quick-link slot is open at the bottom of the issue. About 25 words and one link.",
     cta: "View the rate card",
   },
 };
@@ -101,9 +98,7 @@ export function sectionSponsorRatesUrl(issue: Pick<Issue, "sponsors">): string {
 }
 
 function slotLabel(name: SlotName): string {
-  if (name === "primary") return "Primary sponsor";
-  if (name === "secondary") return "Secondary sponsor";
-  return "Classified";
+  return sponsorSlotSpec(name)?.name ?? name;
 }
 
 function href(value: string, absolute: boolean): string {

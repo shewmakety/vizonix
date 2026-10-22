@@ -6,6 +6,7 @@ import {
 import { addDays, isIsoDate, isMonday, todayInNewYork } from "@/lib/dates";
 import { getPlacement, placements, type Placement } from "@/lib/rate-card";
 import { featuredSegment, getSegment } from "@/lib/segments";
+import { isSectionSpot } from "@/lib/sponsor-slots";
 
 const emailSchema = z.string().trim().email();
 
@@ -34,22 +35,13 @@ function asRecord(raw: unknown): Record<string, unknown> {
   return {};
 }
 
+/** A newsletter week runs Monday through Friday. Quantity adds further Monday-Friday weeks. */
 export function reservationWindow(
-  placement: Placement,
+  _placement: Placement,
   startDate: string,
   quantity: number,
 ): { startDate: string; endDate: string } {
-  if (placement === "featured") {
-    return { startDate, endDate: addDays(startDate, 30 * quantity - 1) };
-  }
-  if (placement === "banner") {
-    return { startDate, endDate: addDays(startDate, 7 * quantity - 1) };
-  }
   return { startDate, endDate: addDays(startDate, 7 * (quantity - 1) + 4) };
-}
-
-export function mondayRequired(placement: Placement): boolean {
-  return placement !== "banner" && placement !== "featured";
 }
 
 export function parseCheckoutRequest(
@@ -85,6 +77,13 @@ export function parseCheckoutRequest(
   }
 
   const placementId = String(body.placement ?? "").trim();
+  if (isSectionSpot(placementId)) {
+    return {
+      ok: false,
+      status: 400,
+      error: "That section sponsorship is quoted. Use the inquiry form.",
+    };
+  }
   if (!placements.includes(placementId as Placement) || !getPlacement(placementId)) {
     return { ok: false, status: 400, error: "Choose a placement." };
   }
@@ -94,7 +93,7 @@ export function parseCheckoutRequest(
   if (!isIsoDate(startDate)) {
     return { ok: false, status: 400, error: "Enter the start date as YYYY-MM-DD." };
   }
-  if (mondayRequired(placement) && !isMonday(startDate)) {
+  if (!isMonday(startDate)) {
     return {
       ok: false,
       status: 400,
@@ -133,35 +132,19 @@ export function parseCheckoutRequest(
     }
   }
 
-  if (placement === "featured" && quantity !== 1) {
+  const window = reservationWindow(placement, startDate, quantity);
+  const conflict = findConflict(options.reservations, {
+    segment: segment.slug,
+    placement,
+    startDate: window.startDate,
+    endDate: window.endDate,
+  });
+  if (conflict) {
     return {
       ok: false,
-      status: 400,
-      error: "A Featured listing renews monthly. Choose quantity 1.",
+      status: 409,
+      error: `That ${placement} placement is already reserved from ${conflict.startDate} through ${conflict.endDate}.`,
     };
-  }
-  if (placement === "featured" && !company) {
-    return { ok: false, status: 400, error: "Enter the company to feature." };
-  }
-  if (placement === "featured" && !adCopyUrl) {
-    return { ok: false, status: 400, error: "Enter the tool or directory URL to feature." };
-  }
-
-  const window = reservationWindow(placement, startDate, quantity);
-  if (placement !== "featured") {
-    const conflict = findConflict(options.reservations, {
-      segment: segment.slug,
-      placement,
-      startDate: window.startDate,
-      endDate: window.endDate,
-    });
-    if (conflict) {
-      return {
-        ok: false,
-        status: 409,
-        error: `That ${placement} placement is already reserved from ${conflict.startDate} through ${conflict.endDate}.`,
-      };
-    }
   }
 
   return {

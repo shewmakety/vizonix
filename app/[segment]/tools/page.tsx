@@ -82,7 +82,7 @@ export default async function ToolsPage({ params, searchParams }: Props) {
         <h1>Tool directory</h1>
         <p className="lede">
           Each tool has its own page: what it does, who it is for, and how it could change the money.
-          Featured listings, when a sponsor buys one, are labeled Sponsored.
+          A Sponsored label marks a paid placement. Order in this list is not a ranking.
         </p>
         {tools.length === 0 ? (
           <p className="notice">No tool listings yet.</p>

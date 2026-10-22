@@ -171,10 +171,10 @@ export function sponsorFaqJsonLd() {
       },
       {
         "@type": "Question",
-        name: "How many sponsors run in one issue?",
+        name: "Which sponsor slots does an issue include?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Two newsletter sponsors at most: one primary and one secondary.",
+          text: "Each issue has a primary sponsor, a secondary sponsor, and a sponsor line on each numbered section.",
         },
       },
       {

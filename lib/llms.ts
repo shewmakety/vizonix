@@ -84,7 +84,7 @@ export function buildLlmsTxt(): string {
     `- [Join](${absoluteUrl("/join")}): same signup, for a link that carries a source.`,
     `- [Privacy](${absoluteUrl("/privacy")})`,
     `- [Full briefing for models](${absoluteUrl("/llms-full.txt")})`,
-    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): weekly sponsorships, the Featured listing, and the founding offer.`,
+    `- [Sponsor rate card](${absoluteUrl("/sponsor")}): primary and secondary weekly sponsorships, a quoted section sponsor, and the founding offer.`,
     `- [Media kit](${absoluteUrl("/media-kit")}): formats and founding prices. Audience numbers are not published yet.`,
     "",
     "## Optional",
@@ -96,8 +96,10 @@ export function buildLlmsTxt(): string {
 
 export function buildLlmsFullTxt(): string {
   const placementLines = launchPlacements.map((placement) => {
-    const unit = placement.unit === "month" ? "month" : "week";
-    return `- ${placement.name}: ${formatUsd(placement.price)} per ${unit}. Founding price ${formatUsd(placement.founding)}. ${placement.description}`;
+    if (placement.price == null || placement.founding == null) {
+      return `- ${placement.name}: Quote. ${placement.description}`;
+    }
+    return `- ${placement.name}: ${formatUsd(placement.price)} per week. Founding price ${formatUsd(placement.founding)}. ${placement.description}`;
   });
 
   const ladderLines = publishedPrimaryLadder().map((row) => {

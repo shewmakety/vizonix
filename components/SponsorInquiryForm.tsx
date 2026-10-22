@@ -5,8 +5,13 @@ import { SponsorField, SponsorVerification } from "@/components/SponsorField";
 import type { TurnstileHandle } from "@/components/TurnstileField";
 import { site } from "@/lib/site";
 import { inquiryBudgets } from "@/lib/sponsor-inquiry";
+import type { PlacementChoice } from "@/lib/sponsor-labels";
 import {
+  checkoutSegmentHelp,
   inquiryFieldCopy,
+  inquiryPlacementHelp,
+  inquiryPlacementLabel,
+  inquirySegmentLabel,
   sponsorContactLead,
   sponsorRequiredLegend,
   sponsorVerifyHelp,
@@ -14,10 +19,28 @@ import {
 
 type Status = { kind: "idle" | "working" | "error" | "sent"; message: string };
 
-export function SponsorInquiryForm() {
+export function SponsorInquiryForm({
+  segments,
+  placementsBySegment,
+}: {
+  segments: PlacementChoice[];
+  placementsBySegment: Record<string, PlacementChoice[]>;
+}) {
+  const [segment, setSegment] = useState(segments[0]?.id ?? "");
+  const [placement, setPlacement] = useState(placementsBySegment[segments[0]?.id ?? ""]?.[0]?.id ?? "primary");
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstile = useRef<TurnstileHandle>(null);
+  const placements = placementsBySegment[segment] ?? [];
+  const sectionHelp = checkoutSegmentHelp(segments.map((item) => item.label));
+
+  function onSegment(next: string) {
+    setSegment(next);
+    const options = placementsBySegment[next] ?? [];
+    if (!options.some((item) => item.id === placement)) {
+      setPlacement(options[0]?.id ?? "primary");
+    }
+  }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,6 +60,8 @@ export function SponsorInquiryForm() {
         promote: form.get("promote"),
         budget: form.get("budget"),
         message: form.get("message"),
+        segment: form.get("segment"),
+        placement: form.get("placement"),
         company_website: form.get("company_website"),
         turnstileToken,
       }),
@@ -63,13 +88,31 @@ export function SponsorInquiryForm() {
     <form className="form-card" id="inquiry" onSubmit={onSubmit}>
       <h2>Ask about a sponsorship</h2>
       <p className="form-note">
-        Use this for a question, a bundle, or a run that checkout does not cover. Paid weeks and the
-        monthly Featured listing use the checkout form.
+        Use this for a question, a section sponsor, or a run that checkout does not cover. Paid primary
+        and secondary weeks use the checkout form.
       </p>
       <p className="form-note">{sponsorRequiredLegend}</p>
       <p className="form-note">
         {sponsorContactLead} <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
+      <SponsorField id="inquiry-segment" label={inquirySegmentLabel} required help={sectionHelp}>
+        <select name="segment" value={segment} onChange={(event) => onSegment(event.target.value)}>
+          {segments.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+      </SponsorField>
+      <SponsorField id="inquiry-placement" label={inquiryPlacementLabel} required help={inquiryPlacementHelp}>
+        <select name="placement" value={placement} onChange={(event) => setPlacement(event.target.value)}>
+          {placements.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.label}
+            </option>
+          ))}
+        </select>
+      </SponsorField>
       <SponsorField
         id="inquiry-name"
         label={inquiryFieldCopy.name.label}

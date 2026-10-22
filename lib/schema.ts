@@ -2,6 +2,12 @@ import { z } from "zod";
 import { isIsoDate } from "@/lib/dates";
 import { getPlacement, wordCount } from "@/lib/rate-card";
 import { getSegment, segmentTopics } from "@/lib/segments";
+import {
+  sectionLineMax,
+  sponsorCopyMax,
+  sponsorCtaMax,
+  sponsorNameMax,
+} from "@/lib/sponsor-slots";
 
 const httpUrl = z
   .string()
@@ -64,12 +70,12 @@ export function isGeneralGlossaryTerm(term: string): boolean {
 
 export const sponsorSchema = z
   .object({
-    name: z.string().trim().min(1).max(120),
+    name: z.string().trim().min(1).max(sponsorNameMax),
     url: href,
-    copy: z.string().trim().min(1).max(1200),
-    cta: z.string().trim().min(1).max(80),
+    copy: z.string().trim().min(1).max(sponsorCopyMax),
+    cta: z.string().trim().min(1).max(sponsorCtaMax),
     ctaUrl: href,
-    ctaSecondary: z.string().trim().min(1).max(80).optional(),
+    ctaSecondary: z.string().trim().min(1).max(sponsorCtaMax).optional(),
     ctaSecondaryUrl: href.optional(),
     logo: href.optional(),
     /** House ad, not a paid placement. Renders without a sponsored relationship. */
@@ -119,8 +125,8 @@ export type RoboticsItem = z.infer<typeof roboticsItemSchema>;
 
 /** Paid line at the top of one numbered section. Absent sections show an open placeholder. */
 export const sectionSponsorSchema = z.object({
-  name: z.string().trim().min(1).max(120),
-  line: z.string().trim().min(1).max(200),
+  name: z.string().trim().min(1).max(sponsorNameMax),
+  line: z.string().trim().min(1).max(sectionLineMax),
   url: href,
   logo: href.optional(),
 });

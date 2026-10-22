@@ -45,11 +45,20 @@ describe("reservations", () => {
   it("accepts a payment-link custom field for the week", () => {
     const reservation = reservationFromSession({
       id: "cs_link",
-      metadata: { segment: "legal", placement: "classified" },
+      metadata: { segment: "legal", placement: "primary" },
       custom_fields: [{ key: "preferred_week", text: { value: "2026-11-02" } }],
     });
     expect(reservation?.startDate).toBe("2026-11-02");
     expect(reservation?.endDate).toBe("2026-11-02");
+  });
+
+  it("drops a payment for a slot the issue no longer sells", () => {
+    const reservation = reservationFromSession({
+      id: "cs_old",
+      metadata: { segment: "legal", placement: "classified" },
+      custom_fields: [{ key: "preferred_week", text: { value: "2026-11-02" } }],
+    });
+    expect(reservation).toBeNull();
   });
 
   it("detects overlapping placements only", () => {
