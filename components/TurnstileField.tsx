@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { publicTurnstileSiteKey, type TurnstileAction } from "@/lib/turnstile-public";
 
 type TurnstileWidgetId = string;
@@ -47,6 +47,18 @@ export const TurnstileField = forwardRef<TurnstileHandle, { action: TurnstileAct
         "error-callback": () => onTokenRef.current(""),
       });
     }
+
+    useEffect(() => {
+      renderWidget();
+      const timer = window.setInterval(() => {
+        if (widgetId.current !== null) {
+          window.clearInterval(timer);
+          return;
+        }
+        renderWidget();
+      }, 200);
+      return () => window.clearInterval(timer);
+    }, [action]);
 
     useImperativeHandle(ref, () => ({
       reset() {

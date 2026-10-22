@@ -174,7 +174,7 @@ export function sponsorFaqJsonLd() {
         name: "How many sponsors run in one issue?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Three newsletter sponsors at most: one primary, one secondary, and one classified.",
+          text: "Two newsletter sponsors at most: one primary and one secondary.",
         },
       },
       {

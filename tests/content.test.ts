@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
+import { formatNumericDate } from "@/lib/dates";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { issueHeaderLine } from "@/lib/issue-present";
 import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
   getSegment,
   isToolDirectoryPath,
-  segmentDisplayName,
+  segmentHeaderName,
   segments,
   toolDirectoryHref,
   toolsIndexPath,
@@ -62,27 +62,32 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(4);
-    expect(issues.map((issue) => issue.date)).toEqual(["2026-10-21", "2026-10-20", "2026-10-19", "2026-10-16"]);
+    expect(issues).toHaveLength(5);
+    expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-22",
+      "2026-10-21",
+      "2026-10-20",
+      "2026-10-19",
+      "2026-10-16",
+    ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "Boeing brings AI to fleet-wide maintenance data. Plus 7 places to put AI and robotics to work",
+      "AI agents are already calling charter operators for quotes. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "linkapilot",
-      "zingly-voice-ai",
-      "flightbridge-21x-ai-concierge",
-      "honeywell-ensemble",
-      "virtualitics-iris",
-      "rolls-royce-optimiser",
-      "bluetail-ai",
-      "lokad-aerospace",
-      "aeroparts-ai",
-      "chatgpt-slides",
-      "gemini-small-business-tools",
-      "copilot-interactive-slides",
+      "cae-ready-for-work",
+      "levo-flight-leads",
+      "optifly-opty",
+      "gulfstream-performance-analytics",
+      "ge-aerospace-celma-records-ai",
+      "aerokeeper-due-list-agent",
+      "uas-skyx",
+      "ajw-apollo",
+      "flyexclusive-contrails-fms",
+      "claude-duet",
+      "gemini-customize-hub",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -102,12 +107,21 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(86);
+    expect(tools).toHaveLength(94);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
-    expect(priced.map((tool) => tool.slug).sort()).toEqual(
-      ["aeroquote", "flightbridge-21x-ai-concierge", "rolls-royce-optimiser", "sensos-jssi-tracking"],
-    );
+    expect(priced.map((tool) => tool.slug).sort()).toEqual([
+      "aeroquote",
+      "ajw-apollo",
+      "cae-ready-for-work",
+      "flightbridge-21x-ai-concierge",
+      "flyexclusive-contrails-fms",
+      "ge-aerospace-celma-records-ai",
+      "gulfstream-performance-analytics",
+      "rolls-royce-optimiser",
+      "sensos-jssi-tracking",
+      "uas-skyx",
+    ]);
     expect(getTool("aviation", "flightbridge-21x-ai-concierge")?.pricing).toBe("Not announced (beta)");
     expect(getTool("aviation", "rolls-royce-optimiser")?.pricing).toBe("Internal Rolls-Royce system");
     expect(getTool("aviation", "aeroquote")?.pricing).toBe(
@@ -141,7 +155,7 @@ describe("segment config and sample content", () => {
     }
   });
 
-  it("renders each section with its own payoff line and the three sponsor slots", () => {
+  it("renders each section with its own payoff line and the sponsor slots", () => {
     const aviation = getIssue("aviation", "2026-10-16");
     expect(aviation).toBeTruthy();
     if (!aviation) return;
@@ -151,7 +165,8 @@ describe("segment config and sample content", () => {
     const text = renderIssueText(aviation, { mode: "test" });
     expect(html).toContain("Primary sponsor - open");
     expect(html).toContain("Secondary sponsor");
-    expect(html).toContain("Classified");
+    expect(html).not.toContain("Classified - open");
+    expect(html).not.toContain("This quick-link slot is open");
     expect(html).toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(html).toContain("See founding sponsor rates");
     expect(html).toContain("https://www.vizonix.com/sponsor");
@@ -167,12 +182,14 @@ describe("segment config and sample content", () => {
     expect(html).toContain(">READ ON WEB<");
     expect(html).toContain(`href="${issueUrl}"`);
     expect(html).not.toContain("Read on the web");
-    const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
-    const dateline = issueHeaderLine(aviation);
-    expect(dateline.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
-    expect(html.indexOf(escapeHtml(dateline))).toBeGreaterThan(-1);
-    expect(html.indexOf(escapeHtml(dateline))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
-    expect(text.startsWith(`${wordmark}\n`)).toBe(true);
+    const wordmark = sectionWordmark(segmentHeaderName(getSegment("aviation")!));
+    const numeric = formatNumericDate(aviation.date);
+    expect(wordmark).toBe("Vizonix - Customizable AI & Robotics News For Aviation");
+    expect(numeric).toBe("10-16-2026");
+    expect(html).toContain(`<span style="color:#c9b98f;"> · ${numeric}</span></h1>`);
+    expect(html).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
+    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(text.startsWith(`${wordmark}\n${aviation.subject} · ${numeric}\n`)).toBe(true);
     expect(html.indexOf(aviation.lead.title)).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
     expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(">Unsubscribe</a>"));
     expect(text).toContain(`Open the Toolbox: ${directory}`);
@@ -183,10 +200,18 @@ describe("segment config and sample content", () => {
     expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
-    expect(html.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+    expect(html.indexOf(">AOG Support: Parts, Rotables &amp; Technicians</td>")).toBeLessThan(
       html.indexOf(">General AI Productivity Tools</td>"),
     );
-    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(html).not.toContain(aviation.playbook?.title ?? "missing playbook");
+    expect(html).not.toContain(">Quick links</h2>");
+    expect(text).not.toContain("QUICK LINKS");
+    const withoutClosers = { ...aviation };
+    delete withoutClosers.playbook;
+    delete withoutClosers.quickLinks;
+    expect(issueSchema.safeParse(withoutClosers).success).toBe(true);
+    expect(issueSchema.safeParse(aviation).success).toBe(true);
     expect(html).toContain("https://copilot.microsoft.com/");
     expect(html).toContain("https://otter.ai/");
     expect(html).toContain("https://www.notion.com/product/ai");
@@ -194,9 +219,9 @@ describe("segment config and sample content", () => {
     expect(html).not.toContain("Sample issue");
     expect(text).toContain("PRIMARY SPONSOR");
     expect(text).toContain("SECONDARY SPONSOR");
-    expect(text).toContain("CLASSIFIED");
+    expect(text).not.toContain("CLASSIFIED");
+    expect(text).not.toContain("This quick-link slot is open");
     expect(text.indexOf("PRIMARY SPONSOR")).toBeLessThan(text.indexOf("SECONDARY SPONSOR"));
-    expect(text.indexOf("SECONDARY SPONSOR")).toBeLessThan(text.indexOf("CLASSIFIED"));
     expect(text).toContain("One standout this week.");
     expect(text).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(text).toContain(absoluteUrl("/aviation/unsubscribe"));
@@ -223,10 +248,10 @@ describe("segment config and sample content", () => {
       ...issue,
       sponsors: {
         ...issue.sponsors,
-        classified: {
+        secondary: {
           name: "Too Long",
           url: "/sponsor",
-          copy: Array.from({ length: 40 }, () => "word").join(" "),
+          copy: Array.from({ length: 61 }, () => "word").join(" "),
           cta: "Go",
           ctaUrl: "/sponsor",
         },

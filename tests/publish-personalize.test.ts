@@ -88,7 +88,9 @@ describe("personalized issue send", () => {
         error: null,
       });
     const fetchMock = vi.fn(async (url: string) => {
-      expect(String(url)).toContain("/rest/v1/subscriber_prefs");
+      const target = String(url);
+      if (target.includes("/rest/v1/bookings")) return Response.json([]);
+      expect(target).toContain("/rest/v1/subscriber_prefs");
       return Response.json([
         { email: "a@example.com", excluded_sections: ["Warehousing", "Recruiting"] },
         { email: "b@example.com", excluded_sections: ["Recruiting", "Warehousing"] },
@@ -123,10 +125,11 @@ describe("personalized issue send", () => {
     expect(full?.messages[0]?.html).toContain(">Recruiting</td>");
     expect(full?.messages[0]?.html).toContain(">Warehousing</td>");
     for (const message of deliveries.flatMap((delivery) => delivery.messages)) {
-      expect(message.html).toContain("The Ramp");
-      expect(message.html).toContain("Top story");
+      expect(message.html).not.toContain("The Ramp");
+      expect(message.html).toContain("Today&#39;s top story");
       expect(message.html).toContain("Primary sponsor");
-      expect(message.html).toContain("Manage your topics");
+      expect(message.html).toContain("Contact us at:");
+      expect(message.html).not.toContain("Manage your topics");
       expect(message.html).toContain("/preferences?token=");
       expect(message.html).not.toContain("__VZ_");
       expect(message.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
@@ -139,7 +142,8 @@ describe("personalized issue send", () => {
   });
 
   it("keeps a test send as one full copy and skips IndexNow when the file is not written", async () => {
-    const fetchMock = vi.fn(async () => {
+    const fetchMock = vi.fn(async (url: string) => {
+      if (String(url).includes("/rest/v1/bookings")) return Response.json([]);
       throw new Error("IndexNow should not be called");
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -162,7 +166,8 @@ describe("personalized issue send", () => {
       testTo: "reader@example.com",
     });
     expect(sentWithoutWrite.indexNow).toMatchObject({ ok: false, skipped: "not published" });
-    expect(fetchMock).not.toHaveBeenCalled();
+    const outsideBookings = fetchMock.mock.calls.filter((call) => !String(call[0]).includes("/rest/v1/bookings"));
+    expect(outsideBookings).toEqual([]);
   });
 
   it("does not email anyone when saved topics cannot be read", async () => {

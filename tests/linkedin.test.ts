@@ -88,7 +88,7 @@ Free AI briefing for aviation. Subscribe: https://www.vizonix.com/aviation
     huge.subject = "T".repeat(180);
     huge.lead.title = "T".repeat(180);
     huge.lead.summary = `${"This sentence keeps going without a stop ".repeat(80).trim()}.`;
-    huge.playbook.title = "Playbook title ".repeat(20);
+    if (huge.playbook) huge.playbook.title = "Playbook title ".repeat(20);
     for (const section of huge.sections ?? []) {
       for (const tool of section.tools) {
         tool.summary = `${"Tool sentence without a stop ".repeat(40).trim()}.`;

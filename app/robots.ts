@@ -18,7 +18,7 @@ const aiAgents = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
-  const shared = { allow: "/", disallow: ["/api/"] };
+  const shared = { allow: "/", disallow: ["/api/", "/admin"] };
   return {
     rules: [
       { userAgent: "*", ...shared },

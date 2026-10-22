@@ -15,7 +15,6 @@ import {
   publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
-  classifiedRatio,
   stripeLinkEnvKey,
 } from "@/lib/rate-card";
 import { pageMeta } from "@/lib/meta";
@@ -26,7 +25,7 @@ export const dynamic = "force-dynamic";
 export const metadata = pageMeta({
   title: "Sponsor",
   description:
-    "Vizonix launch rate card. Aviation is the first list. Primary, secondary, and classified sponsorships, plus the founding offer.",
+    "Vizonix launch rate card. Aviation is the first list. Primary and secondary sponsorships, plus the founding offer.",
   canonical: "/sponsor",
 });
 
@@ -133,10 +132,9 @@ export default async function SponsorPage({
         <h2>Price ladder</h2>
         <p>
           Primary slot, per week. At the launch floor, secondary is{" "}
-          {formatUsd(getPlacement("secondary")?.price ?? 0)} and classified is{" "}
-          {formatUsd(getPlacement("classified")?.price ?? 0)}, the same figures as the placement table.
+          {formatUsd(getPlacement("secondary")?.price ?? 0)}, the same figure as the placement table.
           {floorPrimary !== null && nextPrimary !== null && nextPrimary !== undefined && floorPrimary !== undefined
-            ? ` The ${ladder[1]?.label} row scales from those rate-card prices: secondary ${formatUsd(scaledFromPrimary(nextPrimary, secondaryRatio))} and classified ${formatUsd(scaledFromPrimary(nextPrimary, classifiedRatio))} when primary is ${formatUsd(nextPrimary)}.`
+            ? ` The ${ladder[1]?.label} row scales from that rate-card price: secondary ${formatUsd(scaledFromPrimary(nextPrimary, secondaryRatio))} when primary is ${formatUsd(nextPrimary)}.`
             : ""}{" "}
           Tiers above 2,500 subscribers are not offered yet. Open rate and audience makeup will be
           published on this page once a month of {featured.name.toLowerCase()} issues has been sent.
@@ -149,7 +147,6 @@ export default async function SponsorPage({
                 <th>Active subscribers</th>
                 <th>Primary / week</th>
                 <th>Secondary</th>
-                <th>Classified</th>
                 <th>Note</th>
               </tr>
             </thead>
@@ -160,9 +157,6 @@ export default async function SponsorPage({
                   <td className="num">{row.primary === null ? "Quote" : formatUsd(row.primary)}</td>
                   <td className="num">
                     {row.primary === null ? "Quote" : formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}
-                  </td>
-                  <td className="num">
-                    {row.primary === null ? "Quote" : formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}
                   </td>
                   <td>{row.note}</td>
                 </tr>

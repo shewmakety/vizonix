@@ -24,10 +24,8 @@ function editorialText(issue: Issue): string {
       section.robotics?.sourceName,
       ...section.tools.flatMap((tool) => [tool.name, tool.summary, tool.whyItMatters, tool.pricing]),
     ]),
-    issue.playbook.title,
-    issue.playbook.intro,
-    ...issue.playbook.steps,
-    ...issue.quickLinks.flatMap((link) => [link.title, link.note]),
+    ...(issue.playbook ? [issue.playbook.title, issue.playbook.intro, ...issue.playbook.steps] : []),
+    ...(issue.quickLinks?.flatMap((link) => [link.title, link.note]) ?? []),
   ];
   return parts.filter(Boolean).join("\n").toLowerCase();
 }
@@ -58,14 +56,18 @@ describe("AI glossary", () => {
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     const email = renderIssueEmail(issue, { mode: "broadcast" });
     const text = renderIssueText(issue, { mode: "test" });
-    expect(html.indexOf("Quick links")).toBeLessThan(html.indexOf("Classified"));
-    expect(html.indexOf("Classified")).toBeLessThan(html.indexOf("AI Glossary"));
-    expect(html.indexOf('class="glossary-heading"')).toBeGreaterThan(html.lastIndexOf("Quick links"));
-    expect(email.indexOf("Quick links")).toBeLessThan(email.indexOf("Classified"));
-    expect(email.indexOf("Classified")).toBeLessThan(email.indexOf("AI Glossary"));
+    expect(html).not.toContain("Quick links");
+    expect(html).not.toContain(issue.playbook?.title ?? "missing playbook");
+    expect(html).not.toContain("Classified - open");
+    expect(html).not.toContain("This quick-link slot is open");
+    expect(email).not.toContain("Quick links");
+    expect(email).not.toContain(issue.playbook?.title ?? "missing playbook");
+    expect(email).not.toContain("Classified - open");
+    expect(email).not.toContain("This quick-link slot is open");
     expect(email.indexOf("AI Glossary")).toBeLessThan(email.indexOf("Unsubscribe"));
-    expect(text.indexOf("QUICK LINKS")).toBeLessThan(text.indexOf("CLASSIFIED"));
-    expect(text.indexOf("CLASSIFIED")).toBeLessThan(text.indexOf("AI GLOSSARY"));
+    expect(text).not.toContain("QUICK LINKS");
+    expect(text).not.toContain("CLASSIFIED");
+    expect(text).not.toContain(issue.playbook?.title ?? "missing playbook");
     expect(text.indexOf("AI GLOSSARY")).toBeLessThan(text.lastIndexOf("READ ON WEB"));
 
     let previous = -1;

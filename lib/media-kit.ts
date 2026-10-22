@@ -15,7 +15,7 @@ export const mediaKitAudience =
 
 export const mediaKitFounder = `${editor.name}, founder of AOG Alerts and MRO List, with a career around MROs and AOG desks, publishes Vizonix.`;
 
-const formatIds = ["primary", "secondary", "classified", "featured"] as const;
+const formatIds = ["primary", "secondary", "featured"] as const;
 
 export type MediaKitFormat = {
   id: (typeof formatIds)[number];

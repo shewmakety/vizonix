@@ -7,8 +7,11 @@ import { breadcrumbJsonLd, issueJsonLd } from "@/lib/jsonld";
 import { capDescription, pageMeta } from "@/lib/meta";
 import { getSegment, segmentDisplayName } from "@/lib/segments";
 import { sectionWordmark } from "@/lib/site";
+import { issueForDelivery } from "@/lib/bookings";
 
 type Props = { params: Promise<{ segment: string; date: string }> };
+
+export const revalidate = 60;
 
 export function generateStaticParams() {
   return allIssues().map((issue) => ({ segment: issue.segment, date: issue.date }));
@@ -35,8 +38,9 @@ export async function generateMetadata({ params }: Props) {
 export default async function IssuePage({ params }: Props) {
   const { segment: slug, date } = await params;
   const segment = getSegment(slug);
-  const issue = segment && segment.status === "active" ? getIssue(slug, date) : undefined;
-  if (!segment || segment.status !== "active" || !issue) notFound();
+  const stored = segment && segment.status === "active" ? getIssue(slug, date) : undefined;
+  if (!segment || segment.status !== "active" || !stored) notFound();
+  const issue = await issueForDelivery(stored);
 
   return (
     <>

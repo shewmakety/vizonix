@@ -1,8 +1,8 @@
 import { spawn, type ChildProcess } from "child_process";
 import fs from "fs";
 import path from "path";
-import { getIssue, latestPublishedIssue } from "../lib/content";
-import { issueHeaderLine } from "../lib/issue-present";
+import { latestPublishedIssue } from "../lib/content";
+import { formatNumericDate } from "../lib/dates";
 import { checkLinks } from "./check-links";
 
 /** Match React text escaping so a subject with & or < still matches the page. */
@@ -17,6 +17,7 @@ const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-22", "AI agents are already shopping for charter"],
   ["/aviation/issues/2026-10-21", "Boeing launches Dataliner"],
   ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
@@ -38,6 +39,14 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/jeppesen-foreflight-airflow", "wider rollout is expected in 2027"],
   ["/aviation/tools/bluetail-ai", "Bluetail"],
   ["/aviation/tools/airvoyant", "Contact the vendor"],
+  ["/aviation/tools/aerokeeper-due-list-agent", "Due List Agent"],
+  ["/aviation/tools/ajw-apollo", "AJW Group"],
+  ["/aviation/tools/cae-ready-for-work", "Ready for Work"],
+  ["/aviation/tools/flyexclusive-contrails-fms", "Contrails FMS"],
+  ["/aviation/tools/ge-aerospace-celma-records-ai", "Celma"],
+  ["/aviation/tools/gulfstream-performance-analytics", "Performance Analytics"],
+  ["/aviation/tools/optifly-opty", "Opty"],
+  ["/aviation/tools/uas-skyx", "SkyX"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
   ["/sponsor", "Aviation is the first list"],
   ["/media-kit", "Audience numbers will be published after our first full month."],
@@ -124,7 +133,7 @@ async function main() {
     }
 
     const join = await fetch(`${base}/join?src=linkedin`).then((response) => response.text());
-    if (!join.includes("Suggest a topic") || !join.includes("Top story, The Ramp, and sponsor slots")) {
+    if (!join.includes("Suggest a topic") || !join.includes("The top story and the sponsor slot, every time.")) {
       throw new Error("Join page is missing the topic picker.");
     }
     const latest = latestPublishedIssue("aviation");
@@ -147,6 +156,10 @@ async function main() {
     }
     if (!join.includes("challenges.cloudflare.com/turnstile") || !subscribePage.includes("challenges.cloudflare.com/turnstile")) {
       throw new Error("Join or subscribe is missing the Turnstile widget.");
+    }
+    const adminLogin = await fetch(`${base}/admin/sponsors`).then((response) => response.text());
+    if (!adminLogin.includes("Sponsor admin") || !adminLogin.includes("challenges.cloudflare.com/turnstile")) {
+      throw new Error("Sponsor admin login is missing the Turnstile widget.");
     }
     const aviationPage = await fetch(`${base}/aviation`).then((response) => response.text());
     if (!aviationPage.includes("Suggest a topic")) {
@@ -243,33 +256,45 @@ async function main() {
     if (aviationIssue.includes("Sample issue") || aviationIssue.includes("AOGLine")) {
       throw new Error("The real aviation issue still contains sample content.");
     }
-    if (!aviationIssue.includes("Friday, October 16, 2026") || aviationIssue.includes("Thursday, October 15, 2026")) {
-      throw new Error("The aviation issue date did not stay on Friday, October 16, 2026.");
+    const titleDate = (isoDate: string) =>
+      `class="issue-title-date"> · ${formatNumericDate(isoDate)}</span>`;
+    if (!aviationIssue.includes(titleDate("2026-10-16")) || aviationIssue.includes("Thursday, October 15, 2026")) {
+      throw new Error("The aviation issue date did not stay on 10-16-2026.");
     }
     const mondayIssue = await fetch(`${base}/aviation/issues/2026-10-19`).then((response) => response.text());
     if (mondayIssue.includes("noindex")) {
       throw new Error("The October 19 aviation issue is marked noindex.");
     }
-    if (!mondayIssue.includes("Monday, October 19, 2026") || mondayIssue.includes("Sunday, October 18, 2026")) {
-      throw new Error("The October 19 issue date did not stay on Monday, October 19, 2026.");
+    if (!mondayIssue.includes(titleDate("2026-10-19")) || mondayIssue.includes("Sunday, October 18, 2026")) {
+      throw new Error("The October 19 issue date did not stay on 10-19-2026.");
     }
     const tuesdayIssue = await fetch(`${base}/aviation/issues/2026-10-20`).then((response) => response.text());
     if (tuesdayIssue.includes("noindex")) {
       throw new Error("The October 20 aviation issue is marked noindex.");
     }
-    // The issue date is the dateline under the title. Ramp bylines keep each post's own day,
-    // including Monday, October 19, 2026, so that string on the page is not a shifted issue date.
-    const tuesdayDateline = `class="issue-dateline">${issueHeaderLine(getIssue("aviation", "2026-10-20")!).replaceAll("&", "&amp;")}`;
-    if (!tuesdayIssue.includes(tuesdayDateline) || !tuesdayDateline.includes("Tuesday, October 20, 2026")) {
-      throw new Error("The October 20 issue date did not stay on Tuesday, October 20, 2026.");
+    // The issue date sits on the title as MM-DD-YYYY. A ramp byline can still name an earlier day.
+    if (!tuesdayIssue.includes(titleDate("2026-10-20")) || tuesdayIssue.includes(titleDate("2026-10-19"))) {
+      throw new Error("The October 20 issue date did not stay on 10-20-2026.");
     }
     const wednesdayIssue = await fetch(`${base}/aviation/issues/2026-10-21`).then((response) => response.text());
     if (wednesdayIssue.includes("noindex")) {
       throw new Error("The October 21 aviation issue is marked noindex.");
     }
-    const wednesdayDateline = `class="issue-dateline">${issueHeaderLine(getIssue("aviation", "2026-10-21")!).replaceAll("&", "&amp;")}`;
-    if (!wednesdayIssue.includes(wednesdayDateline) || !wednesdayDateline.includes("Wednesday, October 21, 2026")) {
-      throw new Error("The October 21 issue date did not stay on Wednesday, October 21, 2026.");
+    if (!wednesdayIssue.includes(titleDate("2026-10-21")) || wednesdayIssue.includes(titleDate("2026-10-20"))) {
+      throw new Error("The October 21 issue date did not stay on 10-21-2026.");
+    }
+    const thursdayIssue = await fetch(`${base}/aviation/issues/2026-10-22`).then((response) => response.text());
+    if (thursdayIssue.includes("noindex")) {
+      throw new Error("The October 22 aviation issue is marked noindex.");
+    }
+    if (!thursdayIssue.includes(titleDate("2026-10-22")) || thursdayIssue.includes(titleDate("2026-10-21"))) {
+      throw new Error("The October 22 issue date did not stay on 10-22-2026.");
+    }
+    if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
+      throw new Error("The issue still renders the classified quick-link slot.");
+    }
+    if (thursdayIssue.includes("Pick your topics - get only the sections you care about")) {
+      throw new Error("The issue title card still shows the topic pitch.");
     }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
@@ -287,6 +312,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-22") ||
       !sitemap.includes("/aviation/issues/2026-10-21") ||
       !sitemap.includes("/aviation/issues/2026-10-20") ||
       !sitemap.includes("/aviation/issues/2026-10-19") ||
@@ -319,12 +345,15 @@ async function main() {
     if (!sponsor.includes("challenges.cloudflare.com/turnstile")) {
       throw new Error("Sponsor page is missing the Turnstile widget.");
     }
+    if (sponsor.includes("Classified / Quick link") || sponsor.includes("quick-link slot")) {
+      throw new Error("Sponsor page still lists the classified quick-link.");
+    }
     if (sponsor.includes("2,500-5,000") || sponsor.includes("$4,500")) {
       throw new Error("Sponsor page still publishes tiers above 2,500 subscribers.");
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-21")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-22")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);
@@ -514,11 +543,10 @@ async function main() {
     if (issuePage.includes("Visit the Toolbox")) {
       throw new Error("Issue page still has the one-line Toolbox link.");
     }
-    const rampAt = issuePage.indexOf('class="ramp-heading"');
     const toolboxAt = issuePage.indexOf('class="issue-toolbox"');
     const glossaryAt = issuePage.indexOf('class="glossary-heading"');
-    if (rampAt < 0 || toolboxAt < rampAt || glossaryAt < toolboxAt) {
-      throw new Error("Toolbox card is not between The Ramp and the glossary.");
+    if (issuePage.includes('class="ramp-heading"') || toolboxAt < 0 || glossaryAt < toolboxAt) {
+      throw new Error("Toolbox card is not above the glossary.");
     }
     if (!issuePage.includes('width="80"') || !issuePage.includes('height="64"')) {
       throw new Error("Toolbox icon is not the 64px in-card size.");

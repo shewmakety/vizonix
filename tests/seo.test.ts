@@ -19,6 +19,8 @@ describe("sitemap and feeds", () => {
       "/confirm",
       "/unsubscribe",
       "/sponsor/confirmed",
+      "/admin",
+      "/admin/sponsors",
       "/legal",
       "/legal/issues",
       "/legal/tools",
@@ -39,7 +41,7 @@ describe("sitemap and feeds", () => {
     expect(formatIssueDate(issue!)).toBe("Friday, October 16, 2026");
     const issueEntry = entries.find((entry) => entry.path === "/aviation/issues/2026-10-16");
     expect(issueEntry?.lastModified.getTime()).toBeGreaterThanOrEqual(published.getTime());
-    expect(issueEntry?.lastModified.getTime()).toBeLessThanOrEqual(now.getTime());
+    expect(issueEntry?.lastModified.toISOString()).toBe(now.toISOString());
   });
 
   it("builds an aviation RSS feed from the publish time", () => {

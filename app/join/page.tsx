@@ -38,7 +38,7 @@ export default async function JoinPage({
             <h2>What you get</h2>
             <ul>
               <li>One issue each weekday morning.</li>
-              <li>The top story, The Ramp, and the sponsor slot, every time.</li>
+              <li>The top story and the sponsor slot, every time.</li>
               <li>Topic sections you can turn off. Checked topics stay in the email.</li>
               <li>The same issue on the site, so a tool you saw in the morning is still there later.</li>
             </ul>

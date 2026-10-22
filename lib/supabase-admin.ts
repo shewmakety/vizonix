@@ -12,21 +12,26 @@ function config(): { url: string; key: string } | null {
 }
 
 /** Service-role REST call. The key stays on the server. */
-export async function supabaseRest<T>(path: string, init: RequestInit & { prefer?: string } = {}): Promise<T> {
+export async function supabaseRest<T>(
+  path: string,
+  init: RequestInit & { prefer?: string; failure?: string } = {},
+): Promise<T> {
   const cfg = config();
   if (!cfg) throw new AppError("Supabase is not configured.", 503);
-  const headers = new Headers(init.headers);
+  const { prefer, failure, headers: initHeaders, ...rest } = init;
+  const headers = new Headers(initHeaders);
   headers.set("apikey", cfg.key);
   headers.set("authorization", `Bearer ${cfg.key}`);
   headers.set("accept", "application/json");
   if (init.body && !headers.has("content-type")) headers.set("content-type", "application/json");
-  if (init.prefer) headers.set("prefer", init.prefer);
-  const response = await fetch(`${cfg.url}/rest/v1/${path}`, { ...init, headers });
+  if (prefer) headers.set("prefer", prefer);
+  const response = await fetch(`${cfg.url}/rest/v1/${path}`, { ...rest, headers });
   if (!response.ok) {
     const table = path.split("?")[0] || "table";
     const detail = (await response.text()).slice(0, 200);
     console.error(`Supabase ${response.status} on ${table}. ${detail}`);
-    throw new AppError("Could not reach the reader list.", response.status === 503 ? 503 : 502);
+    const status = response.status === 503 ? 503 : response.status >= 500 ? 502 : response.status;
+    throw new AppError(failure ?? "Could not reach the reader list.", status);
   }
   if (response.status === 204) return null as T;
   const text = await response.text();

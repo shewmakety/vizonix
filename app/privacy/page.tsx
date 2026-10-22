@@ -26,9 +26,9 @@ export default function PrivacyPage() {
         </p>
         <h2>Topics</h2>
         <p>
-          You can leave optional topic sections out of the email. Top story, The Ramp, and sponsor slots
-          stay in every issue. Choices are saved after you confirm. The Manage your topics link in each
-          email opens a signed page for that address. There is no account password. A topic suggestion
+          You can leave optional topic sections out of the email. Top story and sponsor slots stay in
+          every issue. Choices are saved after you confirm. The Customize link in each email opens a
+          signed page for that address. There is no account password. A topic suggestion
           is stored so the editor can read it. It is not published with your email address.
         </p>
         <h2>Unsubscribe</h2>

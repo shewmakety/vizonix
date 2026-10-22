@@ -58,82 +58,49 @@ describe("The Ramp", () => {
     expect(issueSchema.safeParse(empty).success).toBe(false);
   });
 
-  it("places quote cards after the top story and leaves an issue without ramp unchanged", () => {
+  it("keeps ramp data on the issue and leaves it out of the page and the email", () => {
     const bare = getIssue("aviation", "2026-10-16")!;
     const plain = renderToStaticMarkup(createElement(IssueBody, { issue: bare }));
     expect(plain).not.toContain('class="ramp-heading"');
     expect(plain).not.toContain("/the-ramp.svg");
-    expect(plain).not.toContain("platform.twitter.com");
 
     const issue = getIssue("aviation", "2026-10-20")!;
+    expect(issue.ramp?.posts.length).toBeGreaterThan(0);
+    const stored = withRamp(issue);
+    expect(issueSchema.safeParse(stored).success).toBe(true);
 
-    const html = renderToStaticMarkup(createElement(IssueBody, { issue: withRamp(issue) }));
-    expect(html.indexOf(issue.lead.title)).toBeLessThan(html.indexOf('class="ramp-heading"'));
-    expect(html.indexOf('aria-hidden="true">01<')).toBeLessThan(html.indexOf('class="ramp-heading"'));
-    expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf("AI Glossary"));
-    expect(html).toContain('class="ramp-heading"');
-    expect(html).not.toContain('class="section-number" aria-hidden="true">00');
-    expect(html).toContain('class="ramp-quote"');
-    expect(html).toContain(post.text);
-    expect(html).toContain("Ava Chen");
-    expect(html).toContain("@avachen");
-    expect(html).toContain("Tuesday, October 20, 2026");
-    expect(html).toContain("View on X");
-    expect(html).toContain(post.note);
-    expect(html).not.toContain("widgets.js");
-    expect(html).not.toContain("platform.twitter.com");
-
-    expect(html).toContain(
-      `class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg" alt="" width="24" height="24"`,
-    );
-    const email = renderIssueEmail(withRamp(issue), { mode: "test" });
-    expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf(">The Ramp</td>"));
-    expect(email.indexOf(">01</td>")).toBeLessThan(email.indexOf(">The Ramp</td>"));
-    expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
-    expect(email).toContain(
-      `src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="24" height="24"`,
-    );
-    expect(email).toContain("View on X");
-    expect(email).toContain("font-style:italic");
-    expect(email).not.toContain("<script");
-    const text = renderIssueText(withRamp(issue), { mode: "test" });
-    expect(text.indexOf("RECRUITING")).toBeLessThan(text.indexOf("THE RAMP"));
-    expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("AI GLOSSARY"));
-    expect(text).toContain(`View on X: ${post.url}`);
+    const html = renderToStaticMarkup(createElement(IssueBody, { issue: stored }));
+    const email = renderIssueEmail(stored, { mode: "test" });
+    const text = renderIssueText(stored, { mode: "test" });
+    expect(html).not.toContain('class="ramp-heading"');
+    expect(html).not.toContain(post.text);
+    expect(html).not.toContain("/the-ramp.svg");
+    expect(email).not.toContain(">The Ramp</td>");
+    expect(email).not.toContain("the-ramp@2x.png");
+    expect(email).not.toContain(post.text);
+    expect(text).not.toContain("THE RAMP");
+    expect(text).not.toContain(`View on X: ${post.url}`);
+    expect(html).toContain("AI Glossary");
+    expect(email).toContain(">AI Glossary</h2>");
   });
 
-  it("publishes the October 20 ramp posts with the icon, byline, link, and note", () => {
+  it("keeps the October 20 ramp posts in the issue file without rendering them", () => {
     const issue = getIssue("aviation", "2026-10-20")!;
     expect(issue.ramp?.intro).toBe(
       "The best of what aviation and AI voices were saying on X over the past two days.",
     );
-    expect(issue.ramp?.posts.map((post) => post.author)).toEqual(["Geoff Fawkes", "GMitchell", "ada", "Virtusa"]);
+    expect(issue.ramp?.posts.map((item) => item.author)).toEqual(["Geoff Fawkes", "GMitchell", "ada", "Virtusa"]);
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     const email = renderIssueEmail(issue, { mode: "broadcast" });
     const text = renderIssueText(issue, { mode: "test" });
-    expect(html.indexOf(issue.lead.title)).toBeLessThan(html.indexOf('class="ramp-heading"'));
-    expect(html.indexOf('aria-hidden="true">01<')).toBeLessThan(html.indexOf('class="ramp-heading"'));
-    expect(html.indexOf('class="ramp-heading"')).toBeLessThan(html.indexOf("AI Glossary"));
-    expect(html).toContain(`class="section-icon" src="${sectionIconBaseUrl}/the-ramp.svg"`);
-    expect(email).toContain(`src="${sectionIconBaseUrl}/the-ramp@2x.png" alt="The Ramp" width="24" height="24"`);
-    expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf(">The Ramp</td>"));
-    expect(email.indexOf(">01</td>")).toBeLessThan(email.indexOf(">The Ramp</td>"));
-    expect(email.indexOf(">The Ramp</td>")).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
-    expect(text.indexOf("RECRUITING")).toBeLessThan(text.indexOf("THE RAMP"));
-    expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("AI GLOSSARY"));
-    expect(html).not.toContain("Synergix");
-    expect(email).not.toContain("Synergix");
-    for (const post of issue.ramp!.posts) {
-      expect(html).toContain(post.author);
-      expect(html).toContain(`@${post.handle.replace(/^@/, "")}`);
-      expect(html).toContain(`href="${post.url}"`);
-      expect(html).toContain((post.note ?? "").replaceAll("'", "&#x27;"));
-      expect(email).toContain(`href="${post.url}"`);
-      expect(email).toContain((post.note ?? "").replaceAll("'", "&#39;"));
-      expect(text).toContain(`View on X: ${post.url}`);
-      expect(text).toContain(post.note!);
+    expect(html).not.toContain('class="ramp-heading"');
+    expect(email).not.toContain(">The Ramp</td>");
+    expect(text).not.toContain("THE RAMP");
+    for (const item of issue.ramp!.posts) {
+      expect(html).not.toContain(`href="${item.url}"`);
+      expect(email).not.toContain(`href="${item.url}"`);
+      expect(text).not.toContain(item.url);
     }
-    expect(email).toContain("industry.<br><br>https://t.co/BLr93GkS9n");
   });
 
   it("omits an icon when the topic is not mapped and honors a base URL override", () => {

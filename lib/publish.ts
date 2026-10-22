@@ -7,11 +7,13 @@ import { writeIssueFile } from "@/lib/content";
 import { githubConfigured, writeRepoFile } from "@/lib/github";
 import { indexNowTargets, pingIndexNow } from "@/lib/indexnow";
 import { postIssueToLinkedIn, type LinkedInPostResult } from "@/lib/linkedin";
+import { submitSearchConsoleSitemap, type SearchConsoleResult } from "@/lib/search-console";
 import { planIssueDelivery, type ReaderPref } from "@/lib/personalize";
 import { loadExclusionMap } from "@/lib/prefs";
 import { fillReaderLinks, PREFERENCES_HREF, signedReaderLinks, UNSUBSCRIBE_HREF } from "@/lib/reader-links";
 import { parseIssue, type Issue } from "@/lib/schema";
 import { getSegment, segmentResendId } from "@/lib/segments";
+import { issueForDelivery } from "@/lib/bookings";
 import { tokenSecret } from "@/lib/tokens";
 
 export type PublishOptions = {
@@ -41,7 +43,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       path: `/${issue.segment}/issues/${issue.date}`,
       written,
       delivery: null,
-      indexNow: await notifyIndexNow(issue, written !== "skipped"),
+      ...(await indexPublishedIssue(issue, written !== "skipped")),
       linkedin: await linkedInForIssue(issue, options, null),
     };
   }
@@ -63,7 +65,7 @@ export async function publishIssue(input: unknown, options: PublishOptions) {
       path: `/${issue.segment}/issues/${issue.date}`,
       written,
       delivery,
-      indexNow: await notifyIndexNow(issue, options.write),
+      ...(await indexPublishedIssue(issue, options.write)),
       linkedin: await linkedInForIssue(issue, options, delivery),
     };
   } catch (error) {
@@ -91,12 +93,51 @@ async function linkedInForIssue(
   }
 }
 
-async function notifyIndexNow(issue: Issue, published: boolean) {
+type IndexNotice = { ok: boolean; skipped?: string; error?: string };
+
+/**
+ * IndexNow and Search Console run only after the issue file is written.
+ * A failure is logged and cannot reject the publish, including a send that
+ * already succeeded.
+ */
+async function indexPublishedIssue(
+  issue: Issue,
+  published: boolean,
+): Promise<{ indexNow: IndexNotice; searchConsole: SearchConsoleResult }> {
+  let indexNow: IndexNotice = { ok: false, error: "IndexNow ping failed" };
+  let searchConsole: SearchConsoleResult = { ok: false, error: "Search Console submit failed" };
+  try {
+    indexNow = await notifyIndexNow(issue, published);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "IndexNow ping failed";
+    console.warn(`IndexNow ping failed: ${message}`);
+    indexNow = { ok: false, error: message };
+  }
+  try {
+    searchConsole = await notifySearchConsole(issue, published);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Search Console submit failed";
+    console.warn(`Search Console sitemap submit failed: ${message}`);
+    searchConsole = { ok: false, error: message };
+  }
+  return { indexNow, searchConsole };
+}
+
+async function notifyIndexNow(issue: Issue, published: boolean): Promise<IndexNotice> {
   if (issue.sample) return { ok: false, skipped: "sample" };
   if (!published) return { ok: false, skipped: "not published" };
   const result = await pingIndexNow(indexNowTargets(issue));
   if (result.skipped) console.warn(`IndexNow skipped: ${result.skipped}`);
   else if (!result.ok) console.warn(`IndexNow ping failed: ${result.error ?? "unknown error"}`);
+  return result;
+}
+
+async function notifySearchConsole(issue: Issue, published: boolean): Promise<SearchConsoleResult> {
+  if (issue.sample) return { ok: false, skipped: "sample" };
+  if (!published) return { ok: false, skipped: "not published" };
+  const result = await submitSearchConsoleSitemap();
+  if (result.skipped) console.warn(`Search Console skipped: ${result.skipped}`);
+  else if (!result.ok) console.warn(`Search Console sitemap submit failed: ${result.error ?? "unknown error"}`);
   return result;
 }
 
@@ -187,6 +228,7 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
 
   const segment = getSegment(issue.segment);
   if (!segment) throw new AppError("Unknown segment.", 400);
+  const liveIssue = await issueForDelivery(issue);
   const segmentId = segmentResendId(segment);
   const testTo = options.testTo || (!segmentId ? process.env.RESEND_TEST_TO : undefined);
   const mode = testTo || !segmentId ? "test" : "broadcast";
@@ -205,8 +247,8 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
       from,
       to: [testTo],
       subject,
-      html: renderIssueEmail(issue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
-      text: renderIssueText(issue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
+      html: renderIssueEmail(liveIssue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
+      text: renderIssueText(liveIssue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
       headers: links ? listUnsubscribeHeaders(links.unsubscribeUrl) : undefined,
     });
     if (result.error) throw new AppError(result.error.message, 502);
@@ -237,13 +279,13 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
 
   const ids: string[] = [];
   for (const group of groups) {
-    const htmlTemplate = renderIssueEmail(issue, {
+    const htmlTemplate = renderIssueEmail(liveIssue, {
       mode: "broadcast",
       excludedSections: group.excluded,
       unsubscribeUrl: UNSUBSCRIBE_HREF,
       preferencesUrl: PREFERENCES_HREF,
     });
-    const textTemplate = renderIssueText(issue, {
+    const textTemplate = renderIssueText(liveIssue, {
       mode: "broadcast",
       excludedSections: group.excluded,
       unsubscribeUrl: UNSUBSCRIBE_HREF,
