@@ -136,18 +136,21 @@ function sectionEmailHeading(topic: string, index: number, productivity: boolean
   const numberColor = productivity ? "#c9e6d0" : "#c9b98f";
   const titleColor = productivity ? "#ffffff" : "#13233b";
   const rule = productivity ? "#ffffff" : "#13233b";
-  const ruleCell = `border-bottom:3px solid ${rule};vertical-align:middle;`;
   const icon = sectionIconUrl(topic, "email");
   const iconCell = icon
-    ? `<td valign="middle" align="left" style="padding:0 8px 6px 0;${ruleCell}line-height:0;font-size:0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(topic)}" width="${iconPx}" height="${iconPx}" style="display:block;border:0;width:${iconPx}px;height:${iconPx}px;" /></td>`
+    ? `<td valign="middle" align="left" style="padding:0 8px 0 0;vertical-align:middle;line-height:0;font-size:0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(topic)}" width="${iconPx}" height="${iconPx}" style="display:block;border:0;width:${iconPx}px;height:${iconPx}px;" /></td>`
     : "";
-  // The last cell absorbs leftover width so the number, icon, and title stay packed at 8px.
   return `<table id="${escapeHtml(sectionAnchor(topic))}" role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 8px;">
               <tr>
-                <td valign="middle" align="left" style="padding:0 8px 6px 0;${ruleCell}font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:${numberColor};white-space:nowrap;">${escapeHtml(number)}</td>
-                ${iconCell}
-                <td valign="middle" align="left" style="padding:0 0 6px;${ruleCell}font-family:Arial,Helvetica,sans-serif;font-size:${titleSize}px;font-weight:800;line-height:1.15;color:${titleColor};">${escapeHtml(visible)}</td>
-                <td width="100%" valign="middle" style="padding:0;${ruleCell}font-size:0;line-height:0;">&nbsp;</td>
+                <td align="left" valign="middle" style="padding:0 0 6px;border-bottom:3px solid ${rule};">
+                  <table role="presentation" align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+                    <tr>
+                      <td valign="middle" align="left" style="padding:0 8px 0 0;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:${numberColor};white-space:nowrap;">${escapeHtml(number)}</td>
+                      ${iconCell}
+                      <td valign="middle" align="left" style="vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:${titleSize}px;font-weight:800;line-height:1.15;color:${titleColor};">${escapeHtml(visible)}</td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
             </table>`;
 }

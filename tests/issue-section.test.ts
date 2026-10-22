@@ -76,15 +76,15 @@ describe("issue section headings", () => {
     expect(email).toContain('valign="middle"');
     expect(email).not.toContain('width="70"');
     expect(email).toContain(
-      'style="padding:0 8px 6px 0;border-bottom:3px solid #13233b;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:#c9b98f;white-space:nowrap;">01</td>',
+      'style="padding:0 8px 0 0;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:#c9b98f;white-space:nowrap;">01</td>',
     );
     expect(email).toContain(
-      'style="padding:0 0 6px;border-bottom:3px solid #13233b;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
+      'style="vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
     );
     expect(email).toContain(
-      `style="padding:0 0 6px;border-bottom:3px solid #ffffff;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
+      `style="vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
     );
-    expect(email).toContain('width="100%" valign="middle"');
+    expect(email).toContain('align="left" cellpadding="0"');
     expect(email).toContain("background:#14532D;border-radius:10px");
     expect(html).toContain('class="issue-section productivity"');
     expect(css).toContain(".issue-section.productivity");
