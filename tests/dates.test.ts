@@ -63,14 +63,16 @@ describe("date-only issue dates", () => {
     expect(article.datePublished).toBe("2026-10-16T12:00:00.000Z");
 
     const entry = sitemapEntries(now).find((item) => item.path === "/aviation/issues/2026-10-16");
-    expect(entry).toBeTruthy();
+    expect(entry?.lastModified.toISOString()).toBe(calendarInstant("2026-10-16").toISOString());
+    const latest = sitemapEntries(now).find((item) => item.path === "/aviation/issues/2026-10-22");
+    expect(latest?.lastModified.toISOString()).toBe("2026-10-22T12:00:00.000Z");
     const nyDay = new Intl.DateTimeFormat("en-CA", {
       timeZone: "America/New_York",
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     }).format(entry!.lastModified);
-    expect(nyDay >= "2026-10-16").toBe(true);
+    expect(nyDay).toBe("2026-10-16");
 
     const post = buildLinkedInPost(issue!, "https://www.vizonix.com/aviation/issues/2026-10-16");
     expect(post).toContain("AI moves into the hangar, plus 7 places to put it to work");

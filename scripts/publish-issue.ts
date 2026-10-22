@@ -12,7 +12,8 @@ function argValue(flag: string): string | undefined {
 /**
  * --send with a segment id groups confirmed subscribers by the topics they
  * turned off and sends each group once from lib/publish.ts.
- * --test-to sends one full copy. --no-write skips the file and the IndexNow ping.
+ * --test-to sends one full copy. --no-write skips the file, the IndexNow ping,
+ * and the Search Console sitemap submit.
  */
 async function main() {
   const file = process.argv.slice(2).find((arg) => !arg.startsWith("--"));

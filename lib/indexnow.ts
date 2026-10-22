@@ -1,3 +1,4 @@
+import { getSegment, toolDirectoryPath } from "@/lib/segments";
 import { absoluteUrl, siteUrl } from "@/lib/site";
 
 const KEY_PATTERN = /^[a-f0-9]{8,128}$/i;
@@ -24,20 +25,22 @@ export function indexNowRewritePath(pathname: string): string | null {
   return "/indexnow.txt";
 }
 
+/** Issue URL, segment page, toolbox, and the sitemap. */
 export function indexNowTargets(issue: { segment: string; date: string }): string[] {
+  const segment = getSegment(issue.segment);
+  const toolbox = segment ? toolDirectoryPath(segment) : `/${issue.segment}/tools`;
   return [
     absoluteUrl(`/${issue.segment}/issues/${issue.date}`),
     absoluteUrl(`/${issue.segment}`),
-    absoluteUrl(`/${issue.segment}/issues`),
-    absoluteUrl("/llms.txt"),
+    absoluteUrl(toolbox),
+    absoluteUrl("/sitemap.xml"),
   ];
 }
 
 export async function pingIndexNow(
   urls: string[],
 ): Promise<{ ok: boolean; skipped?: string; error?: string }> {
-  const key = indexNowKey();
-  if (!key) return { ok: false, skipped: "INDEXNOW_KEY is not set" };
+  const key = indexNowKeyForPublish();
   if (urls.length === 0) return { ok: false, skipped: "no urls" };
   const origin = siteUrl();
   try {
