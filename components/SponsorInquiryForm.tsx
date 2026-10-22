@@ -1,8 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
+import { SponsorField, SponsorVerification } from "@/components/SponsorField";
+import type { TurnstileHandle } from "@/components/TurnstileField";
+import { site } from "@/lib/site";
 import { inquiryBudgets } from "@/lib/sponsor-inquiry";
+import {
+  inquiryFieldCopy,
+  sponsorContactLead,
+  sponsorRequiredLegend,
+  sponsorVerifyHelp,
+} from "@/lib/sponsor-form-copy";
 
 type Status = { kind: "idle" | "working" | "error" | "sent"; message: string };
 
@@ -58,30 +66,76 @@ export function SponsorInquiryForm() {
         Use this for a question, a bundle, or a run that checkout does not cover. Paid weeks and the
         monthly Featured listing use the checkout form.
       </p>
-      <label htmlFor="inquiry-name">Name</label>
-      <input id="inquiry-name" name="name" required autoComplete="name" />
-      <label htmlFor="inquiry-company">Company</label>
-      <input id="inquiry-company" name="company" required autoComplete="organization" />
-      <label htmlFor="inquiry-email">Email</label>
-      <input id="inquiry-email" name="email" type="email" required autoComplete="email" />
-      <label htmlFor="inquiry-promote">What do you want to promote?</label>
-      <input id="inquiry-promote" name="promote" required />
-      <label htmlFor="inquiry-budget">Budget, optional</label>
-      <select id="inquiry-budget" name="budget" defaultValue="">
-        <option value="">Select a range</option>
-        {inquiryBudgets.map((budget) => (
-          <option key={budget} value={budget}>
-            {budget}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="inquiry-message">Message</label>
-      <textarea id="inquiry-message" name="message" required />
+      <p className="form-note">{sponsorRequiredLegend}</p>
+      <p className="form-note">
+        {sponsorContactLead} <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <SponsorField
+        id="inquiry-name"
+        label={inquiryFieldCopy.name.label}
+        required={inquiryFieldCopy.name.required}
+        help={inquiryFieldCopy.name.help}
+      >
+        <input name="name" autoComplete="name" />
+      </SponsorField>
+      <SponsorField
+        id="inquiry-company"
+        label={inquiryFieldCopy.company.label}
+        required={inquiryFieldCopy.company.required}
+        help={inquiryFieldCopy.company.help}
+      >
+        <input name="company" autoComplete="organization" />
+      </SponsorField>
+      <SponsorField
+        id="inquiry-email"
+        label={inquiryFieldCopy.email.label}
+        required={inquiryFieldCopy.email.required}
+        help={inquiryFieldCopy.email.help}
+      >
+        <input name="email" type="email" autoComplete="email" />
+      </SponsorField>
+      <SponsorField
+        id="inquiry-promote"
+        label={inquiryFieldCopy.promote.label}
+        required={inquiryFieldCopy.promote.required}
+        help={inquiryFieldCopy.promote.help}
+      >
+        <input name="promote" />
+      </SponsorField>
+      <SponsorField
+        id="inquiry-budget"
+        label={inquiryFieldCopy.budget.label}
+        required={inquiryFieldCopy.budget.required}
+        help={inquiryFieldCopy.budget.help}
+      >
+        <select name="budget" defaultValue="">
+          <option value="">Select a range</option>
+          {inquiryBudgets.map((budget) => (
+            <option key={budget} value={budget}>
+              {budget}
+            </option>
+          ))}
+        </select>
+      </SponsorField>
+      <SponsorField
+        id="inquiry-message"
+        label={inquiryFieldCopy.message.label}
+        required={inquiryFieldCopy.message.required}
+        help={inquiryFieldCopy.message.help}
+      >
+        <textarea name="message" />
+      </SponsorField>
       <div className="hp" aria-hidden="true">
         <label htmlFor="inquiry-company-website">Company website</label>
         <input id="inquiry-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
-      <TurnstileField ref={turnstile} action="inquiry" onToken={setTurnstileToken} />
+      <SponsorVerification
+        id="inquiry-verify"
+        action="inquiry"
+        help={sponsorVerifyHelp}
+        turnstileRef={turnstile}
+        onToken={setTurnstileToken}
+      />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Sending" : "Send the inquiry"}

@@ -1,15 +1,37 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
+import { useRef, useState } from "react";
+import { SponsorCheck, SponsorField, SponsorVerification } from "@/components/SponsorField";
+import type { TurnstileHandle } from "@/components/TurnstileField";
 import { formatUsd, getPlacement, launchPlacements } from "@/lib/rate-card";
-import { segments } from "@/lib/segments";
+import { activeSegments } from "@/lib/segments";
+import { site } from "@/lib/site";
+import {
+  checkoutAdCopyHelp,
+  checkoutAdCopyLabel,
+  checkoutAdCopyRequired,
+  checkoutCompanyHelp,
+  checkoutCompanyRequired,
+  checkoutEmailHelp,
+  checkoutExclusivityHelp,
+  checkoutExclusivityLabel,
+  checkoutFoundingHelp,
+  checkoutFoundingLabel,
+  checkoutPlacementHelp,
+  checkoutQuantityHelp,
+  checkoutQuantityRequired,
+  checkoutSegmentHelp,
+  checkoutStartHelp,
+  sponsorContactLead,
+  sponsorRequiredLegend,
+  sponsorVerifyHelp,
+} from "@/lib/sponsor-form-copy";
 
 type Status = { kind: "idle" | "working" | "error"; message: string };
 
-export function SponsorCheckoutForm() {
-  const active = segments.filter((segment) => segment.status === "active");
-  const [placement, setPlacement] = useState("primary");
+export function SponsorCheckoutForm({ initialPlacement = "primary" }: { initialPlacement?: string }) {
+  const active = activeSegments();
+  const [placement, setPlacement] = useState(initialPlacement);
   const [founding, setFounding] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -23,17 +45,11 @@ export function SponsorCheckoutForm() {
     : selected?.newsletter
       ? "Reserve a newsletter week"
       : "Reserve a placement";
-
-  const helper = useMemo(() => {
-    if (!selected) return "";
-    if (selected.id === "featured") {
-      return "A Featured listing can start on any day. It renews each month until it is cancelled.";
-    }
-    if (selected.id === "banner") {
-      return "A section banner can start on any day.";
-    }
-    return "A newsletter week starts on Monday and covers Monday through Friday.";
-  }, [selected]);
+  const sectionNames = active.map((segment) => segment.name);
+  const foundingPrice = selected ? `${formatUsd(selected.founding)} per ${unit}` : "the founding price";
+  const companyRequired = checkoutCompanyRequired(placement);
+  const adCopyRequired = checkoutAdCopyRequired(placement);
+  const quantityRequired = checkoutQuantityRequired(placement);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -80,81 +96,85 @@ export function SponsorCheckoutForm() {
         after Stripe confirms payment. A Featured listing is turned on after that same confirmation.
         The founding rate, when the box is checked, does not combine with another discount.
       </p>
-      <label htmlFor="sponsor-segment">Section</label>
-      <select id="sponsor-segment" name="segment" defaultValue={active[0]?.slug ?? ""}>
-        {active.map((segment) => (
-          <option key={segment.slug} value={segment.slug}>
-            {segment.name}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="placement">Placement</label>
-      <select
-        id="placement"
-        name="placement"
-        value={placement}
-        onChange={(event) => setPlacement(event.target.value)}
-      >
-        {launchPlacements.map((item) => (
-          <option key={item.id} value={item.id}>
-            {item.name} ({formatUsd(item.price)}
-            {item.unit === "month" ? " / month" : " / week"})
-          </option>
-        ))}
-      </select>
-      <p className="form-note">{helper}</p>
-      <label htmlFor="startDate">Preferred start date</label>
-      <input id="startDate" name="startDate" type="date" required />
+      <p className="form-note">{sponsorRequiredLegend}</p>
+      <p className="form-note">
+        {sponsorContactLead} <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <SponsorField id="sponsor-segment" label="Section" required help={checkoutSegmentHelp(sectionNames)}>
+        <select name="segment" defaultValue={active[0]?.slug ?? ""}>
+          {active.map((segment) => (
+            <option key={segment.slug} value={segment.slug}>
+              {segment.name}
+            </option>
+          ))}
+        </select>
+      </SponsorField>
+      <SponsorField id="placement" label="Placement" required help={checkoutPlacementHelp(placement)}>
+        <select name="placement" value={placement} onChange={(event) => setPlacement(event.target.value)}>
+          {launchPlacements.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name} ({formatUsd(item.price)}
+              {item.unit === "month" ? " / month" : " / week"})
+            </option>
+          ))}
+        </select>
+      </SponsorField>
+      <SponsorField id="startDate" label="Preferred start date" required help={checkoutStartHelp(placement)}>
+        <input name="startDate" type="date" />
+      </SponsorField>
       {featured ? (
         <input type="hidden" name="quantity" value="1" />
       ) : (
-        <>
-          <label htmlFor="quantity">Number of weeks</label>
-          <input id="quantity" name="quantity" type="number" min={1} max={12} defaultValue={1} />
-        </>
+        <SponsorField id="quantity" label="Number of weeks" required={quantityRequired} help={checkoutQuantityHelp}>
+          <input name="quantity" type="number" min={1} max={12} step={1} defaultValue={1} />
+        </SponsorField>
       )}
-      <label htmlFor="company">Company{featured ? " (required)" : ""}</label>
-      <input id="company" name="company" autoComplete="organization" required={featured} />
-      <label htmlFor="sponsor-email">Email for the receipt</label>
-      <input id="sponsor-email" name="email" type="email" required autoComplete="email" />
-      <label htmlFor="adCopyUrl">
-        {featured ? "Tool or directory URL (required)" : "Link to ad copy, optional"}
-      </label>
-      <input
+      <SponsorField
+        id="company"
+        label="Company"
+        required={companyRequired}
+        help={checkoutCompanyHelp(featured)}
+      >
+        <input name="company" autoComplete="organization" />
+      </SponsorField>
+      <SponsorField id="sponsor-email" label="Email for the receipt" required help={checkoutEmailHelp}>
+        <input name="email" type="email" autoComplete="email" />
+      </SponsorField>
+      <SponsorField
         id="adCopyUrl"
-        name="adCopyUrl"
-        type="url"
-        placeholder="https://"
-        required={featured}
+        label={checkoutAdCopyLabel(featured)}
+        required={adCopyRequired}
+        help={checkoutAdCopyHelp(featured)}
+      >
+        <input name="adCopyUrl" type="url" placeholder="https://" />
+      </SponsorField>
+      <SponsorCheck
+        id="founding"
+        name="founding"
+        label={checkoutFoundingLabel}
+        help={checkoutFoundingHelp(foundingPrice)}
+        checked={founding}
+        onChange={(event) => setFounding(event.target.checked)}
       />
-      <label className="check">
-        <input
-          name="founding"
-          type="checkbox"
-          checked={founding}
-          onChange={(event) => setFounding(event.target.checked)}
-        />
-        <span>
-          Request the founding rate
-          {selected ? ` (${formatUsd(selected.founding)} per ${unit})` : ""}. Half off, locked for 3
-          months, for the first 10 sponsors across products. Checkout applies it. It does not combine
-          with another discount.
-        </span>
-      </label>
       {selected?.newsletter ? (
-        <label className="check">
-          <input name="exclusivity" type="checkbox" />
-          <span>
-            Request exclusivity for that week (50% above the listed price). Checkout charges the listed
-            price. We confirm the surcharge by email before the week is marked exclusive.
-          </span>
-        </label>
+        <SponsorCheck
+          id="exclusivity"
+          name="exclusivity"
+          label={checkoutExclusivityLabel}
+          help={checkoutExclusivityHelp()}
+        />
       ) : null}
       <div className="hp" aria-hidden="true">
         <label htmlFor="sponsor-company-website">Company website</label>
         <input id="sponsor-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
-      <TurnstileField ref={turnstile} action="checkout" onToken={setTurnstileToken} />
+      <SponsorVerification
+        id="checkout-verify"
+        action="checkout"
+        help={sponsorVerifyHelp}
+        turnstileRef={turnstile}
+        onToken={setTurnstileToken}
+      />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Opening Stripe" : "Continue to Stripe"}
