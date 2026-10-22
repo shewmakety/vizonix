@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
     "/media-kit": ["./content/**/*"],
     "/media-kit.pdf": ["./content/**/*"],
     "/[segment]": ["./content/**/*"],
+    "/[segment]/latest": ["./content/**/*"],
     "/[segment]/issues": ["./content/**/*"],
     "/[segment]/issues/[date]": ["./content/**/*"],
     "/[segment]/tools": ["./content/**/*"],

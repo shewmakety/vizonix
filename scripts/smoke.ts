@@ -510,8 +510,30 @@ async function main() {
     if (!directory.includes("Aviation Toolbox") || !directory.includes('aria-pressed="true"')) {
       throw new Error("Toolbox is missing its heading or category filter.");
     }
-    if (!directory.includes('aria-current="page"') || !directory.includes("Toolbox")) {
-      throw new Error("Toolbox is not marked active in the header.");
+    const headerNav = directory.slice(directory.indexOf('aria-label="Site"'), directory.indexOf("</nav>"));
+    const navLabels = ["Current Issue", "Sponsor", "About", "Toolbox", "Subscribe"];
+    let navCursor = -1;
+    for (const label of navLabels) {
+      const at = headerNav.indexOf(`>${label}<`);
+      if (at <= navCursor) throw new Error(`Header nav is missing or out of order: ${label}`);
+      navCursor = at;
+    }
+    if (!headerNav.includes('href="/aviation/latest"') || headerNav.includes('aria-current="page"') || headerNav.includes("header-cta")) {
+      throw new Error("Header nav items are not the same, or Current Issue is not the latest route.");
+    }
+    const newest = latestPublishedIssue("aviation");
+    const latestResponse = await fetch(`${base}/aviation/latest`, { redirect: "manual" });
+    const latestLocation = latestResponse.headers.get("location") ?? "";
+    if (
+      !newest ||
+      latestResponse.status !== 307 ||
+      !latestLocation.endsWith(`/${newest.segment}/issues/${newest.date}`)
+    ) {
+      throw new Error(`Current Issue did not redirect to the newest issue (${latestResponse.status} ${latestLocation}).`);
+    }
+    const plannedLatest = await fetch(`${base}/legal/latest`, { redirect: "manual" });
+    if (plannedLatest.status !== 404) {
+      throw new Error(`A section without a published issue returned ${plannedLatest.status}.`);
     }
     if (!directory.includes("Search the Toolbox") || !directory.includes('aria-label="Categories"')) {
       throw new Error("Toolbox is missing category chips or search.");

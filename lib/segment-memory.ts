@@ -77,6 +77,11 @@ export function segmentSubscribeHref(pathname: string, cookieValue?: string | nu
   return `/${segmentForChrome(pathname, cookieValue).slug}/subscribe`;
 }
 
+/** Stable header target. /[segment]/latest redirects to that section's newest issue. */
+export function segmentCurrentIssueHref(pathname: string, cookieValue?: string | null): string {
+  return `/${segmentForChrome(pathname, cookieValue).slug}/latest`;
+}
+
 export function segmentUnsubscribeHref(pathname: string, cookieValue?: string | null): string {
   return `/${segmentForChrome(pathname, cookieValue).slug}/unsubscribe`;
 }

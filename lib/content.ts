@@ -34,6 +34,15 @@ export function latestPublishedIssue(segment: string): Issue | undefined {
   return listIssues(segment).find((issue) => !issue.sample);
 }
 
+/** Path of the newest real issue for an active section. */
+export function publishedIssuePath(segmentSlug: string): string | undefined {
+  const segment = getSegment(segmentSlug);
+  if (!segment || segment.status !== "active") return undefined;
+  const issue = latestPublishedIssue(segment.slug);
+  if (!issue) return undefined;
+  return `/${segment.slug}/issues/${issue.date}`;
+}
+
 export function getIssue(segment: string, date: string): Issue | undefined {
   const file = path.join(issuesDir(segment), `${date}.json`);
   if (!fs.existsSync(file)) return undefined;
