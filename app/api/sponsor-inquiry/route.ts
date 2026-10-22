@@ -1,9 +1,10 @@
+import { requestIp } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { errorMessage } from "@/lib/errors";
 import { notifyOps } from "@/lib/notify";
 import { site } from "@/lib/site";
 import { getSegment } from "@/lib/segments";
-import { allowInquiry, inquiryClientKey, parseInquiry } from "@/lib/sponsor-inquiry";
+import { allowInquiry, parseInquiry } from "@/lib/sponsor-inquiry";
 import { placementLabel } from "@/lib/sponsor-labels";
 import { storePublicInquiry } from "@/lib/sponsor-store";
 import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const ip = inquiryClientKey(request.headers.get("x-forwarded-for"));
+  const ip = requestIp(request);
   if (!allowInquiry(ip)) {
     return NextResponse.json(
       { error: "Too many notes from this network. Try again later." },

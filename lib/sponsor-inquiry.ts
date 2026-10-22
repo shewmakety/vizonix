@@ -120,8 +120,3 @@ export function allowInquiry(ip: string, now = Date.now()): boolean {
 export function resetInquiryLimits(): void {
   hits.clear();
 }
-
-export function inquiryClientKey(header: string | null): string {
-  const first = header?.split(",")[0]?.trim();
-  return first || "unknown";
-}
