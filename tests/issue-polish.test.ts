@@ -10,8 +10,10 @@ import { sectionHeadingLabel, topStoryLabel } from "@/lib/issue-present";
 import { issueSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
 
+const postalAddress = "16703 Early Riser Ave Suite #510, Land O' Lakes, FL 34638";
+
 afterEach(() => {
-  site.postalAddress = "";
+  site.postalAddress = postalAddress;
 });
 
 describe("issue polish", () => {
@@ -57,13 +59,18 @@ describe("issue polish", () => {
     expect(css).toContain("border-color: #d7e8dc");
   });
 
-  it("prints a postal address only when the config field is set", () => {
+  it("prints the CAN-SPAM postal address at the bottom of the issue email", () => {
     const issue = getIssue("aviation", "2026-10-22")!;
-    expect(site.postalAddress).toBe("");
-    expect(renderIssueEmail(issue, { mode: "test" })).not.toContain("1 Hangar Lane");
-    expect(renderIssueText(issue, { mode: "test" })).not.toContain("1 Hangar Lane");
-    site.postalAddress = "1 Hangar Lane, Austin, TX 78701";
-    expect(renderIssueEmail(issue, { mode: "test" })).toContain("1 Hangar Lane, Austin, TX 78701");
-    expect(renderIssueText(issue, { mode: "test" })).toContain("1 Hangar Lane, Austin, TX 78701");
+    expect(site.postalAddress).toBe(postalAddress);
+    const email = renderIssueEmail(issue, { mode: "test" });
+    const text = renderIssueText(issue, { mode: "test" });
+    expect(email).toContain(postalAddress);
+    expect(text).toContain(postalAddress);
+    expect(email.indexOf(postalAddress)).toBeLessThan(email.indexOf("Contact us at:"));
+    expect(text.indexOf(postalAddress)).toBeLessThan(text.indexOf("Contact us at:"));
+
+    site.postalAddress = "   ";
+    expect(renderIssueEmail(issue, { mode: "test" })).not.toContain("Early Riser");
+    expect(renderIssueText(issue, { mode: "test" })).not.toContain("Early Riser");
   });
 });

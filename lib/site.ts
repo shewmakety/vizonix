@@ -5,9 +5,8 @@ export const site = {
   email: "admin@vizonix.com",
   /**
    * CAN-SPAM postal address, printed at the bottom of the issue email.
-   * No street address is on file. Set this when the operator provides one.
    */
-  postalAddress: "",
+  postalAddress: "16703 Early Riser Ave Suite #510, Land O' Lakes, FL 34638",
 };
 
 export const editor = {
