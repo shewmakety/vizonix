@@ -54,6 +54,15 @@ export function formatLongDate(isoDate: string): string {
   }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
+/** Title suffix: "10-22-2026". The calendar day is read from the date-only string so it does not shift. */
+export function formatNumericDate(isoDate: string): string {
+  const day = isoDate.slice(0, 10);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(day);
+  if (!match) return isoDate;
+  const [, year, month, date] = match;
+  return `${month}-${date}-${year}`;
+}
+
 /** Email subject date: "Oct 20, 2026". The calendar day is read in UTC so it does not shift. */
 export function formatShortDate(isoDate: string): string {
   const [year, month, day] = isoDate.split("-").map(Number);

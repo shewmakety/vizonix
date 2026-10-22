@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
+import { formatNumericDate } from "@/lib/dates";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { issueHeaderLine } from "@/lib/issue-present";
 import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
   getSegment,
   isToolDirectoryPath,
-  segmentDisplayName,
+  segmentHeaderName,
   segments,
   toolDirectoryHref,
   toolsIndexPath,
@@ -155,7 +155,7 @@ describe("segment config and sample content", () => {
     }
   });
 
-  it("renders each section with its own payoff line and the three sponsor slots", () => {
+  it("renders each section with its own payoff line and the sponsor slots", () => {
     const aviation = getIssue("aviation", "2026-10-16");
     expect(aviation).toBeTruthy();
     if (!aviation) return;
@@ -165,7 +165,8 @@ describe("segment config and sample content", () => {
     const text = renderIssueText(aviation, { mode: "test" });
     expect(html).toContain("Primary sponsor - open");
     expect(html).toContain("Secondary sponsor");
-    expect(html).toContain("Classified");
+    expect(html).not.toContain("Classified - open");
+    expect(html).not.toContain("This quick-link slot is open");
     expect(html).toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(html).toContain("See founding sponsor rates");
     expect(html).toContain("https://www.vizonix.com/sponsor");
@@ -181,12 +182,14 @@ describe("segment config and sample content", () => {
     expect(html).toContain(">READ ON WEB<");
     expect(html).toContain(`href="${issueUrl}"`);
     expect(html).not.toContain("Read on the web");
-    const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
-    const dateline = issueHeaderLine(aviation);
-    expect(dateline.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
-    expect(html.indexOf(escapeHtml(dateline))).toBeGreaterThan(-1);
-    expect(html.indexOf(escapeHtml(dateline))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
-    expect(text.startsWith(`${wordmark}\n`)).toBe(true);
+    const wordmark = sectionWordmark(segmentHeaderName(getSegment("aviation")!));
+    const numeric = formatNumericDate(aviation.date);
+    expect(wordmark).toBe("Vizonix - Customizable AI & Robotics News For Aviation");
+    expect(numeric).toBe("10-16-2026");
+    expect(html).toContain(`<span style="color:#c9b98f;"> · ${numeric}</span></h1>`);
+    expect(html).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
+    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(text.startsWith(`${wordmark}\n${aviation.subject} · ${numeric}\n`)).toBe(true);
     expect(html.indexOf(aviation.lead.title)).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
     expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(">Unsubscribe</a>"));
     expect(text).toContain(`Open the Toolbox: ${directory}`);
@@ -197,10 +200,18 @@ describe("segment config and sample content", () => {
     expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
-    expect(html.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+    expect(html.indexOf(">AOG Support: Parts, Rotables &amp; Technicians</td>")).toBeLessThan(
       html.indexOf(">General AI Productivity Tools</td>"),
     );
-    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(html).not.toContain(aviation.playbook?.title ?? "missing playbook");
+    expect(html).not.toContain(">Quick links</h2>");
+    expect(text).not.toContain("QUICK LINKS");
+    const withoutClosers = { ...aviation };
+    delete withoutClosers.playbook;
+    delete withoutClosers.quickLinks;
+    expect(issueSchema.safeParse(withoutClosers).success).toBe(true);
+    expect(issueSchema.safeParse(aviation).success).toBe(true);
     expect(html).toContain("https://copilot.microsoft.com/");
     expect(html).toContain("https://otter.ai/");
     expect(html).toContain("https://www.notion.com/product/ai");
@@ -208,9 +219,9 @@ describe("segment config and sample content", () => {
     expect(html).not.toContain("Sample issue");
     expect(text).toContain("PRIMARY SPONSOR");
     expect(text).toContain("SECONDARY SPONSOR");
-    expect(text).toContain("CLASSIFIED");
+    expect(text).not.toContain("CLASSIFIED");
+    expect(text).not.toContain("This quick-link slot is open");
     expect(text.indexOf("PRIMARY SPONSOR")).toBeLessThan(text.indexOf("SECONDARY SPONSOR"));
-    expect(text.indexOf("SECONDARY SPONSOR")).toBeLessThan(text.indexOf("CLASSIFIED"));
     expect(text).toContain("One standout this week.");
     expect(text).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(text).toContain(absoluteUrl("/aviation/unsubscribe"));
@@ -237,10 +248,10 @@ describe("segment config and sample content", () => {
       ...issue,
       sponsors: {
         ...issue.sponsors,
-        classified: {
+        secondary: {
           name: "Too Long",
           url: "/sponsor",
-          copy: Array.from({ length: 40 }, () => "word").join(" "),
+          copy: Array.from({ length: 61 }, () => "word").join(" "),
           cta: "Go",
           ctaUrl: "/sponsor",
         },

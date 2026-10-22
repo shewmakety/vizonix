@@ -45,7 +45,7 @@ describe("reader groups", () => {
     ]);
   });
 
-  it("omits excluded topic sections and keeps the top story, The Ramp, and sponsor slots", () => {
+  it("omits excluded topic sections and keeps the top story and sponsor slots", () => {
     const issue = getIssue("aviation", "2026-10-20");
     expect(issue).toBeTruthy();
     if (!issue) return;
@@ -66,11 +66,12 @@ describe("reader groups", () => {
     const html = renderIssueEmail(issue, { mode: "test", excludedSections: parsed.excluded });
     expect(html).not.toContain(">Recruiting</td>");
     expect(html).not.toContain(">Warehousing</td>");
-    expect(html).toContain(">Sales and marketing</td>");
-    expect(html).toContain("The Ramp");
-    expect(html).toContain("Top story");
+    expect(html).toContain(">Sales &amp; Marketing</td>");
+    expect(html).not.toContain("The Ramp");
+    expect(html).toContain("Today&#39;s top story");
     expect(html).toContain("Primary sponsor");
-    expect(html).toContain("Manage your topics");
+    expect(html).toContain("Contact us at:");
+    expect(html).not.toContain("Manage your topics");
     expect(html).not.toMatch(/[\u2013\u2014]/);
   });
 });

@@ -1,32 +1,43 @@
 import Link from "next/link";
 import { CustomizeCard } from "@/components/CustomizeCard";
 import { WhatWeDo } from "@/components/WhatWeDo";
-import { formatIsoDay } from "@/lib/dates";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
+import { formatNumericDate } from "@/lib/dates";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl, toolboxIllustrationUrl } from "@/lib/icons";
 import {
   chipLabel,
+  contactVendorParts,
   forwardMailto,
-  issueHeaderLine,
   sectionAnchor,
+  sectionHeadingLabel,
   sectionSponsorKicker,
   sectionSponsorOpenLabel,
+  topStoryLabel,
+  vendorWebsiteLabel,
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import {
   issueSections,
   productivitySectionTopic,
-  rampHandle,
   sortedGlossary,
   type Issue,
   type IssueSectionView,
   type IssueTool,
-  type Ramp,
   type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
-import { customizeLinkLabel, customizePitch, customizeWebPath, editor, site, toolboxCard, toolboxCardIcon } from "@/lib/site";
+import {
+  customizeLinkLabel,
+  customizePitch,
+  customizeWebPath,
+  editor,
+  preferencesPath,
+  site,
+  toolboxCard,
+  toolboxCardCopy,
+  toolboxCardIcon,
+} from "@/lib/site";
 import { toolboxCardHref } from "@/lib/toolbox";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
@@ -62,13 +73,32 @@ function ToolTile({ tool }: { tool: IssueTool }) {
       </h3>
       <p>{tool.summary}</p>
       <WhyPays text={tool.whyItMatters} />
-      <p className="meta">{tool.pricing}</p>
+      <p className="meta">
+        <PricingLine pricing={tool.pricing} vendorUrl={tool.vendorUrl} />
+      </p>
+      {tool.vendorUrl ? (
+        <p className="meta">
+          Website: <a href={publicHref(tool.vendorUrl)}>{vendorWebsiteLabel(tool.vendorUrl)}</a>
+        </p>
+      ) : null}
       {tool.sourceUrl ? (
         <p className="meta">
           Source: <a href={publicHref(tool.sourceUrl)}>{tool.sourceUrl}</a>
         </p>
       ) : null}
     </article>
+  );
+}
+
+function PricingLine({ pricing, vendorUrl }: { pricing: string; vendorUrl?: string }) {
+  const parts = vendorUrl ? contactVendorParts(pricing) : null;
+  if (!parts || !vendorUrl) return pricing;
+  return (
+    <>
+      {parts.before}
+      <a href={publicHref(vendorUrl)}>{parts.phrase}</a>
+      {parts.after}
+    </>
   );
 }
 
@@ -128,7 +158,7 @@ function ToolSection({
           {number}
         </span>
         <SectionIcon topic={topic} size={productivity ? 36 : 28} />
-        <span className="section-title">{topic}</span>
+        <span className="section-title">{sectionHeadingLabel(topic)}</span>
       </h2>
       <SectionSponsor section={section} ratesUrl={ratesUrl} />
       {section.coverageNote ? <p className="notice">{section.coverageNote}</p> : null}
@@ -149,33 +179,6 @@ function ToolSection({
           <ToolTile key={tool.slug} tool={tool} />
         ))}
       </div>
-    </section>
-  );
-}
-
-function RampView({ ramp }: { ramp: Ramp }) {
-  return (
-    <section className="ramp">
-      <h2 className="ramp-heading">
-        <SectionIcon topic="The Ramp" size={24} />
-        <span>The Ramp</span>
-      </h2>
-      {ramp.intro ? <p className="ramp-intro">{ramp.intro}</p> : null}
-      {ramp.posts.map((post) => (
-        <article className="ramp-card" key={post.url}>
-          <p className="ramp-byline">
-            <span>{rampHandle(post.handle)}</span>
-            {post.note ? <> {post.note}</> : null}
-          </p>
-          <blockquote className="ramp-quote">{post.text}</blockquote>
-          <p className="meta">
-            {post.author} <span className="meta">{formatIsoDay(post.postedAt)}</span>
-          </p>
-          <p className="ramp-link">
-            <a href={publicHref(post.url)}>View on X</a>
-          </p>
-        </article>
-      ))}
     </section>
   );
 }
@@ -241,7 +244,7 @@ function ToolboxCard({ segment }: { segment: string }) {
         height={toolboxCardIcon.height}
       />
       <h2>{toolboxCard.heading}</h2>
-      <p>{toolboxCard.line}</p>
+      <p>{toolboxCardCopy(segment)}</p>
       <a className="button" href={href}>
         {toolboxCard.button}
       </a>
@@ -259,6 +262,9 @@ function IssueActions({ issue }: { issue: Issue }) {
       <span className="issue-action-sep"> • </span>
       <wbr />
       <a href={`/${issue.segment}/issues/${issue.date}`}>READ ON WEB</a>
+      <span className="issue-action-sep"> • </span>
+      <wbr />
+      <a href={preferencesPath}>CUSTOMIZE</a>
     </p>
   );
 }
@@ -270,8 +276,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
     <article className="dashboard">
       <header className="issue-masthead">
         <div className="wrap dashboard-wrap">
-          <h1 className="issue-title">{issue.subject}</h1>
-          <p className="issue-dateline">{issueHeaderLine(issue)}</p>
+          <h1 className="issue-title">{issue.subject}<span className="issue-title-date">{` · ${formatNumericDate(issue.date)}`}</span></h1>
           <p className="issue-customize">
             {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
           </p>
@@ -289,15 +294,14 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <nav className="jump-row" aria-label="Jump to">
           {sections.map((section, index) => {
             const topic = section.topic ?? "Tool Highlights";
-            const productivity = topic === productivitySectionTopic;
             const number = String(index + 1).padStart(2, "0");
             return (
               <a
                 key={topic}
-                className={productivity ? "jump-chip productivity" : "jump-chip"}
+                className="jump-chip"
                 href={`#${sectionAnchor(topic)}`}
               >
-                <b>{number}</b> {chipLabel(topic)}
+                <b>{number}</b> {sectionHeadingLabel(chipLabel(topic))}
               </a>
             );
           })}
@@ -309,7 +313,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <section className="top-story">
             <p className="top-kicker">
               <SectionIcon topic={issue.lead.kicker} size={28} />
-              <span>{issue.lead.kicker}</span>
+              <span>{topStoryLabel}</span>
             </p>
             <h2>{issue.lead.title}</h2>
             <p>{issue.lead.summary}</p>
@@ -328,36 +332,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />
         ))}
         <SlotView name="secondary" creative={issue.sponsors.secondary} />
-        <div className="dash-split">
-          <section className="dash-card">
-            <div className="headed">
-              <SectionIcon topic="Playbook" size={24} />
-              <h2>{issue.playbook.title}</h2>
-            </div>
-            <p>{issue.playbook.intro}</p>
-            <ol className="steps">
-              {issue.playbook.steps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </section>
-          <section className="dash-card">
-            <div className="headed">
-              <SectionIcon topic="Quick links" size={24} />
-              <h2>Quick links</h2>
-            </div>
-            <ul className="link-list">
-              {issue.quickLinks.map((link) => (
-                <li key={link.url}>
-                  <a href={publicHref(link.url)}>{link.title}</a>
-                  <span className="meta"> {link.note}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-        <SlotView name="classified" creative={issue.sponsors.classified} />
-        {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
         <ToolboxCard segment={issue.segment} />
         <GlossaryView issue={issue} />
         <IssueActions issue={issue} />

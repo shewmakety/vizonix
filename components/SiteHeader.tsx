@@ -8,7 +8,7 @@ import {
   segmentHomeHref,
   segmentSubscribeHref,
 } from "@/lib/segment-memory";
-import { getSegment, isToolDirectoryPath, segmentDisplayName } from "@/lib/segments";
+import { getSegment, isToolDirectoryPath, segmentHeaderName } from "@/lib/segments";
 import { sectionWordmark, site } from "@/lib/site";
 
 function current(active: boolean): "page" | undefined {
@@ -24,32 +24,35 @@ export function SiteHeader() {
   const onSubscribe = pathname === subscribeHref || pathname === "/subscribe" || pathname.startsWith("/subscribe/");
   const sectionSlug = pathname.split("/").filter(Boolean)[0];
   const section = sectionSlug ? getSegment(sectionSlug) : undefined;
-  const wordmark = section?.status === "active" ? sectionWordmark(segmentDisplayName(section)) : site.name;
+  const wordmark = section?.status === "active" ? sectionWordmark(segmentHeaderName(section)) : site.name;
+  const onIssue = /^\/[^/]+\/issues\/\d{4}-\d{2}-\d{2}\/?$/.test(pathname);
 
   return (
-    <header className="site-header">
+    <header className={onIssue ? "site-header on-issue" : "site-header"}>
       <div className="wrap header-inner">
         <Link className="brand" href={segmentHomeHref(pathname, rememberedSlug)}>
           <span className="brand-mark">V</span>
           <span className="brand-name">{wordmark}</span>
         </Link>
-        <nav className="site-nav" aria-label="Site">
-          <Link href="/sponsor" aria-current={current(onSponsor)}>
-            Sponsor
+        <div className="header-menu">
+          <nav className="site-nav" aria-label="Site">
+            <Link href="/sponsor" aria-current={current(onSponsor)}>
+              Sponsor
+            </Link>
+            <Link href="/about" aria-current={current(onAbout)}>
+              About
+            </Link>
+            <Link
+              href={segmentDirectoryHref(pathname, rememberedSlug)}
+              aria-current={current(isToolDirectoryPath(pathname))}
+            >
+              Toolbox
+            </Link>
+          </nav>
+          <Link className="header-cta" href={subscribeHref} aria-current={current(onSubscribe)}>
+            Subscribe
           </Link>
-          <Link href="/about" aria-current={current(onAbout)}>
-            About
-          </Link>
-          <Link
-            href={segmentDirectoryHref(pathname, rememberedSlug)}
-            aria-current={current(isToolDirectoryPath(pathname))}
-          >
-            Toolbox
-          </Link>
-        </nav>
-        <Link className="header-cta" href={subscribeHref} aria-current={current(onSubscribe)}>
-          Subscribe
-        </Link>
+        </div>
       </div>
     </header>
   );

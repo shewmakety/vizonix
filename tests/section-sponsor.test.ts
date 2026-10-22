@@ -94,11 +94,11 @@ describe("section sponsors", () => {
     expect(hidden).not.toContain(sponsor.url);
     expect(hidden).not.toContain(sponsor.logo);
     expect(hidden).toContain("Primary sponsor - open");
-    expect(hidden).toContain(">Sales and marketing</td>");
+    expect(hidden).toContain(">Sales &amp; Marketing</td>");
     expect(hidden.match(new RegExp(sectionSponsorOpenLabel, "g"))).toHaveLength(7);
     expect(hiddenText).not.toContain(sponsor.name);
     expect(hiddenText).not.toContain(sponsor.url);
     expect(hiddenText).toContain("PRIMARY SPONSOR");
-    expect(hiddenText).toContain("SALES AND MARKETING");
+    expect(hiddenText).toContain("SALES & MARKETING");
   });
 });

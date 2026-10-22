@@ -1,6 +1,7 @@
 export const placements = [
   "primary",
   "secondary",
+  // Older payment records can still say classified. It is not on the rate card.
   "classified",
   "banner",
   "featured",
@@ -53,17 +54,6 @@ export const launchPlacements: LaunchPlacement[] = [
     newsletter: true,
   },
   {
-    id: "classified",
-    name: "Classified / Quick link",
-    description: "Bottom of the issue, about 25 words, 1 link.",
-    price: 100,
-    founding: 50,
-    unit: "week",
-    targetWords: 25,
-    maxWords: 35,
-    newsletter: true,
-  },
-  {
     id: "banner",
     name: "Section site banner",
     description: "Banner on the section home and its article pages for 7 days.",
@@ -105,9 +95,8 @@ function placementPrice(id: Placement): number {
   return placement.price;
 }
 
-/** Secondary and classified follow the launch rate card, not a rounded percent. */
+/** Secondary follows the launch rate card, not a rounded percent. */
 export const secondaryRatio = placementPrice("secondary") / placementPrice("primary");
-export const classifiedRatio = placementPrice("classified") / placementPrice("primary");
 export const exclusivityPremium = 0.5;
 export const foundingSponsorCap = 10;
 export const foundingLockMonths = 3;

@@ -1,8 +1,14 @@
+import { getSegment } from "@/lib/segments";
+
 export const site = {
   name: "Vizonix",
   description:
     "A free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Aviation first.",
   email: "admin@vizonix.com",
+  /**
+   * CAN-SPAM postal address, printed at the bottom of the issue email.
+   */
+  postalAddress: "16703 Early Riser Ave Suite #510, Land O' Lakes, FL 34638",
 };
 
 export const editor = {
@@ -30,12 +36,20 @@ export const customizeCard = {
   action: "Update my preferences",
 } as const;
 
-/** Card on the aviation issue page and in the issue email. The email does not list the tools. */
+/** Card on the issue page and in the issue email. The email does not list the tools. */
 export const toolboxCard = {
   heading: "The Vizonix Toolbox",
-  line: "Every AI and robotics tool worth knowing for aviation, in one place",
   button: "Open the Toolbox",
 } as const;
+
+/** Two or three sentences. The audience comes from the segment, not a hard-coded edition name. */
+export function toolboxCardCopy(segmentSlug: string): string {
+  const segment = getSegment(segmentSlug);
+  const audience = segment
+    ? segment.audience.charAt(0).toLowerCase() + segment.audience.slice(1)
+    : "the teams this briefing covers";
+  return `The Toolbox is a curated, regularly updated list of AI and robotics tools for ${audience}. It is organized by the same topics as the issue. Each listing says what the tool does and links to it.`;
+}
 
 /** Display size of the toolbox icon inside the issue card. Slightly wide, and tall enough to read at 64px. */
 export const toolboxCardIcon = { width: 80, height: 64 } as const;

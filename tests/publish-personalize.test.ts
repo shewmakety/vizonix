@@ -123,10 +123,11 @@ describe("personalized issue send", () => {
     expect(full?.messages[0]?.html).toContain(">Recruiting</td>");
     expect(full?.messages[0]?.html).toContain(">Warehousing</td>");
     for (const message of deliveries.flatMap((delivery) => delivery.messages)) {
-      expect(message.html).toContain("The Ramp");
-      expect(message.html).toContain("Top story");
+      expect(message.html).not.toContain("The Ramp");
+      expect(message.html).toContain("Today&#39;s top story");
       expect(message.html).toContain("Primary sponsor");
-      expect(message.html).toContain("Manage your topics");
+      expect(message.html).toContain("Contact us at:");
+      expect(message.html).not.toContain("Manage your topics");
       expect(message.html).toContain("/preferences?token=");
       expect(message.html).not.toContain("__VZ_");
       expect(message.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");

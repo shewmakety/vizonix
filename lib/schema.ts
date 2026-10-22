@@ -97,6 +97,8 @@ const issueToolSchema = z.object({
   whyItMatters: z.string().trim().min(1).max(1200),
   url: href,
   sourceUrl: href.optional(),
+  /** Vendor homepage or product page. Distinct from the source article. */
+  vendorUrl: httpUrl.optional(),
   pricing: z.string().trim().min(1).max(200),
   /** Set on a flat tools list so the page can group blurbs that share a topic. */
   topic: z.string().trim().min(1).max(120).optional(),
@@ -207,7 +209,7 @@ export const issueSchema = z
       sourceUrl: href,
       productUrl: href.optional(),
     }),
-    /** Best X posts of the day. Omitted issues skip The Ramp. */
+    /** Stored X posts. The page and the email do not render this block. */
     ramp: rampSchema.optional(),
     /**
      * Flat list. Required unless `sections` is set.
@@ -216,11 +218,21 @@ export const issueSchema = z
     tools: z.array(issueToolSchema).max(16).optional(),
     /** Topic groups. When present, these are what the page and the email render. */
     sections: z.array(issueSectionSchema).min(1).max(12).optional(),
-    playbook: z.object({
-      title: z.string().trim().min(1).max(180),
-      intro: z.string().trim().min(1).max(1200),
-      steps: z.array(z.string().trim().min(1).max(400)).min(1).max(8),
-    }),
+    /**
+     * Stored on older issues. The page and the email do not render this block.
+     * New issues should omit it.
+     */
+    playbook: z
+      .object({
+        title: z.string().trim().min(1).max(180),
+        intro: z.string().trim().min(1).max(1200),
+        steps: z.array(z.string().trim().min(1).max(400)).min(1).max(8),
+      })
+      .optional(),
+    /**
+     * Stored on older issues. The page and the email do not render this block.
+     * New issues should omit it.
+     */
     quickLinks: z
       .array(
         z.object({
@@ -230,7 +242,8 @@ export const issueSchema = z
         }),
       )
       .min(1)
-      .max(12),
+      .max(12)
+      .optional(),
     /** Plain-language definitions for AI and robotics terms used in this issue. Omitted issues skip the glossary. */
     glossary: z
       .array(
@@ -304,10 +317,9 @@ export const issueSchema = z
       }
     }
 
-    const slots: Array<["primary" | "secondary" | "classified", SponsorCreative | null]> = [
+    const slots: Array<["primary" | "secondary", SponsorCreative | null]> = [
       ["primary", issue.sponsors.primary],
       ["secondary", issue.sponsors.secondary],
-      ["classified", issue.sponsors.classified],
     ];
 
     for (const [slot, creative] of slots) {

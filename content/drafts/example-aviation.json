@@ -42,22 +42,6 @@
       ]
     }
   ],
-  "playbook": {
-    "title": "Replace this playbook",
-    "intro": "Three to five steps an operation could try.",
-    "steps": [
-      "Name the station or fleet.",
-      "Say what to measure.",
-      "Say when to stop."
-    ]
-  },
-  "quickLinks": [
-    {
-      "title": "Aviation section",
-      "url": "/aviation",
-      "note": "Section home."
-    }
-  ],
   "sponsors": {
     "primary": null,
     "secondary": null,

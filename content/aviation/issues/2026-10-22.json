@@ -65,6 +65,7 @@
           "whyItMatters": "Every hour a veteran spends teaching basics is an hour not billed. Structured basics let new hires start billing sooner, and CAE argues that investing in them early also helps retention. Price it against what your senior technicians' coaching time costs you today.",
           "url": "/aviation/tools/cae-ready-for-work",
           "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-21/cae-ready-work",
+          "vendorUrl": "https://www.cae.com/civil-aviation/aviation-training/aircraft-maintenance-training/business-aircraft-maintenance-training/ready-for-work/",
           "pricing": "Contact CAE; sold from single courses to a full package"
         }
       ]
@@ -80,6 +81,7 @@
           "whyItMatters": "Charter desks are not short of requests; they are short of time to see which ones are worth quoting. Matching against your own fleet and rates means fewer wrong numbers, and the review step keeps a person signing off on every price, which is exactly the safeguard Obernolte recommended in today's top story.",
           "url": "/aviation/tools/levo-flight-leads",
           "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-20/levo-portside-now-offering-pre-priced-quoting-avianis",
+          "vendorUrl": "https://levo.aero/",
           "pricing": "Contact the vendor"
         },
         {
@@ -90,6 +92,7 @@
           "whyItMatters": "Extra flying from aircraft you already own is the cheapest revenue there is. Optifly targets up to 1.0% lower fuel burn and up to 5% higher utilization. Ask for the test on your own schedule and check that maintenance windows were treated as hard limits.",
           "url": "/aviation/tools/optifly-opty",
           "sourceUrl": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/optifly-launches-opty-agentic-ai-platform",
+          "vendorUrl": "https://optifly.com/",
           "pricing": "Contact the vendor"
         }
       ]
@@ -106,6 +109,7 @@
           "whyItMatters": "An event caught early becomes a planned fix instead of a cancelled trip. Gulfstream operators should ask which systems and models are covered today, how recommendations reach their maintenance team, and whether parts are positioned before the work is due.",
           "url": "/aviation/tools/gulfstream-performance-analytics",
           "sourceUrl": "https://aviationjeta.com/gulfstream-expands-performance-analytics-capabilities-to-optimize-aircraft-operations/",
+          "vendorUrl": "https://www.gulfstream.com/en/customer-support/",
           "pricing": "Gulfstream Customer Support program; contact Gulfstream"
         }
       ]
@@ -121,6 +125,7 @@
           "whyItMatters": "Records chasing is dead time on every shop visit, and it is the same in a small engine or component shop. Time how long your team spends assembling records for one induction, then look for the AI records tools that can take that off them.",
           "url": "/aviation/tools/ge-aerospace-celma-records-ai",
           "sourceUrl": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62480151/ge-aerospace-ai-engine-maintenance",
+          "vendorUrl": "https://www.geaerospace.com/",
           "pricing": "Internal GE Aerospace tool; not sold"
         },
         {
@@ -131,6 +136,7 @@
           "whyItMatters": "Turning a customer's due list into a quote is hours of retyping for most repair stations, and the shop that quotes first often wins the work. Feed it a due list you have already quoted by hand and compare the tasks, parts and hours line by line.",
           "url": "/aviation/tools/aerokeeper-due-list-agent",
           "sourceUrl": "https://aerokeeper.com/duelist",
+          "vendorUrl": "https://aerokeeper.com/duelist",
           "pricing": "Contact the vendor"
         }
       ]
@@ -147,6 +153,7 @@
           "whyItMatters": "Finding out late that a permit, slot or airspace problem makes a trip unworkable costs you the customer and the repositioning. A fast first answer helps a dispatcher say yes or no sooner. Check its answers against a few trips your team has already planned before you rely on it.",
           "url": "/aviation/tools/uas-skyx",
           "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-21/uas-launches-ai-driven-skyx-trip-feasibility-tool",
+          "vendorUrl": "https://www.uas.aero/blogs/taking-the-next-step-in-aviations-digital-transformation",
           "pricing": "Beta through UAS; contact the vendor"
         }
       ]
@@ -165,6 +172,7 @@
           "whyItMatters": "Every part on the shelf is cash that is not working, and every part you do not have can become an AOG. Modeling the odds of demand for each part number helps you stock less without missing more. Before buying any forecasting tool, clean up your own usage history, because that is what the model will learn from.",
           "url": "/aviation/tools/ajw-apollo",
           "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading",
+          "vendorUrl": "https://www.ajw-group.com/",
           "pricing": "Internal AJW system; not sold"
         }
       ]
@@ -188,6 +196,7 @@
           "whyItMatters": "When an aircraft goes AOG, the trip is saved by finding another aircraft fast. Shared live availability across operators makes that search quicker and turns empty legs into revenue. Read the data-sharing terms closely and ask what happens to your data if you leave.",
           "url": "/aviation/tools/flyexclusive-contrails-fms",
           "sourceUrl": "https://www.businesswire.com/news/home/20261021496446/en/Fly-Alliance-to-Replace-Entire-Flight-Management-System-with-flyExclusives-AI-Powered-Contrails-FMS",
+          "vendorUrl": "https://fms.flyexclusive.com/",
           "pricing": "No licensing fees, per flyExclusive"
         }
       ]
@@ -204,6 +213,7 @@
           "whyItMatters": "Owner-operators of small charter companies, FBOs and repair stations live in their inbox and calendar. An assistant that flags the unpaid invoice or the double-booked meeting before it costs you is useful, and the approval step keeps it from acting alone. It is an early preview, so start with low-stakes admin tasks.",
           "url": "https://claude.com/resources/articles/claude-duet",
           "sourceUrl": "https://claude.com/resources/articles/claude-duet",
+          "vendorUrl": "https://claude.com/",
           "pricing": "Included in Claude Pro and Max during the research preview"
         },
         {
@@ -214,6 +224,7 @@
           "whyItMatters": "If your team writes the same customer updates, quote cover notes or delay messages every week, a saved skill keeps tone and format consistent without retyping instructions. Admins should review which connected apps are allowed before staff start linking accounts.",
           "url": "https://workspaceupdates.googleblog.com/2026/10/an-easier-way-to-customize-how-gemini-works-for-you.html",
           "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/an-easier-way-to-customize-how-gemini-works-for-you.html",
+          "vendorUrl": "https://gemini.google.com/",
           "pricing": "Available on all Gemini tiers"
         }
       ]
