@@ -7,12 +7,16 @@ import {
   requestIsSecure,
   sameOrigin,
 } from "@/lib/admin-session";
+import { rateLimit, requestIp } from "@/lib/rate-limit";
 import { adminJson, enforceTurnstile, readJsonBody, isNextResponse } from "@/lib/admin-http";
 
 export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   if (!sameOrigin(request)) return adminJson({ error: "Sign-in failed." }, 403);
+  if (!rateLimit(`${requestIp(request)}:admin-login`, 5, 15 * 60 * 1000)) {
+    return adminJson({ error: "Too many sign-in attempts. Try again later." }, 429);
+  }
   const body = await readJsonBody(request);
   if (isNextResponse(body)) return body;
   const turnstile = await enforceTurnstile(request, body, "admin-login");

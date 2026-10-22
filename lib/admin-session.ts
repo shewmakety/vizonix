@@ -8,8 +8,18 @@ function password(): string {
   return process.env.ADMIN_PASSWORD ?? "";
 }
 
+/**
+ * Key for signing admin session cookies. Production requires ADMIN_SESSION_SECRET (32+ chars)
+ * and never falls back to the password. Outside production the password is used when unset.
+ */
+export function sessionSecret(): string {
+  const configured = process.env.ADMIN_SESSION_SECRET?.trim() ?? "";
+  if (process.env.VERCEL_ENV === "production") return configured.length >= 32 ? configured : "";
+  return configured || password();
+}
+
 export function adminConfigured(): boolean {
-  return password().trim().length > 0;
+  return password().trim().length > 0 && sessionSecret().length > 0;
 }
 
 export function adminPasswordMatches(given: unknown): boolean {
@@ -21,7 +31,7 @@ export function adminPasswordMatches(given: unknown): boolean {
 }
 
 function sign(body: string): string {
-  return createHmac("sha256", password()).update(body).digest("base64url");
+  return createHmac("sha256", sessionSecret()).update(body).digest("base64url");
 }
 
 export function createAdminSession(now = Date.now()): string {
