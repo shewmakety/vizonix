@@ -45,7 +45,7 @@ describe("What We Do and the shared issue header", () => {
       expect(html).toContain(copyHtml);
       expect(html.indexOf(`<h1 class="issue-title">`)).toBeLessThan(html.indexOf(datelineHtml));
       expect(html.indexOf(`class="issue-dateline"`)).toBeLessThan(html.indexOf("what-we-do-heading"));
-      expect(html.indexOf(issue.lead.title)).toBeLessThan(html.indexOf(copyHtml));
+      expect(html.indexOf(copyHtml)).toBeLessThan(html.indexOf(issue.lead.title));
 
       expect(email).toContain(
         `font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${issue.subject}</h1>`,
@@ -55,7 +55,7 @@ describe("What We Do and the shared issue header", () => {
       expect(email).toContain(copyEmail);
       expect(email.indexOf(`font-size:30px;`)).toBeLessThan(email.indexOf(datelineHtml));
       expect(email.indexOf(datelineHtml)).toBeLessThan(email.indexOf(whatWeDo.heading));
-      expect(email.indexOf(issue.lead.title)).toBeLessThan(email.indexOf(copyEmail));
+      expect(email.indexOf(copyEmail)).toBeLessThan(email.indexOf(issue.lead.title));
       expect(email).not.toContain("section-heading");
 
       expect(text.indexOf(issue.subject)).toBeLessThan(text.indexOf(dateline));

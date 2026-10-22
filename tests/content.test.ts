@@ -164,8 +164,9 @@ describe("segment config and sample content", () => {
     expect(html).toContain("The Vizonix Toolbox");
     expect(html).toContain("Open the Toolbox");
     expect(html).not.toContain("Visit the Toolbox");
-    expect(html).toContain("Read on the web");
+    expect(html).toContain(">READ ON WEB<");
     expect(html).toContain(`href="${issueUrl}"`);
+    expect(html).not.toContain("Read on the web");
     const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
     const dateline = issueHeaderLine(aviation);
     expect(dateline.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
@@ -175,9 +176,9 @@ describe("segment config and sample content", () => {
     expect(html.indexOf(aviation.lead.title)).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
     expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(">Unsubscribe</a>"));
     expect(text).toContain(`Open the Toolbox: ${directory}`);
-    expect(text).toContain(`Read on the web: ${issueUrl}`);
+    expect(text).toContain(`READ ON WEB: ${issueUrl}`);
     expect(text.indexOf(aviation.lead.title)).toBeLessThan(text.indexOf("The Vizonix Toolbox"));
-    expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.indexOf("Read this issue on the web"));
+    expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.lastIndexOf(`READ ON WEB: ${issueUrl}`));
     expect(text).not.toContain("Nordic Dino");
     expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");

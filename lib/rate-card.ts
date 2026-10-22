@@ -109,7 +109,6 @@ function placementPrice(id: Placement): number {
 export const secondaryRatio = placementPrice("secondary") / placementPrice("primary");
 export const classifiedRatio = placementPrice("classified") / placementPrice("primary");
 export const exclusivityPremium = 0.5;
-export const maxNewsletterSponsors = 3;
 export const foundingSponsorCap = 10;
 export const foundingLockMonths = 3;
 export const loyaltyDiscount = 0.25;

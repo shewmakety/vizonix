@@ -102,7 +102,7 @@ describe("turnstile and signup limits", () => {
     const text = renderIssueText(issue, { mode: "test", preferencesUrl: signed });
     expect(email.split(signed).length - 1).toBeGreaterThanOrEqual(3);
     expect(text.split(signed).length - 1).toBeGreaterThanOrEqual(3);
-    expect(email.indexOf(signed)).toBeLessThan(email.indexOf("Forwarded this? Subscribe!"));
+    expect(email.indexOf(signed)).toBeLessThan(email.indexOf(">SUBSCRIBE<"));
     expect(text.indexOf(`Customize your issue: ${signed}`)).toBeLessThan(text.indexOf(issue.lead.title));
   });
 });

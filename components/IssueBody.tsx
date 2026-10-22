@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SignupForm } from "@/components/SignupForm";
+import { CustomizeCard } from "@/components/CustomizeCard";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { formatIsoDay } from "@/lib/dates";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
@@ -26,8 +26,7 @@ import {
   type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
-import { getSegment } from "@/lib/segments";
-import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site, toolboxCard, toolboxCardIcon } from "@/lib/site";
+import { customizeLinkLabel, customizePitch, customizeWebPath, editor, site, toolboxCard, toolboxCardIcon } from "@/lib/site";
 import { toolboxCardHref } from "@/lib/toolbox";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
@@ -250,20 +249,23 @@ function ToolboxCard({ segment }: { segment: string }) {
   );
 }
 
-function ForwardLink({ issue }: { issue: Issue }) {
+function IssueActions({ issue }: { issue: Issue }) {
   return (
-    <p className="issue-share">
-      <a href={forwardMailto(issue)}>Forward this</a>
+    <p className="issue-actions">
+      <a href="/join">SUBSCRIBE</a>
+      <span className="issue-action-sep"> • </span>
+      <wbr />
+      <a href={forwardMailto(issue)}>FORWARD TO A COLLEAGUE</a>
+      <span className="issue-action-sep"> • </span>
+      <wbr />
+      <a href={`/${issue.segment}/issues/${issue.date}`}>READ ON WEB</a>
     </p>
   );
 }
 
 export function IssueBody({ issue }: { issue: Issue }) {
-  const segment = getSegment(issue.segment);
-  const sectionName = segment?.name ?? issue.segment;
   const sections = issueSections(issue);
   const ratesUrl = sectionSponsorRatesUrl(issue);
-  const mailto = forwardMailto(issue);
   return (
     <article className="dashboard">
       <header className="issue-masthead">
@@ -273,9 +275,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <p className="issue-customize">
             {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
           </p>
-          <p className="issue-share">
-            <a href={mailto}>Forward this</a>
-          </p>
+          <IssueActions issue={issue} />
         </div>
       </header>
       <div className="wrap dashboard-wrap dashboard-body">
@@ -304,6 +304,8 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </nav>
         <SlotView name="primary" creative={issue.sponsors.primary} />
         <div className="dash-hero">
+          <WhatWeDo />
+          <CustomizeCard />
           <section className="top-story">
             <p className="top-kicker">
               <SectionIcon topic={issue.lead.kicker} size={28} />
@@ -321,21 +323,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
               </p>
             ) : null}
           </section>
-          <div className="dash-side">
-            <WhatWeDo />
-            <aside className="side-card dashboard-signup">
-              <SignupForm
-                defaultSegment={issue.segment}
-                showSegment={false}
-                heading={signupBlockHeading}
-                submitLabel="Update My Preferences"
-                pendingLabel="Saving"
-              />
-              <p className="meta" style={{ marginTop: "1rem" }}>
-                <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
-              </p>
-            </aside>
-          </div>
         </div>
         {sections.map((section, index) => (
           <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />
@@ -373,7 +360,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
         <ToolboxCard segment={issue.segment} />
         <GlossaryView issue={issue} />
-        <ForwardLink issue={issue} />
+        <IssueActions issue={issue} />
         <p className="meta">
           <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
           {" · "}
