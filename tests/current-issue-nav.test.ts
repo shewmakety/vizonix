@@ -5,7 +5,9 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { latestPublishedIssue, publishedIssuePath } from "@/lib/content";
 import { renderIssueEmail } from "@/lib/email";
-import { featuredSegment } from "@/lib/segments";
+import { escapeHtml } from "@/lib/html";
+import { featuredSegment, getSegment, segmentHeaderName } from "@/lib/segments";
+import { sectionWordmark, siteUrl } from "@/lib/site";
 
 const pathname = vi.hoisted(() => ({ value: "/" }));
 
@@ -29,6 +31,15 @@ describe("current issue header", () => {
 
   it("lists Current Issue first and keeps every item the same", () => {
     pathname.value = "/aviation/toolbox";
+    const header = renderToStaticMarkup(createElement(SiteHeader));
+    const brandEnd = header.indexOf("</a>");
+    const brand = header.slice(header.indexOf('<a class="brand"'), brandEnd);
+    const wordmark = escapeHtml(sectionWordmark(segmentHeaderName(getSegment("aviation")!)));
+    expect(brand).toContain('href="/aviation/latest"');
+    expect(brand).toContain('class="brand-mark">V</span>');
+    expect(brand).toContain(`class="brand-name">${wordmark}</span>`);
+    expect(brand.split('href="').length - 1).toBe(1);
+
     const nav = navHtml();
     const labels = ["Current Issue", "Sponsor", "About", "Toolbox", "Subscribe"];
     let cursor = -1;
@@ -45,6 +56,11 @@ describe("current issue header", () => {
     expect(nav).not.toMatch(/\/issues\/\d{4}-\d{2}-\d{2}/);
 
     pathname.value = "/about";
+    const about = renderToStaticMarkup(createElement(SiteHeader));
+    const aboutBrand = about.slice(about.indexOf('<a class="brand"'), about.indexOf("</a>"));
+    expect(aboutBrand).toContain(`href="/${featuredSegment().slug}/latest"`);
+    expect(aboutBrand).toContain('class="brand-mark">V</span>');
+    expect(aboutBrand).toContain('class="brand-name">Vizonix</span>');
     expect(navHtml()).toContain(`href="/${featuredSegment().slug}/latest"`);
 
     const source = fs.readFileSync(path.join(process.cwd(), "components", "SiteHeader.tsx"), "utf8");
@@ -75,6 +91,8 @@ describe("current issue header", () => {
     expect(header).toContain(">Sponsor</a>");
     expect(header).toContain(">Subscribe</a>");
     expect(header).not.toContain("Current Issue");
+    expect(header).not.toContain("/latest");
+    expect(header).toContain(`${siteUrl()}/aviation"`);
     expect(header).toContain("border:1px solid #c8b48a");
   });
 });

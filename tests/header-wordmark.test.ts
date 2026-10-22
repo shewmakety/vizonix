@@ -43,7 +43,7 @@ describe("header wordmark", () => {
       const html = renderToStaticMarkup(createElement(SiteHeader));
       expect(html).toContain('class="brand-mark">V</span>');
       expect(html).toContain(`class="brand-name">${wordmark}</span>`);
-      expect(html).toContain('href="/aviation"');
+      expect(html).toContain('class="brand" href="/aviation/latest"');
       if (page === "/aviation/issues/2026-10-20") expect(html).toContain('class="site-header on-issue"');
       else expect(html).not.toContain("on-issue");
     }

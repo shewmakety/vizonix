@@ -414,8 +414,8 @@ async function main() {
     if (home.includes('class="pill live"') || !home.includes("Launch")) {
       throw new Error("Home still labels a section Live. Only Aviation is launched.");
     }
-    if (!home.includes('class="brand" href="/aviation"')) {
-      throw new Error("Home logo did not fall back to the aviation section.");
+    if (!home.includes('class="brand" href="/aviation/latest"')) {
+      throw new Error("Home logo did not open the current aviation issue.");
     }
 
     const remembered = await fetch(`${base}/`, {
@@ -445,16 +445,16 @@ async function main() {
     if (aviationConfirm.status !== 200 || !aviationConfirmHtml.includes("Confirm your subscription")) {
       throw new Error("Section confirm URL did not render the confirm page.");
     }
-    if (!aviationConfirmHtml.includes('class="brand" href="/aviation"')) {
-      throw new Error("Confirm page did not keep the reader in Aviation.");
+    if (!aviationConfirmHtml.includes('class="brand" href="/aviation/latest"')) {
+      throw new Error("Confirm page logo did not open the current aviation issue.");
     }
     const aviationSubscribe = await fetch(`${base}/aviation/subscribe`);
     const aviationSubscribeHtml = await aviationSubscribe.text();
     if (aviationSubscribe.status !== 200 || !aviationSubscribeHtml.includes("Aviation is the launch section")) {
       throw new Error("Section subscribe URL did not render the subscribe page.");
     }
-    if (!aviationSubscribeHtml.includes('class="brand" href="/aviation"')) {
-      throw new Error("Subscribe page did not keep the reader in Aviation.");
+    if (!aviationSubscribeHtml.includes('class="brand" href="/aviation/latest"')) {
+      throw new Error("Subscribe page logo did not open the current aviation issue.");
     }
 
     const about = await fetch(`${base}/about`).then((response) => response.text());

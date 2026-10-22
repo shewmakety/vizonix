@@ -6,7 +6,6 @@ import { useRememberedSlug } from "@/components/useRememberedSlug";
 import {
   segmentCurrentIssueHref,
   segmentDirectoryHref,
-  segmentHomeHref,
   segmentSubscribeHref,
 } from "@/lib/segment-memory";
 import { getSegment, segmentHeaderName } from "@/lib/segments";
@@ -19,17 +18,18 @@ export function SiteHeader() {
   const section = sectionSlug ? getSegment(sectionSlug) : undefined;
   const wordmark = section?.status === "active" ? sectionWordmark(segmentHeaderName(section)) : site.name;
   const onIssue = /^\/[^/]+\/issues\/\d{4}-\d{2}-\d{2}\/?$/.test(pathname);
+  const currentIssueHref = segmentCurrentIssueHref(pathname, rememberedSlug);
 
   return (
     <header className={onIssue ? "site-header on-issue" : "site-header"}>
       <div className="wrap header-inner">
-        <Link className="brand" href={segmentHomeHref(pathname, rememberedSlug)}>
+        <Link className="brand" href={currentIssueHref}>
           <span className="brand-mark">V</span>
           <span className="brand-name">{wordmark}</span>
         </Link>
         <div className="header-menu">
           <nav className="site-nav" aria-label="Site">
-            <Link href={segmentCurrentIssueHref(pathname, rememberedSlug)}>Current Issue</Link>
+            <Link href={currentIssueHref}>Current Issue</Link>
             <Link href="/sponsor">Sponsor</Link>
             <Link href="/about">About</Link>
             <Link href={segmentDirectoryHref(pathname, rememberedSlug)}>Toolbox</Link>
