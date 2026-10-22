@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { AppError, errorMessage } from "@/lib/errors";
+import { rateLimit, requestIp } from "@/lib/rate-limit";
 import { unsubscribeWithToken } from "@/lib/subscribe";
+import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -36,14 +38,26 @@ export async function POST(request: Request) {
       return await finish(await unsubscribeWithToken(queryToken), true);
     }
 
-    let body: { token?: string };
+    let body: { token?: string; turnstileToken?: unknown; "cf-turnstile-response"?: unknown };
     try {
-      body = (await request.json()) as { token?: string };
+      body = (await request.json()) as typeof body;
     } catch {
       return NextResponse.json({ error: missingToken }, { status: 400 });
     }
     const token = body.token?.trim() || "";
     if (!token) return NextResponse.json({ error: missingToken }, { status: 400 });
+    const ip = requestIp(request);
+    if (!rateLimit(`${ip}:unsubscribe`)) {
+      return NextResponse.json({ error: "Too many requests. Try again shortly." }, { status: 429 });
+    }
+    const verified = await verifyTurnstile({
+      token: turnstileTokenFrom(body),
+      action: "unsubscribe",
+      remoteip: ip,
+    });
+    if (!verified.ok) {
+      return NextResponse.json({ error: verified.error }, { status: verified.status });
+    }
     return await finish(await unsubscribeWithToken(token), false);
   } catch (error) {
     const status = error instanceof AppError ? error.status : 500;

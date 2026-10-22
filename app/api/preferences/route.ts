@@ -5,6 +5,7 @@ import { rateLimit, requestIp } from "@/lib/rate-limit";
 import { parseExcluded } from "@/lib/reader-sections";
 import { getSegment } from "@/lib/segments";
 import { tokenSecret, verifyToken } from "@/lib/tokens";
+import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -13,17 +14,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Too many requests. Try again shortly." }, { status: 429 });
   }
 
-  let body: { token?: unknown; excludedSections?: unknown };
+  let body: {
+    token?: unknown;
+    excludedSections?: unknown;
+    company_website?: unknown;
+    turnstileToken?: unknown;
+    "cf-turnstile-response"?: unknown;
+  };
   try {
     body = (await request.json()) as typeof body;
   } catch {
     return NextResponse.json({ error: "Send JSON with a token and a topic list." }, { status: 400 });
+  }
+  if (typeof body.company_website === "string" && body.company_website.trim()) {
+    return NextResponse.json({ ok: true, message: "Topics saved." });
   }
   if (typeof body.token !== "string" || !body.token.trim()) {
     return NextResponse.json({ error: "Missing preferences token." }, { status: 400 });
   }
   if (!Array.isArray(body.excludedSections)) {
     return NextResponse.json({ error: "Send the topics to leave out." }, { status: 400 });
+  }
+
+  const verified = await verifyTurnstile({
+    token: turnstileTokenFrom(body),
+    action: "preferences",
+    remoteip: requestIp(request),
+  });
+  if (!verified.ok) {
+    return NextResponse.json({ error: verified.error }, { status: verified.status });
   }
 
   const secret = tokenSecret();

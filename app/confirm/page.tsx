@@ -41,7 +41,7 @@ export default async function ConfirmPage({
               Confirm {payload.email} for the {segment.name} briefing. You will not be on the list until
               you do.
             </p>
-            <TokenForm token={token} endpoint="/api/confirm" label="Confirm subscription" />
+            <TokenForm token={token} endpoint="/api/confirm" label="Confirm subscription" action="confirm" />
           </>
         )}
       </div>
