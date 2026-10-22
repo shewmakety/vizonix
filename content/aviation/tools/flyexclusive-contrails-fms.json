@@ -1,0 +1,17 @@
+{
+  "slug": "flyexclusive-contrails-fms",
+  "segment": "aviation",
+  "name": "Contrails FMS",
+  "sample": false,
+  "category": "AOG support",
+  "topic": "aog-support",
+  "company": "flyExclusive",
+  "summary": "Announced October 21 at NBAA-BACE: Fly Alliance, an operator with more than 100,000 flight hours and 50,000 dispatched legs, will replace its flight management system across its whole operation with Contrails FMS. The platform combines scheduling, crew compliance, dispatch, maintenance visibility, disruption recovery and fleet optimization with AI-assisted workflows. It is offered with no licensing fees, per-seat charges or feature gates. In return, participating operators can share authorized, real-time aircraft availability so they can book flights on each other's aircraft; flyExclusive says customer identities and pricing are not required.",
+  "paragraphs": [
+    "Announced October 21 at NBAA-BACE: Fly Alliance, an operator with more than 100,000 flight hours and 50,000 dispatched legs, will replace its flight management system across its whole operation with Contrails FMS. The platform combines scheduling, crew compliance, dispatch, maintenance visibility, disruption recovery and fleet optimization with AI-assisted workflows. It is offered with no licensing fees, per-seat charges or feature gates. In return, participating operators can share authorized, real-time aircraft availability so they can book flights on each other's aircraft; flyExclusive says customer identities and pricing are not required."
+  ],
+  "whyItMatters": "When an aircraft goes AOG, the trip is saved by finding another aircraft fast. Shared live availability across operators makes that search quicker and turns empty legs into revenue. Read the data-sharing terms closely and ask what happens to your data if you leave.",
+  "pricing": "No licensing fees, per flyExclusive",
+  "sourceUrl": "https://www.businesswire.com/news/home/20261021496446/en/Fly-Alliance-to-Replace-Entire-Flight-Management-System-with-flyExclusives-AI-Powered-Contrails-FMS",
+  "url": "https://fms.flyexclusive.com/"
+}

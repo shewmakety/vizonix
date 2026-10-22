@@ -1,0 +1,17 @@
+{
+  "slug": "optifly-opty",
+  "segment": "aviation",
+  "name": "Opty",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Optifly",
+  "summary": "Launched October 21 and on show at Routes World in Frankfurt this week. An agentic AI layer across Optifly's scheduling, slot, fleet and network software, built on AWS and Amazon Bedrock, that models schedule changes against an airline's operating rules, bookings, competitor moves and airport slot-use thresholds. In production testing on an existing summer schedule it found 10 extra weekly sectors from the same fleet, worth up to EUR 6 million by Optifly's estimate. Every scenario is checked against maintenance, crew and slot constraints before a human scheduler signs off. Wider release of automated multi-scenario generation is planned for January 2027.",
+  "paragraphs": [
+    "Launched October 21 and on show at Routes World in Frankfurt this week. An agentic AI layer across Optifly's scheduling, slot, fleet and network software, built on AWS and Amazon Bedrock, that models schedule changes against an airline's operating rules, bookings, competitor moves and airport slot-use thresholds. In production testing on an existing summer schedule it found 10 extra weekly sectors from the same fleet, worth up to EUR 6 million by Optifly's estimate. Every scenario is checked against maintenance, crew and slot constraints before a human scheduler signs off. Wider release of automated multi-scenario generation is planned for January 2027."
+  ],
+  "whyItMatters": "Extra flying from aircraft you already own is the cheapest revenue there is. Optifly targets up to 1.0% lower fuel burn and up to 5% higher utilization. Ask for the test on your own schedule and check that maintenance windows were treated as hard limits.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/optifly-launches-opty-agentic-ai-platform",
+  "url": "https://www.aviationbusinessnews.com/low-cost/latest-news-low-cost/optifly-launches-opty-agentic-ai-platform"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "ge-aerospace-celma-records-ai",
+  "segment": "aviation",
+  "name": "AI technical records tool at Celma",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "GE Aerospace",
+  "summary": "On GE Aerospace's third-quarter earnings call on October 20, CEO Larry Culp said GE built an AI-enabled tool at Celma, its largest MRO site, in Brazil, that automates collecting the technical records required for each CFM56 engine shop visit. \"This helped decrease record processing time by around 25%,\" he said. That is the records step, not the whole repair. Culp also said turnaround time across GE's network is down by over a week since the end of 2025, with LEAP down two weeks. It is an internal GE tool, not a product for sale.",
+  "paragraphs": [
+    "On GE Aerospace's third-quarter earnings call on October 20, CEO Larry Culp said GE built an AI-enabled tool at Celma, its largest MRO site, in Brazil, that automates collecting the technical records required for each CFM56 engine shop visit. \"This helped decrease record processing time by around 25%,\" he said. That is the records step, not the whole repair. Culp also said turnaround time across GE's network is down by over a week since the end of 2025, with LEAP down two weeks. It is an internal GE tool, not a product for sale."
+  ],
+  "whyItMatters": "Records chasing is dead time on every shop visit, and it is the same in a small engine or component shop. Time how long your team spends assembling records for one induction, then look for the AI records tools that can take that off them.",
+  "pricing": "Internal GE Aerospace tool; not sold",
+  "sourceUrl": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62480151/ge-aerospace-ai-engine-maintenance",
+  "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62480151/ge-aerospace-ai-engine-maintenance"
+}

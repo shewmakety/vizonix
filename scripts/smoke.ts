@@ -17,6 +17,7 @@ const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-22", "AI agents are already shopping for charter"],
   ["/aviation/issues/2026-10-21", "Boeing launches Dataliner"],
   ["/aviation/issues/2026-10-20", "False alerts are the real test"],
   ["/aviation/issues/2026-10-19", "Jeppesen ForeFlight brings its Airflow AI agents"],
@@ -38,6 +39,14 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/jeppesen-foreflight-airflow", "wider rollout is expected in 2027"],
   ["/aviation/tools/bluetail-ai", "Bluetail"],
   ["/aviation/tools/airvoyant", "Contact the vendor"],
+  ["/aviation/tools/aerokeeper-due-list-agent", "Due List Agent"],
+  ["/aviation/tools/ajw-apollo", "AJW Group"],
+  ["/aviation/tools/cae-ready-for-work", "Ready for Work"],
+  ["/aviation/tools/flyexclusive-contrails-fms", "Contrails FMS"],
+  ["/aviation/tools/ge-aerospace-celma-records-ai", "Celma"],
+  ["/aviation/tools/gulfstream-performance-analytics", "Performance Analytics"],
+  ["/aviation/tools/optifly-opty", "Opty"],
+  ["/aviation/tools/uas-skyx", "SkyX"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
   ["/sponsor", "Aviation is the first list"],
   ["/media-kit", "Audience numbers will be published after our first full month."],
@@ -253,6 +262,14 @@ async function main() {
     if (!wednesdayIssue.includes(wednesdayDateline) || !wednesdayDateline.includes("Wednesday, October 21, 2026")) {
       throw new Error("The October 21 issue date did not stay on Wednesday, October 21, 2026.");
     }
+    const thursdayIssue = await fetch(`${base}/aviation/issues/2026-10-22`).then((response) => response.text());
+    if (thursdayIssue.includes("noindex")) {
+      throw new Error("The October 22 aviation issue is marked noindex.");
+    }
+    const thursdayDateline = `class="issue-dateline">${issueHeaderLine(getIssue("aviation", "2026-10-22")!).replaceAll("&", "&amp;")}`;
+    if (!thursdayIssue.includes(thursdayDateline) || !thursdayDateline.includes("Thursday, October 22, 2026")) {
+      throw new Error("The October 22 issue date did not stay on Thursday, October 22, 2026.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -269,6 +286,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-22") ||
       !sitemap.includes("/aviation/issues/2026-10-21") ||
       !sitemap.includes("/aviation/issues/2026-10-20") ||
       !sitemap.includes("/aviation/issues/2026-10-19") ||
@@ -303,7 +321,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-21")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-22")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);

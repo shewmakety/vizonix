@@ -1,0 +1,17 @@
+{
+  "slug": "aerokeeper-due-list-agent",
+  "segment": "aviation",
+  "name": "Due List Agent",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "AeroKeeper",
+  "summary": "Demonstrated live at NBAA-BACE this week. The agent reads a due list from an uploaded PDF or a connected maintenance tracking system, extracts the upcoming tasks, identifies parts, estimates labor and generates a work order or quote with the supporting documentation, ready for review.",
+  "paragraphs": [
+    "Demonstrated live at NBAA-BACE this week. The agent reads a due list from an uploaded PDF or a connected maintenance tracking system, extracts the upcoming tasks, identifies parts, estimates labor and generates a work order or quote with the supporting documentation, ready for review."
+  ],
+  "whyItMatters": "Turning a customer's due list into a quote is hours of retyping for most repair stations, and the shop that quotes first often wins the work. Feed it a due list you have already quoted by hand and compare the tasks, parts and hours line by line.",
+  "pricing": "Contact the vendor",
+  "sourceUrl": "https://aerokeeper.com/duelist",
+  "url": "https://aerokeeper.com/duelist"
+}

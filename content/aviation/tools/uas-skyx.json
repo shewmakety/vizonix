@@ -1,0 +1,17 @@
+{
+  "slug": "uas-skyx",
+  "segment": "aviation",
+  "name": "SkyX",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "flight-operations",
+  "company": "UAS International Trip Support",
+  "summary": "Launched October 20 at NBAA-BACE as part of UAS's GTMx trip management platform and reported by AIN on October 21. Users describe a planned mission in their own words and the SkyX AI agent returns an initial feasibility assessment covering operational requirements, constraints, and logistics and safety considerations for the destination. It is in beta testing with operators, and UAS says final decisions stay with human experts.",
+  "paragraphs": [
+    "Launched October 20 at NBAA-BACE as part of UAS's GTMx trip management platform and reported by AIN on October 21. Users describe a planned mission in their own words and the SkyX AI agent returns an initial feasibility assessment covering operational requirements, constraints, and logistics and safety considerations for the destination. It is in beta testing with operators, and UAS says final decisions stay with human experts."
+  ],
+  "whyItMatters": "Finding out late that a permit, slot or airspace problem makes a trip unworkable costs you the customer and the repositioning. A fast first answer helps a dispatcher say yes or no sooner. Check its answers against a few trips your team has already planned before you rely on it.",
+  "pricing": "Beta through UAS; contact the vendor",
+  "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-21/uas-launches-ai-driven-skyx-trip-feasibility-tool",
+  "url": "https://www.ainonline.com/aviation-news/business-aviation/2026-10-21/uas-launches-ai-driven-skyx-trip-feasibility-tool"
+}

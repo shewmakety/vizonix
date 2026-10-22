@@ -1,0 +1,17 @@
+{
+  "slug": "ajw-apollo",
+  "segment": "aviation",
+  "name": "Apollo",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "AJW Group",
+  "summary": "AJW Group's own inventory management system, described by chief commercial officer Scott Symington in Aviation Week's October 21 MRO Memo. It uses probabilistic modeling to balance service levels against the capital tied up in stock. Symington expects predictive capability to become increasingly important for spotting demand and positioning material before it is needed.",
+  "paragraphs": [
+    "AJW Group's own inventory management system, described by chief commercial officer Scott Symington in Aviation Week's October 21 MRO Memo. It uses probabilistic modeling to balance service levels against the capital tied up in stock. Symington expects predictive capability to become increasingly important for spotting demand and positioning material before it is needed."
+  ],
+  "whyItMatters": "Every part on the shelf is cash that is not working, and every part you do not have can become an AOG. Modeling the odds of demand for each part number helps you stock less without missing more. Before buying any forecasting tool, clean up your own usage history, because that is what the model will learn from.",
+  "pricing": "Internal AJW system; not sold",
+  "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading",
+  "url": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading"
+}
