@@ -66,7 +66,7 @@ describe("AI glossary", () => {
     expect(email.indexOf("AI Glossary")).toBeLessThan(email.indexOf("Unsubscribe"));
     expect(text.indexOf("QUICK LINKS")).toBeLessThan(text.indexOf("CLASSIFIED"));
     expect(text.indexOf("CLASSIFIED")).toBeLessThan(text.indexOf("AI GLOSSARY"));
-    expect(text.indexOf("AI GLOSSARY")).toBeLessThan(text.indexOf("Read this issue on the web"));
+    expect(text.indexOf("AI GLOSSARY")).toBeLessThan(text.lastIndexOf("READ ON WEB"));
 
     let previous = -1;
     for (const entry of sortedGlossary(issue.glossary)) {

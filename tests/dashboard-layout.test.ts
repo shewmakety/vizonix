@@ -31,7 +31,17 @@ describe("Option B scannable dashboard", () => {
     expect(html).toContain(`<b>08</b> ${productivitySectionTopic}`);
     expect(html).toContain(">07</b> AOG support");
     expect(html).toContain(`href="${mailto}"`);
-    expect(html.match(/>Forward this</g)).toHaveLength(2);
+    expect(html.match(/>SUBSCRIBE</g)).toHaveLength(2);
+    expect(html.match(/>FORWARD TO A COLLEAGUE</g)).toHaveLength(2);
+    expect(html.match(/>READ ON WEB</g)).toHaveLength(2);
+    expect(html.match(/class="issue-actions"/g)).toHaveLength(2);
+    expect(html).toContain('href="/join"');
+    expect(html).toContain(`href="/aviation/issues/${issue.date}"`);
+    expect(html).toContain(" • ");
+    expect(html.indexOf(">SUBSCRIBE<")).toBeLessThan(html.indexOf(">FORWARD TO A COLLEAGUE<"));
+    expect(html.indexOf(">FORWARD TO A COLLEAGUE<")).toBeLessThan(html.indexOf(">READ ON WEB<"));
+    expect(html).not.toContain("Forward this");
+    expect(html).not.toContain("Forwarded this");
     expect(html.indexOf("Jump to")).toBeLessThan(html.indexOf(issue.lead.title));
     expect(html.indexOf(">What We Do<")).toBeLessThan(html.indexOf(">Customize<"));
     expect(html.indexOf(">Customize<")).toBeLessThan(html.indexOf(issue.lead.title));
@@ -59,12 +69,25 @@ describe("Option B scannable dashboard", () => {
     expect(email).toContain("border:1px solid #cfd5de");
     expect(email).toContain("border-radius:12px");
     expect(email).toContain("<!--[if mso]>");
-    expect(email).toContain("Forwarded this? Subscribe!");
+    expect(email).toContain(">SUBSCRIBE<");
+    expect(email).toContain(">FORWARD TO A COLLEAGUE<");
+    expect(email).toContain(">READ ON WEB<");
+    expect(email).toContain(" • ");
+    expect(email).toContain("text-align:center");
+    expect(email).toContain("white-space:nowrap");
     expect(email).toContain(`href="${forwardedSubscribeUrl}"`);
     expect(forwardedSubscribeUrl).toBe("https://www.vizonix.com/join?src=forwarded");
-    expect(email.indexOf("Forwarded this? Subscribe!")).toBeLessThan(email.indexOf(issue.lead.title));
-    expect(email.match(/>Forward this</g)).toHaveLength(2);
-    expect(email.lastIndexOf("Forward this")).toBeGreaterThan(email.indexOf("AI Glossary"));
+    expect(email.indexOf(">SUBSCRIBE<")).toBeLessThan(email.indexOf(">FORWARD TO A COLLEAGUE<"));
+    expect(email.indexOf(">FORWARD TO A COLLEAGUE<")).toBeLessThan(email.indexOf(">READ ON WEB<"));
+    expect(email.indexOf(">SUBSCRIBE<")).toBeLessThan(email.indexOf(issue.lead.title));
+    expect(email.match(/>SUBSCRIBE</g)).toHaveLength(2);
+    expect(email.match(/>FORWARD TO A COLLEAGUE</g)).toHaveLength(2);
+    expect(email.match(/>READ ON WEB</g)).toHaveLength(2);
+    expect(email.lastIndexOf(">FORWARD TO A COLLEAGUE<")).toBeGreaterThan(email.indexOf("AI Glossary"));
+    expect(email).not.toContain("Forwarded this? Subscribe!");
+    expect(email).not.toContain(">Forward this<");
+    expect(email).not.toContain("Read on the web");
+    expect(email).not.toContain("Read this issue on the web");
     expect(email).toContain(`href="${mailto}"`);
     expect(email).toContain('href="#warehousing"');
     expect(email).toContain(">06</td>");
@@ -97,11 +120,14 @@ describe("Option B scannable dashboard", () => {
     expect(text.indexOf("THE RAMP")).toBeLessThan(text.indexOf("The Vizonix Toolbox"));
     expect(text.indexOf("The Vizonix Toolbox")).toBeLessThan(text.indexOf("AI GLOSSARY"));
 
-    expect(text.indexOf(`Forwarded this? Subscribe! ${forwardedSubscribeUrl}`)).toBeLessThan(
-      text.indexOf(issue.lead.title),
-    );
-    expect(text.split("Forward this:").length - 1).toBe(2);
-    expect(text.lastIndexOf("Forward this:")).toBeGreaterThan(text.indexOf("AI GLOSSARY"));
+    const actionLine = `SUBSCRIBE: ${forwardedSubscribeUrl} • FORWARD TO A COLLEAGUE: ${forwardMailto(issue)} • READ ON WEB:`;
+    expect(text.indexOf(actionLine)).toBeLessThan(text.indexOf(issue.lead.title));
+    expect(text.split(actionLine).length - 1).toBe(2);
+    expect(text.lastIndexOf(actionLine)).toBeGreaterThan(text.indexOf("AI GLOSSARY"));
+    expect(text).not.toContain("Forward this");
+    expect(text).not.toContain("Forwarded this");
+    expect(text).not.toContain("Read on the web");
+    expect(text).not.toContain("Read this issue on the web");
     expect(html).not.toMatch(/[\u2013\u2014]/);
     expect(email).not.toMatch(/[\u2013\u2014]/);
     expect(text).not.toMatch(/[\u2013\u2014]/);

@@ -668,10 +668,36 @@ dl.facts dt { color: var(--muted); }
   padding: 22px 0 26px;
 }
 .issue-masthead .crumbs,
-.issue-masthead .crumbs a,
-.issue-masthead .issue-share a { color: #f6f3ec; }
-.issue-share { margin: 10px 0 0; font-size: 13px; }
-.issue-share a { color: #14532D; font-weight: 700; }
+.issue-masthead .crumbs a { color: #f6f3ec; }
+.issue-actions {
+  margin: 12px 0 0;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.issue-actions a {
+  color: #14532D;
+  font-weight: 700;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.issue-action-sep {
+  color: #8a8175;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.issue-masthead .issue-actions a { color: #f6f3ec; }
+.issue-masthead .issue-action-sep { color: #c9b98f; }
+@media (max-width: 480px) {
+  .issue-actions { font-size: 10px; letter-spacing: 0.02em; }
+}
+@media (max-width: 340px) {
+  .issue-actions { white-space: normal; }
+}
 .jump-label {
   margin: 0 0 8px;
   font-size: 11px;

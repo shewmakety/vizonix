@@ -557,15 +557,21 @@ function jumpEmailHtml(sections: IssueSectionView[]): string {
           </tr>`;
 }
 
-function forwardEmailHtml(issue: Issue): string {
+const issueActionLinkStyle =
+  "color:#14532D;font-weight:700;text-decoration:underline;white-space:nowrap;word-break:normal;";
+
+function issueActionsEmailHtml(issue: Issue, archive: string): string {
   const mailto = escapeHtml(forwardMailto(issue));
+  const sep = `<span style="color:#8a8175;font-weight:400;white-space:nowrap;"> • </span>`;
   return `<tr>
-            <td style="padding:14px 20px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;">
-              <a href="${escapeHtml(forwardedSubscribeUrl)}" style="color:#14532D;font-weight:700;">Forwarded this? Subscribe!</a>
-              <span style="color:#8a8175;"> · </span>
-              <a href="${mailto}" style="color:#14532D;">Forward this</a>
+            <td class="vz-actions" align="center" style="padding:12px 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.4;letter-spacing:0.03em;text-align:center;white-space:nowrap;word-break:normal;">
+              <a href="${escapeHtml(forwardedSubscribeUrl)}" style="${issueActionLinkStyle}">SUBSCRIBE</a>${sep}<a href="${mailto}" style="${issueActionLinkStyle}">FORWARD TO A COLLEAGUE</a>${sep}<a href="${escapeHtml(archive)}" style="${issueActionLinkStyle}">READ ON WEB</a>
             </td>
           </tr>`;
+}
+
+function issueActionsText(issue: Issue, archive: string): string {
+  return `SUBSCRIBE: ${forwardedSubscribeUrl} • FORWARD TO A COLLEAGUE: ${forwardMailto(issue)} • READ ON WEB: ${archive}`;
 }
 
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
@@ -604,32 +610,16 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
   const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
-  const readOnWeb = `<a href="${escapeHtml(archive)}" style="color:#14532D;text-decoration:underline;">Read on the web</a>`;
-  const linkRow = directoryLink
+  const directoryRow = directoryLink
     ? `<tr>
-            <td style="padding:8px 20px 0;">
-              <table role="presentation" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    <a href="${escapeHtml(directoryLink.href)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
-                  </td>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;color:#8a8175;padding:0 8px;">|</td>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    ${readOnWeb}
-                  </td>
-                </tr>
-              </table>
+            <td style="padding:8px 20px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
+              <a href="${escapeHtml(directoryLink.href)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
             </td>
           </tr>`
-    : `<tr>
-            <td style="padding:8px 20px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-              ${readOnWeb}
-            </td>
-          </tr>`;
+    : "";
   const product = issue.lead.productUrl
     ? `<p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Product: <a href="${escapeHtml(href(issue.lead.productUrl, absolute))}" style="color:#14532D;">${escapeHtml(issue.lead.productUrl)}</a></p>`
     : "";
-  const mailto = escapeHtml(forwardMailto(issue));
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -641,6 +631,10 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     @media only screen and (max-width: 680px) {
       .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
+      .vz-actions { font-size: 10px !important; letter-spacing: 0.01em !important; padding-left: 2px !important; padding-right: 2px !important; }
+    }
+    @media only screen and (max-width: 340px) {
+      .vz-actions { white-space: normal !important; }
     }
   </style>
 </head>
@@ -657,8 +651,8 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
             <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${issueHeaderHtml(issue.subject, issueHeaderLine(issue), issuePreferences(options))}
-          ${forwardEmailHtml(issue)}
-          ${linkRow}
+          ${issueActionsEmailHtml(issue, archive)}
+          ${directoryRow}
           ${jumpEmailHtml(visibleSections)}
           ${intro}
           ${sample}
@@ -705,10 +699,9 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${rampEmailHtml(issue.ramp)}
           ${toolboxCardEmailHtml(issue.segment)}
           ${glossaryEmailHtml(issue)}
+          ${issueActionsEmailHtml(issue, archive)}
           <tr>
             <td style="padding:16px 20px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
-              <p style="margin:0 0 8px;"><a href="${mailto}" style="color:#14532D;">Forward this</a></p>
-              <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#14532D;">Read this issue on the web</a></p>
               <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
               <p style="margin:0 0 8px;"><a href="mailto:${escapeHtml(site.email)}" style="color:#14532D;">${escapeHtml(site.email)}</a></p>
               <p style="margin:0 0 8px;"><a href="${escapeHtml(preferences)}" style="color:#14532D;">Manage your topics</a></p>
@@ -736,7 +729,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
   const unsubscribe = issueUnsubscribe(issue.segment, options);
   const preferences = issuePreferences(options);
-  const mailto = forwardMailto(issue);
 
   function slotLines(label: string, creative: SponsorCreative | null, name: SlotName): string[] {
     const resolved = resolveSlot(name, creative);
@@ -751,15 +743,13 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     customizePitch,
     `${customizeLinkLabel}: ${preferences}`,
     "",
-    `Forwarded this? Subscribe! ${forwardedSubscribeUrl}`,
-    `Forward this: ${mailto}`,
+    issueActionsText(issue, archive),
     "",
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
     ...customizeCardEmailText(preferences),
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
-    `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),
     ...(issue.sample
@@ -788,8 +778,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...rampEmailText(issue.ramp),
     ...toolboxCardText(issue.segment),
     ...glossaryEmailText(issue),
-    `Read this issue on the web: ${archive}`,
-    `Forward this: ${mailto}`,
+    issueActionsText(issue, archive),
     `Manage your topics: ${preferences}`,
     `Unsubscribe: ${unsubscribe}`,
   ];

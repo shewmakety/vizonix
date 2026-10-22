@@ -249,10 +249,14 @@ function ToolboxCard({ segment }: { segment: string }) {
   );
 }
 
-function ForwardLink({ issue }: { issue: Issue }) {
+function IssueActions({ issue }: { issue: Issue }) {
   return (
-    <p className="issue-share">
-      <a href={forwardMailto(issue)}>Forward this</a>
+    <p className="issue-actions">
+      <a href="/join">SUBSCRIBE</a>
+      <span className="issue-action-sep"> • </span>
+      <a href={forwardMailto(issue)}>FORWARD TO A COLLEAGUE</a>
+      <span className="issue-action-sep"> • </span>
+      <a href={`/${issue.segment}/issues/${issue.date}`}>READ ON WEB</a>
     </p>
   );
 }
@@ -260,7 +264,6 @@ function ForwardLink({ issue }: { issue: Issue }) {
 export function IssueBody({ issue }: { issue: Issue }) {
   const sections = issueSections(issue);
   const ratesUrl = sectionSponsorRatesUrl(issue);
-  const mailto = forwardMailto(issue);
   return (
     <article className="dashboard">
       <header className="issue-masthead">
@@ -270,9 +273,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <p className="issue-customize">
             {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
           </p>
-          <p className="issue-share">
-            <a href={mailto}>Forward this</a>
-          </p>
+          <IssueActions issue={issue} />
         </div>
       </header>
       <div className="wrap dashboard-wrap dashboard-body">
@@ -357,7 +358,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         {issue.ramp ? <RampView ramp={issue.ramp} /> : null}
         <ToolboxCard segment={issue.segment} />
         <GlossaryView issue={issue} />
-        <ForwardLink issue={issue} />
+        <IssueActions issue={issue} />
         <p className="meta">
           <Link href={editor.path}>{editor.name}</Link>, {editor.jobTitle}
           {" · "}
