@@ -276,7 +276,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
     <article className="dashboard">
       <header className="issue-masthead">
         <div className="wrap dashboard-wrap">
-          <h1 className="issue-title">{issue.subject}<span className="issue-title-date"> · {formatNumericDate(issue.date)}</span></h1>
+          <h1 className="issue-title">{issue.subject}<span className="issue-title-date">{` · ${formatNumericDate(issue.date)}`}</span></h1>
           <p className="issue-customize">
             {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
           </p>
