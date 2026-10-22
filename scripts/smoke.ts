@@ -549,6 +549,19 @@ async function main() {
       if (!robots.includes(bot)) throw new Error(`robots.txt is missing ${bot}`);
     }
 
+    const security = await fetch(`${base}/.well-known/security.txt`);
+    const securityType = security.headers.get("content-type") ?? "";
+    const securityBody = await security.text();
+    if (security.status !== 200 || !securityType.toLowerCase().includes("text/plain")) {
+      throw new Error(`security.txt was not served as text/plain (${security.status} ${securityType}).`);
+    }
+    if (
+      securityBody !==
+      "Contact: mailto:admin@vizonix.com\nExpires: 2027-10-22T07:04:36.301Z\nPreferred-Languages: en\n"
+    ) {
+      throw new Error("security.txt body does not match the required lines.");
+    }
+
     const failures = await checkLinks(base, pages.map(([pathname]) => pathname));
     if (failures.length > 0) {
       throw new Error(`Link check failed: ${JSON.stringify(failures)}`);
