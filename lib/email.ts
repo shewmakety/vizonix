@@ -521,7 +521,7 @@ function emailSiteHeader(issue: Issue): string {
   const nameStyle =
     "color:#f6f3ec;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.15;";
   return `<tr>
-            <td bgcolor="#122033" style="background-color:#122033;padding:16px 20px 14px;">
+            <td bgcolor="#122033" style="background-color:#122033;border-radius:8px;padding:16px 20px 14px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
                 <tr>
                   <td align="left" valign="middle">
@@ -564,7 +564,7 @@ function emailHeaderGap(): string {
 
 function issueHeaderHtml(title: string, numericDate: string): string {
   return `<tr>
-            <td style="background:#13233b;padding:26px 20px;">
+            <td bgcolor="#13233b" style="background:#13233b;border-radius:8px;padding:26px 20px;">
               <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${escapeHtml(title)}<span style="color:#c9b98f;"> · ${escapeHtml(numericDate)}</span></h1>
             </td>
           </tr>`;
@@ -624,7 +624,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     : "";
   const primary = resolveSlot("primary", issue.sponsors.primary);
   const secondary = resolveSlot("secondary", issue.sponsors.secondary);
-  const classified = resolveSlot("classified", issue.sponsors.classified);
   const visibleSections = sectionsForReader(issue, options.excludedSections);
   const ratesUrl = sectionSponsorRatesUrl(issue);
 
@@ -678,7 +677,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
         <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" class="vz-wrap" bgcolor="#ffffff" style="width:640px;max-width:640px;border-collapse:separate;border-spacing:0;background-color:#ffffff;border-radius:12px;">
           <tr>
             <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;border-collapse:separate;border-spacing:0;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${emailSiteHeader(issue)}
           ${emailHeaderGap()}
           ${issueHeaderHtml(issue.subject, formatNumericDate(issue.date))}
@@ -709,7 +708,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           </tr>
           ${tools}
           ${slotHtml(secondary, absolute)}
-          ${slotHtml(classified, absolute)}
           ${toolboxCardEmailHtml(issue.segment)}
           ${glossaryEmailHtml(issue)}
           ${issueActionsEmailHtml(issue, archive, preferences)}
@@ -778,7 +776,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
       sectionEmailText(section, sectionSponsorRatesUrl(issue)),
     ),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
-    ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
     ...toolboxCardText(issue.segment),
     ...glossaryEmailText(issue),
     issueActionsText(issue, archive, preferences),

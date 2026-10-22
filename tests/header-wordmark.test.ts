@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -36,13 +38,20 @@ describe("header wordmark", () => {
   it("reads Vizonix - Customizable AI & Robotics News For Aviation on aviation pages", () => {
     const wordmark = escapeHtml(sectionWordmark(segmentHeaderName(getSegment("aviation")!)));
     expect(wordmark).toBe("Vizonix - Customizable AI &amp; Robotics News For Aviation");
-    for (const path of ["/aviation", "/aviation/issues", "/aviation/issues/2026-10-20", "/aviation/tools"]) {
-      pathname.value = path;
+    for (const page of ["/aviation", "/aviation/issues", "/aviation/issues/2026-10-20", "/aviation/tools"]) {
+      pathname.value = page;
       const html = renderToStaticMarkup(createElement(SiteHeader));
       expect(html).toContain('class="brand-mark">V</span>');
       expect(html).toContain(`class="brand-name">${wordmark}</span>`);
       expect(html).toContain('href="/aviation"');
+      if (page === "/aviation/issues/2026-10-20") expect(html).toContain('class="site-header on-issue"');
+      else expect(html).not.toContain("on-issue");
     }
+    const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
+    const issueHeader = css.slice(css.indexOf(".site-header.on-issue .header-inner {"), css.indexOf(".brand {"));
+    expect(issueHeader).toContain("border-radius: 8px");
+    const masthead = css.slice(css.indexOf(".issue-masthead {"), css.indexOf(".issue-masthead .crumbs"));
+    expect(masthead).toContain("border-radius: 8px");
   });
 
   it("uses the same wordmark on the email masthead", () => {
@@ -79,7 +88,8 @@ describe("header wordmark", () => {
     expect(email).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
     expect(email).toContain(`>${escapeHtml(wordmark)}</a>`);
     expect(email.indexOf(">V</a>")).toBeLessThan(email.indexOf(`>${escapeHtml(issue.subject)}<span`));
-    expect(email).toContain('bgcolor="#122033"');
+    expect(email).toContain('bgcolor="#122033" style="background-color:#122033;border-radius:8px;');
+    expect(email).toContain('background:#13233b;border-radius:8px;');
     const headerAt = email.indexOf('bgcolor="#122033"');
     const gapAt = email.indexOf('height="22"');
     const titleAt = email.indexOf("background:#13233b");

@@ -2,7 +2,6 @@ import { listIssues, listTools } from "@/lib/content";
 import { toolTopicKeys } from "@/lib/directory";
 import { issueSections } from "@/lib/schema";
 import {
-  classifiedRatio,
   exclusivityPremium,
   formatUsd,
   foundingSponsorCap,
@@ -103,9 +102,9 @@ export function buildLlmsFullTxt(): string {
 
   const ladderLines = publishedPrimaryLadder().map((row) => {
     if (row.primary === null) {
-      return `- ${row.label} active subscribers: primary is a quote. ${row.note}. Secondary and classified follow the rate card.`;
+      return `- ${row.label} active subscribers: primary is a quote. ${row.note}. Secondary follows the rate card.`;
     }
-    return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. Classified ${formatUsd(scaledFromPrimary(row.primary, classifiedRatio))}. ${row.note}.`;
+    return `- ${row.label} active subscribers: primary ${formatUsd(row.primary)} per week. Secondary ${formatUsd(scaledFromPrimary(row.primary, secondaryRatio))}. ${row.note}.`;
   });
 
   const active = activeSegments();

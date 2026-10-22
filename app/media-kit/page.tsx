@@ -42,7 +42,7 @@ export default function MediaKitPage() {
         <p>{mediaKitFounder}</p>
 
         <h2>Formats</h2>
-        <p>Layout mockups of the four placements. The price under each one comes from the rate card.</p>
+        <p>Layout mockups of the three placements. The price under each one comes from the rate card.</p>
 
         <div className="mock-grid">
           <figure className="mock">
@@ -76,19 +76,6 @@ export default function MediaKitPage() {
               </div>
               <p className="meta">
                 {byId.secondary.priceLabel}. Founding {byId.secondary.foundingLabel}.
-              </p>
-            </div>
-          </figure>
-
-          <figure className="mock">
-            <figcaption>Layout mockup: classified</figcaption>
-            <div className="mock-mail">
-              <p className="mock-classified">
-                <span className="pill sponsored">Sponsored</span> {byId.classified.name}.{" "}
-                {byId.classified.summary}
-              </p>
-              <p className="meta">
-                {byId.classified.priceLabel}. Founding {byId.classified.foundingLabel}.
               </p>
             </div>
           </figure>

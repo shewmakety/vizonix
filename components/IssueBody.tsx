@@ -332,7 +332,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />
         ))}
         <SlotView name="secondary" creative={issue.sponsors.secondary} />
-        <SlotView name="classified" creative={issue.sponsors.classified} />
         <ToolboxCard segment={issue.segment} />
         <GlossaryView issue={issue} />
         <IssueActions issue={issue} />

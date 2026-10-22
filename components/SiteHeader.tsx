@@ -25,9 +25,10 @@ export function SiteHeader() {
   const sectionSlug = pathname.split("/").filter(Boolean)[0];
   const section = sectionSlug ? getSegment(sectionSlug) : undefined;
   const wordmark = section?.status === "active" ? sectionWordmark(segmentHeaderName(section)) : site.name;
+  const onIssue = /^\/[^/]+\/issues\/\d{4}-\d{2}-\d{2}\/?$/.test(pathname);
 
   return (
-    <header className="site-header">
+    <header className={onIssue ? "site-header on-issue" : "site-header"}>
       <div className="wrap header-inner">
         <Link className="brand" href={segmentHomeHref(pathname, rememberedSlug)}>
           <span className="brand-mark">V</span>

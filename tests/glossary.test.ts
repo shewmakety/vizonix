@@ -58,14 +58,16 @@ describe("AI glossary", () => {
     const text = renderIssueText(issue, { mode: "test" });
     expect(html).not.toContain("Quick links");
     expect(html).not.toContain(issue.playbook?.title ?? "missing playbook");
-    expect(html.indexOf("Classified")).toBeLessThan(html.indexOf("AI Glossary"));
+    expect(html).not.toContain("Classified - open");
+    expect(html).not.toContain("This quick-link slot is open");
     expect(email).not.toContain("Quick links");
     expect(email).not.toContain(issue.playbook?.title ?? "missing playbook");
-    expect(email.indexOf("Classified")).toBeLessThan(email.indexOf("AI Glossary"));
+    expect(email).not.toContain("Classified - open");
+    expect(email).not.toContain("This quick-link slot is open");
     expect(email.indexOf("AI Glossary")).toBeLessThan(email.indexOf("Unsubscribe"));
     expect(text).not.toContain("QUICK LINKS");
+    expect(text).not.toContain("CLASSIFIED");
     expect(text).not.toContain(issue.playbook?.title ?? "missing playbook");
-    expect(text.indexOf("CLASSIFIED")).toBeLessThan(text.indexOf("AI GLOSSARY"));
     expect(text.indexOf("AI GLOSSARY")).toBeLessThan(text.lastIndexOf("READ ON WEB"));
 
     let previous = -1;

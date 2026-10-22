@@ -317,10 +317,9 @@ export const issueSchema = z
       }
     }
 
-    const slots: Array<["primary" | "secondary" | "classified", SponsorCreative | null]> = [
+    const slots: Array<["primary" | "secondary", SponsorCreative | null]> = [
       ["primary", issue.sponsors.primary],
       ["secondary", issue.sponsors.secondary],
-      ["classified", issue.sponsors.classified],
     ];
 
     for (const [slot, creative] of slots) {

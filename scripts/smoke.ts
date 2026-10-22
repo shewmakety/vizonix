@@ -268,6 +268,9 @@ async function main() {
     if (!thursdayIssue.includes(titleDate("2026-10-22")) || thursdayIssue.includes(titleDate("2026-10-21"))) {
       throw new Error("The October 22 issue date did not stay on 10-22-2026.");
     }
+    if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
+      throw new Error("The issue still renders the classified quick-link slot.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -313,6 +316,9 @@ async function main() {
     }
     if (!sponsor.includes("$175") || !sponsor.includes("$100") || !sponsor.includes("inquiry")) {
       throw new Error("Sponsor page is missing the rate card prices or the inquiry form.");
+    }
+    if (sponsor.includes("Classified / Quick link") || sponsor.includes("quick-link slot")) {
+      throw new Error("Sponsor page still lists the classified quick-link.");
     }
     if (sponsor.includes("2,500-5,000") || sponsor.includes("$4,500")) {
       throw new Error("Sponsor page still publishes tiers above 2,500 subscribers.");

@@ -155,7 +155,7 @@ describe("segment config and sample content", () => {
     }
   });
 
-  it("renders each section with its own payoff line and the three sponsor slots", () => {
+  it("renders each section with its own payoff line and the sponsor slots", () => {
     const aviation = getIssue("aviation", "2026-10-16");
     expect(aviation).toBeTruthy();
     if (!aviation) return;
@@ -165,7 +165,8 @@ describe("segment config and sample content", () => {
     const text = renderIssueText(aviation, { mode: "test" });
     expect(html).toContain("Primary sponsor - open");
     expect(html).toContain("Secondary sponsor");
-    expect(html).toContain("Classified");
+    expect(html).not.toContain("Classified - open");
+    expect(html).not.toContain("This quick-link slot is open");
     expect(html).toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(html).toContain("See founding sponsor rates");
     expect(html).toContain("https://www.vizonix.com/sponsor");
@@ -218,9 +219,9 @@ describe("segment config and sample content", () => {
     expect(html).not.toContain("Sample issue");
     expect(text).toContain("PRIMARY SPONSOR");
     expect(text).toContain("SECONDARY SPONSOR");
-    expect(text).toContain("CLASSIFIED");
+    expect(text).not.toContain("CLASSIFIED");
+    expect(text).not.toContain("This quick-link slot is open");
     expect(text.indexOf("PRIMARY SPONSOR")).toBeLessThan(text.indexOf("SECONDARY SPONSOR"));
-    expect(text.indexOf("SECONDARY SPONSOR")).toBeLessThan(text.indexOf("CLASSIFIED"));
     expect(text).toContain("One standout this week.");
     expect(text).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(text).toContain(absoluteUrl("/aviation/unsubscribe"));
@@ -247,10 +248,10 @@ describe("segment config and sample content", () => {
       ...issue,
       sponsors: {
         ...issue.sponsors,
-        classified: {
+        secondary: {
           name: "Too Long",
           url: "/sponsor",
-          copy: Array.from({ length: 40 }, () => "word").join(" "),
+          copy: Array.from({ length: 61 }, () => "word").join(" "),
           cta: "Go",
           ctaUrl: "/sponsor",
         },

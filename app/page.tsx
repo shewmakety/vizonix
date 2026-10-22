@@ -104,7 +104,7 @@ export default function HomePage() {
         <div className="split">
           <div>
             <p className="kicker">How it is paid for</p>
-            <h2>Three labeled sponsor slots a week.</h2>
+            <h2>Two labeled sponsor slots a week.</h2>
             <p>
               A week is five weekday issues. Launch prices are published on the rate card, including a
               founding rate for the first 10 sponsors. Mentions that are not paid are not labeled as
@@ -120,7 +120,7 @@ export default function HomePage() {
               <li>One lead story.</li>
               <li>Tools, each with a reason it could change the money.</li>
               <li>The Toolbox, organized by the same topics.</li>
-              <li>Primary, secondary, and classified sponsor slots.</li>
+              <li>Primary and secondary sponsor slots.</li>
             </ol>
           </div>
         </div>
