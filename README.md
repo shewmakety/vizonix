@@ -53,7 +53,10 @@ Copy `.env.example` to `.env.local` for local work, and set the same keys in Ver
 | `GITHUB_TOKEN` | Vercel publish and bookings | Fine-grained token, Contents read and write, this repo only. |
 | `GITHUB_REPO` | Same | `owner/name`. |
 | `GITHUB_BRANCH` | Same | Defaults to `main`. |
-| `INDEXNOW_KEY` | IndexNow | Optional override. Hex key, 8 to 128 characters. When this is unset, `scripts/publish-issue.ts` uses the committed key `37974ccaf24526ab8e10a675a3fa4935`. The public file is [https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt](https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt). |
+| `INDEXNOW_KEY` | IndexNow | Optional override. Hex key, 8 to 128 characters. When this is unset, publish uses the committed key `37974ccaf24526ab8e10a675a3fa4935`. The public file is [https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt](https://www.vizonix.com/37974ccaf24526ab8e10a675a3fa4935.txt). |
+| `GSC_SERVICE_ACCOUNT_JSON` | Google Search Console | Service-account JSON, or a path to that file. When set, a real publish calls `sitemaps.submit`. When unset, the submit is logged as skipped. Add the service account email as a user on the property. |
+| `GSC_SITE_URL` | Google Search Console | Optional. Exact property. Defaults to `https://www.vizonix.com/`. Use `sc-domain:vizonix.com` for a domain property. |
+| `GSC_SITEMAP_URL` | Google Search Console | Optional. Sitemap to submit. Defaults to `https://www.vizonix.com/sitemap.xml`. |
 | `UNIPILE_DSN` | LinkedIn post | Unipile API base, for example `https://api1.unipile.com:13111`. |
 | `UNIPILE_API_KEY` | LinkedIn post | Sent as `X-API-KEY`. Do not commit it. |
 | `UNIPILE_ACCOUNT_ID` | LinkedIn post | Optional. First LinkedIn account is used when this is empty, and the id is logged. |
@@ -184,7 +187,9 @@ The app ships metadata, Open Graph (including a generated image), `sitemap.xml`,
 
 `robots.txt` allows `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `ClaudeBot`, `Claude-SearchBot`, `PerplexityBot`, `Google-Extended`, and the other agents listed in `app/robots.ts`. `/api/` is disallowed.
 
-After DNS is live, submit `https://vizonix.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools. A section that is not active is left out of the sitemap and its URL returns a 404.
+A real publish (the issue file was written, from `scripts/publish-issue.ts` or `POST /api/publish`) tells search engines about the new URLs. IndexNow gets the issue URL, the segment page, the toolbox, and `sitemap.xml`. Bing, Yandex, and the other IndexNow engines share that ping. The key is the committed public file, unless `INDEXNOW_KEY` overrides it. Google retired the anonymous sitemap ping, so Search Console is a separate call: when `GSC_SERVICE_ACCOUNT_JSON` is set, publish calls `sitemaps.submit` for `https://www.vizonix.com/sitemap.xml` (or `GSC_SITEMAP_URL`) on the property in `GSC_SITE_URL` (default `https://www.vizonix.com/`). When the JSON is unset, that call is logged as skipped. A failure from either call is logged and does not block the email. Sample issues and `--no-write` do not ping.
+
+Each issue URL in the sitemap uses that issue's date as `lastmod` (noon UTC on the date-only day, clamped so it is not in the future). A section that is not active is left out of the sitemap and its URL returns a 404.
 
 ## Adding a section
 
@@ -220,5 +225,5 @@ These are outside the repo:
 4. Point `vizonix.com` at Vercel.
 5. Use admin@vizonix.com as the only contact address. It is set in `lib/site.ts`. Sponsor inquiries go to the sponsor page.
 6. The aviation issue is `content/aviation/issues/2026-10-16.json`.
-7. Submit the sitemap to Google and Bing.
+7. For Google, create a Search Console service account, add its email as a user on the property, and set `GSC_SERVICE_ACCOUNT_JSON`. Set `GSC_SITE_URL` and `GSC_SITEMAP_URL` only if the property is not `https://www.vizonix.com/` or the sitemap is not `https://www.vizonix.com/sitemap.xml`. IndexNow does not need another secret.
 8. Have the terms page reviewed before you rely on it in a dispute.

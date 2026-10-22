@@ -1,5 +1,5 @@
-import { allIssues, allTools, issueModifiedInstant, toolUpdatedAt } from "@/lib/content";
-import { clampInstant } from "@/lib/dates";
+import { allIssues, allTools, toolUpdatedAt } from "@/lib/content";
+import { calendarInstant, clampInstant } from "@/lib/dates";
 import { toolTopicKeys } from "@/lib/directory";
 import { segments, toolDirectoryPath, topicPagePath } from "@/lib/segments";
 
@@ -65,6 +65,11 @@ function latest(dates: Date[], fallback: Date, now: Date): Date {
   return clampInstant(best, now);
 }
 
+/** Issue URL lastmod is the issue date (noon UTC), never a future instant. */
+function issueLastmod(issue: { date: string }, now: Date): Date {
+  return clampInstant(calendarInstant(issue.date), now);
+}
+
 export function sitemapEntries(now = new Date()): SitemapEntry[] {
   const epoch = clampInstant(SITE_PUBLISHED_AT, now);
   const issues = allIssues().filter((issue) => {
@@ -76,7 +81,7 @@ export function sitemapEntries(now = new Date()): SitemapEntry[] {
     return segment?.status === "active" && !tool.sample;
   });
 
-  const issueInstant = new Map(issues.map((issue) => [issue, issueModifiedInstant(issue, now)]));
+  const issueInstant = new Map(issues.map((issue) => [issue, issueLastmod(issue, now)]));
   const toolInstant = new Map(tools.map((tool) => [tool.slug + tool.segment, toolUpdatedAt(tool, now)]));
 
   const dates = new Map<string, Date>();
@@ -115,7 +120,7 @@ export function sitemapEntries(now = new Date()): SitemapEntry[] {
   }
 
   for (const issue of issues) {
-    dates.set(`/${issue.segment}/issues/${issue.date}`, issueModifiedInstant(issue, now));
+    dates.set(`/${issue.segment}/issues/${issue.date}`, issueLastmod(issue, now));
   }
   for (const tool of tools) {
     dates.set(
