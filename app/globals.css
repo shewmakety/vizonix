@@ -1101,3 +1101,60 @@ dl.facts dt { color: var(--muted); }
   .toolbox h1 { font-size: 28px; }
   .toolbox-grid { grid-template-columns: 1fr; }
 }
+
+.slot-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+.admin-wrap { max-width: 1100px; }
+.admin-wrap h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+.admin-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+.admin-nav { display: flex; flex-wrap: wrap; gap: 0.8rem 1.1rem; }
+.admin-nav a { font-weight: 650; text-decoration: none; }
+.admin-nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 0.2em; }
+.admin-logout { min-width: 8rem; }
+.admin-card { margin-bottom: 1rem; }
+.admin-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.admin-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; margin-bottom: 0.6rem; }
+.admin-table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; background: var(--card); }
+.admin-table th, .admin-table td {
+  text-align: left;
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.admin-table th { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.admin-legend { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.admin-legend .admin-day { min-height: 0; padding: 0.2rem 0.55rem; }
+.admin-calendar { width: 100%; border-collapse: separate; border-spacing: 0.35rem; margin-top: 0.8rem; }
+.admin-calendar th { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: left; }
+.admin-day {
+  border: 1px solid var(--line);
+  background: var(--card);
+  min-height: 4.6rem;
+  padding: 0.35rem;
+  vertical-align: top;
+  font-size: 0.82rem;
+}
+.admin-day.open { background: #eef5f0; border-color: var(--pine); }
+.admin-day.sold { background: var(--brass-soft); border-color: var(--brass); }
+.admin-day.held { background: #e7eef6; border-color: var(--navy); }
+.admin-day-num { display: block; font-weight: 700; }
+.admin-day-kind { display: block; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.admin-day-label { display: block; }
+@media (max-width: 720px) {
+  .admin-split { grid-template-columns: 1fr; }
+  .admin-bar { flex-direction: column; }
+  .admin-calendar { font-size: 0.72rem; }
+  .admin-day { min-height: 3.4rem; }
+}

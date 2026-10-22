@@ -88,7 +88,9 @@ describe("personalized issue send", () => {
         error: null,
       });
     const fetchMock = vi.fn(async (url: string) => {
-      expect(String(url)).toContain("/rest/v1/subscriber_prefs");
+      const target = String(url);
+      if (target.includes("/rest/v1/bookings")) return Response.json([]);
+      expect(target).toContain("/rest/v1/subscriber_prefs");
       return Response.json([
         { email: "a@example.com", excluded_sections: ["Warehousing", "Recruiting"] },
         { email: "b@example.com", excluded_sections: ["Recruiting", "Warehousing"] },
@@ -139,7 +141,8 @@ describe("personalized issue send", () => {
   });
 
   it("keeps a test send as one full copy and skips IndexNow when the file is not written", async () => {
-    const fetchMock = vi.fn(async () => {
+    const fetchMock = vi.fn(async (url: string) => {
+      if (String(url).includes("/rest/v1/bookings")) return Response.json([]);
       throw new Error("IndexNow should not be called");
     });
     vi.stubGlobal("fetch", fetchMock);
@@ -162,7 +165,8 @@ describe("personalized issue send", () => {
       testTo: "reader@example.com",
     });
     expect(sentWithoutWrite.indexNow).toMatchObject({ ok: false, skipped: "not published" });
-    expect(fetchMock).not.toHaveBeenCalled();
+    const outsideBookings = fetchMock.mock.calls.filter((call) => !String(call[0]).includes("/rest/v1/bookings"));
+    expect(outsideBookings).toEqual([]);
   });
 
   it("does not email anyone when saved topics cannot be read", async () => {

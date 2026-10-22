@@ -393,7 +393,11 @@ function slotHtml(slot: ResolvedSlot, absolute: boolean): string {
           <tr>
             <td style="padding:16px 18px;font-family:Georgia,serif;color:#1c1915;">
               <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8d6b3a;">${escapeHtml(slot.label)}</p>
-              <p style="margin:0 0 8px;font-size:18px;"><a href="${escapeHtml(href(creative.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(creative.name)}</a></p>
+              <p style="margin:0 0 8px;font-size:18px;">${
+                creative.logo
+                  ? `<img src="${escapeHtml(href(creative.logo, absolute))}" alt="" width="28" height="28" style="display:inline-block;vertical-align:middle;border:0;margin-right:8px;" />`
+                  : ""
+              }<a href="${escapeHtml(href(creative.url, absolute))}" style="color:#13233b;text-decoration:none;">${escapeHtml(creative.name)}</a></p>
               <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;">${escapeHtml(creative.copy)}</p>
               ${sample ? `<p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">${escapeHtml(sample)}</p>` : ""}
               <p style="margin:0;font-family:Arial,sans-serif;font-size:15px;">

@@ -76,9 +76,11 @@ describe("confirm stores pending choices", () => {
     );
     const result = await confirmSubscription(token);
     expect(result.ok).toBe(true);
-    const bodies = fetchMock.mock.calls.map((call) =>
-      JSON.parse(String((call as unknown as [string, RequestInit])[1].body)) as Record<string, unknown>,
-    );
+    const bodies = fetchMock.mock.calls.flatMap((call) => {
+      const init = (call as unknown as [string, RequestInit])[1];
+      if (!init?.body) return [];
+      return [JSON.parse(String(init.body)) as Record<string, unknown>];
+    });
     const prefs = bodies.find((body) => Array.isArray(body.excluded_sections));
     const suggestion = bodies.find((body) => body.text === "Hangar robots");
     expect(prefs).toMatchObject({
@@ -104,6 +106,10 @@ describe("confirm stores pending choices", () => {
     );
     const result = await confirmSubscription(token);
     expect(result.ok).toBe(true);
-    expect(fetchMock).not.toHaveBeenCalled();
+    const writes = fetchMock.mock.calls.filter((call) => {
+      const method = String((call as unknown as [string, RequestInit])[1]?.method || "GET").toUpperCase();
+      return method !== "GET";
+    });
+    expect(writes).toEqual([]);
   });
 });

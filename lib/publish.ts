@@ -12,6 +12,7 @@ import { loadExclusionMap } from "@/lib/prefs";
 import { fillReaderLinks, PREFERENCES_HREF, signedReaderLinks, UNSUBSCRIBE_HREF } from "@/lib/reader-links";
 import { parseIssue, type Issue } from "@/lib/schema";
 import { getSegment, segmentResendId } from "@/lib/segments";
+import { issueForDelivery } from "@/lib/bookings";
 import { tokenSecret } from "@/lib/tokens";
 
 export type PublishOptions = {
@@ -187,6 +188,7 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
 
   const segment = getSegment(issue.segment);
   if (!segment) throw new AppError("Unknown segment.", 400);
+  const liveIssue = await issueForDelivery(issue);
   const segmentId = segmentResendId(segment);
   const testTo = options.testTo || (!segmentId ? process.env.RESEND_TEST_TO : undefined);
   const mode = testTo || !segmentId ? "test" : "broadcast";
@@ -205,8 +207,8 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
       from,
       to: [testTo],
       subject,
-      html: renderIssueEmail(issue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
-      text: renderIssueText(issue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
+      html: renderIssueEmail(liveIssue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
+      text: renderIssueText(liveIssue, { mode: "test", preferencesUrl: links?.preferencesUrl, unsubscribeUrl: links?.unsubscribeUrl }),
       headers: links ? listUnsubscribeHeaders(links.unsubscribeUrl) : undefined,
     });
     if (result.error) throw new AppError(result.error.message, 502);
@@ -237,13 +239,13 @@ export async function sendIssue(issue: Issue, options: { testTo?: string }): Pro
 
   const ids: string[] = [];
   for (const group of groups) {
-    const htmlTemplate = renderIssueEmail(issue, {
+    const htmlTemplate = renderIssueEmail(liveIssue, {
       mode: "broadcast",
       excludedSections: group.excluded,
       unsubscribeUrl: UNSUBSCRIBE_HREF,
       preferencesUrl: PREFERENCES_HREF,
     });
-    const textTemplate = renderIssueText(issue, {
+    const textTemplate = renderIssueText(liveIssue, {
       mode: "broadcast",
       excludedSections: group.excluded,
       unsubscribeUrl: UNSUBSCRIBE_HREF,

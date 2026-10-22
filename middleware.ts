@@ -24,6 +24,15 @@ export function middleware(request: NextRequest) {
     url.pathname = indexNowPath;
     return NextResponse.rewrite(url);
   }
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    const response = NextResponse.next({
+      request: { headers: withSegmentHeader(request, null) },
+    });
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("Cache-Control", "no-store");
+    return response;
+  }
+
   const slug = pathname.split("/").filter(Boolean)[0];
   const found = slug ? getSegment(slug) : undefined;
   const segment = found?.status === "active" ? found : undefined;
