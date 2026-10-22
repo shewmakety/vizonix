@@ -191,7 +191,9 @@ describe("sponsor migration", () => {
     }
     const offenders = found.filter((file) => /\baviation\b/i.test(fs.readFileSync(file, "utf8")));
     expect(offenders).toEqual([]);
-    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual([...bookingPlacements]);
+    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual(
+      bookingPlacements.filter((id) => id !== "classified"),
+    );
     expect(placementChoices("not-a-section").find((item) => item.id === "01")?.label).toBe("Section 01");
     const live = segments.find((segment) => segment.status === "active");
     expect(live).toBeTruthy();
@@ -431,6 +433,7 @@ describe("sponsor admin auth and storage", () => {
         promote: "A parts search tool",
         budget: "$150 to $300",
         message: "We would like the founding listing.",
+        turnstileToken: TURNSTILE_TEST_TOKEN,
       }),
     );
     expect(response.status).toBe(200);
