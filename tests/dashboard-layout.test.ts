@@ -56,8 +56,8 @@ describe("Option B scannable dashboard", () => {
     expect(html).not.toContain("Sign-Up Now");
     expect(html).not.toContain("Suggest a topic");
     expect(html).not.toContain('name="email"');
-    expect(html).toContain("Pick your topics - get only the sections you care about");
-    expect(html).toContain('href="/join">Customize your issue</a>');
+    expect(html).not.toContain("Pick your topics - get only the sections you care about");
+    expect(html).not.toContain('href="/join">Customize your issue</a>');
     expect(html).not.toContain('class="ramp-heading"');
     expect(html.indexOf('aria-hidden="true">08<')).toBeLessThan(html.indexOf('class="issue-toolbox"'));
     expect(html.indexOf('class="issue-toolbox"')).toBeLessThan(html.indexOf('class="glossary-heading"'));

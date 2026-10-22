@@ -42,10 +42,20 @@ describe("preference routes", () => {
     const { POST } = await import("@/app/api/preferences/route");
     expect((await POST(request("/api/preferences", "not-json"))).status).toBe(400);
     expect((await POST(request("/api/preferences", {}))).status).toBe(400);
-    const forged = await POST(request("/api/preferences", { token: token("confirm"), excludedSections: [] }));
+    const forged = await POST(
+      request("/api/preferences", {
+        token: token("confirm"),
+        excludedSections: [],
+        turnstileToken: TURNSTILE_TEST_TOKEN,
+      }),
+    );
     expect(forged.status).toBe(400);
     const unknown = await POST(
-      request("/api/preferences", { token: token(), excludedSections: ["Not a topic"] }),
+      request("/api/preferences", {
+        token: token(),
+        excludedSections: ["Not a topic"],
+        turnstileToken: TURNSTILE_TEST_TOKEN,
+      }),
     );
     expect(unknown.status).toBe(400);
   });
@@ -55,7 +65,11 @@ describe("preference routes", () => {
     vi.stubGlobal("fetch", fetchMock);
     const { POST } = await import("@/app/api/preferences/route");
     const response = await POST(
-      request("/api/preferences", { token: token(), excludedSections: ["Warehousing", "Recruiting"] }),
+      request("/api/preferences", {
+        token: token(),
+        excludedSections: ["Warehousing", "Recruiting"],
+        turnstileToken: TURNSTILE_TEST_TOKEN,
+      }),
     );
     expect(response.status).toBe(200);
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
@@ -69,9 +83,13 @@ describe("preference routes", () => {
     expect(stored.excluded_sections).toEqual(["Recruiting", "Warehousing"]);
 
     for (let attempt = 0; attempt < 9; attempt += 1) {
-      expect((await POST(request("/api/preferences", { token: "bad", excludedSections: [] }))).status).toBe(400);
+      expect(
+        (await POST(request("/api/preferences", { token: "bad", excludedSections: [], turnstileToken: TURNSTILE_TEST_TOKEN }))).status,
+      ).toBe(400);
     }
-    expect((await POST(request("/api/preferences", { token: token(), excludedSections: [] }))).status).toBe(429);
+    expect(
+      (await POST(request("/api/preferences", { token: token(), excludedSections: [], turnstileToken: TURNSTILE_TEST_TOKEN }))).status,
+    ).toBe(429);
   });
 
   it("stores a suggestion from the preferences token", async () => {

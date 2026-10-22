@@ -121,6 +121,8 @@ async function main() {
       STRIPE_SECRET_KEY: "sk_test_smoke_placeholder",
       STRIPE_WEBHOOK_SECRET: "whsec_smoke",
       NEXT_PUBLIC_SITE_URL: "https://vizonix.com",
+      VERCEL_ENV: "preview",
+      TURNSTILE_SECRET_KEY: "1x0000000000000000000000000000000AA",
     },
   });
 
@@ -152,6 +154,13 @@ async function main() {
     if (!subscribePage.includes("Suggest a topic") || !subscribePage.includes("Recruiting")) {
       throw new Error("Subscribe page is missing the topic picker.");
     }
+    if (!join.includes("challenges.cloudflare.com/turnstile") || !subscribePage.includes("challenges.cloudflare.com/turnstile")) {
+      throw new Error("Join or subscribe is missing the Turnstile widget.");
+    }
+    const adminLogin = await fetch(`${base}/admin/sponsors`).then((response) => response.text());
+    if (!adminLogin.includes("Sponsor admin") || !adminLogin.includes("challenges.cloudflare.com/turnstile")) {
+      throw new Error("Sponsor admin login is missing the Turnstile widget.");
+    }
     const aviationPage = await fetch(`${base}/aviation`).then((response) => response.text());
     if (!aviationPage.includes("Suggest a topic")) {
       throw new Error("Aviation page is missing the topic picker.");
@@ -181,6 +190,19 @@ async function main() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ token: "not-a-token", excludedSections: [] }),
       },
+      403,
+    );
+    await expectStatus(
+      "/api/preferences",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          token: "not-a-token",
+          excludedSections: [],
+          turnstileToken: "XXXX.DUMMY.TOKEN.XXXX",
+        }),
+      },
       400,
     );
     await expectStatus(
@@ -198,7 +220,7 @@ async function main() {
     );
     await expectStatus("/api/unsubscribe", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
     await expectStatus("/api/publish", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 401);
-    await expectStatus("/api/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 400);
+    await expectStatus("/api/checkout", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }, 403);
     await expectStatus("/api/stripe/webhook", { method: "POST", body: "{}" }, 400);
     await expectStatus("/api/sponsor-inquiry", { method: "POST", body: "not-json" }, 400);
     await expectStatus(
@@ -271,6 +293,9 @@ async function main() {
     if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
       throw new Error("The issue still renders the classified quick-link slot.");
     }
+    if (thursdayIssue.includes("Pick your topics - get only the sections you care about")) {
+      throw new Error("The issue title card still shows the topic pitch.");
+    }
     await expectStatus("/aviation/issues/2026-10-14", { method: "GET" }, 404);
     await expectStatus("/legal/issues", { method: "GET" }, 404);
     await expectStatus("/legal/issues/2026-10-14", { method: "GET" }, 404);
@@ -316,6 +341,9 @@ async function main() {
     }
     if (!sponsor.includes("$175") || !sponsor.includes("$100") || !sponsor.includes("inquiry")) {
       throw new Error("Sponsor page is missing the rate card prices or the inquiry form.");
+    }
+    if (!sponsor.includes("challenges.cloudflare.com/turnstile")) {
+      throw new Error("Sponsor page is missing the Turnstile widget.");
     }
     if (sponsor.includes("Classified / Quick link") || sponsor.includes("quick-link slot")) {
       throw new Error("Sponsor page still lists the classified quick-link.");
@@ -547,6 +575,19 @@ async function main() {
     const robots = await fetch(`${base}/robots.txt`).then((response) => response.text());
     for (const bot of ["ClaudeBot", "PerplexityBot", "Google-Extended"]) {
       if (!robots.includes(bot)) throw new Error(`robots.txt is missing ${bot}`);
+    }
+
+    const security = await fetch(`${base}/.well-known/security.txt`);
+    const securityType = security.headers.get("content-type") ?? "";
+    const securityBody = await security.text();
+    if (security.status !== 200 || !securityType.toLowerCase().includes("text/plain")) {
+      throw new Error(`security.txt was not served as text/plain (${security.status} ${securityType}).`);
+    }
+    if (
+      securityBody !==
+      "Contact: mailto:admin@vizonix.com\nExpires: 2027-10-22T07:04:36.301Z\nPreferred-Languages: en\n"
+    ) {
+      throw new Error("security.txt body does not match the required lines.");
     }
 
     const failures = await checkLinks(base, pages.map(([pathname]) => pathname));

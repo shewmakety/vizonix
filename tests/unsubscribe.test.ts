@@ -1,6 +1,8 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { signToken, verifyToken } from "@/lib/tokens";
+import { TURNSTILE_TEST_SECRET } from "@/lib/turnstile";
+import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
 
 const resend = vi.hoisted(() => ({
   send: vi.fn(),
@@ -33,6 +35,8 @@ const envKeys = [
   "RESEND_SEGMENT_ID_AVIATION",
   "RESEND_TEST_TO",
   "NEXT_PUBLIC_SITE_URL",
+  "TURNSTILE_SECRET_KEY",
+  "VERCEL_ENV",
 ] as const;
 
 const previousEnv = Object.fromEntries(envKeys.map((key) => [key, process.env[key]]));
@@ -56,6 +60,8 @@ describe("unsubscribe", () => {
     process.env.EMAIL_FROM = "Vizonix <admin@vizonix.com>";
     process.env.RESEND_SEGMENT_ID_AVIATION = "seg_aviation";
     process.env.NEXT_PUBLIC_SITE_URL = "https://vizonix.com";
+    process.env.TURNSTILE_SECRET_KEY = TURNSTILE_TEST_SECRET;
+    process.env.VERCEL_ENV = "preview";
     delete process.env.RESEND_TEST_TO;
     resend.send.mockReset();
     resend.create.mockReset();
@@ -107,7 +113,7 @@ describe("unsubscribe", () => {
       new Request("https://vizonix.com/api/unsubscribe", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ token }),
+        body: JSON.stringify({ token, turnstileToken: TURNSTILE_TEST_TOKEN }),
       }),
     );
     expect(clicked.status).toBe(200);

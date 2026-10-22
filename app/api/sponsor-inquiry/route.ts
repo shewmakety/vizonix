@@ -4,6 +4,7 @@ import { notifyOps } from "@/lib/notify";
 import { site } from "@/lib/site";
 import { allowInquiry, inquiryClientKey, parseInquiry } from "@/lib/sponsor-inquiry";
 import { storePublicInquiry } from "@/lib/sponsor-store";
+import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -29,6 +30,15 @@ export async function POST(request: Request) {
       { error: "Too many notes from this network. Try again later." },
       { status: 429 },
     );
+  }
+
+  const verified = await verifyTurnstile({
+    token: turnstileTokenFrom(raw as object),
+    action: "inquiry",
+    remoteip: ip,
+  });
+  if (!verified.ok) {
+    return NextResponse.json({ error: verified.error }, { status: verified.status });
   }
 
   const inquiry = parsed.value;

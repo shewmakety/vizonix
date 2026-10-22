@@ -10,8 +10,16 @@ vi.mock("stripe", () => {
 });
 
 import { POST } from "@/app/api/checkout/route";
+import { TURNSTILE_TEST_SECRET } from "@/lib/turnstile";
+import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
 
-const envKeys = ["STRIPE_SECRET_KEY", "STRIPE_PRICE_AVIATION_PRIMARY", "STRIPE_PRICE_AVIATION_FEATURED"] as const;
+const envKeys = [
+  "STRIPE_SECRET_KEY",
+  "STRIPE_PRICE_AVIATION_PRIMARY",
+  "STRIPE_PRICE_AVIATION_FEATURED",
+  "TURNSTILE_SECRET_KEY",
+  "VERCEL_ENV",
+] as const;
 const previousEnv = Object.fromEntries(envKeys.map((key) => [key, process.env[key]]));
 
 function request(body: unknown): Request {
@@ -27,6 +35,8 @@ describe("checkout route", () => {
     process.env.STRIPE_SECRET_KEY = "sk_test_checkout";
     process.env.STRIPE_PRICE_AVIATION_PRIMARY = "price_primary";
     process.env.STRIPE_PRICE_AVIATION_FEATURED = "price_featured";
+    process.env.TURNSTILE_SECRET_KEY = TURNSTILE_TEST_SECRET;
+    process.env.VERCEL_ENV = "preview";
     create.mockReset();
     create.mockResolvedValue({ id: "cs_test", url: "https://checkout.stripe.com/c/pay/cs_test" });
   });
@@ -47,6 +57,7 @@ describe("checkout route", () => {
         startDate: "2027-01-04",
         email: "buyer@firm.example",
         quantity: 1,
+        turnstileToken: TURNSTILE_TEST_TOKEN,
       }),
     );
     expect(oneTime.status).toBe(200);
@@ -58,6 +69,7 @@ describe("checkout route", () => {
         email: "buyer@firm.example",
         company: "Hangar Co",
         adCopyUrl: "https://hangar.example/tool",
+        turnstileToken: TURNSTILE_TEST_TOKEN,
       }),
     );
     expect(subscription.status).toBe(200);

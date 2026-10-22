@@ -1,6 +1,11 @@
 export type TurnstileAction =
   | "signup"
   | "suggest"
+  | "preferences"
+  | "inquiry"
+  | "checkout"
+  | "confirm"
+  | "unsubscribe"
   | "admin-login"
   | "admin-sponsor"
   | "admin-booking"

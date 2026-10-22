@@ -71,7 +71,7 @@ describe("What We Do and the shared issue header", () => {
     expect(title).toContain("font-size: 38px");
     expect(title).toContain("margin: 0 0 10px");
     expect(title).toContain("color: #ffffff");
-    const dateline = css.slice(css.indexOf(".issue-title-date {"), css.indexOf(".issue-customize {"));
+    const dateline = css.slice(css.indexOf(".issue-title-date {"), css.indexOf(".what-we-do {"));
     expect(dateline).toContain("color: #c9b98f");
     expect(dateline).toContain("font-weight: 400");
     const block = css.slice(css.indexOf(".what-we-do {"), css.indexOf(".what-we-do p"));

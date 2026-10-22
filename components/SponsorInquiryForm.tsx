@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { inquiryBudgets } from "@/lib/sponsor-inquiry";
 
 type Status = { kind: "idle" | "working" | "error" | "sent"; message: string };
 
 export function SponsorInquiryForm() {
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    if (!turnstileToken) {
+      setStatus({ kind: "error", message: "Verification is still loading. Try again." });
+      return;
+    }
     setStatus({ kind: "working", message: "" });
     const response = await fetch("/api/sponsor-inquiry", {
       method: "POST",
@@ -23,8 +30,10 @@ export function SponsorInquiryForm() {
         budget: form.get("budget"),
         message: form.get("message"),
         company_website: form.get("company_website"),
+        turnstileToken,
       }),
     });
+    turnstile.current?.reset();
     const body = (await response.json()) as { error?: string; ok?: boolean };
     if (!response.ok || !body.ok) {
       setStatus({ kind: "error", message: body.error || "The inquiry could not be sent." });
@@ -72,6 +81,7 @@ export function SponsorInquiryForm() {
         <label htmlFor="inquiry-company-website">Company website</label>
         <input id="inquiry-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
+      <TurnstileField ref={turnstile} action="inquiry" onToken={setTurnstileToken} />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Sending" : "Send the inquiry"}

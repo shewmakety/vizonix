@@ -68,6 +68,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|icon.svg|robots.txt|sitemap.xml|llms.txt|llms-full.txt|37974ccaf24526ab8e10a675a3fa4935.txt).*)",
+    "/((?!_next/static|_next/image|favicon.ico|icon.svg|robots.txt|sitemap.xml|llms.txt|llms-full.txt|37974ccaf24526ab8e10a675a3fa4935.txt|\\.well-known/security\\.txt).*)",
   ],
 };
