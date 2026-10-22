@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { IssueBody } from "@/components/IssueBody";
 import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { sectionHeadingLabel, topStoryLabel } from "@/lib/issue-present";
 import { issueSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
@@ -64,9 +65,10 @@ describe("issue polish", () => {
     expect(site.postalAddress).toBe(postalAddress);
     const email = renderIssueEmail(issue, { mode: "test" });
     const text = renderIssueText(issue, { mode: "test" });
-    expect(email).toContain(postalAddress);
+    const postalHtml = escapeHtml(postalAddress);
+    expect(email).toContain(postalHtml);
     expect(text).toContain(postalAddress);
-    expect(email.indexOf(postalAddress)).toBeLessThan(email.indexOf("Contact us at:"));
+    expect(email.indexOf(postalHtml)).toBeLessThan(email.indexOf("Contact us at:"));
     expect(text.indexOf(postalAddress)).toBeLessThan(text.indexOf("Contact us at:"));
 
     site.postalAddress = "   ";
