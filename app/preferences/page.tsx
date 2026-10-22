@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata = pageMeta({
   title: "Manage your topics",
-  description: "Choose which aviation topics stay in your Vizonix briefing.",
+  description: "Choose which topics stay in your Vizonix briefing.",
   canonical: "/preferences",
   robots: { index: false, follow: false },
 });
@@ -44,7 +44,7 @@ export default async function PreferencesPage({
           <h1>Manage your topics</h1>
           {!token ? (
             <p>
-              Open the Manage your topics link in any briefing. That link is signed for your email
+              Open the Customize link in any briefing. That link is signed for your email
               address. There is no password.
             </p>
           ) : !secret ? (
@@ -54,8 +54,8 @@ export default async function PreferencesPage({
           ) : (
             <>
               <p>
-                Choices for {payload.email} on the {segmentDisplayName(live)} briefing. Top story, The
-                Ramp, and sponsor slots stay in every issue.
+                Choices for {payload.email} on the {segmentDisplayName(live)} briefing. Top story and
+                sponsor slots stay in every issue.
               </p>
               <p>
                 Questions: <a href={`mailto:${site.email}`}>{site.email}</a>

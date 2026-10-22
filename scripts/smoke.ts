@@ -131,7 +131,7 @@ async function main() {
     }
 
     const join = await fetch(`${base}/join?src=linkedin`).then((response) => response.text());
-    if (!join.includes("Suggest a topic") || !join.includes("Top story, The Ramp, and sponsor slots")) {
+    if (!join.includes("Suggest a topic") || !join.includes("The top story and the sponsor slot, every time.")) {
       throw new Error("Join page is missing the topic picker.");
     }
     const latest = latestPublishedIssue("aviation");
@@ -511,11 +511,10 @@ async function main() {
     if (issuePage.includes("Visit the Toolbox")) {
       throw new Error("Issue page still has the one-line Toolbox link.");
     }
-    const rampAt = issuePage.indexOf('class="ramp-heading"');
     const toolboxAt = issuePage.indexOf('class="issue-toolbox"');
     const glossaryAt = issuePage.indexOf('class="glossary-heading"');
-    if (rampAt < 0 || toolboxAt < rampAt || glossaryAt < toolboxAt) {
-      throw new Error("Toolbox card is not between The Ramp and the glossary.");
+    if (issuePage.includes('class="ramp-heading"') || toolboxAt < 0 || glossaryAt < toolboxAt) {
+      throw new Error("Toolbox card is not above the glossary.");
     }
     if (!issuePage.includes('width="80"') || !issuePage.includes('height="64"')) {
       throw new Error("Toolbox icon is not the 64px in-card size.");

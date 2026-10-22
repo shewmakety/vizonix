@@ -3,6 +3,11 @@ export const site = {
   description:
     "A free weekday morning briefing on AI tools, bots, models, and resources that make a specific business more profitable. Aviation first.",
   email: "admin@vizonix.com",
+  /**
+   * CAN-SPAM postal address, printed at the bottom of the issue email.
+   * No street address is on file. Set this when the operator provides one.
+   */
+  postalAddress: "",
 };
 
 export const editor = {

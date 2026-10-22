@@ -23,7 +23,7 @@ function canonicalSection(value: string): string {
 export type OptionalSection = (typeof optionalSections)[number];
 
 /** Always rendered. They are not checkboxes. */
-export const alwaysOnLabels = ["Top story", "The Ramp", "Sponsor slots"] as const;
+export const alwaysOnLabels = ["Top story", "Sponsor slots"] as const;
 
 const allowed = new Set<string>(optionalSections);
 

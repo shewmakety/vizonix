@@ -19,7 +19,7 @@ export function SectionChoices({
     <fieldset className="topic-picker">
       <legend>Topics in the briefing</legend>
       <p className="form-note">
-        Top story, The Ramp, and sponsor slots stay in every issue. Uncheck a topic to leave it out of the email.
+        Top story and sponsor slots stay in every issue. Uncheck a topic to leave it out of the email.
       </p>
       <input type="hidden" name="topic_picker" value="1" />
       {sections.map((section) => {

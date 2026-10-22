@@ -16,18 +16,18 @@ describe("issue section headings", () => {
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
     const topics = [
       ["01", "recruiting", "Recruiting"],
-      ["02", "sales-and-marketing", "Sales and marketing"],
-      ["03", "predictive-maintenance", "Predictive maintenance"],
-      ["04", "maintenance-activity-optimization", "Maintenance activity optimization"],
-      ["05", "troubleshooting-support", "Troubleshooting support"],
+      ["02", "sales-and-marketing", "Sales & Marketing"],
+      ["03", "predictive-maintenance", "Predictive Maintenance"],
+      ["04", "maintenance-activity-optimization", "Maintenance Activity Optimization"],
+      ["05", "troubleshooting-support", "Troubleshooting Support"],
       ["06", "warehousing", "Warehousing"],
-      ["07", "aog-support-parts-rotables-and-technicians", "AOG support: parts, rotables and technicians"],
+      ["07", "aog-support-parts-rotables-and-technicians", "AOG Support: Parts, Rotables & Technicians"],
       ["08", "general-ai-productivity-tools", productivitySectionTopic],
     ] as const;
     for (const [number, id, topic] of topics) {
       expect(html).toContain(`id="${id}"`);
       expect(html).toContain(`<span class="section-number" aria-hidden="true">${number}</span>`);
-      expect(html).toContain(`<span class="section-title">${topic}</span>`);
+      expect(html).toContain(`<span class="section-title">${topic.replaceAll("&", "&amp;")}</span>`);
     }
     expect(html).toContain('class="section-heading"');
     expect(html).toContain("<h2>Veryon puts an AI assistant inside the business aviation maintenance record</h2>");
@@ -40,7 +40,8 @@ describe("issue section headings", () => {
     const heading = css.slice(css.indexOf(".section-heading {"), css.indexOf(".section-number {"));
     expect(heading).toContain("display: flex");
     expect(heading).toContain("align-items: center");
-    expect(heading).toContain("gap: 12px");
+    expect(heading).toContain("justify-content: flex-start");
+    expect(heading).toContain("gap: 8px");
     expect(heading).toContain("border-bottom: 3px solid #13233b");
     expect(heading).toContain("padding: 0 0 6px");
     expect(heading).toContain("margin: 0 0 8px");
@@ -73,14 +74,15 @@ describe("issue section headings", () => {
     expect(email).not.toContain("issue-section");
     expect(email).toContain("border-bottom:3px solid #13233b");
     expect(email).toContain('valign="middle"');
+    expect(email).not.toContain('width="70"');
     expect(email).toContain(
-      'style="font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;line-height:1;color:#c9b98f;">01</td>',
+      'style="padding:0 8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;line-height:1;color:#c9b98f;white-space:nowrap;">01</td>',
     );
     expect(email).toContain(
-      'style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
+      'style="text-align:left;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
     );
     expect(email).toContain(
-      `style="font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
+      `style="text-align:left;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
     );
     expect(email).toContain("background:#14532D;border-radius:10px");
     expect(html).toContain('class="issue-section productivity"');
@@ -120,7 +122,7 @@ describe("issue section headings", () => {
     expect(email).toContain("background:#f7efe2;border:1px solid #e0cfae");
     expect(email).not.toContain('<h2 style="margin:0;font-size:22px;font-weight:normal;">Recruiting</h2>');
     expect(email.indexOf(">01</td>")).toBeLessThan(email.indexOf(">08</td>"));
-    expect(email.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+    expect(email.indexOf(">AOG Support: Parts, Rotables &amp; Technicians</td>")).toBeLessThan(
       email.indexOf(`>${productivitySectionTopic}</td>`),
     );
   });

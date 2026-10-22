@@ -97,6 +97,8 @@ const issueToolSchema = z.object({
   whyItMatters: z.string().trim().min(1).max(1200),
   url: href,
   sourceUrl: href.optional(),
+  /** Vendor homepage or product page. Distinct from the source article. */
+  vendorUrl: httpUrl.optional(),
   pricing: z.string().trim().min(1).max(200),
   /** Set on a flat tools list so the page can group blurbs that share a topic. */
   topic: z.string().trim().min(1).max(120).optional(),
@@ -207,7 +209,7 @@ export const issueSchema = z
       sourceUrl: href,
       productUrl: href.optional(),
     }),
-    /** Best X posts of the day. Omitted issues skip The Ramp. */
+    /** Stored X posts. The page and the email do not render this block. */
     ramp: rampSchema.optional(),
     /**
      * Flat list. Required unless `sections` is set.

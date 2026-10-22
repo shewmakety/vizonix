@@ -197,7 +197,7 @@ describe("segment config and sample content", () => {
     expect(html).toContain("$ Why it pays:");
     expect(html).not.toContain("Why it can make the operation money.");
     expect(html).not.toContain("Why it can make the practice money.");
-    expect(html.indexOf(">AOG support: parts, rotables and technicians</td>")).toBeLessThan(
+    expect(html.indexOf(">AOG Support: Parts, Rotables &amp; Technicians</td>")).toBeLessThan(
       html.indexOf(">General AI Productivity Tools</td>"),
     );
     expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));

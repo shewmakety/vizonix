@@ -348,7 +348,8 @@ input:focus, select:focus, textarea:focus {
 .section-heading {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 8px;
   max-width: 100%;
   margin: 0 0 8px;
   padding: 0 0 6px;
@@ -873,7 +874,10 @@ dl.facts dt { color: var(--muted); }
 }
 .issue-section.productivity .section-sponsor { background: #f7f5f0; color: #4a5262; }
 .issue-section.productivity .section-sponsor a { color: #13233b; }
-.issue-section.productivity .section-sponsor.open a { color: #6b645b; }
+.issue-section.productivity .section-sponsor.open {
+  border-color: #d7e8dc;
+}
+.issue-section.productivity .section-sponsor.open a { color: #ffffff; }
 
 @media (max-width: 860px) {
   .hero-grid, .split, .issue-layout, .cards, .tool-grid, .dash-hero, .dash-grid, .dash-split { grid-template-columns: 1fr; }

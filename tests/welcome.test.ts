@@ -100,7 +100,9 @@ describe("welcome email on confirm", () => {
     expect(payload.text).toContain("Open the Toolbox: https://vizonix.com/aviation/toolbox?src=email");
     expect(payload.text).toContain("READ ON WEB: https://vizonix.com/aviation/issues/2026-10-22");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
-    expect(payload.html).toContain("Manage your topics");
+    expect(payload.html).toContain("Contact us at:");
+    expect(payload.html).toContain(">CUSTOMIZE<");
+    expect(payload.html).not.toContain("Manage your topics");
     expect(payload.html).toContain("/preferences?token=");
     expect(payload.html).not.toContain("{{{RESEND_UNSUBSCRIBE_URL}}}");
     expect(payload.text).toContain("Thanks for confirming");
