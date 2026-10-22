@@ -78,9 +78,10 @@ describe("header wordmark", () => {
     const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(gold)));
     expect(masthead).not.toContain("text-transform");
     const gap = email.slice(0, email.indexOf("background:#13233b"));
-    expect(gap).toContain('height="32"');
-    expect(gap).toContain("background:#f4f1ea");
-    expect(gap).toContain("mso-line-height-rule:exactly");
+    expect(gap).toContain('width="640"');
+    expect(gap).toContain("background-color:#d5dbe3");
+    expect(gap).toContain("border:1px solid #cfd5de");
+    expect(gap).toContain("border-radius:12px");
     expect(text.startsWith(`${wordmark}\n`)).toBe(true);
     expect(issueEmailSubject(issue.subject, issue.date)).toBe(
       `${ISSUE_EMAIL_SUBJECT_PREFIX}${formatShortDate(issue.date)} - ${issue.subject}`,

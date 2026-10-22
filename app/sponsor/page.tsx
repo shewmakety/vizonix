@@ -12,7 +12,6 @@ import {
   getPlacement,
   launchPlacements,
   loyaltyDiscount,
-  maxNewsletterSponsors,
   publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
@@ -111,8 +110,8 @@ export default async function SponsorPage({
           </table>
         </div>
         <p className="form-note">
-          Maximum {maxNewsletterSponsors} newsletter sponsors per issue. Exclusivity, the only sponsor
-          that week, is {exclusivityPremium * 100}% more. Founding price: the first {foundingSponsorCap}{" "}
+          Exclusivity, the only sponsor that week, is {exclusivityPremium * 100}% more. Founding price:
+          the first {foundingSponsorCap}{" "}
           sponsors, locked for 3 months, then the current tier with a {loyaltyDiscount * 100}% loyalty
           discount for 3 more months.
         </p>

@@ -13,11 +13,10 @@ import { unsubscribePath } from "@/lib/segment-memory";
 import { signToken, tokenSecret } from "@/lib/tokens";
 import {
   absoluteUrl,
+  customizeCard,
   customizeLinkLabel,
   customizePitch,
-  customizeWebPath,
   sectionWordmark,
-  signupBlockHeading,
   site,
   toolboxCard,
   toolboxCardIcon,
@@ -286,36 +285,35 @@ function rampEmailText(ramp: Ramp | undefined): string[] {
   return lines;
 }
 
-const nextIssueNote =
-  "Free, one section at a time. We send a confirmation email first. You can leave from any issue.";
-
-function nextIssueEmailHtml(segmentSlug: string, sectionName: string, preferencesUrl: string): string {
-  const join = absoluteUrl(customizeWebPath);
-  const issues = absoluteUrl(`/${segmentSlug}/issues`);
+function navyCardEmailHtml(heading: string, bodyHtml: string): string {
   return `
           <tr>
             <td style="padding:14px 20px 0;">
-              <div style="background:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.2;color:#13233b;">${escapeHtml(signupBlockHeading)}</h2>
-                ${customizeEmailHtml(preferencesUrl, false)}
-                <p style="margin:12px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#4a5262;">${escapeHtml(nextIssueNote)}</p>
-                <a href="${escapeHtml(join)}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:8px 14px;border-radius:4px;">Send confirmation</a>
-                <p style="margin:12px 0 0;font-family:Arial,sans-serif;font-size:13px;"><a href="${escapeHtml(issues)}" style="color:#14532D;">All ${escapeHtml(sectionName)} issues</a></p>
+              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
+                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(heading)}</h2>
+                ${bodyHtml}
               </div>
             </td>
           </tr>`;
 }
 
-function nextIssueEmailText(segmentSlug: string, sectionName: string, preferencesUrl: string): string[] {
-  return [
-    signupBlockHeading.toUpperCase(),
-    customizePitch,
-    `${customizeLinkLabel}: ${preferencesUrl}`,
-    nextIssueNote,
-    `Send confirmation: ${absoluteUrl(customizeWebPath)}`,
-    `All ${sectionName} issues: ${absoluteUrl(`/${segmentSlug}/issues`)}`,
-    "",
-  ];
+function whatWeDoEmailHtml(): string {
+  return navyCardEmailHtml(
+    whatWeDo.heading,
+    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>`,
+  );
+}
+
+function customizeCardEmailHtml(preferencesUrl: string): string {
+  const button = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-top:14px;"><tr><td bgcolor="#c9b98f" style="background-color:#c9b98f;border-radius:4px;"><a href="${escapeHtml(preferencesUrl)}" style="display:inline-block;padding:8px 14px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.2;color:#13233b;text-decoration:none;">${escapeHtml(customizeCard.action)}</a></td></tr></table>`;
+  return navyCardEmailHtml(
+    customizeCard.heading,
+    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(customizeCard.copy)}</p>${button}`,
+  );
+}
+
+function customizeCardEmailText(preferencesUrl: string): string[] {
+  return [customizeCard.heading.toUpperCase(), customizeCard.copy, `${customizeCard.action}: ${preferencesUrl}`, ""];
 }
 
 function glossaryEmailHtml(issue: Issue): string {
@@ -559,15 +557,21 @@ function jumpEmailHtml(sections: IssueSectionView[]): string {
           </tr>`;
 }
 
-function forwardEmailHtml(issue: Issue): string {
+const issueActionLinkStyle =
+  "color:#14532D;font-weight:700;text-decoration:underline;white-space:nowrap;word-break:normal;";
+
+function issueActionsEmailHtml(issue: Issue, archive: string): string {
   const mailto = escapeHtml(forwardMailto(issue));
+  const sep = `<span style="color:#8a8175;font-weight:400;white-space:nowrap;"> • </span><wbr>`;
   return `<tr>
-            <td style="padding:14px 20px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;">
-              <a href="${escapeHtml(forwardedSubscribeUrl)}" style="color:#14532D;font-weight:700;">Forwarded this? Subscribe!</a>
-              <span style="color:#8a8175;"> · </span>
-              <a href="${mailto}" style="color:#14532D;">Forward this</a>
+            <td class="vz-actions" align="center" style="padding:12px 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.4;letter-spacing:0.03em;text-align:center;white-space:nowrap;word-break:normal;">
+              <a href="${escapeHtml(forwardedSubscribeUrl)}" style="${issueActionLinkStyle}">SUBSCRIBE</a>${sep}<a href="${mailto}" style="${issueActionLinkStyle}">FORWARD TO A COLLEAGUE</a>${sep}<a href="${escapeHtml(archive)}" style="${issueActionLinkStyle}">READ ON WEB</a>
             </td>
           </tr>`;
+}
+
+function issueActionsText(issue: Issue, archive: string): string {
+  return `SUBSCRIBE: ${forwardedSubscribeUrl} • FORWARD TO A COLLEAGUE: ${forwardMailto(issue)} • READ ON WEB: ${archive}`;
 }
 
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
@@ -606,32 +610,16 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
   const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
-  const readOnWeb = `<a href="${escapeHtml(archive)}" style="color:#14532D;text-decoration:underline;">Read on the web</a>`;
-  const linkRow = directoryLink
+  const directoryRow = directoryLink
     ? `<tr>
-            <td style="padding:8px 20px 0;">
-              <table role="presentation" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    <a href="${escapeHtml(directoryLink.href)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
-                  </td>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;color:#8a8175;padding:0 8px;">|</td>
-                  <td style="font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-                    ${readOnWeb}
-                  </td>
-                </tr>
-              </table>
+            <td style="padding:8px 20px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
+              <a href="${escapeHtml(directoryLink.href)}" style="color:#14532D;text-decoration:underline;">${escapeHtml(directoryLink.label)}</a>
             </td>
           </tr>`
-    : `<tr>
-            <td style="padding:8px 20px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.4;">
-              ${readOnWeb}
-            </td>
-          </tr>`;
+    : "";
   const product = issue.lead.productUrl
     ? `<p style="margin:6px 0 0;font-family:Arial,sans-serif;font-size:13px;color:#5f584e;">Product: <a href="${escapeHtml(href(issue.lead.productUrl, absolute))}" style="color:#14532D;">${escapeHtml(issue.lead.productUrl)}</a></p>`
     : "";
-  const mailto = escapeHtml(forwardMailto(issue));
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -640,26 +628,40 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(issue.subject)}</title>
   <style>
-    @media only screen and (max-width: 620px) {
+    @media only screen and (max-width: 680px) {
       .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
+      .vz-actions { font-size: 10px !important; letter-spacing: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+    }
+    @media only screen and (max-width: 380px) {
+      .vz-actions { font-size: 9px !important; }
+    }
+    @media only screen and (max-width: 330px) {
+      .vz-actions { white-space: normal !important; }
     }
   </style>
 </head>
-<body style="margin:0;padding:0;background:#f3f4f6;">
-  <div style="display:none;max-height:0;overflow:hidden;color:#f3f4f6;">${escapeHtml(preview)}</div>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;">
-    ${emailMastheadGap()}
+<body bgcolor="#d5dbe3" style="margin:0;padding:0;background-color:#d5dbe3;">
+  <div style="display:none;max-height:0;overflow:hidden;color:#d5dbe3;">${escapeHtml(preview)}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#d5dbe3" style="background-color:#d5dbe3;">
     <tr>
-      <td align="center" style="background:#f3f4f6;">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="vz-wrap" style="width:600px;max-width:600px;table-layout:fixed;word-break:break-word;background:#f3f4f6;">
+      <td align="center" bgcolor="#d5dbe3" style="background-color:#d5dbe3;padding:28px 12px;">
+        <!--[if mso]>
+        <table role="presentation" align="center" width="640" cellpadding="0" cellspacing="0" border="0"><tr><td>
+        <![endif]-->
+        <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" class="vz-wrap" bgcolor="#ffffff" style="width:640px;max-width:640px;border-collapse:separate;border-spacing:0;background-color:#ffffff;border-radius:12px;">
+          <tr>
+            <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${issueHeaderHtml(issue.subject, issueHeaderLine(issue), issuePreferences(options))}
-          ${forwardEmailHtml(issue)}
-          ${linkRow}
+          ${issueActionsEmailHtml(issue, archive)}
+          ${directoryRow}
           ${jumpEmailHtml(visibleSections)}
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
+          ${whatWeDoEmailHtml()}
+          ${customizeCardEmailHtml(preferences)}
           <tr>
             <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;border-top:5px solid #14532D;padding:22px;">
@@ -677,15 +679,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               </div>
             </td>
           </tr>
-          <tr>
-            <td style="padding:14px 20px 0;">
-              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(whatWeDo.heading)}</h2>
-                <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>
-              </div>
-            </td>
-          </tr>
-          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment, issuePreferences(options))}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
@@ -709,17 +702,22 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${rampEmailHtml(issue.ramp)}
           ${toolboxCardEmailHtml(issue.segment)}
           ${glossaryEmailHtml(issue)}
+          ${issueActionsEmailHtml(issue, archive)}
           <tr>
             <td style="padding:16px 20px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
-              <p style="margin:0 0 8px;"><a href="${mailto}" style="color:#14532D;">Forward this</a></p>
-              <p style="margin:0 0 8px;"><a href="${escapeHtml(archive)}" style="color:#14532D;">Read this issue on the web</a></p>
               <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
               <p style="margin:0 0 8px;"><a href="mailto:${escapeHtml(site.email)}" style="color:#14532D;">${escapeHtml(site.email)}</a></p>
               <p style="margin:0 0 8px;"><a href="${escapeHtml(preferences)}" style="color:#14532D;">Manage your topics</a></p>
               <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#14532D;">Unsubscribe</a></p>
             </td>
           </tr>
+              </table>
+            </td>
+          </tr>
         </table>
+        <!--[if mso]>
+        </td></tr></table>
+        <![endif]-->
       </td>
     </tr>
   </table>
@@ -734,7 +732,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
   const directoryLink = issue.segment === "aviation" ? null : issueDirectoryLink(issue.segment);
   const unsubscribe = issueUnsubscribe(issue.segment, options);
   const preferences = issuePreferences(options);
-  const mailto = forwardMailto(issue);
 
   function slotLines(label: string, creative: SponsorCreative | null, name: SlotName): string[] {
     const resolved = resolveSlot(name, creative);
@@ -749,14 +746,13 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     customizePitch,
     `${customizeLinkLabel}: ${preferences}`,
     "",
-    `Forwarded this? Subscribe! ${forwardedSubscribeUrl}`,
-    `Forward this: ${mailto}`,
+    issueActionsText(issue, archive),
     "",
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
+    ...customizeCardEmailText(preferences),
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
-    `Read on the web: ${archive}`,
     "",
     ...(options.introText ? [options.introText, ""] : []),
     ...(issue.sample
@@ -770,7 +766,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
-    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment, preferences),
     ...sectionsForReader(issue, options.excludedSections).flatMap((section) =>
       sectionEmailText(section, sectionSponsorRatesUrl(issue)),
     ),
@@ -786,8 +781,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     ...rampEmailText(issue.ramp),
     ...toolboxCardText(issue.segment),
     ...glossaryEmailText(issue),
-    `Read this issue on the web: ${archive}`,
-    `Forward this: ${mailto}`,
+    issueActionsText(issue, archive),
     `Manage your topics: ${preferences}`,
     `Unsubscribe: ${unsubscribe}`,
   ];
