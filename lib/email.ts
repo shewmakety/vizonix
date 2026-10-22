@@ -20,13 +20,13 @@ import {
   toolboxCardIcon,
   whatWeDo,
 } from "@/lib/site";
+import { formatNumericDate } from "@/lib/dates";
 import { escapeHtml, publicHref } from "@/lib/html";
 import {
   chipLabel,
   contactVendorParts,
   forwardMailto,
   forwardedSubscribeUrl,
-  issueHeaderLine,
   sectionAnchor,
   sectionHeadingLabel,
   sectionSponsorKicker,
@@ -36,7 +36,13 @@ import {
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import { sectionsForReader } from "@/lib/personalize";
-import { getSegment, segmentDisplayName, toolDirectoryLabel, toolDirectoryPath } from "@/lib/segments";
+import {
+  getSegment,
+  segmentDisplayName,
+  segmentHeaderName,
+  toolDirectoryLabel,
+  toolDirectoryPath,
+} from "@/lib/segments";
 import { toolboxCardHref } from "@/lib/toolbox";
 
 export type SlotName = "primary" | "secondary" | "classified";
@@ -503,7 +509,7 @@ function emailMasthead(sectionName: string): string {
 function emailSiteHeader(issue: Issue): string {
   const segment = getSegment(issue.segment);
   const active = segment?.status === "active" ? segment : undefined;
-  const wordmark = active ? sectionWordmark(segmentDisplayName(active)) : site.name;
+  const wordmark = active ? sectionWordmark(segmentHeaderName(active)) : site.name;
   const home = absoluteUrl(active ? `/${active.slug}` : "/");
   const sponsor = absoluteUrl("/sponsor");
   const about = absoluteUrl("/about");
@@ -533,8 +539,8 @@ function emailSiteHeader(issue: Issue): string {
                   </td>
                 </tr>
                 <tr>
-                  <td align="left" style="padding:12px 0 0;">
-                    <table role="presentation" align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                  <td align="right" style="padding:12px 0 0;text-align:right;">
+                    <table role="presentation" align="right" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-left:auto;">
                       <tr>
                         <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(sponsor)}" style="${navLink}">Sponsor</a></td>
                         <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(about)}" style="${navLink}">About</a></td>
@@ -549,11 +555,17 @@ function emailSiteHeader(issue: Issue): string {
           </tr>`;
 }
 
-function issueHeaderHtml(title: string, dateline: string): string {
+/** Gray band between the navy header and the title card. Outlook keeps a spacer row and drops margin. */
+function emailHeaderGap(): string {
+  return `<tr>
+      <td height="22" bgcolor="#f3f4f6" style="height:22px;line-height:22px;font-size:1px;mso-line-height-rule:exactly;background-color:#f3f4f6;">&nbsp;</td>
+    </tr>`;
+}
+
+function issueHeaderHtml(title: string, numericDate: string): string {
   return `<tr>
             <td style="background:#13233b;padding:26px 20px;">
-              <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${escapeHtml(title)}</h1>
-              <p style="margin:10px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;line-height:1.4;color:#c9b98f;">${escapeHtml(dateline)}</p>
+              <h1 style="margin:0;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${escapeHtml(title)}<span style="color:#c9b98f;"> · ${escapeHtml(numericDate)}</span></h1>
             </td>
           </tr>`;
 }
@@ -668,7 +680,8 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
             <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${emailSiteHeader(issue)}
-          ${issueHeaderHtml(issue.subject, issueHeaderLine(issue))}
+          ${emailHeaderGap()}
+          ${issueHeaderHtml(issue.subject, formatNumericDate(issue.date))}
           ${issueActionsEmailHtml(issue, archive, preferences)}
           ${directoryRow}
           ${jumpEmailHtml(visibleSections)}
@@ -736,10 +749,10 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     return [label, resolved.creative.name, resolved.creative.copy, `${resolved.creative.cta}: ${url}`, ""];
   }
 
+  const headerName = segment ? segmentHeaderName(segment) : editionName;
   const lines = [
-    sectionWordmark(editionName),
-    issue.subject,
-    issueHeaderLine(issue),
+    sectionWordmark(headerName),
+    `${issue.subject} · ${formatNumericDate(issue.date)}`,
     "",
     issueActionsText(issue, archive, preferences),
     "",

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { CustomizeCard } from "@/components/CustomizeCard";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
+import { formatNumericDate } from "@/lib/dates";
 import { publicHref } from "@/lib/html";
 import { sectionIconUrl, toolboxIllustrationUrl } from "@/lib/icons";
 import {
   chipLabel,
   contactVendorParts,
   forwardMailto,
-  issueHeaderLine,
   sectionAnchor,
   sectionHeadingLabel,
   sectionSponsorKicker,
@@ -276,8 +276,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
     <article className="dashboard">
       <header className="issue-masthead">
         <div className="wrap dashboard-wrap">
-          <h1 className="issue-title">{issue.subject}</h1>
-          <p className="issue-dateline">{issueHeaderLine(issue)}</p>
+          <h1 className="issue-title">{issue.subject}<span className="issue-title-date"> · {formatNumericDate(issue.date)}</span></h1>
           <p className="issue-customize">
             {customizePitch} <a href={customizeWebPath}>{customizeLinkLabel}</a>
           </p>

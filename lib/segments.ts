@@ -24,8 +24,13 @@ export type Segment = {
   slug: string;
   /** Short label for compact lines such as the date line and archive crumbs. */
   name: string;
-  /** Public edition name. The masthead, page title, and email footer use this. */
+  /** Public edition name. Page titles and the email footer use this. */
   displayName?: string;
+  /**
+   * Words in front of the edition name in the site header only.
+   * Aviation uses "Customizable". The footer keeps displayName.
+   */
+  headerPrefix?: string;
   status: SegmentStatus;
   audience: string;
   summary: string;
@@ -54,6 +59,7 @@ export const segments: Segment[] = [
     slug: "aviation",
     name: "Aviation",
     displayName: "AI & Robotics News For Aviation",
+    headerPrefix: "Customizable",
     status: "active",
     audience: "Airlines, MROs, parts suppliers, operators, and maintenance / AOG teams",
     summary:
@@ -153,6 +159,15 @@ export function getSegment(slug: string): Segment | undefined {
 /** Edition name shown to readers. Falls back to the short name when unset. */
 export function segmentDisplayName(segment: Pick<Segment, "name" | "displayName">): string {
   return segment.displayName ?? segment.name;
+}
+
+/** Edition name in the site header. A prefix stays off the footer and page titles. */
+export function segmentHeaderName(
+  segment: Pick<Segment, "name" | "displayName" | "headerPrefix">,
+): string {
+  const edition = segmentDisplayName(segment);
+  const prefix = segment.headerPrefix?.trim();
+  return prefix ? `${prefix} ${edition}` : edition;
 }
 
 /** Sections that are live. Planned entries stay out of nav, signup, and llms text. */

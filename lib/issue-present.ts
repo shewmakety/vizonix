@@ -1,7 +1,5 @@
-import { formatIssueDate } from "@/lib/dates";
 import { productivitySectionTopic, type Issue } from "@/lib/schema";
-import { getSegment, segmentDisplayName } from "@/lib/segments";
-import { absoluteUrl, sectionWordmark } from "@/lib/site";
+import { absoluteUrl } from "@/lib/site";
 
 /** Callout on each story tile. The same line on every issue. */
 export const whyItPaysLabel = "$ Why it pays";
@@ -88,11 +86,3 @@ export function contactVendorParts(
   };
 }
 
-/** Gold line under the issue title. The site masthead keeps the shorter edition name. */
-export function issueHeaderLine(issue: Pick<Issue, "segment" | "date">): string {
-  const segment = getSegment(issue.segment);
-  const edition = segment ? segmentDisplayName(segment) : issue.segment;
-  const lineEdition =
-    edition === "AI & Robotics News For Aviation" ? `Customizable ${edition}` : edition;
-  return `${sectionWordmark(lineEdition)} · ${formatIssueDate(issue)}`;
-}

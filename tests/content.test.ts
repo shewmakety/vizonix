@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { getIssue, getTool, listIssues, listTools } from "@/lib/content";
+import { formatNumericDate } from "@/lib/dates";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { issueSchema, issueTools } from "@/lib/schema";
 import { directoryViewFromQuery } from "@/lib/directory-view";
-import { issueHeaderLine } from "@/lib/issue-present";
 import { absoluteUrl, sectionWordmark } from "@/lib/site";
 import {
   featuredSegment,
   getSegment,
   isToolDirectoryPath,
-  segmentDisplayName,
+  segmentHeaderName,
   segments,
   toolDirectoryHref,
   toolsIndexPath,
@@ -181,12 +181,14 @@ describe("segment config and sample content", () => {
     expect(html).toContain(">READ ON WEB<");
     expect(html).toContain(`href="${issueUrl}"`);
     expect(html).not.toContain("Read on the web");
-    const wordmark = sectionWordmark(segmentDisplayName(getSegment("aviation")!));
-    const dateline = issueHeaderLine(aviation);
-    expect(dateline.startsWith("Vizonix - Customizable AI & Robotics News For Aviation · ")).toBe(true);
-    expect(html.indexOf(escapeHtml(dateline))).toBeGreaterThan(-1);
-    expect(html.indexOf(escapeHtml(dateline))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
-    expect(text.startsWith(`${wordmark}\n`)).toBe(true);
+    const wordmark = sectionWordmark(segmentHeaderName(getSegment("aviation")!));
+    const numeric = formatNumericDate(aviation.date);
+    expect(wordmark).toBe("Vizonix - Customizable AI & Robotics News For Aviation");
+    expect(numeric).toBe("10-16-2026");
+    expect(html).toContain(`<span style="color:#c9b98f;"> · ${numeric}</span></h1>`);
+    expect(html).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
+    expect(html.indexOf(escapeHtml(wordmark))).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(text.startsWith(`${wordmark}\n${aviation.subject} · ${numeric}\n`)).toBe(true);
     expect(html.indexOf(aviation.lead.title)).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
     expect(html.indexOf("The Vizonix Toolbox")).toBeLessThan(html.indexOf(">Unsubscribe</a>"));
     expect(text).toContain(`Open the Toolbox: ${directory}`);

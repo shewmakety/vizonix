@@ -7,6 +7,7 @@ import {
   calendarInstant,
   formatIssueDate,
   formatLongDate,
+  formatNumericDate,
   formatPublishedInstant,
   issueDateLine,
 } from "@/lib/dates";
@@ -18,6 +19,8 @@ import { sitemapEntries } from "@/lib/site-index";
 
 describe("date-only issue dates", () => {
   it("keeps the calendar day instead of shifting UTC midnight into the previous evening", () => {
+    expect(formatNumericDate("2026-10-16")).toBe("10-16-2026");
+    expect(formatNumericDate("2026-10-22")).toBe("10-22-2026");
     expect(formatLongDate("2026-10-16")).toBe("Friday, October 16, 2026");
     expect(formatPublishedInstant(new Date("2026-10-16T00:00:00.000Z"))).toBe("Thursday, October 15, 2026");
     expect(calendarInstant("2026-10-16").toISOString()).toBe("2026-10-16T12:00:00.000Z");
@@ -40,14 +43,16 @@ describe("date-only issue dates", () => {
     expect(issueDateLine(issue!).startsWith("Friday, October 16, 2026. ")).toBe(true);
 
     const html = renderToStaticMarkup(createElement(IssueBody, { issue: issue! }));
-    expect(html).toContain("Friday, October 16, 2026");
+    expect(html).toContain("10-16-2026");
+    expect(html).not.toContain("10-15-2026");
     expect(html).not.toContain("Thursday, October 15, 2026");
 
     const email = renderIssueEmail(issue!, { mode: "broadcast" });
     const text = renderIssueText(issue!, { mode: "broadcast" });
-    expect(email).toContain("Friday, October 16, 2026");
+    expect(email).toContain("10-16-2026");
     expect(email).not.toContain("Thursday, October 15, 2026");
-    expect(text).toContain("Friday, October 16, 2026");
+    expect(text).toContain("10-16-2026");
+    expect(text).not.toContain("Friday, October 16, 2026");
 
     const now = new Date("2026-12-01T00:00:00.000Z");
     const feed = buildSegmentFeed("aviation", now);
