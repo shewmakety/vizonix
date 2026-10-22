@@ -13,11 +13,10 @@ import { unsubscribePath } from "@/lib/segment-memory";
 import { signToken, tokenSecret } from "@/lib/tokens";
 import {
   absoluteUrl,
+  customizeCard,
   customizeLinkLabel,
   customizePitch,
-  customizeWebPath,
   sectionWordmark,
-  signupBlockHeading,
   site,
   toolboxCard,
   toolboxCardIcon,
@@ -286,36 +285,35 @@ function rampEmailText(ramp: Ramp | undefined): string[] {
   return lines;
 }
 
-const nextIssueNote =
-  "Free, one section at a time. We send a confirmation email first. You can leave from any issue.";
-
-function nextIssueEmailHtml(segmentSlug: string, sectionName: string, preferencesUrl: string): string {
-  const join = absoluteUrl(customizeWebPath);
-  const issues = absoluteUrl(`/${segmentSlug}/issues`);
+function navyCardEmailHtml(heading: string, bodyHtml: string): string {
   return `
           <tr>
             <td style="padding:14px 20px 0;">
-              <div style="background:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:700;line-height:1.2;color:#13233b;">${escapeHtml(signupBlockHeading)}</h2>
-                ${customizeEmailHtml(preferencesUrl, false)}
-                <p style="margin:12px 0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#4a5262;">${escapeHtml(nextIssueNote)}</p>
-                <a href="${escapeHtml(join)}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:8px 14px;border-radius:4px;">Send confirmation</a>
-                <p style="margin:12px 0 0;font-family:Arial,sans-serif;font-size:13px;"><a href="${escapeHtml(issues)}" style="color:#14532D;">All ${escapeHtml(sectionName)} issues</a></p>
+              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
+                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(heading)}</h2>
+                ${bodyHtml}
               </div>
             </td>
           </tr>`;
 }
 
-function nextIssueEmailText(segmentSlug: string, sectionName: string, preferencesUrl: string): string[] {
-  return [
-    signupBlockHeading.toUpperCase(),
-    customizePitch,
-    `${customizeLinkLabel}: ${preferencesUrl}`,
-    nextIssueNote,
-    `Send confirmation: ${absoluteUrl(customizeWebPath)}`,
-    `All ${sectionName} issues: ${absoluteUrl(`/${segmentSlug}/issues`)}`,
-    "",
-  ];
+function whatWeDoEmailHtml(): string {
+  return navyCardEmailHtml(
+    whatWeDo.heading,
+    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>`,
+  );
+}
+
+function customizeCardEmailHtml(preferencesUrl: string): string {
+  const button = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-top:14px;"><tr><td bgcolor="#c9b98f" style="background-color:#c9b98f;border-radius:4px;"><a href="${escapeHtml(preferencesUrl)}" style="display:inline-block;padding:8px 14px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.2;color:#13233b;text-decoration:none;">${escapeHtml(customizeCard.action)}</a></td></tr></table>`;
+  return navyCardEmailHtml(
+    customizeCard.heading,
+    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(customizeCard.copy)}</p>${button}`,
+  );
+}
+
+function customizeCardEmailText(preferencesUrl: string): string[] {
+  return [customizeCard.heading.toUpperCase(), customizeCard.copy, `${customizeCard.action}: ${preferencesUrl}`, ""];
 }
 
 function glossaryEmailHtml(issue: Issue): string {
@@ -640,19 +638,24 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(issue.subject)}</title>
   <style>
-    @media only screen and (max-width: 620px) {
+    @media only screen and (max-width: 680px) {
       .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
     }
   </style>
 </head>
-<body style="margin:0;padding:0;background:#f3f4f6;">
-  <div style="display:none;max-height:0;overflow:hidden;color:#f3f4f6;">${escapeHtml(preview)}</div>
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;">
-    ${emailMastheadGap()}
+<body bgcolor="#d5dbe3" style="margin:0;padding:0;background-color:#d5dbe3;">
+  <div style="display:none;max-height:0;overflow:hidden;color:#d5dbe3;">${escapeHtml(preview)}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#d5dbe3" style="background-color:#d5dbe3;">
     <tr>
-      <td align="center" style="background:#f3f4f6;">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" class="vz-wrap" style="width:600px;max-width:600px;table-layout:fixed;word-break:break-word;background:#f3f4f6;">
+      <td align="center" bgcolor="#d5dbe3" style="background-color:#d5dbe3;padding:28px 12px;">
+        <!--[if mso]>
+        <table role="presentation" align="center" width="640" cellpadding="0" cellspacing="0" border="0"><tr><td>
+        <![endif]-->
+        <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" class="vz-wrap" bgcolor="#ffffff" style="width:640px;max-width:640px;border-collapse:separate;border-spacing:0;background-color:#ffffff;border-radius:12px;">
+          <tr>
+            <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${issueHeaderHtml(issue.subject, issueHeaderLine(issue), issuePreferences(options))}
           ${forwardEmailHtml(issue)}
           ${linkRow}
@@ -660,15 +663,8 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
-          <tr>
-            <td style="padding:14px 20px 0;">
-              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(whatWeDo.heading)}</h2>
-                <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>
-              </div>
-            </td>
-          </tr>
-          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment, issuePreferences(options))}
+          ${whatWeDoEmailHtml()}
+          ${customizeCardEmailHtml(preferences)}
           <tr>
             <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;border-top:5px solid #14532D;padding:22px;">
@@ -719,7 +715,13 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#14532D;">Unsubscribe</a></p>
             </td>
           </tr>
+              </table>
+            </td>
+          </tr>
         </table>
+        <!--[if mso]>
+        </td></tr></table>
+        <![endif]-->
       </td>
     </tr>
   </table>
@@ -755,7 +757,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
-    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment, preferences),
+    ...customizeCardEmailText(preferences),
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
     `Read on the web: ${archive}`,
     "",

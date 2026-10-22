@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SignupForm } from "@/components/SignupForm";
+import { CustomizeCard } from "@/components/CustomizeCard";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { formatIsoDay } from "@/lib/dates";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
@@ -26,8 +26,7 @@ import {
   type RoboticsItem,
   type SponsorCreative,
 } from "@/lib/schema";
-import { getSegment } from "@/lib/segments";
-import { customizeLinkLabel, customizePitch, customizeWebPath, editor, signupBlockHeading, site, toolboxCard, toolboxCardIcon } from "@/lib/site";
+import { customizeLinkLabel, customizePitch, customizeWebPath, editor, site, toolboxCard, toolboxCardIcon } from "@/lib/site";
 import { toolboxCardHref } from "@/lib/toolbox";
 
 function SectionIcon({ topic, size = 28 }: { topic: string | undefined; size?: number }) {
@@ -259,8 +258,6 @@ function ForwardLink({ issue }: { issue: Issue }) {
 }
 
 export function IssueBody({ issue }: { issue: Issue }) {
-  const segment = getSegment(issue.segment);
-  const sectionName = segment?.name ?? issue.segment;
   const sections = issueSections(issue);
   const ratesUrl = sectionSponsorRatesUrl(issue);
   const mailto = forwardMailto(issue);
@@ -305,18 +302,7 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <SlotView name="primary" creative={issue.sponsors.primary} />
         <div className="dash-hero">
           <WhatWeDo />
-          <aside className="dashboard-signup">
-            <SignupForm
-              defaultSegment={issue.segment}
-              showSegment={false}
-              heading={signupBlockHeading}
-              submitLabel="Update My Preferences"
-              pendingLabel="Saving"
-            />
-            <p className="meta" style={{ marginTop: "1rem" }}>
-              <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
-            </p>
-          </aside>
+          <CustomizeCard />
           <section className="top-story">
             <p className="top-kicker">
               <SectionIcon topic={issue.lead.kicker} size={28} />

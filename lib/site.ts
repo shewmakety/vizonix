@@ -11,17 +11,24 @@ export const editor = {
   path: "/about#editor",
 };
 
-/** Short line under the issue title and in the sign-up block. Regular hyphen. */
+/** Short line under the issue title. Regular hyphen. */
 export const customizePitch = "Pick your topics - get only the sections you care about";
 
-/** Link label for the topic picker. Email uses the signed manage-topics URL. */
+/** Link label for the topic picker in the issue header. Email uses the signed manage-topics URL. */
 export const customizeLinkLabel = "Customize your issue";
-
-/** Heading of the issue sign-up card on the web and in the email. */
-export const signupBlockHeading = "Sign-Up Now";
 
 /** Public page where a new reader picks topics. Preferences needs a signed email link. */
 export const customizeWebPath = "/join";
+
+/** Where the issue Customize card sends a reader who is already on the site. */
+export const preferencesPath = "/preferences";
+
+/** Navy card under What We Do on every issue page and in the issue email. */
+export const customizeCard = {
+  heading: "Customize",
+  copy: "Make Vizonix yours. Choose which sections you get, drop the ones you don't need, and change it anytime.",
+  action: "Update my preferences",
+} as const;
 
 /** Card on the aviation issue page and in the issue email. The email does not list the tools. */
 export const toolboxCard = {
