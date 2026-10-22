@@ -304,6 +304,19 @@ export function IssueBody({ issue }: { issue: Issue }) {
         </nav>
         <SlotView name="primary" creative={issue.sponsors.primary} />
         <div className="dash-hero">
+          <WhatWeDo />
+          <aside className="dashboard-signup">
+            <SignupForm
+              defaultSegment={issue.segment}
+              showSegment={false}
+              heading={signupBlockHeading}
+              submitLabel="Update My Preferences"
+              pendingLabel="Saving"
+            />
+            <p className="meta" style={{ marginTop: "1rem" }}>
+              <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
+            </p>
+          </aside>
           <section className="top-story">
             <p className="top-kicker">
               <SectionIcon topic={issue.lead.kicker} size={28} />
@@ -321,21 +334,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
               </p>
             ) : null}
           </section>
-          <div className="dash-side">
-            <WhatWeDo />
-            <aside className="side-card dashboard-signup">
-              <SignupForm
-                defaultSegment={issue.segment}
-                showSegment={false}
-                heading={signupBlockHeading}
-                submitLabel="Update My Preferences"
-                pendingLabel="Saving"
-              />
-              <p className="meta" style={{ marginTop: "1rem" }}>
-                <Link href={`/${issue.segment}/issues`}>All {sectionName} issues</Link>
-              </p>
-            </aside>
-          </div>
         </div>
         {sections.map((section, index) => (
           <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />

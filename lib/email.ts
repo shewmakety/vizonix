@@ -662,6 +662,15 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${slotHtml(primary, absolute)}
           <tr>
             <td style="padding:14px 20px 0;">
+              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
+                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(whatWeDo.heading)}</h2>
+                <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>
+              </div>
+            </td>
+          </tr>
+          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment, issuePreferences(options))}
+          <tr>
+            <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;border-top:5px solid #14532D;padding:22px;">
                 <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;">
                   <tr>
@@ -677,15 +686,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               </div>
             </td>
           </tr>
-          <tr>
-            <td style="padding:14px 20px 0;">
-              <div style="background:#13233b;color:#ffffff;border-radius:8px;padding:18px;">
-                <h2 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#c9b98f;">${escapeHtml(whatWeDo.heading)}</h2>
-                <p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>
-              </div>
-            </td>
-          </tr>
-          ${nextIssueEmailHtml(issue.segment, segment?.name ?? issue.segment, issuePreferences(options))}
           ${tools}
           ${slotHtml(secondary, absolute)}
           <tr>
@@ -755,6 +755,7 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     whatWeDo.heading.toUpperCase(),
     whatWeDo.copy,
     "",
+    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment, preferences),
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
     `Read on the web: ${archive}`,
     "",
@@ -770,7 +771,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     `Source: ${issue.lead.sourceName} (${href(issue.lead.sourceUrl, true)})`,
     ...(issue.lead.productUrl ? [`Product: ${href(issue.lead.productUrl, true)}`] : []),
     "",
-    ...nextIssueEmailText(issue.segment, segment?.name ?? issue.segment, preferences),
     ...sectionsForReader(issue, options.excludedSections).flatMap((section) =>
       sectionEmailText(section, sectionSponsorRatesUrl(issue)),
     ),

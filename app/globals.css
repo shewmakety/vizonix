@@ -500,7 +500,6 @@ input:focus, select:focus, textarea:focus {
   .form-ok { color: #8FBC8F; }
   input, select, textarea, .skip, .mock, .mock-mail { color: #1c1915; }
 }
-.side-card { position: sticky; top: 1rem; }
 .topic-chips {
   display: flex;
   flex-wrap: wrap;
@@ -650,14 +649,13 @@ dl.facts dt { color: var(--muted); }
 }
 .wrap.dashboard-wrap { width: min(1180px, calc(100% - 2rem)); }
 .dashboard-body { padding: 20px 0 8px; }
-.dash-side .dashboard-signup { margin-top: 12px; }
-.dash-side .form-card {
+.dashboard-signup .form-card {
   background: #ffffff;
   border: 1px solid #dfe3ea;
   border-radius: 8px;
   padding: 18px;
 }
-.dash-side .form-card h2 {
+.dashboard-signup .form-card h2 {
   margin: 0 0 8px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -705,11 +703,11 @@ dl.facts dt { color: var(--muted); }
 }
 .dash-hero {
   display: grid;
-  grid-template-columns: 1.7fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
   align-items: start;
 }
-.dash-side { min-width: 0; }
+.dash-hero .what-we-do { margin: 0; }
 .dash-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
