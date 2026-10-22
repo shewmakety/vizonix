@@ -115,18 +115,15 @@ p { margin: 0 0 0.9rem; }
   gap: 1rem;
   align-items: center;
   justify-content: flex-end;
+  max-width: 100%;
 }
 .site-nav a {
   color: #f6f3ec;
   text-decoration: none;
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 .site-nav a:hover { color: #f3ead8; }
-.site-nav a[aria-current="page"] {
-  color: #f3ead8;
-  text-decoration: underline;
-  text-underline-offset: 0.22em;
-}
 .nav-soon {
   color: #c8bfb2;
   font-size: 0.72rem;
@@ -134,15 +131,6 @@ p { margin: 0 0 0.9rem; }
   text-transform: uppercase;
   margin-left: 0.3rem;
 }
-.header-cta {
-  color: #f6f3ec;
-  text-decoration: none;
-  border: 1px solid #c8b48a;
-  padding: 0.35rem 0.7rem;
-  font-size: 0.92rem;
-}
-.header-cta:hover,
-.header-cta[aria-current="page"] { background: var(--navy-2); color: white; }
 
 main { padding-bottom: 4.5rem; }
 .hero { padding: 3.2rem 0 2.2rem; }
@@ -887,8 +875,8 @@ dl.facts dt { color: var(--muted); }
 @media (max-width: 860px) {
   .hero-grid, .split, .issue-layout, .cards, .tool-grid, .dash-hero, .dash-grid, .dash-split { grid-template-columns: 1fr; }
   .header-inner { flex-wrap: wrap; padding: 0.8rem 0; }
-  .header-menu { width: 100%; justify-content: flex-end; }
-  .site-nav { overflow-x: auto; padding-bottom: 0.2rem; }
+  .header-menu { width: 100%; justify-content: flex-end; min-width: 0; }
+  .site-nav { overflow-x: auto; padding-bottom: 0.2rem; max-width: 100%; }
   .tool-directory-list li { grid-template-columns: 1fr; }
   .tool-directory-list .blurb {
     white-space: normal;

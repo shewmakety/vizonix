@@ -8,6 +8,7 @@ import {
   segmentAliasRewrite,
   segmentDirectoryHref,
   segmentHomeHref,
+  segmentCurrentIssueHref,
   segmentSubscribeHref,
   segmentUnsubscribeHref,
   unsubscribePath,
@@ -38,6 +39,9 @@ describe("section memory", () => {
     expect(segmentHomeHref("/sponsor", "bogus")).toBe("/aviation");
     expect(segmentDirectoryHref("/about")).toBe("/aviation/toolbox");
     expect(segmentDirectoryHref("/privacy", "warehousing")).toBe("/aviation/toolbox");
+    expect(segmentCurrentIssueHref("/aviation/issues/2026-10-16")).toBe("/aviation/latest");
+    expect(segmentCurrentIssueHref("/about")).toBe("/aviation/latest");
+    expect(segmentCurrentIssueHref("/sponsor", "legal")).toBe("/aviation/latest");
     expect(segmentSubscribeHref("/aviation")).toBe("/aviation/subscribe");
     expect(segmentSubscribeHref("/about", "legal")).toBe("/aviation/subscribe");
     expect(segmentSubscribeHref("/subscribe")).toBe("/aviation/subscribe");
