@@ -20,14 +20,17 @@ describe("Option B scannable dashboard", () => {
 
     expect(html).toContain('class="dash-hero"');
     expect(html).toContain('class="dash-grid"');
-    expect(html).toContain('class="dash-split"');
+    expect(html).not.toContain('class="dash-split"');
+    expect(html).not.toContain(issue.playbook?.title ?? "missing playbook");
+    expect(html).not.toContain("Quick links");
     expect(html).toContain('class="glossary-table"');
     expect(html).toContain('href="#recruiting"');
     expect(html).toContain('href="#warehousing"');
     expect(html).toContain('id="warehousing"');
     expect(html).toContain('<span class="section-number" aria-hidden="true">06</span>');
     expect(html).toContain('<span class="section-title">Warehousing</span>');
-    expect(html).toContain('class="jump-chip productivity"');
+    expect(html).not.toContain("jump-chip productivity");
+    expect(html.match(/class="jump-chip"/g)?.length).toBe(8);
     expect(html).toContain(`<b>08</b> ${productivitySectionTopic}`);
     expect(html).toContain(">07</b> AOG Support");
     expect(html.match(/>CUSTOMIZE</g)).toHaveLength(2);

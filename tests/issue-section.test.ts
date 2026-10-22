@@ -31,8 +31,8 @@ describe("issue section headings", () => {
     }
     expect(html).toContain('class="section-heading"');
     expect(html).toContain("<h2>Veryon puts an AI assistant inside the business aviation maintenance record</h2>");
-    expect(html).toContain("<h2>Run a 30-day AI trial without betting the hangar</h2>");
-    expect(html).toContain("<h2>Quick links</h2>");
+    expect(html).not.toContain("<h2>Run a 30-day AI trial without betting the hangar</h2>");
+    expect(html).not.toContain("<h2>Quick links</h2>");
     expect(html.match(/class="section-heading"/g)).toHaveLength(topics.length);
     expect(html.indexOf(">01<")).toBeLessThan(html.indexOf(">08<"));
 
@@ -53,8 +53,8 @@ describe("issue section headings", () => {
     expect(heading).not.toContain("font-size: 18px");
     expect(css).toContain(".issue-section { margin-top: 30px; }");
     const number = css.slice(css.indexOf(".section-number {"), css.indexOf(".section-title {"));
-    expect(number).toContain("font-size: 40px");
-    expect(number).toContain("font-weight: 800");
+    expect(number).toContain("font-size: 16px");
+    expect(number).toContain("font-weight: 500");
     expect(number).toContain("letter-spacing: 0");
     expect(number).toContain("color: #c9b98f");
     expect(number).not.toContain("font-size: 18px");
@@ -76,14 +76,15 @@ describe("issue section headings", () => {
     expect(email).toContain('valign="middle"');
     expect(email).not.toContain('width="70"');
     expect(email).toContain(
-      'style="padding:0 8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;line-height:1;color:#c9b98f;white-space:nowrap;">01</td>',
+      'style="padding:0 8px 6px 0;border-bottom:3px solid #13233b;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:#c9b98f;white-space:nowrap;">01</td>',
     );
     expect(email).toContain(
-      'style="text-align:left;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
+      'style="padding:0 0 6px;border-bottom:3px solid #13233b;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;line-height:1.15;color:#13233b;">Recruiting</td>',
     );
     expect(email).toContain(
-      `style="text-align:left;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
+      `style="padding:0 0 6px;border-bottom:3px solid #ffffff;vertical-align:middle;font-family:Arial,Helvetica,sans-serif;font-size:30px;font-weight:800;line-height:1.15;color:#ffffff;">${productivitySectionTopic}</td>`,
     );
+    expect(email).toContain('width="100%" valign="middle"');
     expect(email).toContain("background:#14532D;border-radius:10px");
     expect(html).toContain('class="issue-section productivity"');
     expect(css).toContain(".issue-section.productivity");
@@ -104,8 +105,6 @@ describe("issue section headings", () => {
       ["AOG support: parts, rotables and technicians", "aog", 28, 28],
       [productivitySectionTopic, "ai-tools", 36, 36],
       ["Top story", "top-story", 28, 28],
-      ["Playbook", "playbook", 24, 24],
-      ["Quick links", "quick-links", 24, 24],
     ] as const;
     for (const [alt, stem, webPx, emailPx] of icons) {
       expect(html).toContain(

@@ -200,7 +200,15 @@ describe("segment config and sample content", () => {
     expect(html.indexOf(">AOG Support: Parts, Rotables &amp; Technicians</td>")).toBeLessThan(
       html.indexOf(">General AI Productivity Tools</td>"),
     );
-    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf(aviation.playbook.title));
+    expect(html.indexOf(">General AI Productivity Tools</td>")).toBeLessThan(html.indexOf("The Vizonix Toolbox"));
+    expect(html).not.toContain(aviation.playbook?.title ?? "missing playbook");
+    expect(html).not.toContain(">Quick links</h2>");
+    expect(text).not.toContain("QUICK LINKS");
+    const withoutClosers = { ...aviation };
+    delete withoutClosers.playbook;
+    delete withoutClosers.quickLinks;
+    expect(issueSchema.safeParse(withoutClosers).success).toBe(true);
+    expect(issueSchema.safeParse(aviation).success).toBe(true);
     expect(html).toContain("https://copilot.microsoft.com/");
     expect(html).toContain("https://otter.ai/");
     expect(html).toContain("https://www.notion.com/product/ai");

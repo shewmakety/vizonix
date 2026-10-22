@@ -35,6 +35,7 @@ import {
   preferencesPath,
   site,
   toolboxCard,
+  toolboxCardCopy,
   toolboxCardIcon,
 } from "@/lib/site";
 import { toolboxCardHref } from "@/lib/toolbox";
@@ -243,7 +244,7 @@ function ToolboxCard({ segment }: { segment: string }) {
         height={toolboxCardIcon.height}
       />
       <h2>{toolboxCard.heading}</h2>
-      <p>{toolboxCard.line}</p>
+      <p>{toolboxCardCopy(segment)}</p>
       <a className="button" href={href}>
         {toolboxCard.button}
       </a>
@@ -294,12 +295,11 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <nav className="jump-row" aria-label="Jump to">
           {sections.map((section, index) => {
             const topic = section.topic ?? "Tool Highlights";
-            const productivity = topic === productivitySectionTopic;
             const number = String(index + 1).padStart(2, "0");
             return (
               <a
                 key={topic}
-                className={productivity ? "jump-chip productivity" : "jump-chip"}
+                className="jump-chip"
                 href={`#${sectionAnchor(topic)}`}
               >
                 <b>{number}</b> {sectionHeadingLabel(chipLabel(topic))}
@@ -333,34 +333,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
           <ToolSection key={section.topic ?? `tools-${index}`} section={section} index={index} ratesUrl={ratesUrl} />
         ))}
         <SlotView name="secondary" creative={issue.sponsors.secondary} />
-        <div className="dash-split">
-          <section className="dash-card">
-            <div className="headed">
-              <SectionIcon topic="Playbook" size={24} />
-              <h2>{issue.playbook.title}</h2>
-            </div>
-            <p>{issue.playbook.intro}</p>
-            <ol className="steps">
-              {issue.playbook.steps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </section>
-          <section className="dash-card">
-            <div className="headed">
-              <SectionIcon topic="Quick links" size={24} />
-              <h2>Quick links</h2>
-            </div>
-            <ul className="link-list">
-              {issue.quickLinks.map((link) => (
-                <li key={link.url}>
-                  <a href={publicHref(link.url)}>{link.title}</a>
-                  <span className="meta"> {link.note}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
         <SlotView name="classified" creative={issue.sponsors.classified} />
         <ToolboxCard segment={issue.segment} />
         <GlossaryView issue={issue} />

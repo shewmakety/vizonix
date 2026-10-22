@@ -16,6 +16,7 @@ import {
   sectionWordmark,
   site,
   toolboxCard,
+  toolboxCardCopy,
   toolboxCardIcon,
   whatWeDo,
 } from "@/lib/site";
@@ -35,7 +36,7 @@ import {
   whyItPaysLabel,
 } from "@/lib/issue-present";
 import { sectionsForReader } from "@/lib/personalize";
-import { getSegment, segmentDisplayName } from "@/lib/segments";
+import { getSegment, segmentDisplayName, toolDirectoryLabel, toolDirectoryPath } from "@/lib/segments";
 import { toolboxCardHref } from "@/lib/toolbox";
 
 export type SlotName = "primary" | "secondary" | "classified";
@@ -110,13 +111,6 @@ function emailIconCell(topic: string, alt: string, size: number, padRight = 18):
   return `<td valign="middle" style="padding:0 ${padRight}px 0 0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(alt)}" width="${size}" height="${size}" style="display:block;border:0;width:${size}px;height:${size}px;" /></td>`;
 }
 
-function emailIconHeading(iconKey: string, visible: string, headingStyle: string, iconPx: number): string {
-  const icon = emailIconCell(iconKey, iconKey, iconPx);
-  const heading = `<h2 style="${headingStyle}">${escapeHtml(visible)}</h2>`;
-  if (!icon) return heading;
-  return `<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;"><tr>${icon}<td valign="middle">${heading}</td></tr></table>`;
-}
-
 function whyPaysHtml(text: string): string {
   return `<div style="font-size:13px;line-height:1.5;color:#14532D;margin-top:8px;background:#eef5f0;padding:8px 10px;border-radius:5px;"><strong>${escapeHtml(whyItPaysLabel)}:</strong> ${escapeHtml(text)}</div>`;
 }
@@ -142,11 +136,18 @@ function sectionEmailHeading(topic: string, index: number, productivity: boolean
   const numberColor = productivity ? "#c9e6d0" : "#c9b98f";
   const titleColor = productivity ? "#ffffff" : "#13233b";
   const rule = productivity ? "#ffffff" : "#13233b";
-  return `<table id="${escapeHtml(sectionAnchor(topic))}" role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;border-bottom:3px solid ${rule};">
+  const ruleCell = `border-bottom:3px solid ${rule};vertical-align:middle;`;
+  const icon = sectionIconUrl(topic, "email");
+  const iconCell = icon
+    ? `<td valign="middle" align="left" style="padding:0 8px 6px 0;${ruleCell}line-height:0;font-size:0;"><img src="${escapeHtml(icon)}" alt="${escapeHtml(topic)}" width="${iconPx}" height="${iconPx}" style="display:block;border:0;width:${iconPx}px;height:${iconPx}px;" /></td>`
+    : "";
+  // The last cell absorbs leftover width so the number, icon, and title stay packed at 8px.
+  return `<table id="${escapeHtml(sectionAnchor(topic))}" role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 8px;">
               <tr>
-                <td valign="middle" style="padding:0 8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:40px;font-weight:800;line-height:1;color:${numberColor};white-space:nowrap;">${escapeHtml(number)}</td>
-                ${emailIconCell(topic, topic, iconPx, 8)}
-                <td valign="middle" align="left" style="text-align:left;font-family:Arial,Helvetica,sans-serif;font-size:${titleSize}px;font-weight:800;line-height:1.15;color:${titleColor};">${escapeHtml(visible)}</td>
+                <td valign="middle" align="left" style="padding:0 8px 6px 0;${ruleCell}font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:500;line-height:1;color:${numberColor};white-space:nowrap;">${escapeHtml(number)}</td>
+                ${iconCell}
+                <td valign="middle" align="left" style="padding:0 0 6px;${ruleCell}font-family:Arial,Helvetica,sans-serif;font-size:${titleSize}px;font-weight:800;line-height:1.15;color:${titleColor};">${escapeHtml(visible)}</td>
+                <td width="100%" valign="middle" style="padding:0;${ruleCell}font-size:0;line-height:0;">&nbsp;</td>
               </tr>
             </table>`;
 }
@@ -415,7 +416,7 @@ function toolboxCardEmailHtml(segmentSlug: string): string {
                   <td align="center" style="padding:18px 22px 22px;font-family:Arial,Helvetica,sans-serif;">
                     <img src="${escapeHtml(img)}" alt="" width="${width}" height="${height}" style="display:block;width:${width}px;height:${height}px;border:0;margin:0 auto 12px;" />
                     <h2 style="margin:0 0 8px;font-size:24px;line-height:1.2;font-weight:800;color:#13233b;">${escapeHtml(toolboxCard.heading)}</h2>
-                    <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCard.line)}</p>
+                    <p style="margin:0 0 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#4a5262;">${escapeHtml(toolboxCardCopy(segmentSlug))}</p>
                     <a href="${escapeHtml(absoluteUrl(path))}" style="display:inline-block;background:#14532D;color:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;padding:10px 16px;border-radius:4px;">${escapeHtml(toolboxCard.button)}</a>
                   </td>
                 </tr>
@@ -427,7 +428,7 @@ function toolboxCardEmailHtml(segmentSlug: string): string {
 function toolboxCardText(segmentSlug: string): string[] {
   const path = toolboxCardHref(segmentSlug, "email");
   if (!path) return [];
-  return [toolboxCard.heading, toolboxCard.line, `${toolboxCard.button}: ${absoluteUrl(path)}`, ""];
+  return [toolboxCard.heading, toolboxCardCopy(segmentSlug), `${toolboxCard.button}: ${absoluteUrl(path)}`, ""];
 }
 
 function issueUnsubscribe(segmentSlug: string, options: IssueRenderOptions): string {
@@ -496,6 +497,55 @@ function emailMasthead(sectionName: string): string {
           </tr>`;
 }
 
+function emailSiteHeader(issue: Issue): string {
+  const segment = getSegment(issue.segment);
+  const active = segment?.status === "active" ? segment : undefined;
+  const wordmark = active ? sectionWordmark(segmentDisplayName(active)) : site.name;
+  const home = absoluteUrl(active ? `/${active.slug}` : "/");
+  const sponsor = absoluteUrl("/sponsor");
+  const about = absoluteUrl("/about");
+  const directory = absoluteUrl(active ? toolDirectoryPath(active) : "/aviation/toolbox");
+  const directoryLabel = active ? toolDirectoryLabel(active) : "Toolbox";
+  const subscribe = absoluteUrl(active ? `/${active.slug}/subscribe` : "/subscribe");
+  const navLink =
+    "color:#f6f3ec;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.2;";
+  const nameStyle =
+    "color:#f6f3ec;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.15;";
+  return `<tr>
+            <td bgcolor="#122033" style="background-color:#122033;padding:16px 20px 14px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+                <tr>
+                  <td align="left" valign="middle">
+                    <table role="presentation" align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+                      <tr>
+                        <td valign="middle" align="center" width="32" height="32" bgcolor="#122033" style="width:32px;height:32px;border:1px solid #c8b48a;text-align:center;vertical-align:middle;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:32px;mso-line-height-rule:exactly;color:#f3ead8;">
+                          <a href="${escapeHtml(home)}" style="color:#f3ead8;text-decoration:none;">V</a>
+                        </td>
+                        <td width="10" style="width:10px;font-size:0;line-height:0;">&nbsp;</td>
+                        <td valign="middle" style="vertical-align:middle;">
+                          <a href="${escapeHtml(home)}" style="${nameStyle}">${escapeHtml(wordmark)}</a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left" style="padding:12px 0 0;">
+                    <table role="presentation" align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+                      <tr>
+                        <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(sponsor)}" style="${navLink}">Sponsor</a></td>
+                        <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(about)}" style="${navLink}">About</a></td>
+                        <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(directory)}" style="${navLink}">${escapeHtml(directoryLabel)}</a></td>
+                        <td valign="middle" style="border:1px solid #c8b48a;padding:4px 10px;"><a href="${escapeHtml(subscribe)}" style="${navLink}">Subscribe</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>`;
+}
+
 function issueHeaderHtml(title: string, dateline: string): string {
   return `<tr>
             <td style="background:#13233b;padding:26px 20px;">
@@ -510,12 +560,9 @@ function jumpEmailHtml(sections: IssueSectionView[]): string {
     .map((section, index) => {
       const topic = section.topic ?? "Tool Highlights";
       const number = String(index + 1).padStart(2, "0");
-      const productivity = topic === productivitySectionTopic;
-      const style = productivity
-        ? "display:inline-block;border-radius:20px;padding:5px 12px;margin:0 6px 8px 0;font-size:13px;color:#ffffff;background:#14532D;text-decoration:none;font-family:Arial,Helvetica,sans-serif;"
-        : "display:inline-block;border:1px solid #c9d0db;border-radius:20px;padding:5px 12px;margin:0 6px 8px 0;font-size:13px;color:#13233b;background:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;";
-      const numberStyle = productivity ? "color:#ffffff;" : "color:#14532D;";
-      return `<a href="#${escapeHtml(sectionAnchor(topic))}" style="${style}"><b style="${numberStyle}">${number}</b> ${escapeHtml(sectionHeadingLabel(chipLabel(topic)))}</a>`;
+      const style =
+        "display:inline-block;border:1px solid #c9d0db;border-radius:20px;padding:5px 12px;margin:0 6px 8px 0;font-size:13px;color:#13233b;background:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;";
+      return `<a href="#${escapeHtml(sectionAnchor(topic))}" style="${style}"><b style="color:#14532D;">${number}</b> ${escapeHtml(sectionHeadingLabel(chipLabel(topic)))}</a>`;
     })
     .join("");
   return `<tr>
@@ -570,17 +617,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     .map((section, index) => sectionEmailHtml(section, absolute, index, ratesUrl))
     .join("");
 
-  const steps = issue.playbook.steps
-    .map((step) => `<li style="margin:0 0 6px;">${escapeHtml(step)}</li>`)
-    .join("");
-
-  const links = issue.quickLinks
-    .map(
-      (link) =>
-        `<li style="margin:0 0 6px;"><a href="${escapeHtml(href(link.url, absolute))}" style="color:#1e4636;">${escapeHtml(link.title)}</a> <span style="color:#5f584e;">${escapeHtml(link.note)}</span></li>`,
-    )
-    .join("");
-
   const sample = issue.sample
     ? `<tr><td style="padding:16px 28px 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#1c1915;"><p style="margin:0;padding:12px 14px;background:#f7efe2;border:1px solid #8d6b3a;">Sample issue. The tools and sponsor in this edition are fictional placeholders. They are not endorsements and not paid placements.</p></td></tr>`
     : "";
@@ -628,6 +664,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #cfd5de;border-radius:12px;padding:12px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
+          ${emailSiteHeader(issue)}
           ${issueHeaderHtml(issue.subject, issueHeaderLine(issue))}
           ${issueActionsEmailHtml(issue, archive, preferences)}
           ${directoryRow}
@@ -656,23 +693,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           </tr>
           ${tools}
           ${slotHtml(secondary, absolute)}
-          <tr>
-            <td style="padding:16px 20px 0;">
-              <div style="background:#ffffff;border-radius:8px;padding:18px;">
-                ${emailIconHeading("Playbook", issue.playbook.title, "margin:0;font-family:Arial,Helvetica,sans-serif;font-size:17px;font-weight:700;color:#13233b;", 24)}
-                <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#4a5262;">${escapeHtml(issue.playbook.intro)}</p>
-                <ol style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#4a5262;">${steps}</ol>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 20px 0;">
-              <div style="background:#ffffff;border-radius:8px;padding:18px;">
-                ${emailIconHeading("Quick links", "Quick links", "margin:0;font-family:Arial,Helvetica,sans-serif;font-size:17px;font-weight:700;color:#13233b;", 24)}
-                <ul style="margin:0;padding-left:18px;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;">${links}</ul>
-              </div>
-            </td>
-          </tr>
           ${slotHtml(classified, absolute)}
           ${toolboxCardEmailHtml(issue.segment)}
           ${glossaryEmailHtml(issue)}
@@ -742,13 +762,6 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
       sectionEmailText(section, sectionSponsorRatesUrl(issue)),
     ),
     ...slotLines("SECONDARY SPONSOR", issue.sponsors.secondary, "secondary"),
-    issue.playbook.title.toUpperCase(),
-    issue.playbook.intro,
-    ...issue.playbook.steps.map((step, index) => `${index + 1}. ${step}`),
-    "",
-    "QUICK LINKS",
-    ...issue.quickLinks.map((link) => `${link.title}: ${href(link.url, true)} (${link.note})`),
-    "",
     ...slotLines("CLASSIFIED", issue.sponsors.classified, "classified"),
     ...toolboxCardText(issue.segment),
     ...glossaryEmailText(issue),

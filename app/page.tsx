@@ -119,8 +119,7 @@ export default function HomePage() {
             <ol className="steps">
               <li>One lead story.</li>
               <li>Tools, each with a reason it could change the money.</li>
-              <li>One short playbook.</li>
-              <li>A quick link list.</li>
+              <li>The Toolbox, organized by the same topics.</li>
               <li>Primary, secondary, and classified sponsor slots.</li>
             </ol>
           </div>

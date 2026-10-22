@@ -73,6 +73,9 @@ describe("header wordmark", () => {
     expect(email).toContain(
       `font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;line-height:1.4;color:#c9b98f;">${escapeHtml(gold)}</p>`,
     );
+    expect(email).toContain(`>${escapeHtml(wordmark)}</a>`);
+    expect(email.indexOf(">V</a>")).toBeLessThan(email.indexOf(`>${escapeHtml(issue.subject)}</h1>`));
+    expect(email).toContain('bgcolor="#122033"');
     expect(email).toContain(`the Vizonix ${escapeHtml(edition)} briefing`);
     expect(email).not.toContain(`the Vizonix Customizable ${escapeHtml(edition)} briefing`);
     const masthead = email.slice(email.indexOf("background:#13233b"), email.indexOf(escapeHtml(gold)));

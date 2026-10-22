@@ -218,11 +218,21 @@ export const issueSchema = z
     tools: z.array(issueToolSchema).max(16).optional(),
     /** Topic groups. When present, these are what the page and the email render. */
     sections: z.array(issueSectionSchema).min(1).max(12).optional(),
-    playbook: z.object({
-      title: z.string().trim().min(1).max(180),
-      intro: z.string().trim().min(1).max(1200),
-      steps: z.array(z.string().trim().min(1).max(400)).min(1).max(8),
-    }),
+    /**
+     * Stored on older issues. The page and the email do not render this block.
+     * New issues should omit it.
+     */
+    playbook: z
+      .object({
+        title: z.string().trim().min(1).max(180),
+        intro: z.string().trim().min(1).max(1200),
+        steps: z.array(z.string().trim().min(1).max(400)).min(1).max(8),
+      })
+      .optional(),
+    /**
+     * Stored on older issues. The page and the email do not render this block.
+     * New issues should omit it.
+     */
     quickLinks: z
       .array(
         z.object({
@@ -232,7 +242,8 @@ export const issueSchema = z
         }),
       )
       .min(1)
-      .max(12),
+      .max(12)
+      .optional(),
     /** Plain-language definitions for AI and robotics terms used in this issue. Omitted issues skip the glossary. */
     glossary: z
       .array(

@@ -6,7 +6,7 @@ import { getIssue } from "@/lib/content";
 import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { sitemapPaths } from "@/lib/site-index";
 import { sectionIconBaseUrl } from "@/lib/icons";
-import { absoluteUrl, toolboxCard, toolboxCardIcon } from "@/lib/site";
+import { absoluteUrl, toolboxCard, toolboxCardCopy, toolboxCardIcon } from "@/lib/site";
 import { filterToolbox, listToolbox, toolboxCategories } from "@/lib/toolbox";
 
 describe("aviation toolbox", () => {
@@ -47,9 +47,17 @@ describe("aviation toolbox", () => {
     if (!issue) return;
     const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
     expect(html).toContain('href="/aviation/toolbox?src=issue"');
+    const copy = toolboxCardCopy("aviation");
+    expect(copy).toContain("curated, regularly updated list of AI and robotics tools");
+    expect(copy).toContain("airlines, MROs, parts suppliers, operators, and maintenance / AOG teams");
+    expect(copy).toContain("organized by the same topics as the issue");
+    expect(copy).toContain("what the tool does and links to it");
+    expect(copy).not.toMatch(/[\u2013\u2014]/);
     expect(html).toContain(toolboxCard.heading);
-    expect(html).toContain(toolboxCard.line);
+    expect(html).toContain(copy);
     expect(html).toContain(toolboxCard.button);
+    expect(html).not.toContain("Quick links");
+    expect(html).not.toContain(issue.playbook?.title ?? "missing playbook");
     expect(html).toContain(`${sectionIconBaseUrl}/toolbox-v2.svg`);
     expect(html).toContain(`width="${toolboxCardIcon.width}"`);
     expect(html).toContain(`height="${toolboxCardIcon.height}"`);
@@ -65,12 +73,17 @@ describe("aviation toolbox", () => {
     expect(email).toContain(`height="${toolboxCardIcon.height}"`);
     expect(email).not.toContain('width="560" height="240"');
     expect(email).toContain(toolboxCard.heading);
+    expect(email).toContain(copy);
     expect(email).toContain(toolboxCard.button);
+    expect(email).not.toContain("Quick links");
+    expect(email).not.toContain(issue.playbook?.title ?? "missing playbook");
     expect(email).not.toContain(">The Ramp</td>");
     expect(email.indexOf(toolboxCard.heading)).toBeLessThan(email.indexOf(">AI Glossary</h2>"));
     expect(email).not.toContain("Visit the Toolbox");
     expect(text).toContain(toolboxCard.heading);
-    expect(text).toContain(toolboxCard.line);
+    expect(text).toContain(copy);
+    expect(text).not.toContain("QUICK LINKS");
+    expect(text).not.toContain(issue.playbook?.title ?? "missing playbook");
     expect(text).toContain(`${toolboxCard.button}: ${url}`);
     expect(text).not.toContain("THE RAMP");
     expect(text.indexOf(toolboxCard.heading)).toBeLessThan(text.indexOf("AI GLOSSARY"));
