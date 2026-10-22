@@ -301,6 +301,24 @@ input:focus, select:focus, textarea:focus {
 .check { display: flex; gap: 0.55rem; align-items: flex-start; margin-top: 0.8rem; font-size: 0.95rem; }
 .check input { width: auto; margin-top: 0.25rem; }
 .form-note { color: var(--muted); font-size: 0.9rem; }
+.field-flag {
+  font-weight: 650;
+  font-size: 0.78rem;
+  margin-left: 0.35rem;
+  color: var(--brass);
+}
+.field-flag.optional { color: var(--muted); font-weight: 600; }
+.field-help {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0.28rem 0 0;
+}
+.verify-label {
+  font-weight: 650;
+  font-size: 0.92rem;
+  margin: 0.8rem 0 0.3rem;
+}
 .form-error { color: var(--danger); }
 .form-ok { color: var(--pine); }
 .hp {

@@ -1,97 +1,60 @@
-export const placements = [
-  "primary",
-  "secondary",
-  // Older payment records can still say classified. It is not on the rate card.
-  "classified",
-  "banner",
-  "featured",
-  "bundle",
-] as const;
+import {
+  renderedIssueSlotIds,
+  sponsorSlotSpecs,
+  type RenderedFormatId,
+} from "@/lib/sponsor-slots";
+
+/** Placements checkout can charge. Section spots are quoted and are not in this list. */
+export const placements = renderedIssueSlotIds;
 
 export type Placement = (typeof placements)[number];
 
 export type LaunchPlacement = {
-  id: Placement;
+  id: RenderedFormatId;
   name: string;
   description: string;
-  /** Weekly price in USD, except featured, which is monthly. */
-  price: number;
-  founding: number;
-  unit: "week" | "month";
-  /** Target length for newsletter copy. Non-newsletter placements stay blank. */
+  /** Null when the slot is quoted and has no published price. */
+  price: number | null;
+  founding: number | null;
+  unit: "week";
   targetWords: number | null;
-  /** Hard ceiling enforced when an issue is published. */
   maxWords: number | null;
   newsletter: boolean;
+  quoted: boolean;
 };
 
 /**
- * Launch stage, 0-2,500 subscribers. Figures are the Vizonix rate card
- * (draft, Oct 14 2026). Do not invent a different number in page copy.
+ * Launch stage, 0-2,500 subscribers. Weekly figures are the Vizonix rate card
+ * (draft, Oct 14 2026) for the slots the issue still renders. Do not invent a
+ * different number in page copy. The section sponsor has no published price.
  */
-export const launchPlacements: LaunchPlacement[] = [
-  {
-    id: "primary",
-    name: "Primary sponsor",
-    description:
-      "Top of every issue that week, logo plus about 100 words plus 2 calls to action, plus a permanent listing in the web archive.",
-    price: 300,
-    founding: 150,
-    unit: "week",
-    targetWords: 100,
-    maxWords: 110,
-    newsletter: true,
-  },
-  {
-    id: "secondary",
-    name: "Secondary",
-    description: "Mid-issue, about 50 words, 1 call to action.",
-    price: 175,
-    founding: 90,
-    unit: "week",
-    targetWords: 50,
-    maxWords: 60,
-    newsletter: true,
-  },
-  {
-    id: "banner",
-    name: "Section site banner",
-    description: "Banner on the section home and its article pages for 7 days.",
-    price: 100,
-    founding: 50,
-    unit: "week",
-    targetWords: null,
-    maxWords: null,
-    newsletter: false,
-  },
-  {
-    id: "featured",
-    name: "Featured tool listing",
-    description: "Sponsored card in the section tool directory for 30 days.",
-    price: 150,
-    founding: 75,
-    unit: "month",
-    targetWords: null,
-    maxWords: null,
-    newsletter: false,
-  },
-  {
-    id: "bundle",
-    name: "Bundle",
-    description:
-      "Primary plus site banner plus featured listing plus one X post. Saves about 20% against buying those pieces separately.",
-    price: 500,
-    founding: 250,
-    unit: "week",
-    targetWords: 100,
-    maxWords: 110,
-    newsletter: true,
-  },
-];
+const publishedPrices: Record<RenderedFormatId, { price: number | null; founding: number | null }> = {
+  primary: { price: 300, founding: 150 },
+  secondary: { price: 175, founding: 90 },
+  section: { price: null, founding: null },
+};
 
-function placementPrice(id: Placement): number {
+export const launchPlacements: LaunchPlacement[] = sponsorSlotSpecs.map((spec) => ({
+  id: spec.id,
+  name: spec.name,
+  description: spec.description,
+  price: publishedPrices[spec.id].price,
+  founding: publishedPrices[spec.id].founding,
+  unit: spec.unit,
+  targetWords: spec.targetWords,
+  maxWords: spec.maxWords,
+  newsletter: spec.newsletter,
+  quoted: spec.quoted,
+}));
+
+export const checkoutPlacements = launchPlacements.filter(
+  (placement): placement is LaunchPlacement & { price: number; founding: number } =>
+    placement.price != null && placement.founding != null,
+);
+
+function placementPrice(id: "primary" | "secondary"): number {
   const placement = launchPlacements.find((item) => item.id === id);
-  if (!placement) throw new Error(`Missing rate card placement: ${id}`);
+  if (placement?.price == null) throw new Error(`Missing rate card placement: ${id}`);
   return placement.price;
 }
 
@@ -151,6 +114,11 @@ export function formatUsd(amount: number): string {
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+export function priceLabel(amount: number | null, unit: "week" | "month"): string {
+  if (amount == null) return "Quote";
+  return unit === "month" ? `${formatUsd(amount)} / month` : formatUsd(amount);
 }
 
 export function stripePriceEnvKey(

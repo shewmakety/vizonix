@@ -74,9 +74,17 @@ describe("every public form route rejects a missing or invalid Turnstile token",
       email: "ada@hangar.example",
       promote: "A parts tool",
       message: "We would like a week.",
+      segment: "aviation",
+      placement: "primary",
     };
-    expect((await POST(request("/api/sponsor-inquiry", body))).status).toBe(403);
-    expect((await POST(request("/api/sponsor-inquiry", { ...body, turnstileToken: "not-a-token" }))).status).toBe(403);
+    const missing = await POST(request("/api/sponsor-inquiry", body));
+    expect(missing.status).toBe(403);
+    expect((await missing.json()).error).toMatch(/verif/i);
+    const invalid = await POST(request("/api/sponsor-inquiry", { ...body, turnstileToken: "not-a-token" }));
+    expect(invalid.status).toBe(403);
+    expect((await invalid.json()).error).toMatch(/verif/i);
+    const passed = await POST(request("/api/sponsor-inquiry", { ...body, turnstileToken: TURNSTILE_TEST_TOKEN }));
+    expect(passed.status).not.toBe(403);
   });
 
   it("rejects sponsor checkout", async () => {
@@ -88,8 +96,14 @@ describe("every public form route rejects a missing or invalid Turnstile token",
       email: "buyer@firm.example",
       quantity: 1,
     };
-    expect((await POST(request("/api/checkout", body))).status).toBe(403);
-    expect((await POST(request("/api/checkout", { ...body, turnstileToken: "not-a-token" }))).status).toBe(403);
+    const missing = await POST(request("/api/checkout", body));
+    expect(missing.status).toBe(403);
+    expect((await missing.json()).error).toMatch(/verif/i);
+    const invalid = await POST(request("/api/checkout", { ...body, turnstileToken: "not-a-token" }));
+    expect(invalid.status).toBe(403);
+    expect((await invalid.json()).error).toMatch(/verif/i);
+    const passed = await POST(request("/api/checkout", { ...body, turnstileToken: TURNSTILE_TEST_TOKEN }));
+    expect(passed.status).not.toBe(403);
   });
 
   it("rejects the confirmation form", async () => {

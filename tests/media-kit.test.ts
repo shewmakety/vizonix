@@ -14,9 +14,14 @@ describe("media kit", () => {
     expect(text).toContain("Tyler Shewmake");
     expect(text).toContain("AOG Alerts");
     expect(text).toContain(`/aviation/issues/${latest?.date}`);
+    expect(text).toContain("$300");
     expect(text).toContain("$175");
-    expect(text).toContain("$100");
-    expect(text).toContain("$75");
+    expect(text).toContain("Section sponsor");
+    expect(text).toContain("Quote");
+    expect(text).not.toContain("$100");
+    expect(text).not.toContain("$75");
+    expect(text).not.toContain("Featured tool listing");
+    expect(text).not.toContain("Section site banner");
     expect(text).not.toMatch(/\d+% open/);
   });
 });

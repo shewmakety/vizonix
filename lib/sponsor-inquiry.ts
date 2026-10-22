@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getSegment } from "@/lib/segments";
+import { isBookingPlacement } from "@/lib/sponsor-placements";
 
 export const inquiryBudgets = [
   "Not sure",
@@ -28,6 +30,8 @@ export type SponsorInquiry = {
   promote: string;
   budget: string;
   message: string;
+  segment: string;
+  placement: string;
   honeypot: boolean;
 };
 
@@ -53,6 +57,8 @@ export function parseInquiry(
         promote: "",
         budget: "",
         message: "",
+        segment: "",
+        placement: "",
         honeypot: true,
       },
     };
@@ -73,6 +79,16 @@ export function parseInquiry(
   if (budget && !inquiryBudgets.includes(budget as (typeof inquiryBudgets)[number])) {
     return { ok: false, error: "Choose a budget from the list, or leave it blank." };
   }
+
+  const segmentSlug = String(body.segment ?? "").trim();
+  const segment = getSegment(segmentSlug);
+  if (!segment) return { ok: false, error: "Choose a section." };
+  if (segment.status !== "active") {
+    return { ok: false, error: "That section is not open for sponsorship yet." };
+  }
+  const placement = String(body.placement ?? "").trim();
+  if (!isBookingPlacement(placement)) return { ok: false, error: "Choose a placement." };
+
   return {
     ok: true,
     value: {
@@ -82,6 +98,8 @@ export function parseInquiry(
       promote: parsed.data.promote,
       budget,
       message: parsed.data.message,
+      segment: segment.slug,
+      placement,
       honeypot: false,
     },
   };

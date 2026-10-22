@@ -147,9 +147,13 @@ afterEach(() => {
 describe("sponsor migration", () => {
   it("locks the tables to the service role and lists every placement", () => {
     const dir = path.join(process.cwd(), "supabase", "migrations");
-    const files = fs.readdirSync(dir).filter((file) => file.endsWith(".sql") && file.includes("sponsor_admin"));
-    expect(files).toEqual(["20261022090000_sponsor_admin.sql"]);
+    const files = fs
+      .readdirSync(dir)
+      .filter((file) => file.endsWith(".sql") && (file.includes("sponsor_admin") || file.includes("sponsor_slots")))
+      .sort();
+    expect(files).toEqual(["20261022090000_sponsor_admin.sql", "20261022140000_sponsor_slots.sql"]);
     const sql = fs.readFileSync(path.join(dir, files[0]), "utf8");
+    const slots = fs.readFileSync(path.join(dir, files[1]), "utf8");
     expect(sql).toContain("create table public.sponsors");
     expect(sql).toContain("create table public.bookings");
     expect(sql).toContain("create table public.inquiries");
@@ -159,7 +163,12 @@ describe("sponsor migration", () => {
     expect(sql).toContain("grant select, insert, update, delete on table public.bookings to service_role");
     expect(sql).toContain("bookings_sponsor_id_idx");
     expect(sql).not.toMatch(/[\u2013\u2014]/);
-    for (const placement of bookingPlacements) expect(sql).toContain(`'${placement}'`);
+    expect(slots).toContain("The app does not run it");
+    expect(slots).not.toMatch(/[\u2013\u2014]/);
+    for (const placement of bookingPlacements) expect(slots).toContain(`'${placement}'`);
+    for (const retired of ["classified", "banner", "featured", "bundle"]) {
+      expect(slots).not.toContain(`'${retired}'`);
+    }
     const legacy = JSON.parse(fs.readFileSync(path.join(process.cwd(), "content", "bookings.json"), "utf8")) as unknown[];
     expect(legacy).toEqual([]);
   });
@@ -191,9 +200,7 @@ describe("sponsor migration", () => {
     }
     const offenders = found.filter((file) => /\baviation\b/i.test(fs.readFileSync(file, "utf8")));
     expect(offenders).toEqual([]);
-    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual(
-      bookingPlacements.filter((id) => id !== "classified"),
-    );
+    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual([...bookingPlacements]);
     expect(placementChoices("not-a-section").find((item) => item.id === "01")?.label).toBe("Section 01");
     const live = segments.find((segment) => segment.status === "active");
     expect(live).toBeTruthy();
@@ -433,13 +440,20 @@ describe("sponsor admin auth and storage", () => {
         promote: "A parts search tool",
         budget: "$150 to $300",
         message: "We would like the founding listing.",
+        segment: "aviation",
+        placement: "primary",
         turnstileToken: TURNSTILE_TEST_TOKEN,
       }),
     );
     expect(response.status).toBe(200);
     const inquiryCall = fetchMock.mock.calls.find((call) => String(call[0]).includes("/rest/v1/inquiries"));
     const storedInquiry = JSON.parse(String((inquiryCall?.[1] as RequestInit).body)) as { email: string; status: string };
-    expect(storedInquiry).toMatchObject({ email: "ada@hangar.example", status: "new" });
+    expect(storedInquiry).toMatchObject({
+      email: "ada@hangar.example",
+      status: "new",
+      segment: "aviation",
+      placement: "primary",
+    });
     expect(send).toHaveBeenCalled();
   });
 

@@ -213,7 +213,7 @@ describe("owner notices", () => {
       reservation: reservation({
         id: "cs_sub",
         stripeSessionId: "cs_sub",
-        placement: "featured",
+        placement: "secondary",
         founding: true,
       }),
       saved: {
@@ -222,11 +222,11 @@ describe("owner notices", () => {
         duplicate: false,
       },
     });
-    expect(featured.subject).toBe("New Vizonix sponsor purchase: Featured tool listing - $75.00");
+    expect(featured.subject).toBe("New Vizonix sponsor purchase: Secondary sponsor - $75.00");
     expect(featured.text).toContain("Billing: subscription");
     expect(featured.text).toContain("FOUNDING promo: no");
     expect(featured.text).toContain("https://dashboard.stripe.com/subscriptions/sub_123");
-    expect(featured.text).toContain("Featured listing:");
+    expect(featured.text).not.toContain("Featured listing:");
 
     const manual = manualCheckoutNotice({
       id: "cs_manual",

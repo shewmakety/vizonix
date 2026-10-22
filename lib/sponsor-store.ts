@@ -52,6 +52,8 @@ export type Inquiry = {
   promote: string;
   budget: string;
   message: string;
+  segment: string;
+  placement: string;
   status: InquiryStatus;
   createdAt: string;
   updatedAt: string;
@@ -111,6 +113,8 @@ type InquiryRow = {
   promote?: string | null;
   budget?: string | null;
   message?: string | null;
+  segment?: string | null;
+  placement?: string | null;
   status?: string | null;
   created_at?: string | null;
   updated_at?: string | null;
@@ -189,6 +193,8 @@ function mapInquiry(row: InquiryRow): Inquiry | null {
     promote: row.promote,
     budget: text(row.budget),
     message: row.message,
+    segment: text(row.segment),
+    placement: text(row.placement),
     status: row.status,
     createdAt: text(row.created_at),
     updatedAt: text(row.updated_at),
@@ -279,6 +285,8 @@ export type InquiryInput = {
   promote: string;
   budget: string;
   message: string;
+  segment: string;
+  placement: string;
   status: InquiryStatus;
 };
 
@@ -444,6 +452,8 @@ export function parseInquiryInput(raw: unknown): { ok: true; value: InquiryInput
       promote: z.string().trim().min(1).max(300),
       budget: z.string().trim().max(80),
       message: z.string().trim().min(1).max(4000),
+      segment: z.string().trim().max(40),
+      placement: z.string().trim().max(40),
       status: z.enum(inquiryStatuses),
     })
     .safeParse({
@@ -453,10 +463,18 @@ export function parseInquiryInput(raw: unknown): { ok: true; value: InquiryInput
       promote: body.promote,
       budget: body.budget ? String(body.budget) : "",
       message: body.message,
+      segment: body.segment ? String(body.segment) : "",
+      placement: body.placement ? String(body.placement) : "",
       status: body.status ? String(body.status) : "new",
     });
   if (!parsed.success) {
     return { ok: false, error: "Check the name, company, email, what they want to promote, and message." };
+  }
+  if (parsed.data.segment && !getSegment(parsed.data.segment)) {
+    return { ok: false, error: "Choose a section." };
+  }
+  if (parsed.data.placement && !isBookingPlacement(parsed.data.placement)) {
+    return { ok: false, error: "Choose a placement." };
   }
   return {
     ok: true,
@@ -527,6 +545,8 @@ function inquiryRow(input: InquiryInput, now: string): Record<string, unknown> {
     promote: input.promote,
     budget: blank(input.budget),
     message: input.message,
+    segment: blank(input.segment),
+    placement: blank(input.placement),
     status: input.status,
     updated_at: now,
   };
@@ -570,6 +590,8 @@ export async function storePublicInquiry(input: {
   promote: string;
   budget: string;
   message: string;
+  segment: string;
+  placement: string;
   honeypot: boolean;
 }): Promise<void> {
   if (!supabaseConfigured() || input.honeypot) return;
@@ -580,6 +602,8 @@ export async function storePublicInquiry(input: {
     promote: input.promote,
     budget: input.budget,
     message: input.message,
+    segment: input.segment,
+    placement: input.placement,
     status: "new",
   });
 }

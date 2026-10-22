@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { submitAdmin } from "@/components/admin/submit-admin";
 import { inquiryStatuses, type InquiryStatus } from "@/lib/sponsor-placements";
+import type { PlacementChoice } from "@/lib/sponsor-labels";
 
 export type InquiryFormValues = {
   name: string;
@@ -12,6 +13,8 @@ export type InquiryFormValues = {
   promote: string;
   budget: string;
   message: string;
+  segment: string;
+  placement: string;
   status: InquiryStatus;
 };
 
@@ -20,17 +23,24 @@ export function InquiryForm({
   path,
   method,
   returnTo,
+  segments,
+  placementsBySegment,
 }: {
   initial: InquiryFormValues;
   path: string;
   method: "POST" | "PATCH";
   returnTo: string;
+  segments: PlacementChoice[];
+  placementsBySegment: Record<string, PlacementChoice[]>;
 }) {
   const [values, setValues] = useState(initial);
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
   const [working, setWorking] = useState(false);
   const turnstile = useRef<TurnstileHandle>(null);
+  const placementOptions = values.segment
+    ? (placementsBySegment[values.segment] ?? [])
+    : (Object.values(placementsBySegment)[0] ?? []);
 
   function set<K extends keyof InquiryFormValues>(field: K, value: InquiryFormValues[K]) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -69,6 +79,31 @@ export function InquiryForm({
         value={values.email}
         onChange={(event) => set("email", event.target.value)}
       />
+      <label htmlFor="inquiry-segment">Section</label>
+      <select id="inquiry-segment" value={values.segment} onChange={(event) => set("segment", event.target.value)}>
+        <option value="">Not specified</option>
+        {segments.map((segment) => (
+          <option key={segment.id} value={segment.id}>
+            {segment.label}
+          </option>
+        ))}
+      </select>
+      <label htmlFor="inquiry-placement">Placement</label>
+      <select
+        id="inquiry-placement"
+        value={values.placement}
+        onChange={(event) => set("placement", event.target.value)}
+      >
+        <option value="">Not specified</option>
+        {placementOptions.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.label}
+          </option>
+        ))}
+        {values.placement && !placementOptions.some((item) => item.id === values.placement) ? (
+          <option value={values.placement}>{values.placement}</option>
+        ) : null}
+      </select>
       <label htmlFor="inquiry-promote">What do they want to promote?</label>
       <input id="inquiry-promote" required value={values.promote} onChange={(event) => set("promote", event.target.value)} />
       <label htmlFor="inquiry-budget">Budget</label>

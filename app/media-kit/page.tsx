@@ -4,12 +4,12 @@ import {
   audienceNumbersLine,
   foundingOfferLine,
   latestIssuePath,
-  mediaKitAlsoLine,
   mediaKitAudience,
   mediaKitFormats,
   mediaKitFounder,
 } from "@/lib/media-kit";
 import { pageMeta } from "@/lib/meta";
+import { featuredSegment } from "@/lib/segments";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
@@ -23,6 +23,7 @@ export default function MediaKitPage() {
   const formats = mediaKitFormats();
   const latest = latestIssuePath();
   const byId = Object.fromEntries(formats.map((format) => [format.id, format]));
+  const sectionName = featuredSegment().name;
 
   return (
     <section className="hero">
@@ -42,13 +43,13 @@ export default function MediaKitPage() {
         <p>{mediaKitFounder}</p>
 
         <h2>Formats</h2>
-        <p>Layout mockups of the three placements. The price under each one comes from the rate card.</p>
+        <p>Layout mockups of the placements the issue renders. The price under each one comes from the rate card.</p>
 
         <div className="mock-grid">
           <figure className="mock">
             <figcaption>Layout mockup: newsletter primary</figcaption>
             <div className="mock-mail">
-              <p className="mock-kicker">Vizonix Aviation</p>
+              <p className="mock-kicker">{sectionName}</p>
               <div className="mock-primary">
                 <p className="pill sponsored">Sponsored</p>
                 <p>
@@ -58,6 +59,9 @@ export default function MediaKitPage() {
                 <span className="mock-cta">Second action</span>
               </div>
               <p className="meta">
+                {byId.primary.placement} {byId.primary.fields}
+              </p>
+              <p className="meta">
                 {byId.primary.priceLabel}. Founding {byId.primary.foundingLabel}.
               </p>
             </div>
@@ -66,7 +70,7 @@ export default function MediaKitPage() {
           <figure className="mock">
             <figcaption>Layout mockup: newsletter secondary</figcaption>
             <div className="mock-mail">
-              <p className="mock-kicker">Mid-issue</p>
+              <p className="mock-kicker">After the sections</p>
               <div className="mock-secondary">
                 <p className="pill sponsored">Sponsored</p>
                 <p>
@@ -75,23 +79,29 @@ export default function MediaKitPage() {
                 <span className="mock-cta">Call to action</span>
               </div>
               <p className="meta">
+                {byId.secondary.placement} {byId.secondary.fields}
+              </p>
+              <p className="meta">
                 {byId.secondary.priceLabel}. Founding {byId.secondary.foundingLabel}.
               </p>
             </div>
           </figure>
 
           <figure className="mock">
-            <figcaption>Layout mockup: Featured directory listing</figcaption>
-            <article className="card sponsored">
-              <p className="pill sponsored">Sponsored</p>
-              <p className="meta">Directory card</p>
-              <h3>{byId.featured.name}</h3>
-              <p>{byId.featured.summary}</p>
-              <span className="mock-cta">Visit the tool</span>
-            </article>
-            <p className="meta">
-              {byId.featured.priceLabel}. Founding {byId.featured.foundingLabel}.
-            </p>
+            <figcaption>Layout mockup: section sponsor</figcaption>
+            <div className="mock-mail">
+              <p className="mock-kicker">Section 01</p>
+              <div className="mock-secondary">
+                <p className="pill sponsored">Section sponsor</p>
+                <p>
+                  <strong>{byId.section.name}.</strong> {byId.section.summary}
+                </p>
+              </div>
+              <p className="meta">
+                {byId.section.placement} {byId.section.fields}
+              </p>
+              <p className="meta">{byId.section.priceLabel}.</p>
+            </div>
           </figure>
         </div>
 
@@ -100,11 +110,12 @@ export default function MediaKitPage() {
         <ul>
           {formats.map((format) => (
             <li key={format.id}>
-              {format.name}: {format.priceLabel}, founding {format.foundingLabel}.
+              {format.quoted
+                ? `${format.name}: ${format.priceLabel}.`
+                : `${format.name}: ${format.priceLabel}, founding ${format.foundingLabel}.`}
             </li>
           ))}
         </ul>
-        <p>{mediaKitAlsoLine()}</p>
         <p>
           Prices on this page come from the <Link href="/sponsor">rate card</Link>.
         </p>

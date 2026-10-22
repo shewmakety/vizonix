@@ -122,11 +122,6 @@ export function purchaseNotice(input: {
       : "Date conflict: no",
     `Stored: ${saved.stored}`,
   ];
-  if (reservation.placement === "featured") {
-    lines.push(
-      "Featured listing: set featured.until to the end date and featured.tier to founding or standard on the tool JSON. The Sponsored card stays off until that flag is saved.",
-    );
-  }
 
   return {
     subject: `New Vizonix sponsor purchase: ${product} - ${amount}`,

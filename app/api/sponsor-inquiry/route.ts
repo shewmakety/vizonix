@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { errorMessage } from "@/lib/errors";
 import { notifyOps } from "@/lib/notify";
 import { site } from "@/lib/site";
+import { getSegment } from "@/lib/segments";
 import { allowInquiry, inquiryClientKey, parseInquiry } from "@/lib/sponsor-inquiry";
+import { placementLabel } from "@/lib/sponsor-labels";
 import { storePublicInquiry } from "@/lib/sponsor-store";
 import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
@@ -55,6 +57,8 @@ export async function POST(request: Request) {
       `Email: ${inquiry.email}`,
       `Promote: ${inquiry.promote}`,
       `Budget: ${inquiry.budget || "Not specified"}`,
+      `Section: ${getSegment(inquiry.segment)?.name ?? inquiry.segment}`,
+      `Placement: ${placementLabel(inquiry.segment, inquiry.placement)}`,
       "",
       inquiry.message,
     ].join("\n"),

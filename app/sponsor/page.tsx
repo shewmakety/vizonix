@@ -6,12 +6,14 @@ import { loadReservations, publicReservations } from "@/lib/bookings";
 import { formatLongDate } from "@/lib/dates";
 import { sponsorFaqJsonLd } from "@/lib/jsonld";
 import {
+  checkoutPlacements,
   exclusivityPremium,
   formatUsd,
   foundingSponsorCap,
   getPlacement,
   launchPlacements,
   loyaltyDiscount,
+  priceLabel,
   publishedPrimaryLadder,
   scaledFromPrimary,
   secondaryRatio,
@@ -19,13 +21,15 @@ import {
 } from "@/lib/rate-card";
 import { pageMeta } from "@/lib/meta";
 import { featuredSegment, segments } from "@/lib/segments";
+import { inquiryFormOptions } from "@/lib/sponsor-labels";
 
 export const dynamic = "force-dynamic";
 
+const launchName = featuredSegment().name;
+
 export const metadata = pageMeta({
   title: "Sponsor",
-  description:
-    "Vizonix launch rate card. Aviation is the first list. Primary and secondary sponsorships, plus the founding offer.",
+  description: `Vizonix launch rate card. ${launchName} is the first list. Primary, secondary, and section sponsorships, plus the founding offer.`,
   canonical: "/sponsor",
 });
 
@@ -36,6 +40,7 @@ export default async function SponsorPage({
 }) {
   const { status } = await searchParams;
   const featured = featuredSegment();
+  const inquiryOptions = inquiryFormOptions();
   const otherLive = segments.filter(
     (segment) => segment.status === "active" && segment.slug !== featured.slug,
   );
@@ -46,14 +51,10 @@ export default async function SponsorPage({
   const links = segments
     .filter((segment) => segment.status === "active")
     .flatMap((segment) =>
-      launchPlacements.map((placement) => {
+      checkoutPlacements.flatMap((placement) => {
         const href = process.env[stripeLinkEnvKey(segment.slug, placement.id)];
-        return href ? { segment, placement, href } : null;
+        return href ? [{ segment, placement, href }] : [];
       }),
-    )
-    .filter(
-      (item): item is { segment: (typeof segments)[number]; placement: (typeof launchPlacements)[number]; href: string } =>
-        Boolean(item),
     );
 
   return (
@@ -95,21 +96,16 @@ export default async function SponsorPage({
                 <tr key={placement.id}>
                   <td>{placement.name}</td>
                   <td>{placement.description}</td>
-                  <td className="num">
-                    {formatUsd(placement.price)}
-                    {placement.unit === "month" ? " / month" : ""}
-                  </td>
-                  <td className="num">
-                    {formatUsd(placement.founding)}
-                    {placement.unit === "month" ? " / month" : ""}
-                  </td>
+                  <td className="num">{priceLabel(placement.price, placement.unit)}</td>
+                  <td className="num">{priceLabel(placement.founding, placement.unit)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <p className="form-note">
-          Exclusivity, the only sponsor that week, is {exclusivityPremium * 100}% more. Founding price:
+          Exclusivity, the only sponsor that week, is {exclusivityPremium * 100}% more on a primary or
+          secondary week. A section sponsor is quoted. Founding price:
           the first {foundingSponsorCap}{" "}
           sponsors, locked for 3 months, then the current tier with a {loyaltyDiscount * 100}% loyalty
           discount for 3 more months.
@@ -208,13 +204,16 @@ export default async function SponsorPage({
               </p>
             )}
             <p>
-              Questions about a bundle or a multi-week run: use the{" "}
+              Questions about a section sponsor or a multi-week run: use the{" "}
               <a href="#inquiry">inquiry form</a>.
             </p>
           </div>
         </div>
         <div style={{ marginTop: "2rem" }}>
-          <SponsorInquiryForm />
+          <SponsorInquiryForm
+            segments={inquiryOptions.segments}
+            placementsBySegment={inquiryOptions.placementsBySegment}
+          />
         </div>
       </div>
       <JsonLd data={sponsorFaqJsonLd()} />

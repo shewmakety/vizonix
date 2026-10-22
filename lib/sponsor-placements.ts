@@ -1,10 +1,10 @@
 import { placements, type Placement } from "@/lib/rate-card";
+import { isSectionSpot, sectionSpots, type SectionSpot } from "@/lib/sponsor-slots";
 
-/** Numbered section inventory. The same spots exist for every segment. */
-export const sectionSpots = ["01", "02", "03", "04", "05", "06", "07", "08"] as const;
+export { sectionSpots, isSectionSpot };
+export type { SectionSpot };
 
-export type SectionSpot = (typeof sectionSpots)[number];
-
+/** Primary, secondary, and the numbered section spots the issue template renders. */
 export const bookingPlacements = [...placements, ...sectionSpots] as const;
 
 export type BookingPlacement = (typeof bookingPlacements)[number];
@@ -38,7 +38,7 @@ export function isInquiryStatus(value: string): value is InquiryStatus {
   return (inquiryStatuses as readonly string[]).includes(value);
 }
 
-/** Rate-card placements still drive checkout. Section spots are admin inventory. */
+/** Priced newsletter slots. Section spots are quoted through the inquiry form. */
 export function isCheckoutPlacement(value: string): value is Placement {
   return (placements as readonly string[]).includes(value);
 }
