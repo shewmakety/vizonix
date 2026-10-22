@@ -33,7 +33,7 @@ export default async function UnsubscribePage({
               This stops the {segment.name} briefing for {payload.email}. With one live section, that
               also marks the contact unsubscribed in Resend.
             </p>
-            <TokenForm token={token} endpoint="/api/unsubscribe" label="Unsubscribe" />
+            <TokenForm token={token} endpoint="/api/unsubscribe" label="Unsubscribe" action="unsubscribe" />
           </>
         ) : token ? (
           <p className="form-error">This unsubscribe link is invalid or expired. {useEmailLink}</p>

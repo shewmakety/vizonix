@@ -1,14 +1,14 @@
-import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
+import { TURNSTILE_TEST_TOKEN, type TurnstileAction } from "@/lib/turnstile-public";
+
+export type { TurnstileAction };
 
 /** Cloudflare's documented always-pass secret. Production rejects it. */
 export const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
 
-export type TurnstileAction = "signup" | "suggest";
-
 export type TurnstileResult = { ok: true } | { ok: false; status: number; error: string };
 
 const failure: TurnstileResult = { ok: false, status: 403, error: "Verification failed. Try again." };
-const unavailable: TurnstileResult = { ok: false, status: 503, error: "Sign-up is not available right now." };
+const unavailable: TurnstileResult = { ok: false, status: 503, error: "Verification is not available right now." };
 
 function productionDeployment(): boolean {
   return process.env.VERCEL_ENV === "production";
@@ -19,15 +19,15 @@ export function turnstileSecret(): string | undefined {
   const configured = process.env.TURNSTILE_SECRET_KEY?.trim();
   if (productionDeployment()) {
     if (!configured) {
-      console.error("TURNSTILE_SECRET_KEY is not set. Production sign-ups are blocked.");
+      console.error("TURNSTILE_SECRET_KEY is not set. Production form submissions are blocked.");
       return undefined;
     }
     if (configured === TURNSTILE_TEST_SECRET) {
-      console.error("TURNSTILE_SECRET_KEY is a Cloudflare test secret. Production sign-ups are blocked.");
+      console.error("TURNSTILE_SECRET_KEY is a Cloudflare test secret. Production form submissions are blocked.");
       return undefined;
     }
     if (!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim()) {
-      console.error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set. Production sign-ups are blocked.");
+      console.error("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set. Production form submissions are blocked.");
       return undefined;
     }
     return configured;
@@ -111,6 +111,7 @@ export async function verifyTurnstile(input: {
   return { ok: true };
 }
 
-export function turnstileTokenFrom(body: { turnstileToken?: unknown; "cf-turnstile-response"?: unknown }): unknown {
-  return body.turnstileToken ?? body["cf-turnstile-response"];
+export function turnstileTokenFrom(body: object): unknown {
+  const record = body as { turnstileToken?: unknown; "cf-turnstile-response"?: unknown };
+  return record.turnstileToken ?? record["cf-turnstile-response"];
 }

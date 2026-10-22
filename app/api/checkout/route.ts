@@ -3,9 +3,11 @@ import Stripe from "stripe";
 import { loadReservations } from "@/lib/bookings";
 import { parseCheckoutRequest } from "@/lib/checkout";
 import { AppError, errorMessage } from "@/lib/errors";
+import { rateLimit, requestIp } from "@/lib/rate-limit";
 import { stripePriceEnvKey } from "@/lib/rate-card";
 import { absoluteUrl } from "@/lib/site";
 import { buildCheckoutSession, countFoundingSessions } from "@/lib/stripe-checkout";
+import { turnstileTokenFrom, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -44,6 +46,24 @@ export async function POST(request: Request) {
     raw = await request.json();
   } catch {
     return NextResponse.json({ error: "Send the sponsorship form as JSON." }, { status: 400 });
+  }
+
+  const record = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  if (String(record.company_website ?? record.companyWebsite ?? "").trim()) {
+    return NextResponse.json({ url: absoluteUrl("/sponsor?status=received") });
+  }
+
+  const ip = requestIp(request);
+  if (!rateLimit(`${ip}:checkout`)) {
+    return NextResponse.json({ error: "Too many requests. Try again shortly." }, { status: 429 });
+  }
+  const verified = await verifyTurnstile({
+    token: turnstileTokenFrom(record),
+    action: "checkout",
+    remoteip: ip,
+  });
+  if (!verified.ok) {
+    return NextResponse.json({ error: verified.error }, { status: verified.status });
   }
 
   try {

@@ -87,7 +87,7 @@ export function parseInquiry(
   };
 }
 
-/** Best-effort limit for this server instance. There is no captcha. */
+/** Best-effort limit for this server instance. The inquiry route also checks Turnstile. */
 export function allowInquiry(ip: string, now = Date.now()): boolean {
   const recent = (hits.get(ip) ?? []).filter((time) => now - time < windowMs);
   if (recent.length >= maxHits) {

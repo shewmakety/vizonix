@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { formatUsd, getPlacement, launchPlacements } from "@/lib/rate-card";
 import { segments } from "@/lib/segments";
 
@@ -11,6 +12,8 @@ export function SponsorCheckoutForm() {
   const [placement, setPlacement] = useState("primary");
   const [founding, setFounding] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstile = useRef<TurnstileHandle>(null);
   const selected = getPlacement(placement);
   const price = selected ? (founding ? selected.founding : selected.price) : null;
   const featured = selected?.id === "featured";
@@ -35,6 +38,10 @@ export function SponsorCheckoutForm() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    if (!turnstileToken) {
+      setStatus({ kind: "error", message: "Verification is still loading. Try again." });
+      return;
+    }
     setStatus({ kind: "working", message: "" });
     const response = await fetch("/api/checkout", {
       method: "POST",
@@ -50,8 +57,10 @@ export function SponsorCheckoutForm() {
         founding: form.get("founding") === "on",
         exclusivity: form.get("exclusivity") === "on",
         company_website: form.get("company_website"),
+        turnstileToken,
       }),
     });
+    turnstile.current?.reset();
     const body = (await response.json()) as { error?: string; url?: string };
     if (!response.ok || !body.url) {
       setStatus({ kind: "error", message: body.error || "Checkout could not start." });
@@ -145,6 +154,7 @@ export function SponsorCheckoutForm() {
         <label htmlFor="sponsor-company-website">Company website</label>
         <input id="sponsor-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
+      <TurnstileField ref={turnstile} action="checkout" onToken={setTurnstileToken} />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Opening Stripe" : "Continue to Stripe"}

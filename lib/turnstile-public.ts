@@ -1,3 +1,12 @@
+export type TurnstileAction =
+  | "signup"
+  | "suggest"
+  | "preferences"
+  | "inquiry"
+  | "checkout"
+  | "confirm"
+  | "unsubscribe";
+
 /** Cloudflare's documented always-pass widget. Safe for tests and preview when a real key is unset. */
 export const TURNSTILE_TEST_SITE_KEY = "1x00000000000000000000AA";
 

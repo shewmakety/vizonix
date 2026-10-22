@@ -17,8 +17,10 @@ export function PreferencesForm({
   excluded: string[];
 }) {
   const [status, setStatus] = useState<Status>({ kind: "idle", message: "" });
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const turnstile = useRef<TurnstileHandle>(null);
+  const [saveToken, setSaveToken] = useState("");
+  const [suggestToken, setSuggestToken] = useState("");
+  const saveTurnstile = useRef<TurnstileHandle>(null);
+  const suggestTurnstile = useRef<TurnstileHandle>(null);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,7 +32,7 @@ export function PreferencesForm({
     }
     const excludedSections = excludedFromFormData(form, segment) ?? [];
     const suggestion = String(form.get("suggestion") ?? "").trim();
-    if (suggestion && !turnstileToken) {
+    if (!saveToken || (suggestion && !suggestToken)) {
       setStatus({ kind: "error", message: "Verification is still loading. Try again." });
       return;
     }
@@ -39,8 +41,14 @@ export function PreferencesForm({
     const saved = await fetch("/api/preferences", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ token, excludedSections }),
+      body: JSON.stringify({
+        token,
+        excludedSections,
+        turnstileToken: saveToken,
+        company_website: honeypot,
+      }),
     });
+    saveTurnstile.current?.reset();
     const savedBody = (await saved.json()) as { error?: string; message?: string };
     if (!saved.ok) {
       setStatus({ kind: "error", message: savedBody.error || "Could not save those topics." });
@@ -59,11 +67,11 @@ export function PreferencesForm({
         token,
         text: suggestion,
         source: "preferences",
-        turnstileToken,
+        turnstileToken: suggestToken,
         company_website: honeypot,
       }),
     });
-    turnstile.current?.reset();
+    suggestTurnstile.current?.reset();
     const suggestedBody = (await suggested.json()) as { error?: string };
     if (!suggested.ok) {
       setStatus({
@@ -85,7 +93,8 @@ export function PreferencesForm({
         <label htmlFor="preferences-company-website">Company website</label>
         <input id="preferences-company-website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
-      <TurnstileField ref={turnstile} action="suggest" onToken={setTurnstileToken} />
+      <TurnstileField ref={saveTurnstile} action="preferences" onToken={setSaveToken} />
+      <TurnstileField ref={suggestTurnstile} action="suggest" onToken={setSuggestToken} />
       <div className="actions">
         <button className="button" type="submit" disabled={status.kind === "working"}>
           {status.kind === "working" ? "Saving" : "Update My Preferences"}
