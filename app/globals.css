@@ -693,10 +693,10 @@ dl.facts dt { color: var(--muted); }
 .issue-masthead .issue-actions a { color: #f6f3ec; }
 .issue-masthead .issue-action-sep { color: #c9b98f; }
 @media (max-width: 480px) {
-  .issue-actions { font-size: 10px; letter-spacing: 0.02em; }
+  .issue-actions { font-size: 10px; letter-spacing: 0; }
 }
 @media (max-width: 340px) {
-  .issue-actions { white-space: normal; }
+  .issue-actions { font-size: 9px; }
 }
 .jump-label {
   margin: 0 0 8px;

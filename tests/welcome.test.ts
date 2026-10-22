@@ -96,9 +96,9 @@ describe("welcome email on confirm", () => {
     expect(payload.html).toContain("The Vizonix Toolbox");
     expect(payload.html).toContain("Open the Toolbox");
     expect(payload.html).not.toContain("Visit the Toolbox");
-    expect(payload.html).toContain("Read on the web");
+    expect(payload.html).toContain(">READ ON WEB<");
     expect(payload.text).toContain("Open the Toolbox: https://vizonix.com/aviation/toolbox?src=email");
-    expect(payload.text).toContain("Read on the web: https://vizonix.com/aviation/issues/2026-10-21");
+    expect(payload.text).toContain("READ ON WEB: https://vizonix.com/aviation/issues/2026-10-21");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
     expect(payload.html).toContain("Manage your topics");
     expect(payload.html).toContain("/preferences?token=");

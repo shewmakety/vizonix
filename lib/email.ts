@@ -562,7 +562,7 @@ const issueActionLinkStyle =
 
 function issueActionsEmailHtml(issue: Issue, archive: string): string {
   const mailto = escapeHtml(forwardMailto(issue));
-  const sep = `<span style="color:#8a8175;font-weight:400;white-space:nowrap;"> • </span>`;
+  const sep = `<span style="color:#8a8175;font-weight:400;white-space:nowrap;"> • </span><wbr>`;
   return `<tr>
             <td class="vz-actions" align="center" style="padding:12px 6px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.4;letter-spacing:0.03em;text-align:center;white-space:nowrap;word-break:normal;">
               <a href="${escapeHtml(forwardedSubscribeUrl)}" style="${issueActionLinkStyle}">SUBSCRIBE</a>${sep}<a href="${mailto}" style="${issueActionLinkStyle}">FORWARD TO A COLLEAGUE</a>${sep}<a href="${escapeHtml(archive)}" style="${issueActionLinkStyle}">READ ON WEB</a>
@@ -631,9 +631,12 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
     @media only screen and (max-width: 680px) {
       .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
-      .vz-actions { font-size: 10px !important; letter-spacing: 0.01em !important; padding-left: 2px !important; padding-right: 2px !important; }
+      .vz-actions { font-size: 10px !important; letter-spacing: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
     }
-    @media only screen and (max-width: 340px) {
+    @media only screen and (max-width: 380px) {
+      .vz-actions { font-size: 9px !important; }
+    }
+    @media only screen and (max-width: 330px) {
       .vz-actions { white-space: normal !important; }
     }
   </style>

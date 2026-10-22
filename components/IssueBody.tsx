@@ -254,8 +254,10 @@ function IssueActions({ issue }: { issue: Issue }) {
     <p className="issue-actions">
       <a href="/join">SUBSCRIBE</a>
       <span className="issue-action-sep"> • </span>
+      <wbr />
       <a href={forwardMailto(issue)}>FORWARD TO A COLLEAGUE</a>
       <span className="issue-action-sep"> • </span>
+      <wbr />
       <a href={`/${issue.segment}/issues/${issue.date}`}>READ ON WEB</a>
     </p>
   );
