@@ -213,6 +213,9 @@ function SlotView({ name, creative }: { name: SlotName; creative: SponsorCreativ
       </p>
       <p className="slot-name">
         <a href={publicHref(slot.creative.url)} rel={slot.house ? undefined : "sponsored"}>
+          {slot.creative.logo ? (
+            <img className="slot-logo" src={publicHref(slot.creative.logo)} alt="" width={28} height={28} />
+          ) : null}
           {slot.creative.name}
         </a>
       </p>

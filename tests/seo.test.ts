@@ -19,6 +19,8 @@ describe("sitemap and feeds", () => {
       "/confirm",
       "/unsubscribe",
       "/sponsor/confirmed",
+      "/admin",
+      "/admin/sponsors",
       "/legal",
       "/legal/issues",
       "/legal/tools",

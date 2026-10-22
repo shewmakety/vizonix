@@ -1,9 +1,9 @@
-import { TURNSTILE_TEST_TOKEN } from "@/lib/turnstile-public";
+import { TURNSTILE_TEST_TOKEN, type TurnstileAction } from "@/lib/turnstile-public";
 
 /** Cloudflare's documented always-pass secret. Production rejects it. */
 export const TURNSTILE_TEST_SECRET = "1x0000000000000000000000000000000AA";
 
-export type TurnstileAction = "signup" | "suggest";
+export type { TurnstileAction };
 
 export type TurnstileResult = { ok: true } | { ok: false; status: number; error: string };
 

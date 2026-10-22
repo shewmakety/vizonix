@@ -44,13 +44,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ received: true, recorded: false });
   }
 
-  const saved = await recordPaidReservation(reservation);
+  const saved = await recordPaidReservation(reservation, {
+    price: session.amount_total == null ? null : session.amount_total / 100,
+    company: session.metadata?.company,
+    contact: session.customer_details?.name,
+    email: session.customer_email || session.customer_details?.email,
+    creativeUrl: session.metadata?.ad_copy_url,
+  });
   if (!saved.duplicate) {
     const alert = purchaseNotice({ session, reservation, saved });
     const mailed = await notifyOps(alert.subject, alert.text);
     if (saved.stored === "unstored" && !mailed) {
       return NextResponse.json(
-        { error: "Booking could not be stored. Set GITHUB_TOKEN, or RESEND_API_KEY so the ops notice can be sent." },
+        {
+          error:
+            "Booking could not be stored. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY, or RESEND_API_KEY so the ops notice can be sent.",
+        },
         { status: 500 },
       );
     }

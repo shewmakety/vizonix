@@ -71,6 +71,7 @@ export const sponsorSchema = z
     ctaUrl: href,
     ctaSecondary: z.string().trim().min(1).max(80).optional(),
     ctaSecondaryUrl: href.optional(),
+    logo: href.optional(),
     /** House ad, not a paid placement. Renders without a sponsored relationship. */
     house: z.boolean().optional(),
     sample: z.boolean().optional(),

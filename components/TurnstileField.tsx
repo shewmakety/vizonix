@@ -1,8 +1,8 @@
 "use client";
 
 import Script from "next/script";
-import { forwardRef, useImperativeHandle, useRef } from "react";
-import { publicTurnstileSiteKey } from "@/lib/turnstile-public";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { publicTurnstileSiteKey, type TurnstileAction } from "@/lib/turnstile-public";
 
 type TurnstileWidgetId = string;
 
@@ -29,7 +29,7 @@ declare global {
 
 export type TurnstileHandle = { reset: () => void };
 
-export const TurnstileField = forwardRef<TurnstileHandle, { action: "signup" | "suggest"; onToken: (token: string) => void }>(
+export const TurnstileField = forwardRef<TurnstileHandle, { action: TurnstileAction; onToken: (token: string) => void }>(
   function TurnstileField({ action, onToken }, ref) {
     const container = useRef<HTMLDivElement>(null);
     const widgetId = useRef<TurnstileWidgetId | null>(null);
@@ -47,6 +47,18 @@ export const TurnstileField = forwardRef<TurnstileHandle, { action: "signup" | "
         "error-callback": () => onTokenRef.current(""),
       });
     }
+
+    useEffect(() => {
+      renderWidget();
+      const timer = window.setInterval(() => {
+        if (widgetId.current !== null) {
+          window.clearInterval(timer);
+          return;
+        }
+        renderWidget();
+      }, 200);
+      return () => window.clearInterval(timer);
+    }, [action]);
 
     useImperativeHandle(ref, () => ({
       reset() {

@@ -12,6 +12,7 @@ import { signedReaderLinks } from "@/lib/reader-links";
 import { confirmPath, unsubscribePath } from "@/lib/segment-memory";
 import { absoluteUrl } from "@/lib/site";
 import { getSegment, segmentResendId, type Segment } from "@/lib/segments";
+import { issueForDelivery } from "@/lib/bookings";
 import { signToken, tokenSecret, verifyToken } from "@/lib/tokens";
 
 const emailSchema = z.string().trim().email();
@@ -148,7 +149,8 @@ async function sendWelcomeEmail(
   const links = signedReaderLinks(input.email, input.segment.slug);
   const unsubscribeUrl = links?.unsubscribeUrl ?? absoluteUrl(unsubscribePath(input.segment.slug));
   const preferencesUrl = links?.preferencesUrl;
-  const issue = latestPublishedIssue(input.segment.slug);
+  const stored = latestPublishedIssue(input.segment.slug);
+  const issue = stored ? await issueForDelivery(stored) : undefined;
   const message = issue
     ? welcomeIssueMessage(issue, unsubscribeUrl, preferencesUrl)
     : welcomePlainMessage(
