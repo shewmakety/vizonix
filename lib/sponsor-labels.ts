@@ -3,12 +3,9 @@ import { getPlacement } from "@/lib/rate-card";
 import { activeSegments } from "@/lib/segments";
 import { renderedFormatIds, sectionSpots, sponsorSlotSpec } from "@/lib/sponsor-slots";
 
-export type PlacementChoice = { id: string; label: string };
+import type { InquiryFormOptions, PlacementChoice } from "@/lib/sponsor-labels-client";
 
-export type InquiryFormOptions = {
-  segments: PlacementChoice[];
-  sectionsBySegment: Record<string, PlacementChoice[]>;
-};
+export type { InquiryFormOptions, PlacementChoice };
 
 /** Primary, secondary, and section sponsor. The numbered section is a separate field. */
 export function placementChoices(_segment?: string): PlacementChoice[] {

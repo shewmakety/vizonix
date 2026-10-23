@@ -6,7 +6,7 @@ import { submitAdmin } from "@/components/admin/submit-admin";
 import { getPlacement, wordCount } from "@/lib/rate-card";
 import { formatForPlacement, isSectionSpot, sectionLineMax } from "@/lib/sponsor-slots";
 import { bookingStatuses, type BookingStatus } from "@/lib/sponsor-placements";
-import type { PlacementChoice } from "@/lib/sponsor-labels";
+import type { PlacementChoice } from "@/lib/sponsor-labels-client";
 
 export type BookingFormValues = {
   sponsorId: string;

@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { SponsorField, SponsorVerification } from "@/components/SponsorField";
 import type { TurnstileHandle } from "@/components/TurnstileField";
 import { site } from "@/lib/site";
-import { inquiryBudgets } from "@/lib/sponsor-inquiry";
-import type { PlacementChoice } from "@/lib/sponsor-labels";
+import { inquiryBudgets } from "@/lib/sponsor-inquiry-client";
+import type { PlacementChoice } from "@/lib/sponsor-labels-client";
 import {
   checkoutAdCopyHelp,
   checkoutAdCopyLabel,

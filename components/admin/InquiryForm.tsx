@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { submitAdmin } from "@/components/admin/submit-admin";
 import { inquiryStatuses, type InquiryStatus } from "@/lib/sponsor-placements";
-import type { PlacementChoice } from "@/lib/sponsor-labels";
+import type { PlacementChoice } from "@/lib/sponsor-labels-client";
 import { buyerCopyMax, formatForPlacement, isSectionSpot } from "@/lib/sponsor-slots";
 
 export type InquiryFormValues = {

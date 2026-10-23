@@ -4,13 +4,9 @@ import { getSegment } from "@/lib/segments";
 import { numberedSectionIds } from "@/lib/sponsor-labels";
 import { resolvePublicPlacement } from "@/lib/sponsor-placements";
 
-export const inquiryBudgets = [
-  "Not sure",
-  "Under $150 a month",
-  "$150 to $300",
-  "$300 to $750",
-  "$750 or more",
-] as const;
+import { inquiryBudgets } from "@/lib/sponsor-inquiry-client";
+
+export { inquiryBudgets };
 
 const windowMs = 60 * 60 * 1000;
 const maxHits = 5;
@@ -80,7 +76,7 @@ export function parseInquiry(
     return { ok: false, error: "Check the name, company name, email, ad copy, and message." };
   }
   const budget = parsed.data.budget ?? "";
-  if (budget && !inquiryBudgets.includes(budget as (typeof inquiryBudgets)[number])) {
+  if (budget && !(inquiryBudgets as readonly string[]).includes(budget)) {
     return { ok: false, error: "Choose a budget from the list, or leave it blank." };
   }
 

@@ -2,7 +2,7 @@
 
 import { addDays, formatShortDate } from "@/lib/dates";
 import type { DayMark } from "@/lib/sponsor-calendar";
-import type { PlacementChoice } from "@/lib/sponsor-labels";
+import type { PlacementChoice } from "@/lib/sponsor-labels-client";
 
 const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 

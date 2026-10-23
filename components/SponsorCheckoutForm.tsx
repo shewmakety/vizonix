@@ -28,7 +28,7 @@ import {
   sponsorRequiredLegend,
   sponsorVerifyHelp,
 } from "@/lib/sponsor-form-copy";
-import type { PlacementChoice } from "@/lib/sponsor-labels";
+import type { PlacementChoice } from "@/lib/sponsor-labels-client";
 import {
   buyerCopyMax,
   renderedFormatIds,
