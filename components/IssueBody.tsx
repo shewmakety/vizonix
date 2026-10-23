@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CustomizeCard } from "@/components/CustomizeCard";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { resolveSlot, sectionSponsorRatesUrl, type SlotName } from "@/lib/email";
 import { formatNumericDate } from "@/lib/dates";
@@ -299,7 +298,6 @@ export function IssueBody({ issue }: { issue: Issue }) {
         <SlotView name="primary" creative={issue.sponsors.primary} />
         <div className="dash-hero">
           <WhatWeDo />
-          <CustomizeCard />
           <section className="top-story">
             <p className="top-kicker">
               <SectionIcon topic={issue.lead.kicker} size={28} />

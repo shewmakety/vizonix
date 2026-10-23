@@ -19,6 +19,7 @@ import {
   toolboxCardCopy,
   toolboxCardIcon,
   whatWeDo,
+  whatWeDoBody,
 } from "@/lib/site";
 import { formatNumericDate } from "@/lib/dates";
 import { escapeHtml, publicHref } from "@/lib/html";
@@ -277,23 +278,15 @@ function navyCardEmailHtml(heading: string, bodyHtml: string): string {
           </tr>`;
 }
 
-function whatWeDoEmailHtml(): string {
+function preferencesButtonEmailHtml(preferencesUrl: string): string {
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-top:14px;"><tr><td bgcolor="#c9b98f" style="background-color:#c9b98f;border-radius:4px;"><a href="${escapeHtml(preferencesUrl)}" style="display:inline-block;padding:8px 14px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.2;color:#13233b;text-decoration:none;">${escapeHtml(customizeCard.action)}</a></td></tr></table>`;
+}
+
+function whatWeDoEmailHtml(preferencesUrl: string): string {
   return navyCardEmailHtml(
     whatWeDo.heading,
-    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDo.copy)}</p>`,
+    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(whatWeDoBody())}</p>${preferencesButtonEmailHtml(preferencesUrl)}`,
   );
-}
-
-function customizeCardEmailHtml(preferencesUrl: string): string {
-  const button = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;margin-top:14px;"><tr><td bgcolor="#c9b98f" style="background-color:#c9b98f;border-radius:4px;"><a href="${escapeHtml(preferencesUrl)}" style="display:inline-block;padding:8px 14px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;line-height:1.2;color:#13233b;text-decoration:none;">${escapeHtml(customizeCard.action)}</a></td></tr></table>`;
-  return navyCardEmailHtml(
-    customizeCard.heading,
-    `<p style="margin:0;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#ffffff;">${escapeHtml(customizeCard.copy)}</p>${button}`,
-  );
-}
-
-function customizeCardEmailText(preferencesUrl: string): string[] {
-  return [customizeCard.heading.toUpperCase(), customizeCard.copy, `${customizeCard.action}: ${preferencesUrl}`, ""];
 }
 
 function glossaryEmailHtml(issue: Issue): string {
@@ -607,7 +600,7 @@ function issueActionsText(issue: Issue, archive: string, preferences: string): s
 function postalEmailHtml(): string {
   const postal = site.postalAddress.trim();
   if (!postal) return "";
-  return `<p style="margin:0 0 8px;">${escapeHtml(postal)}</p>`;
+  return `<p style="margin:0 0 8px;text-align:center;">${escapeHtml(postal)}</p>`;
 }
 
 export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): string {
@@ -686,8 +679,7 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
-          ${whatWeDoEmailHtml()}
-          ${customizeCardEmailHtml(preferences)}
+          ${whatWeDoEmailHtml(preferences)}
           <tr>
             <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;border-top:5px solid #14532D;padding:22px;">
@@ -713,9 +705,11 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="padding:16px 20px 28px;font-family:Arial,sans-serif;font-size:13px;line-height:1.5;color:#5f584e;">
               <p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription to the Vizonix ${escapeHtml(editionName)} briefing. A mention is not an endorsement. Sponsored slots are labeled.</p>
-              ${postalEmailHtml()}
-              <p style="margin:0 0 8px;">Contact us at: <a href="mailto:${escapeHtml(site.email)}" style="color:#14532D;">${escapeHtml(site.email)}</a></p>
-              <p style="margin:0;"><a href="${escapeHtml(unsubscribe)}" style="color:#14532D;">Unsubscribe</a></p>
+              <div class="vz-footer-contact" align="center" style="text-align:center;">
+                ${postalEmailHtml()}
+                <p style="margin:0 0 8px;text-align:center;">Contact us at: <a href="mailto:${escapeHtml(site.email)}" style="color:#14532D;">${escapeHtml(site.email)}</a></p>
+                <p style="margin:0;text-align:center;"><a href="${escapeHtml(unsubscribe)}" style="color:#14532D;">Unsubscribe</a></p>
+              </div>
             </td>
           </tr>
               </table>
@@ -754,9 +748,9 @@ export function renderIssueText(issue: Issue, options: IssueRenderOptions): stri
     issueActionsText(issue, archive, preferences),
     "",
     whatWeDo.heading.toUpperCase(),
-    whatWeDo.copy,
+    whatWeDoBody(),
+    `${customizeCard.action}: ${preferences}`,
     "",
-    ...customizeCardEmailText(preferences),
     ...(directoryLink ? [`${directoryLink.label}: ${directoryLink.href}`] : []),
     "",
     ...(options.introText ? [options.introText, ""] : []),

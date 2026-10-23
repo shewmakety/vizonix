@@ -26,10 +26,13 @@ export const customizeLinkLabel = "Customize your issue";
 /** Public page where a new reader picks topics. Preferences needs a signed email link. */
 export const customizeWebPath = "/join";
 
-/** Where the issue Customize card sends a reader who is already on the site. */
+/** Where the What We Do card sends a reader who is already on the site. */
 export const preferencesPath = "/preferences";
 
-/** Navy card under What We Do on every issue page and in the issue email. */
+/**
+ * Sentence and button on the What We Do card.
+ * The heading is not shown. The sentence continues that card's body.
+ */
 export const customizeCard = {
   heading: "Customize",
   copy: "Make Vizonix yours. Choose which sections you get, drop the ones you don't need, and change it anytime.",
@@ -57,8 +60,13 @@ export const toolboxCardIcon = { width: 80, height: 64 } as const;
 /** Shown at the top of every issue. Not stored on the issue JSON. */
 export const whatWeDo = {
   heading: "What We Do",
-  copy: "The VIZONIX Daily is a new, free briefing that helps aviation leaders put AI and robotics to work. Every weekday we pick the developments that matter to MROs, operators and suppliers, explain them in plain English, and show where they pay off. Choose the topics you care about, and we'll tailor every issue to you.",
+  copy: "The Vizonix Daily is a new, free briefing that helps aviation leaders put AI and robotics to work. Every weekday we pick the developments that matter to MROs, operators and suppliers, explain them in plain English, and show where they pay off. Choose the topics you care about, and we'll tailor every issue to you.",
 } as const;
+
+/** What We Do body. The customize sentence continues the same paragraph. */
+export function whatWeDoBody(): string {
+  return `${whatWeDo.copy} ${customizeCard.copy}`;
+}
 
 /** Public profiles. Do not add a URL that is not live. */
 export const socialProfiles = [
