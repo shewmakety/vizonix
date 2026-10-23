@@ -474,3 +474,25 @@ describe("sponsor admin auth and storage", () => {
     expect(body).toMatchObject({ legacy_id: "cs_old", stripe_session_id: "cs_old", placement: "primary" });
   });
 });
+
+describe("admin session secret", () => {
+  it("fails closed in production without ADMIN_SESSION_SECRET", async () => {
+    const { adminConfigured, createAdminSession, verifyAdminSession } = await import("@/lib/admin-session");
+    const prevEnv = process.env.VERCEL_ENV;
+    const prevSecret = process.env.ADMIN_SESSION_SECRET;
+    process.env.ADMIN_PASSWORD = "correct horse";
+    process.env.VERCEL_ENV = "production";
+    delete process.env.ADMIN_SESSION_SECRET;
+    expect(adminConfigured()).toBe(false);
+    process.env.ADMIN_SESSION_SECRET = "x".repeat(40);
+    expect(adminConfigured()).toBe(true);
+    const token = createAdminSession();
+    expect(verifyAdminSession(token)).toBe(true);
+    process.env.ADMIN_SESSION_SECRET = "y".repeat(40);
+    expect(verifyAdminSession(token)).toBe(false);
+    process.env.VERCEL_ENV = prevEnv;
+    if (prevSecret === undefined) delete process.env.ADMIN_SESSION_SECRET;
+    else process.env.ADMIN_SESSION_SECRET = prevSecret;
+    if (prevEnv === undefined) delete process.env.VERCEL_ENV;
+  });
+});
