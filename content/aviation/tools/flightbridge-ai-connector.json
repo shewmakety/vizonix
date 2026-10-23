@@ -1,0 +1,17 @@
+{
+  "slug": "flightbridge-ai-connector",
+  "segment": "aviation",
+  "name": "FlightBridge connector for AI assistants (beta)",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "FlightBridge",
+  "summary": "FlightBridge demonstrated the connector at NBAA-BACE, October 20 to 22. It lets an AI assistant such as Claude or ChatGPT work inside a FlightBridge account to find and book crew hotels and rental cars, change reservations when a trip slips a day, and message FBOs. FlightBridge says the assistant works with the user's own permissions, preferred vendors and rates, and only sees what the user is already authorized to see. FBOs can also connect phone and text agents so bookings land in the same place. Early access is by waitlist.",
+  "paragraphs": [
+    "FlightBridge demonstrated the connector at NBAA-BACE, October 20 to 22. It lets an AI assistant such as Claude or ChatGPT work inside a FlightBridge account to find and book crew hotels and rental cars, change reservations when a trip slips a day, and message FBOs. FlightBridge says the assistant works with the user's own permissions, preferred vendors and rates, and only sees what the user is already authorized to see. FBOs can also connect phone and text agents so bookings land in the same place. Early access is by waitlist."
+  ],
+  "whyItMatters": "When an aircraft goes AOG away from base, someone has to rebook hotels, cars and FBO services for every affected leg, often late at night. Handing that rebooking to an assistant frees dispatch to focus on the aircraft and the customer.",
+  "pricing": "Not yet published; waitlist for early access",
+  "sourceUrl": "https://home.flightbridge.com/resources/introducing-new-ways-to-connect-with-flightbridge",
+  "url": "https://home.flightbridge.com/"
+}

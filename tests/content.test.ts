@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(5);
+    expect(issues).toHaveLength(6);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-23",
       "2026-10-22",
       "2026-10-21",
       "2026-10-20",
@@ -72,22 +73,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "AI agents are already calling charter operators for quotes. Plus 7 places to put AI and robotics to work",
+      "Pratt & Whitney is scaling AI engine inspections, and will sell them to your shop. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "cae-ready-for-work",
-      "levo-flight-leads",
-      "optifly-opty",
-      "gulfstream-performance-analytics",
-      "ge-aerospace-celma-records-ai",
-      "aerokeeper-due-list-agent",
-      "uas-skyx",
-      "ajw-apollo",
-      "flyexclusive-contrails-fms",
-      "claude-duet",
-      "gemini-customize-hub",
+      "aemtc-ai-borescope-training",
+      "ambry-hill-vista-quote",
+      "panasonic-technical-services-total-care",
+      "truvideo-aog",
+      "pratt-whitney-aiir-borescope",
+      "pentagon-2000-aventus-ai-agents",
+      "flightbridge-ai-connector",
+      "chatgpt-locked-chats",
+      "microsoft-365-copilot-projects",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -107,19 +106,25 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(94);
+    expect(tools).toHaveLength(100);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
+      "aemtc-ai-borescope-training",
       "aeroquote",
       "ajw-apollo",
+      "ambry-hill-vista-quote",
       "cae-ready-for-work",
       "flightbridge-21x-ai-concierge",
+      "flightbridge-ai-connector",
       "flyexclusive-contrails-fms",
       "ge-aerospace-celma-records-ai",
       "gulfstream-performance-analytics",
+      "panasonic-technical-services-total-care",
+      "pentagon-2000-aventus-ai-agents",
       "rolls-royce-optimiser",
       "sensos-jssi-tracking",
+      "truvideo-aog",
       "uas-skyx",
     ]);
     expect(getTool("aviation", "flightbridge-21x-ai-concierge")?.pricing).toBe("Not announced (beta)");

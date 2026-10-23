@@ -1,0 +1,17 @@
+{
+  "slug": "ambry-hill-vista-quote",
+  "segment": "aviation",
+  "name": "Vista-Quote",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Ambry Hill Technologies",
+  "summary": "Ambry Hill described Vista-Quote in the October 22 AviTrader roundtable. Its AI recognizes a plain-text RFQ email written by a person, identifies it as a real request, stages it in a standard format and connects the company and part numbers to available history. The original email stays available for checking. From there, configurable rules, not generative AI, route the RFQ, check inventory, apply restrictions, hold exceptions for review or drive auto-quoting. It also reports why requests fall out of the automated path.",
+  "paragraphs": [
+    "Ambry Hill described Vista-Quote in the October 22 AviTrader roundtable. Its AI recognizes a plain-text RFQ email written by a person, identifies it as a real request, stages it in a standard format and connects the company and part numbers to available history. The original email stays available for checking. From there, configurable rules, not generative AI, route the RFQ, check inventory, apply restrictions, hold exceptions for review or drive auto-quoting. It also reports why requests fall out of the automated path."
+  ],
+  "whyItMatters": "In parts sales, the first accurate quote often wins. If your team retypes RFQs from email, AI intake can cut the time to quote and let the same staff answer more requests. The split matters too: AI reads the email, fixed rules do the quoting, and people handle the exceptions, so pricing does not go out unchecked.",
+  "pricing": "Quote-based; see Ambry Hill's pricing page",
+  "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+  "url": "https://ambryhill.com/vista-quote/inbound-rfq-management"
+}

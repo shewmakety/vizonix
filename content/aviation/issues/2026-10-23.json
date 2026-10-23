@@ -1,0 +1,224 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-23",
+  "publishedAt": "2026-10-23T05:45:00-04:00",
+  "sample": false,
+  "subject": "Pratt & Whitney is scaling AI engine inspections, and will sell them to your shop. Plus 7 places to put AI and robotics to work",
+  "preheader": "Pratt & Whitney on AI borescope inspection, AI that reads RFQ emails, verified video for faster repairs, a robotic parts warehouse, and what to check before AI acts on its own.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Pratt & Whitney is scaling AI-assisted borescope inspection across its shops, and will keep selling it to other MROs and operators",
+    "summary": "In an Aviation Week interview published October 22, Rob Griffiths, senior vice president for commercial engines operations at Pratt & Whitney, explained why the company bought Dutch startup Aiir Innovations in July. Aiir's software uses AI to analyze engine borescope video. Griffiths said lessors have recorded up to 75% faster analysis of borescope videos, and that for MROs the software has cut overall inspection time by more than 30%, including report writing that drops from hours to minutes. He said it has helped avoid quality escapes that could have cost operators significantly. Pratt & Whitney is rolling the tool out across its own GTF MRO network and plans to keep offering it to the whole industry, including MROs, lessors and operators, across various engine models. Griffiths said the next phase is prescriptive and autonomous maintenance, with AI used to augment expert judgment where volume and repeatability matter.",
+    "whyItMatters": "Borescope review is skilled, repetitive work, and the report is often what holds up an engine decision. If a shop can cut inspection time by a third and turn reports around in minutes, it can take on more engines with the same inspectors and give lessors and owners an answer sooner. Because Pratt & Whitney says the tool stays open to other shops and engine types, independent MROs can ask for a trial rather than wait to be left behind.",
+    "sourceName": "Aviation Week, October 22, 2026",
+    "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/fast-5-pratt-whitney-why-it-acquired-aiir-innovations",
+    "productUrl": "/aviation/tools/pratt-whitney-aiir-borescope"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Context first: China's Aero Engine Maintenance Training Center (AEMTC), backed by GE Aerospace, Safran and CFM, cites IATA figures projecting annual LEAP engine shop visits rising from about 600 to 800 in 2025 to 1,800 to 2,000 by 2030. More engines in the shop means more inspectors to find and train.",
+      "introSourceUrl": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/",
+      "coverageNote": "Thin today: no new AI hiring tool surfaced in the last 72 hours. The item below was reported October 14 and is about training technicians, not hiring them.",
+      "tools": [
+        {
+          "name": "AI-enabled borescope training",
+          "slug": "aemtc-ai-borescope-training",
+          "company": "Aero Engine Maintenance Training Center (AEMTC)",
+          "summary": "Reported by MRO Business Today on October 14. AEMTC, based at the Civil Aviation Flight University of China, has trained about 17,500 technical professionals from more than 120 airlines, MROs and manufacturers. It is adding AI-enabled borescope training and mixed-reality instruction to prepare technicians for LEAP engine work, while keeping human judgment at the center of inspection and maintenance decisions. Plans also include adding GE90 and GE9X engines to its training.",
+          "whyItMatters": "A new hire who can read a borescope image confidently is billable sooner. If your shop competes for engine work, ask your training providers whether their borescope courses include AI-assisted practice, since that is the tool your technicians will likely use on the job.",
+          "url": "/aviation/tools/aemtc-ai-borescope-training",
+          "sourceUrl": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/",
+          "vendorUrl": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/",
+          "pricing": "Not published; contact AEMTC"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "In an AviTrader roundtable on AI in MRO software published October 22, Ambry Hill Technologies said the measurable value today comes from bounded, high-volume work, not from asking a chatbot to diagnose an aircraft.",
+      "introSourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+      "tools": [
+        {
+          "name": "Vista-Quote",
+          "slug": "ambry-hill-vista-quote",
+          "company": "Ambry Hill Technologies",
+          "summary": "Ambry Hill described Vista-Quote in the October 22 AviTrader roundtable. Its AI recognizes a plain-text RFQ email written by a person, identifies it as a real request, stages it in a standard format and connects the company and part numbers to available history. The original email stays available for checking. From there, configurable rules, not generative AI, route the RFQ, check inventory, apply restrictions, hold exceptions for review or drive auto-quoting. It also reports why requests fall out of the automated path.",
+          "whyItMatters": "In parts sales, the first accurate quote often wins. If your team retypes RFQs from email, AI intake can cut the time to quote and let the same staff answer more requests. The split matters too: AI reads the email, fixed rules do the quoting, and people handle the exceptions, so pricing does not go out unchecked.",
+          "url": "/aviation/tools/ambry-hill-vista-quote",
+          "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+          "vendorUrl": "https://ambryhill.com/vista-quote/inbound-rfq-management",
+          "pricing": "Quote-based; see Ambry Hill's pricing page"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "coverageNote": "No new predictive maintenance launch in the last 72 hours. The item below comes from the same October 22 AviTrader roundtable and covers cabin systems, not engines.",
+      "tools": [
+        {
+          "name": "Total Care Package (IFEC predictive maintenance)",
+          "slug": "panasonic-technical-services-total-care",
+          "company": "Panasonic Technical Services (Panasonic Avionics)",
+          "summary": "Tom Eskola, vice president of Panasonic Technical Services, told AviTrader on October 22 that PTS already uses remote diagnostics, real-time monitoring, data-driven troubleshooting and proactive maintenance planning across in-flight entertainment and connectivity (IFEC) systems. He said its Total Care Package can include advanced diagnostics and predictive maintenance strategies, and that AI will help anticipate some non-routine findings before a maintenance event, as an improving probability rather than a certainty.",
+          "whyItMatters": "A dead seat screen or a down Wi-Fi system turns into refunds, complaints and lost charter repeat business. Catching cabin system faults before the aircraft arrives at the hangar lets you have the parts and people ready, which shortens the visit.",
+          "url": "/aviation/tools/panasonic-technical-services-total-care",
+          "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+          "vendorUrl": "https://www.panasonic.aero/",
+          "pricing": "Contact Panasonic Avionics"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "intro": "Also from the October 22 AviTrader roundtable: TruVideo said most non-routine findings are still written as free text or buried in untagged photos, so AI has nothing structured to learn from. Its view is that the prediction problem is really a data-capture problem.",
+      "introSourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+      "tools": [
+        {
+          "name": "TruVideo AOG",
+          "slug": "truvideo-aog",
+          "company": "TruVideo",
+          "summary": "TruVideo sells verified video workflows for aviation maintenance. Technicians capture guided video of a problem, remote specialists review it, and teams can line up parts, labor and bay space before the aircraft is opened up further. Video is attached to the work order with timestamps and device details for audit. In the October 22 AviTrader roundtable, TruVideo's Tom Torosian said that where operators capture visual evidence tied to the job and the asset, AI models get far more accurate at flagging likely findings before a check starts.",
+          "whyItMatters": "Every hour a bay waits on a decision is an hour you cannot bill. Video that reaches the right expert quickly, and stays on the work order afterward, speeds up the repair now and builds the clean records any future AI planning tool will need.",
+          "url": "/aviation/tools/truvideo-aog",
+          "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+          "vendorUrl": "https://truvideo.com/aviation/",
+          "pricing": "Contact TruVideo"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "The tool below is the one from today's top story. It is listed here so readers who only pick this topic still see it.",
+      "tools": [
+        {
+          "name": "AI-assisted borescope inspection (Aiir Innovations)",
+          "slug": "pratt-whitney-aiir-borescope",
+          "company": "Pratt & Whitney (RTX)",
+          "summary": "AI software that analyzes engine borescope video to find and record defects. Pratt & Whitney told Aviation Week on October 22 that it has significantly reduced inspection times on V2500 engines, with recently completed pilots on GTF and F135 engines. For MROs it has cut overall inspection time by more than 30%. Pratt & Whitney is rolling it out across its GTF MRO network and will keep offering it to other MROs, lessors and operators across engine models.",
+          "whyItMatters": "Faster, more consistent borescope reports mean quicker engine decisions and fewer missed defects. Ask Pratt & Whitney which engine types are supported today and how findings are reviewed by your own inspectors before you sign off.",
+          "url": "/aviation/tools/pratt-whitney-aiir-borescope",
+          "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/fast-5-pratt-whitney-why-it-acquired-aiir-innovations",
+          "vendorUrl": "https://www.prattwhitney.com/",
+          "pricing": "Contact Pratt & Whitney"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "intro": "Pentagon 2000 told AviTrader on October 22 that its AI agents in PENTAGON AVENTUS read customer and vendor emails and prepare quotes, orders and invoices in the ERP for the team to review.",
+      "introSourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+      "coverageNote": "The robotics note below was announced October 6, older than our usual window, but we had not covered it yet.",
+      "robotics": {
+        "headline": "Jungheinrich hands over a robotic parts warehouse for Deutsche Aircraft's D328eco line",
+        "summary": "Deutsche Aircraft said on October 6 that Jungheinrich has handed over an automated logistics center at Leipzig/Halle Airport. A PowerCube automated compact bin storage system holds more than 6,500 bins across 26 levels in about 210 square meters, with 16 shuttles moving bins to five workstations. Frequently used parts are automatically kept on lower levels. Two autonomous EKX 516ka trucks store and retrieve pallets in a very narrow aisle warehouse holding 624 pallets, and every pallet is scanned and checked for size and weight. One control system runs both.",
+        "whyItMatters": "Pick time and lost parts slow every job. Dense automated storage fits thousands of small parts into a small footprint, and putting fast movers within easy reach is something any parts room can copy, even without robots.",
+        "sourceName": "Deutsche Aircraft",
+        "sourceUrl": "https://www.deutscheaircraft.com/news/jungheinrich-deutsche-aircraft-a-pioneering-automated-warehouse-for-one-of-the-most-advanced-regional-aircraft-production-facilities"
+      },
+      "tools": [
+        {
+          "name": "PENTAGON AVENTUS AI agents",
+          "slug": "pentagon-2000-aventus-ai-agents",
+          "company": "Pentagon 2000 Software",
+          "summary": "Guy Danon, global head of sales and marketing at Pentagon 2000, told AviTrader on October 22 that agents in PENTAGON AVENTUS, its browser-based ERP, read incoming emails with PDF, CSV or text attachments and turn them into quotes, sales orders and purchase invoices. For a vendor invoice, the agent matches it to the purchase order and receiver where available and passes it to the right person. He said the agents follow the same business rules, approval flags and user permissions as the person who would normally do the task.",
+          "whyItMatters": "Receiving and invoice matching eat stores and accounting hours, and mistakes leave parts sitting unpaid or unbooked. An agent that drafts the paperwork for a person to approve cuts data entry without giving software the authority to pay or ship.",
+          "url": "/aviation/tools/pentagon-2000-aventus-ai-agents",
+          "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+          "vendorUrl": "https://www.pentagon2000.com/post/introducing-pentagon-aventus-browser-based-erp",
+          "pricing": "Contact Pentagon 2000"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "At an NBAA-BACE session reported October 22, SayFlight founder Toby Benenson described an AOG case in which an AI assistant finds a replacement aircraft and drafts the customer notice before maintenance availability or crew are confirmed. Before automation moves from recommending to acting, he said five things need to exist: authority, scope, meaningful oversight, failure management and documentation.",
+      "introSourceUrl": "https://nbaabace.org/news-media/news/proposed-rules-emerging-technologies-seek-to-expand-bvlos-operations-in-business-aviation",
+      "coverageNote": "No new AI parts-sourcing launch today. The tool below handles crew logistics when a trip slips, and it is in beta with a waitlist.",
+      "tools": [
+        {
+          "name": "FlightBridge connector for AI assistants (beta)",
+          "slug": "flightbridge-ai-connector",
+          "company": "FlightBridge",
+          "summary": "FlightBridge demonstrated the connector at NBAA-BACE, October 20 to 22. It lets an AI assistant such as Claude or ChatGPT work inside a FlightBridge account to find and book crew hotels and rental cars, change reservations when a trip slips a day, and message FBOs. FlightBridge says the assistant works with the user's own permissions, preferred vendors and rates, and only sees what the user is already authorized to see. FBOs can also connect phone and text agents so bookings land in the same place. Early access is by waitlist.",
+          "whyItMatters": "When an aircraft goes AOG away from base, someone has to rebook hotels, cars and FBO services for every affected leg, often late at night. Handing that rebooking to an assistant frees dispatch to focus on the aircraft and the customer.",
+          "url": "/aviation/tools/flightbridge-ai-connector",
+          "sourceUrl": "https://home.flightbridge.com/resources/introducing-new-ways-to-connect-with-flightbridge",
+          "vendorUrl": "https://home.flightbridge.com/",
+          "pricing": "Not yet published; waitlist for early access"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived this week. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "ChatGPT Locked Chats",
+          "slug": "chatgpt-locked-chats",
+          "company": "OpenAI",
+          "summary": "Announced October 20 and rolling out gradually on web, iOS, Android and the ChatGPT desktop apps for Free, Go, Plus, Pro, Business, Enterprise and Edu accounts. You can lock a conversation with a four-digit account PIN, with optional Face ID, Touch ID or device unlock on supported phones. Locked chats move to a separate Locked chats area and stop showing in regular history and search. OpenAI says locking is not end-to-end encryption and does not change retention settings, and resetting a forgotten PIN permanently deletes locked chats.",
+          "whyItMatters": "If you use ChatGPT to draft pricing, customer issues or personnel notes and then share your screen in a meeting, locking those chats keeps them out of view. Treat it as privacy from people looking over your shoulder, not as a vault, and write down your PIN somewhere safe.",
+          "url": "https://www.itechpost.com/articles/237612/20261021/chatgpt-introduces-locked-chats-feature-pin-protection-major-privacy-update.htm",
+          "sourceUrl": "https://www.itechpost.com/articles/237612/20261021/chatgpt-introduces-locked-chats-feature-pin-protection-major-privacy-update.htm",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Included in Free, Go, Plus, Pro, Business, Enterprise and Edu plans"
+        },
+        {
+          "name": "Projects in Microsoft 365 Copilot",
+          "slug": "microsoft-365-copilot-projects",
+          "company": "Microsoft",
+          "summary": "Rolled out worldwide on October 20 in the Cowork tab of the Microsoft 365 Copilot app on Windows, Mac and web, according to Microsoft's message center notice. A project holds related chats, Cowork tasks, files, instructions and outputs in one place, so you add your context once and every task in the project builds on it. Files stay in OneDrive under the same permissions, sensitivity labels and retention policies. Projects across Chat and Cowork for Frontier program users begin rolling out in late October, and mobile is coming soon.",
+          "whyItMatters": "A heavy check, an aircraft sale or a customer audit runs for weeks across dozens of documents. Keeping that context in one Copilot project saves re-explaining the job every time you ask for a summary, a status note or a draft letter.",
+          "url": "https://pupuweb.com/mc1519856-projects-in-copilot/",
+          "sourceUrl": "https://pupuweb.com/mc1519856-projects-in-copilot/",
+          "vendorUrl": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+          "pricing": "Included with Microsoft 365 Copilot (Premium) licenses"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agent",
+      "definition": "Software that carries out a series of steps toward a goal, such as turning a vendor email into a draft invoice or booking a crew hotel, instead of only answering one question."
+    },
+    {
+      "term": "AI-assisted inspection",
+      "definition": "Software that reviews inspection images or video, such as a borescope recording, and points out likely defects for a qualified inspector to confirm."
+    },
+    {
+      "term": "AI connector",
+      "definition": "A link that lets a general AI assistant, like ChatGPT or Claude, read from and act inside another program you already use, with your login and permissions."
+    },
+    {
+      "term": "Autonomous",
+      "definition": "Able to do a task without a person controlling each move, such as a warehouse truck that stores and retrieves pallets on its own."
+    },
+    {
+      "term": "Automated storage and retrieval",
+      "definition": "A robotic storage system where shuttles or cranes fetch bins or pallets and bring them to a person at a workstation, instead of the person walking the shelves."
+    },
+    {
+      "term": "Generative AI",
+      "definition": "AI that writes or creates new content, such as text or images, based on patterns it learned. It can sound right while being wrong, so its output needs checking."
+    },
+    {
+      "term": "Human in the loop",
+      "definition": "A setup where a person reviews or approves what the AI suggests before anything is sent, booked or signed off."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "pentagon-2000-aventus-ai-agents",
+  "segment": "aviation",
+  "name": "PENTAGON AVENTUS AI agents",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "Pentagon 2000 Software",
+  "summary": "Guy Danon, global head of sales and marketing at Pentagon 2000, told AviTrader on October 22 that agents in PENTAGON AVENTUS, its browser-based ERP, read incoming emails with PDF, CSV or text attachments and turn them into quotes, sales orders and purchase invoices. For a vendor invoice, the agent matches it to the purchase order and receiver where available and passes it to the right person. He said the agents follow the same business rules, approval flags and user permissions as the person who would normally do the task.",
+  "paragraphs": [
+    "Guy Danon, global head of sales and marketing at Pentagon 2000, told AviTrader on October 22 that agents in PENTAGON AVENTUS, its browser-based ERP, read incoming emails with PDF, CSV or text attachments and turn them into quotes, sales orders and purchase invoices. For a vendor invoice, the agent matches it to the purchase order and receiver where available and passes it to the right person. He said the agents follow the same business rules, approval flags and user permissions as the person who would normally do the task."
+  ],
+  "whyItMatters": "Receiving and invoice matching eat stores and accounting hours, and mistakes leave parts sitting unpaid or unbooked. An agent that drafts the paperwork for a person to approve cuts data entry without giving software the authority to pay or ship.",
+  "pricing": "Contact Pentagon 2000",
+  "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+  "url": "https://www.pentagon2000.com/post/introducing-pentagon-aventus-browser-based-erp"
+}
