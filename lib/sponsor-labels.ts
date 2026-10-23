@@ -16,18 +16,34 @@ export function placementChoices(_segment?: string): PlacementChoice[] {
 }
 
 /**
+ * Unlaunched verticals. Those names stay off public sponsor pages.
+ * A numbered section whose topic uses one of these words is listed by number only.
+ */
+const unlaunchedVertical = /\b(?:warehousing|legal|marketing)\b/i;
+
+function sectionChoiceLabel(id: string, topic: string | undefined, publicLabels: boolean): string {
+  const name = topic?.trim() ?? "";
+  if (!name || (publicLabels && unlaunchedVertical.test(name))) return `Section ${id}`;
+  return `Section ${id} - ${name}`;
+}
+
+/**
  * Numbered sections for one segment.
  * Labels come from that segment's latest issue. A segment with no issue gets Section 01, Section 02, and so on.
+ * Public labels drop unlaunched vertical names. Admin labels keep the issue topic.
  */
-export function numberedSectionChoices(segment: string): PlacementChoice[] {
+export function numberedSectionChoices(
+  segment: string,
+  options?: { publicLabels?: boolean },
+): PlacementChoice[] {
+  const publicLabels = options?.publicLabels === true;
   const sections = listIssues(segment)[0]?.sections ?? [];
   if (sections.length === 0) {
     return sectionSpots.map((id) => ({ id, label: `Section ${id}` }));
   }
   return sections.slice(0, sectionSpots.length).map((section, index) => {
     const id = sectionSpots[index] ?? "";
-    const topic = section.topic?.trim();
-    return { id, label: topic ? `Section ${id} - ${topic}` : `Section ${id}` };
+    return { id, label: sectionChoiceLabel(id, section.topic, publicLabels) };
   });
 }
 
@@ -50,7 +66,7 @@ export function inquiryFormOptions(): InquiryFormOptions {
   return {
     segments: live.map((segment) => ({ id: segment.slug, label: segment.name })),
     sectionsBySegment: Object.fromEntries(
-      live.map((segment) => [segment.slug, numberedSectionChoices(segment.slug)]),
+      live.map((segment) => [segment.slug, numberedSectionChoices(segment.slug, { publicLabels: true })]),
     ),
   };
 }

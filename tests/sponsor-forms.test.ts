@@ -93,8 +93,8 @@ describe("public sponsor forms", () => {
     }
     expect(site.email).toBe("admin@vizonix.com");
     expect(sponsorContactNote(site.email)).toBe("You can also email admin@vizonix.com.");
-    expect(checkoutSegmentHelp(["Robotics", "Warehousing"])).toBe(
-      "The briefing this sponsorship runs in. Live sections: Robotics and Warehousing.",
+    expect(checkoutSegmentHelp(["Robotics", "Field service"])).toBe(
+      "The briefing this sponsorship runs in. Live sections: Robotics and Field service.",
     );
     expect(checkoutSegmentHelp(["Robotics"])).not.toContain("Aviation");
   });
@@ -154,6 +154,10 @@ describe("public sponsor forms", () => {
       createElement(SponsorInquiryForm, { ...options, initialPlacement: "section" }),
     );
     expect(selectValues(sectionHtml, "section").filter(Boolean)).toEqual(numbered.map((item) => item.id));
+    expect(sectionHtml).not.toMatch(/\b(?:warehousing|legal|marketing)\b/i);
+    expect(numbered.find((item) => item.id === "06")?.label).toBe("Section 06");
+    expect(numbered.find((item) => item.id === "02")?.label).toBe("Section 02");
+    expect(numbered.find((item) => item.id === "01")?.label).toMatch(/^Section 01 - /);
     expectMarked(sectionHtml, "inquiry-sponsored-section", sponsoredSectionLabel, sponsoredSectionHelp, true);
     expect(fieldTag(sectionHtml, "inquiry-ad-copy")).toContain(`maxLength="${buyerCopyMax("section")}"`);
 
