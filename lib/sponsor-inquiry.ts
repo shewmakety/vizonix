@@ -1,6 +1,8 @@
 import { z } from "zod";
+import { validateBuyerCreative } from "@/lib/buyer-creative";
 import { getSegment } from "@/lib/segments";
-import { isBookingPlacement } from "@/lib/sponsor-placements";
+import { numberedSectionIds } from "@/lib/sponsor-labels";
+import { resolvePublicPlacement } from "@/lib/sponsor-placements";
 
 export const inquiryBudgets = [
   "Not sure",
@@ -16,9 +18,9 @@ const hits = new Map<string, number[]>();
 
 const inquirySchema = z.object({
   name: z.string().trim().min(1).max(120),
-  company: z.string().trim().min(1).max(160),
+  company: z.string().trim().min(1).max(200),
   email: z.string().trim().email().max(200),
-  promote: z.string().trim().min(1).max(300),
+  adCopy: z.string().trim().min(1).max(4000),
   budget: z.string().trim().max(80).optional(),
   message: z.string().trim().min(1).max(4000),
 });
@@ -28,6 +30,7 @@ export type SponsorInquiry = {
   company: string;
   email: string;
   promote: string;
+  adCopy: string;
   budget: string;
   message: string;
   segment: string;
@@ -55,6 +58,7 @@ export function parseInquiry(
         company: "",
         email: "hidden@example.com",
         promote: "",
+        adCopy: "",
         budget: "",
         message: "",
         segment: "",
@@ -68,12 +72,12 @@ export function parseInquiry(
     name: body.name,
     company: body.company,
     email: body.email,
-    promote: body.promote,
+    adCopy: body.adCopy,
     budget: body.budget ? String(body.budget) : undefined,
     message: body.message,
   });
   if (!parsed.success) {
-    return { ok: false, error: "Check the name, company, email, what you want to promote, and message." };
+    return { ok: false, error: "Check the name, company name, email, ad copy, and message." };
   }
   const budget = parsed.data.budget ?? "";
   if (budget && !inquiryBudgets.includes(budget as (typeof inquiryBudgets)[number])) {
@@ -86,8 +90,14 @@ export function parseInquiry(
   if (segment.status !== "active") {
     return { ok: false, error: "That section is not open for sponsorship yet." };
   }
-  const placement = String(body.placement ?? "").trim();
-  if (!isBookingPlacement(placement)) return { ok: false, error: "Choose a placement." };
+  const resolved = resolvePublicPlacement(
+    String(body.placement ?? ""),
+    String(body.section ?? ""),
+    numberedSectionIds(segment.slug),
+  );
+  if (!resolved.ok) return resolved;
+  const creative = validateBuyerCreative(resolved.value.format, parsed.data.company, parsed.data.adCopy);
+  if (creative) return { ok: false, error: creative };
 
   return {
     ok: true,
@@ -95,11 +105,12 @@ export function parseInquiry(
       name: parsed.data.name,
       company: parsed.data.company,
       email: parsed.data.email.trim().toLowerCase(),
-      promote: parsed.data.promote,
+      promote: parsed.data.adCopy.slice(0, 300),
+      adCopy: parsed.data.adCopy,
       budget,
       message: parsed.data.message,
       segment: segment.slug,
-      placement,
+      placement: resolved.value.placement,
       honeypot: false,
     },
   };

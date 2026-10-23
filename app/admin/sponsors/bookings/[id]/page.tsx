@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { BookingForm } from "@/components/admin/BookingForm";
 import { DeleteForm } from "@/components/admin/DeleteForm";
-import { adminSegments, placementsBySegment, sponsorOptions } from "@/lib/admin-booking-options";
+import { adminSegments, placementsBySegment, sectionsBySegment, sponsorOptions } from "@/lib/admin-booking-options";
 import { adminSignedIn, loadAdmin } from "@/lib/admin-gate";
 import { getBooking } from "@/lib/sponsor-store";
 
@@ -33,6 +33,7 @@ export default async function EditBookingPage({ params }: Props) {
         sponsors={loaded.data?.sponsors ?? []}
         segments={adminSegments()}
         placementsBySegment={placementsBySegment()}
+        sectionsBySegment={sectionsBySegment()}
         initial={{
           sponsorId: booking.sponsorId ?? "",
           segment: booking.segment,

@@ -4,9 +4,11 @@ import {
   type Reservation,
 } from "@/lib/bookings";
 import { addDays, isIsoDate, isMonday, todayInNewYork } from "@/lib/dates";
-import { getPlacement, placements, type Placement } from "@/lib/rate-card";
+import { validateBuyerCreative } from "@/lib/buyer-creative";
+import { getPlacement, type Placement } from "@/lib/rate-card";
 import { featuredSegment, getSegment } from "@/lib/segments";
-import { isSectionSpot } from "@/lib/sponsor-slots";
+import { numberedSectionIds } from "@/lib/sponsor-labels";
+import { resolvePublicPlacement } from "@/lib/sponsor-placements";
 
 const emailSchema = z.string().trim().email();
 
@@ -18,7 +20,7 @@ export type PreparedCheckout = {
   quantity: number;
   email: string;
   company: string;
-  adCopyUrl: string;
+  adCopy: string;
   founding: boolean;
   exclusivityRequested: boolean;
   honeypot: boolean;
@@ -61,7 +63,7 @@ export function parseCheckoutRequest(
         quantity: 1,
         email: "hidden@example.com",
         company: "",
-        adCopyUrl: "",
+        adCopy: "",
         founding: false,
         exclusivityRequested: false,
         honeypot: true,
@@ -76,18 +78,23 @@ export function parseCheckoutRequest(
     return { ok: false, status: 400, error: "That section is not open for sponsorship yet." };
   }
 
-  const placementId = String(body.placement ?? "").trim();
-  if (isSectionSpot(placementId)) {
+  const resolved = resolvePublicPlacement(
+    String(body.placement ?? ""),
+    String(body.section ?? ""),
+    numberedSectionIds(segment.slug),
+  );
+  if (!resolved.ok) return { ok: false, status: 400, error: resolved.error };
+  if (resolved.value.format === "section") {
     return {
       ok: false,
       status: 400,
       error: "That section sponsorship is quoted. Use the inquiry form.",
     };
   }
-  if (!placements.includes(placementId as Placement) || !getPlacement(placementId)) {
+  const placement = resolved.value.placement as Placement;
+  if (!getPlacement(placement)) {
     return { ok: false, status: 400, error: "Choose a placement." };
   }
-  const placement = placementId as Placement;
 
   const startDate = String(body.startDate ?? body.weekStart ?? "").trim();
   if (!isIsoDate(startDate)) {
@@ -119,18 +126,10 @@ export function parseCheckoutRequest(
     return { ok: false, status: 400, error: "Enter a valid email address." };
   }
 
-  const company = String(body.company ?? "").trim().slice(0, 120);
-  const adCopyUrl = String(body.adCopyUrl ?? "").trim().slice(0, 500);
-  if (adCopyUrl) {
-    try {
-      const url = new URL(adCopyUrl);
-      if (url.protocol !== "https:" && url.protocol !== "http:") {
-        return { ok: false, status: 400, error: "Ad copy URL must start with http or https." };
-      }
-    } catch {
-      return { ok: false, status: 400, error: "Ad copy URL is not a valid link." };
-    }
-  }
+  const company = String(body.company ?? "");
+  const adCopy = String(body.adCopy ?? "");
+  const creative = validateBuyerCreative(placement, company, adCopy);
+  if (creative) return { ok: false, status: 400, error: creative };
 
   const window = reservationWindow(placement, startDate, quantity);
   const conflict = findConflict(options.reservations, {
@@ -156,8 +155,8 @@ export function parseCheckoutRequest(
       endDate: window.endDate,
       quantity,
       email,
-      company,
-      adCopyUrl,
+      company: company.trim(),
+      adCopy: adCopy.trim(),
       founding: flag(body.founding),
       exclusivityRequested: Boolean(getPlacement(placement)?.newsletter) && flag(body.exclusivity),
       honeypot: false,

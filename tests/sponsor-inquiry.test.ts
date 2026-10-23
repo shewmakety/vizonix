@@ -7,16 +7,19 @@ describe("sponsor inquiry", () => {
       name: "Ada",
       company: "Hangar Co",
       email: "Ada@Hangar.Example",
-      promote: "A parts search tool",
+      adCopy: "A parts search tool for the desk.",
       budget: "$150 to $300",
       message: "We would like the founding primary week.",
       segment: "aviation",
-      placement: "01",
+      placement: "section",
+      section: "01",
     });
     expect(parsed.ok).toBe(true);
     if (parsed.ok) {
       expect(parsed.value.honeypot).toBe(false);
       expect(parsed.value.email).toBe("ada@hangar.example");
+      expect(parsed.value.placement).toBe("01");
+      expect(parsed.value.adCopy).toContain("parts search");
     }
 
     const bot = parseInquiry({ company_website: "https://spam.example", email: "nope" });
@@ -29,7 +32,7 @@ describe("sponsor inquiry", () => {
       name: "Ada",
       company: "Hangar Co",
       email: "ada@hangar.example",
-      promote: "A tool",
+      adCopy: "A tool for the desk.",
       budget: "$1",
       message: "Hello",
       segment: "aviation",

@@ -1,6 +1,6 @@
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { BookingForm } from "@/components/admin/BookingForm";
-import { adminSegments, placementsBySegment, sponsorOptions } from "@/lib/admin-booking-options";
+import { adminSegments, placementsBySegment, sectionsBySegment, sponsorOptions } from "@/lib/admin-booking-options";
 import { adminSignedIn, loadAdmin } from "@/lib/admin-gate";
 import { todayInNewYork } from "@/lib/dates";
 import { featuredSegment } from "@/lib/segments";
@@ -25,6 +25,7 @@ export default async function NewBookingPage() {
         sponsors={loaded.data ?? []}
         segments={adminSegments()}
         placementsBySegment={placementsBySegment()}
+        sectionsBySegment={sectionsBySegment()}
         initial={{
           sponsorId: "",
           segment: featuredSegment().slug,

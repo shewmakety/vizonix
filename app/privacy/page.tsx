@@ -41,8 +41,8 @@ export default function PrivacyPage() {
         <p>
           Sponsor payments run through Stripe. Stripe collects the payment details. We store the section,
           placement, and dates of a paid reservation in the site repository so the week can be blocked.
-          That record does not include your email address or card number. The email and ad-copy link stay
-          in Stripe and, if configured, in a notice to the operator.
+          That record does not include your email address or card number. The email, company name, and
+          ad copy stay in Stripe and, if configured, in a notice to the operator. Buyers do not upload a logo.
         </p>
         <h2>Processors</h2>
         <p>

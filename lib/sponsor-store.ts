@@ -1,14 +1,17 @@
 import { z } from "zod";
+import { adCopyError } from "@/lib/buyer-creative";
 import { isIsoDate } from "@/lib/dates";
 import { AppError } from "@/lib/errors";
 import type { Issue } from "@/lib/schema";
 import { getSegment } from "@/lib/segments";
 import { applyBookingsToIssue, type SponsorBookingCreative } from "@/lib/sponsor-creative";
+import { numberedSectionIds } from "@/lib/sponsor-labels";
 import {
   bookingStatuses,
   inquiryStatuses,
   isBookingPlacement,
   isBookingStatus,
+  resolvePublicPlacement,
   isCheckoutPlacement,
   isInquiryStatus,
   isLiveBookingStatus,
@@ -16,6 +19,7 @@ import {
   type BookingStatus,
   type InquiryStatus,
 } from "@/lib/sponsor-placements";
+import { formatForPlacement, isSectionSpot } from "@/lib/sponsor-slots";
 import { supabaseConfigured, supabaseRest } from "@/lib/supabase-admin";
 
 const failure = "Could not reach sponsor storage.";
@@ -50,6 +54,7 @@ export type Inquiry = {
   company: string;
   email: string;
   promote: string;
+  adCopy: string;
   budget: string;
   message: string;
   segment: string;
@@ -111,6 +116,7 @@ type InquiryRow = {
   company?: string | null;
   email?: string | null;
   promote?: string | null;
+  ad_copy?: string | null;
   budget?: string | null;
   message?: string | null;
   segment?: string | null;
@@ -191,6 +197,7 @@ function mapInquiry(row: InquiryRow): Inquiry | null {
     company: row.company,
     email: row.email,
     promote: row.promote,
+    adCopy: text(row.ad_copy),
     budget: text(row.budget),
     message: row.message,
     segment: text(row.segment),
@@ -283,6 +290,7 @@ export type InquiryInput = {
   company: string;
   email: string;
   promote: string;
+  adCopy: string;
   budget: string;
   message: string;
   segment: string;
@@ -382,8 +390,11 @@ export function parseBookingInput(raw: unknown): { ok: true; value: BookingInput
   const body = asRecord(raw);
   const segmentSlug = String(body.segment ?? "").trim();
   if (!getSegment(segmentSlug)) return { ok: false, error: "Choose a section." };
-  const placement = String(body.placement ?? "").trim();
-  if (!isBookingPlacement(placement)) return { ok: false, error: "Choose a placement." };
+  const placement = storedPlacement(segmentSlug, String(body.placement ?? ""), String(body.section ?? ""));
+  if (!placement.ok) return placement;
+  if (isSectionSpot(placement.value) && !numberedSectionIds(segmentSlug).includes(placement.value)) {
+    return { ok: false, error: "Choose the numbered section." };
+  }
   const startDate = String(body.startDate ?? "").trim();
   const endDate = String(body.endDate ?? "").trim();
   if (!isIsoDate(startDate) || !isIsoDate(endDate) || endDate < startDate) {
@@ -425,7 +436,7 @@ export function parseBookingInput(raw: unknown): { ok: true; value: BookingInput
     value: {
       sponsorId: sponsorId || null,
       segment: segmentSlug,
-      placement,
+      placement: placement.value as BookingPlacement,
       startDate,
       endDate,
       status,
@@ -450,6 +461,7 @@ export function parseInquiryInput(raw: unknown): { ok: true; value: InquiryInput
       company: z.string().trim().min(1).max(160),
       email: z.string().trim().email().max(200),
       promote: z.string().trim().min(1).max(300),
+      adCopy: z.string().trim().max(4000),
       budget: z.string().trim().max(80),
       message: z.string().trim().min(1).max(4000),
       segment: z.string().trim().max(40),
@@ -461,6 +473,7 @@ export function parseInquiryInput(raw: unknown): { ok: true; value: InquiryInput
       company: body.company,
       email: body.email,
       promote: body.promote,
+      adCopy: body.adCopy ? String(body.adCopy) : "",
       budget: body.budget ? String(body.budget) : "",
       message: body.message,
       segment: body.segment ? String(body.segment) : "",
@@ -473,16 +486,50 @@ export function parseInquiryInput(raw: unknown): { ok: true; value: InquiryInput
   if (parsed.data.segment && !getSegment(parsed.data.segment)) {
     return { ok: false, error: "Choose a section." };
   }
-  if (parsed.data.placement && !isBookingPlacement(parsed.data.placement)) {
-    return { ok: false, error: "Choose a placement." };
+  const placement = storedPlacement(
+    parsed.data.segment,
+    parsed.data.placement,
+    String(body.section ?? ""),
+  );
+  if (!placement.ok) return placement;
+  if (
+    placement.value &&
+    isSectionSpot(placement.value) &&
+    parsed.data.segment &&
+    !numberedSectionIds(parsed.data.segment).includes(placement.value)
+  ) {
+    return { ok: false, error: "Choose the numbered section." };
+  }
+  const format = formatForPlacement(placement.value);
+  if (parsed.data.adCopy && format) {
+    const copyError = adCopyError(format, parsed.data.adCopy);
+    if (copyError) return { ok: false, error: copyError };
   }
   return {
     ok: true,
     value: {
       ...parsed.data,
       email: parsed.data.email.toLowerCase(),
+      placement: placement.value,
+      promote: parsed.data.adCopy ? parsed.data.adCopy.slice(0, 300) : parsed.data.promote,
     },
   };
+}
+
+function storedPlacement(
+  segment: string,
+  placementRaw: string,
+  sectionRaw: string,
+): { ok: true; value: string } | { ok: false; error: string } {
+  const placement = placementRaw.trim();
+  if (!placement) return { ok: true, value: "" };
+  if (placement !== "section") {
+    if (!isBookingPlacement(placement)) return { ok: false, error: "Choose a placement." };
+    return { ok: true, value: placement };
+  }
+  const resolved = resolvePublicPlacement(placement, sectionRaw, numberedSectionIds(segment));
+  if (!resolved.ok) return resolved;
+  return { ok: true, value: resolved.value.placement };
 }
 
 async function writeSponsor(path: string, method: "POST" | "PATCH", input: SponsorInput): Promise<Sponsor> {
@@ -543,6 +590,7 @@ function inquiryRow(input: InquiryInput, now: string): Record<string, unknown> {
     company: input.company,
     email: input.email,
     promote: input.promote,
+    ad_copy: blank(input.adCopy),
     budget: blank(input.budget),
     message: input.message,
     segment: blank(input.segment),
@@ -588,6 +636,7 @@ export async function storePublicInquiry(input: {
   company: string;
   email: string;
   promote: string;
+  adCopy: string;
   budget: string;
   message: string;
   segment: string;
@@ -600,6 +649,7 @@ export async function storePublicInquiry(input: {
     company: input.company,
     email: input.email,
     promote: input.promote,
+    adCopy: input.adCopy,
     budget: input.budget,
     message: input.message,
     segment: input.segment,

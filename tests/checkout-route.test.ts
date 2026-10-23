@@ -56,6 +56,8 @@ describe("checkout route", () => {
         placement: "primary",
         startDate: "2027-01-04",
         email: "buyer@firm.example",
+        company: "Hangar Co",
+        adCopy: "A short line for the week.",
         quantity: 1,
         turnstileToken: TURNSTILE_TEST_TOKEN,
       }),

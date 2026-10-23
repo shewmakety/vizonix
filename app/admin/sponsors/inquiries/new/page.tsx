@@ -1,6 +1,6 @@
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { InquiryForm } from "@/components/admin/InquiryForm";
-import { adminSegments, placementsBySegment } from "@/lib/admin-booking-options";
+import { adminSegments, placementsBySegment, sectionsBySegment } from "@/lib/admin-booking-options";
 import { adminSignedIn } from "@/lib/admin-gate";
 
 export default async function NewInquiryPage() {
@@ -13,11 +13,13 @@ export default async function NewInquiryPage() {
         returnTo="/admin/sponsors/inquiries"
         segments={adminSegments().map((segment) => ({ id: segment.slug, label: segment.name }))}
         placementsBySegment={placementsBySegment()}
+        sectionsBySegment={sectionsBySegment()}
         initial={{
           name: "",
           company: "",
           email: "",
           promote: "",
+          adCopy: "",
           budget: "",
           message: "",
           segment: "",

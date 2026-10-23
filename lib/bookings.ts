@@ -232,7 +232,7 @@ export type PaidReservationExtras = {
   company?: string | null;
   contact?: string | null;
   email?: string | null;
-  creativeUrl?: string | null;
+  adCopy?: string | null;
 };
 
 export async function recordPaidReservation(
@@ -266,9 +266,9 @@ export async function recordPaidReservation(
         price: extras.price ?? null,
         stripeSessionId: reservation.stripeSessionId,
         headline: (extras.company ?? "").trim().slice(0, 120),
-        body: "",
+        body: (extras.adCopy ?? "").trim().slice(0, 1200),
         cta: "",
-        url: (extras.creativeUrl ?? "").trim().slice(0, 500),
+        url: "",
         logo: "",
         founding: reservation.founding,
         exclusivityRequested: reservation.exclusivityRequested,

@@ -5,11 +5,14 @@ import { describe, expect, it } from "vitest";
 import { SponsorCheckoutForm } from "@/components/SponsorCheckoutForm";
 import { SponsorInquiryForm } from "@/components/SponsorInquiryForm";
 import { parseCheckoutRequest } from "@/lib/checkout";
-import { formatUsd, getPlacement, placements } from "@/lib/rate-card";
+import { formatUsd, getPlacement } from "@/lib/rate-card";
 import { site } from "@/lib/site";
 import {
   checkoutAdCopyHelp,
   checkoutAdCopyLabel,
+  sponsorHumanLabel,
+  sponsoredSectionHelp,
+  sponsoredSectionLabel,
   checkoutCompanyHelp,
   checkoutEmailHelp,
   checkoutExclusivityHelp,
@@ -32,8 +35,8 @@ import {
 } from "@/lib/sponsor-form-copy";
 import { parseInquiry } from "@/lib/sponsor-inquiry";
 import { inquiryFormOptions } from "@/lib/sponsor-labels";
-import { bookingPlacements } from "@/lib/sponsor-placements";
 import { activeSegments } from "@/lib/segments";
+import { buyerCopyMax, renderedFormatIds, sponsorNameMax } from "@/lib/sponsor-slots";
 
 const formSources = [
   "components/SponsorInquiryForm.tsx",
@@ -46,7 +49,6 @@ const inquiryIds: Record<InquiryFieldName, string> = {
   name: "inquiry-name",
   company: "inquiry-company",
   email: "inquiry-email",
-  promote: "inquiry-promote",
   budget: "inquiry-budget",
   message: "inquiry-message",
 };
@@ -118,7 +120,7 @@ describe("public sponsor forms", () => {
       name: "Ada",
       company: "Hangar Co",
       email: "ada@hangar.example",
-      promote: "A parts tool",
+      adCopy: "A parts tool for the desk.",
       message: "We would like a week.",
       segment: section?.id ?? "",
       placement: "primary",
@@ -128,9 +130,32 @@ describe("public sponsor forms", () => {
     expect(parseInquiry({ ...base, segment: "" }).ok).toBe(false);
     expect(parseInquiry({ ...base, placement: "" }).ok).toBe(false);
     expect(parseInquiry({ ...base, placement: "classified" }).ok).toBe(false);
+    expect(parseInquiry({ ...base, placement: "section" }).ok).toBe(false);
+    const numbered = options.sectionsBySegment[section?.id ?? ""] ?? [];
+    const spot = numbered[0]?.id ?? "";
+    expect(spot).toBeTruthy();
+    const quoted = parseInquiry({ ...base, placement: "section", section: spot });
+    expect(quoted.ok).toBe(true);
+    if (quoted.ok) expect(quoted.value.placement).toBe(spot);
+    expect(parseInquiry({ ...base, placement: "section", section: "99" }).ok).toBe(false);
+    expect(parseInquiry({ ...base, company: "a".repeat(sponsorNameMax + 1) }).ok).toBe(false);
+    expect(parseInquiry({ ...base, adCopy: "a".repeat(buyerCopyMax("primary") + 1) }).ok).toBe(false);
+    expect(parseInquiry({ ...base, placement: "section", section: spot, adCopy: "a".repeat(buyerCopyMax("section") + 1) }).ok).toBe(false);
     expectMarked(html, "inquiry-segment", inquirySegmentLabel, sectionHelp, true);
     expectMarked(html, "inquiry-placement", inquiryPlacementLabel, inquiryPlacementHelp, true);
-    expect(selectValues(html, "placement")).toEqual([...bookingPlacements]);
+    expectMarked(html, "inquiry-ad-copy", checkoutAdCopyLabel, checkoutAdCopyHelp("primary"), true);
+    expect(fieldTag(html, "inquiry-ad-copy")).toContain(`maxLength="${buyerCopyMax("primary")}"`);
+    expect(fieldTag(html, "inquiry-company")).toContain(`maxLength="${sponsorNameMax}"`);
+    expect(selectValues(html, "placement")).toEqual([...renderedFormatIds]);
+    expect(html).toContain(sponsorHumanLabel.replaceAll("'", "&#x27;"));
+    expect(html).not.toContain("Verification");
+    expect(html).not.toContain('type="file"');
+    const sectionHtml = render(
+      createElement(SponsorInquiryForm, { ...options, initialPlacement: "section" }),
+    );
+    expect(selectValues(sectionHtml, "section").filter(Boolean)).toEqual(numbered.map((item) => item.id));
+    expectMarked(sectionHtml, "inquiry-sponsored-section", sponsoredSectionLabel, sponsoredSectionHelp, true);
+    expect(fieldTag(sectionHtml, "inquiry-ad-copy")).toContain(`maxLength="${buyerCopyMax("section")}"`);
 
     for (const name of Object.keys(inquiryIds) as InquiryFieldName[]) {
       const field = inquiryFieldCopy[name];
@@ -166,11 +191,30 @@ describe("public sponsor forms", () => {
     expectMarked(primaryHtml, "placement", "Placement", checkoutPlacementHelp, true);
     expectMarked(primaryHtml, "startDate", "Preferred start date", checkoutStartHelp, true);
     expectMarked(primaryHtml, "quantity", "Number of weeks", checkoutQuantityHelp, true);
-    expectMarked(primaryHtml, "company", "Company", checkoutCompanyHelp, false);
+    expectMarked(primaryHtml, "company", "Company name", checkoutCompanyHelp, true);
     expectMarked(primaryHtml, "sponsor-email", "Email for the receipt", checkoutEmailHelp, true);
-    expectMarked(primaryHtml, "adCopyUrl", checkoutAdCopyLabel, checkoutAdCopyHelp, false);
-    expect(selectValues(primaryHtml, "placement")).toEqual([...placements]);
-    expect(primaryHtml).toContain(checkoutSectionQuoteNote);
+    expectMarked(primaryHtml, "adCopy", checkoutAdCopyLabel, checkoutAdCopyHelp("primary"), true);
+    expect(fieldTag(primaryHtml, "company")).toContain(`maxLength="${sponsorNameMax}"`);
+    expect(fieldTag(primaryHtml, "adCopy")).toContain(`maxLength="${buyerCopyMax("primary")}"`);
+    expect(selectValues(primaryHtml, "placement")).toEqual([...renderedFormatIds]);
+    expect(primaryHtml).toContain(sponsorHumanLabel.replaceAll("'", "&#x27;"));
+    expect(primaryHtml).not.toContain("Verification");
+    expect(primaryHtml).not.toContain('type="file"');
+    expect(primaryHtml).not.toContain("adCopyUrl");
+    expect(primaryHtml).not.toContain('id="sponsored-section"');
+    const sectionsBySegment = Object.fromEntries(
+      sections.map((item) => [item.slug, [{ id: "01", label: "Section 01 - Desk" }]]),
+    );
+    const sectionCheckout = render(
+      createElement(SponsorCheckoutForm, { initialPlacement: "section", sectionsBySegment }),
+    );
+    expectMarked(sectionCheckout, "sponsored-section", sponsoredSectionLabel, sponsoredSectionHelp, true);
+    expect(selectValues(sectionCheckout, "section").filter(Boolean)).toEqual(["01"]);
+    expect(fieldTag(sectionCheckout, "adCopy")).toContain(`maxLength="${buyerCopyMax("section")}"`);
+    expect(sectionCheckout).toContain(checkoutSectionQuoteNote);
+    expect(sectionCheckout).toContain("Send the inquiry form");
+    expect(sectionCheckout).toContain('type="submit"');
+    expect(sectionCheckout).not.toContain('href="#inquiry"');
     expect(primaryHtml).not.toContain("Featured");
     expect(primaryHtml).not.toContain("banner");
     expect(retiredHtml).not.toContain("Featured listing");
@@ -198,10 +242,14 @@ describe("public sponsor forms", () => {
       placement: "primary",
       startDate: monday,
       email: "buyer@firm.example",
+      company: "Hangar Co",
+      adCopy: "A short line for the week.",
       quantity: 1,
     };
     expect(parseCheckoutRequest(order, { now, reservations: [] }).ok).toBe(true);
-    expect(parseCheckoutRequest({ ...order, company: "", adCopyUrl: "" }, { now, reservations: [] }).ok).toBe(true);
+    expect(parseCheckoutRequest({ ...order, company: "" }, { now, reservations: [] }).ok).toBe(false);
+    expect(parseCheckoutRequest({ ...order, adCopy: "" }, { now, reservations: [] }).ok).toBe(false);
+    expect(parseCheckoutRequest({ ...order, adCopy: "a".repeat(buyerCopyMax("primary") + 1) }, { now, reservations: [] }).ok).toBe(false);
     expect(parseCheckoutRequest({ ...order, quantity: "" }, { now, reservations: [] }).ok).toBe(false);
     expect(parseCheckoutRequest({ ...order, segment: "" }, { now, reservations: [] }).ok).toBe(false);
     expect(parseCheckoutRequest({ ...order, placement: "" }, { now, reservations: [] }).ok).toBe(false);
@@ -209,8 +257,14 @@ describe("public sponsor forms", () => {
     expect(parseCheckoutRequest({ ...order, email: "" }, { now, reservations: [] }).ok).toBe(false);
     const retired = parseCheckoutRequest({ ...order, placement: "featured" }, { now, reservations: [] });
     expect(retired.ok).toBe(false);
-    const quoted = parseCheckoutRequest({ ...order, placement: "01" }, { now, reservations: [] });
+    const missingSection = parseCheckoutRequest({ ...order, placement: "section" }, { now, reservations: [] });
+    expect(missingSection.ok).toBe(false);
+    if (!missingSection.ok) expect(missingSection.error).toMatch(/numbered section/i);
+    const quoted = parseCheckoutRequest({ ...order, placement: "section", section: "01" }, { now, reservations: [] });
     expect(quoted.ok).toBe(false);
     if (!quoted.ok) expect(quoted.error).toMatch(/quoted/i);
+    const spot = parseCheckoutRequest({ ...order, placement: "01" }, { now, reservations: [] });
+    expect(spot.ok).toBe(false);
+    if (!spot.ok) expect(spot.error).toMatch(/quoted/i);
   });
 });

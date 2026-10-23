@@ -47,9 +47,8 @@ export const sponsorSlotSpecs: readonly SponsorSlotSpec[] = [
     name: "Primary sponsor",
     placement: "Top of the web issue and the email, before the top story.",
     description:
-      "Top of every issue that week, logo plus about 100 words plus 2 calls to action, plus a permanent listing in the web archive.",
-    fields:
-      "Name up to 120 characters, optional logo, body up to 1,200 characters and 110 words, link, call to action up to 80 characters plus URL, and an optional second call to action up to 80 characters plus URL.",
+      "Top of every issue that week. The ad is the company name and about 100 words, plus a permanent listing in the web archive.",
+    fields: "Company name up to 120 characters. Ad copy up to 1,200 characters and 110 words.",
     targetWords: 100,
     maxWords: 110,
     newsletter: true,
@@ -60,9 +59,8 @@ export const sponsorSlotSpecs: readonly SponsorSlotSpec[] = [
     id: "secondary",
     name: "Secondary sponsor",
     placement: "After the numbered sections, before the toolbox.",
-    description: "After the numbered sections, about 50 words and 1 call to action.",
-    fields:
-      "Name up to 120 characters, optional logo, body up to 1,200 characters and 60 words, link, and a call to action up to 80 characters plus URL. A second call to action is optional.",
+    description: "After the numbered sections. The ad is the company name and about 50 words.",
+    fields: "Company name up to 120 characters. Ad copy up to 1,200 characters and 60 words.",
     targetWords: 50,
     maxWords: 60,
     newsletter: true,
@@ -75,7 +73,7 @@ export const sponsorSlotSpecs: readonly SponsorSlotSpec[] = [
     placement: "At the top of one numbered section in the web issue and the email.",
     description:
       "A short line at the top of one numbered section. An open section shows Sponsor this section - Open.",
-    fields: "Name up to 120 characters, line up to 200 characters, link, and an optional logo. No call-to-action button.",
+    fields: "Company name up to 120 characters. Ad copy up to 200 characters.",
     targetWords: null,
     maxWords: null,
     newsletter: true,
@@ -99,4 +97,14 @@ export function formatForPlacement(id: string): RenderedFormatId | undefined {
   if (id === "primary" || id === "secondary" || id === renderedSectionFormatId) return id;
   if (isSectionSpot(id)) return renderedSectionFormatId;
   return undefined;
+}
+
+/** Character ceiling for the buyer ad copy on one format. */
+export function buyerCopyMax(format: RenderedFormatId): number {
+  return format === renderedSectionFormatId ? sectionLineMax : sponsorCopyMax;
+}
+
+/** Word ceiling for the buyer ad copy. Section copy is limited by characters only. */
+export function buyerWordMax(format: RenderedFormatId): number | null {
+  return sponsorSlotSpec(format)?.maxWords ?? null;
 }

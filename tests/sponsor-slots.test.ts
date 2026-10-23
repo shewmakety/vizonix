@@ -57,8 +57,8 @@ describe("sponsor slots match the issue renderer", () => {
 
     const inquiry = renderToStaticMarkup(createElement(SponsorInquiryForm, inquiryFormOptions()));
     const checkout = renderToStaticMarkup(createElement(SponsorCheckoutForm));
-    expect(selectValues(inquiry, "placement")).toEqual([...bookingPlacements]);
-    expect(selectValues(checkout, "placement")).toEqual([...renderedIssueSlotIds]);
+    expect(selectValues(inquiry, "placement")).toEqual([...renderedFormatIds]);
+    expect(selectValues(checkout, "placement")).toEqual([...renderedFormatIds]);
     for (const retired of ["classified", "banner", "featured", "bundle"]) {
       expect(selectValues(inquiry, "placement")).not.toContain(retired);
       expect(selectValues(checkout, "placement")).not.toContain(retired);

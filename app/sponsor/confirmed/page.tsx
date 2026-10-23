@@ -16,8 +16,9 @@ export default function SponsorConfirmedPage() {
         <h1>Payment received by Stripe.</h1>
         <p>
           If Stripe sent you here, the charge is processing. The week is recorded when the webhook
-          confirms the checkout session. You will also get a receipt from Stripe. A reservation does
-          not include your email in the public site record.
+          confirms the checkout session. You will also get a receipt from Stripe. The company name and
+          ad copy from the form go with that checkout. A reservation does not include your email in the
+          public site record.
         </p>
         <p>
           <Link href="/sponsor">Back to the rate card</Link>

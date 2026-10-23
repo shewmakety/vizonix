@@ -5,6 +5,7 @@ import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileFiel
 import { submitAdmin } from "@/components/admin/submit-admin";
 import { inquiryStatuses, type InquiryStatus } from "@/lib/sponsor-placements";
 import type { PlacementChoice } from "@/lib/sponsor-labels";
+import { buyerCopyMax, formatForPlacement, isSectionSpot } from "@/lib/sponsor-slots";
 
 export type InquiryFormValues = {
   name: string;
@@ -13,6 +14,7 @@ export type InquiryFormValues = {
   promote: string;
   budget: string;
   message: string;
+  adCopy: string;
   segment: string;
   placement: string;
   status: InquiryStatus;
@@ -25,6 +27,7 @@ export function InquiryForm({
   returnTo,
   segments,
   placementsBySegment,
+  sectionsBySegment,
 }: {
   initial: InquiryFormValues;
   path: string;
@@ -32,8 +35,11 @@ export function InquiryForm({
   returnTo: string;
   segments: PlacementChoice[];
   placementsBySegment: Record<string, PlacementChoice[]>;
+  sectionsBySegment: Record<string, PlacementChoice[]>;
 }) {
   const [values, setValues] = useState(initial);
+  const [product, setProduct] = useState(isSectionSpot(initial.placement) ? "section" : initial.placement);
+  const [spot, setSpot] = useState(isSectionSpot(initial.placement) ? initial.placement : "");
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
   const [working, setWorking] = useState(false);
@@ -41,6 +47,8 @@ export function InquiryForm({
   const placementOptions = values.segment
     ? (placementsBySegment[values.segment] ?? [])
     : (Object.values(placementsBySegment)[0] ?? []);
+  const numbered = values.segment ? (sectionsBySegment[values.segment] ?? []) : (Object.values(sectionsBySegment)[0] ?? []);
+  const copyMax = formatForPlacement(product) ? buyerCopyMax(formatForPlacement(product)!) : 1200;
 
   function set<K extends keyof InquiryFormValues>(field: K, value: InquiryFormValues[K]) {
     setValues((current) => ({ ...current, [field]: value }));
@@ -52,9 +60,14 @@ export function InquiryForm({
       setError("Complete the verification, then save.");
       return;
     }
+    if (product === "section" && !spot) {
+      setError("Choose the numbered section.");
+      return;
+    }
     setWorking(true);
     setError("");
-    const result = await submitAdmin(path, method, { ...values, turnstileToken: token });
+    const placement = product === "section" ? spot : product;
+    const result = await submitAdmin(path, method, { ...values, placement, section: spot, turnstileToken: token });
     turnstile.current?.reset();
     setToken("");
     setWorking(false);
@@ -89,23 +102,41 @@ export function InquiryForm({
         ))}
       </select>
       <label htmlFor="inquiry-placement">Placement</label>
-      <select
-        id="inquiry-placement"
-        value={values.placement}
-        onChange={(event) => set("placement", event.target.value)}
-      >
+      <select id="inquiry-placement" value={product} onChange={(event) => setProduct(event.target.value)}>
         <option value="">Not specified</option>
         {placementOptions.map((item) => (
           <option key={item.id} value={item.id}>
             {item.label}
           </option>
         ))}
-        {values.placement && !placementOptions.some((item) => item.id === values.placement) ? (
-          <option value={values.placement}>{values.placement}</option>
-        ) : null}
+        {product && !placementOptions.some((item) => item.id === product) ? <option value={product}>{product}</option> : null}
       </select>
+      {product === "section" ? (
+        <>
+          <label htmlFor="inquiry-sponsored-section">Sponsored section</label>
+          <select id="inquiry-sponsored-section" value={spot} onChange={(event) => setSpot(event.target.value)} required>
+            <option value="">Select a section</option>
+            {numbered.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : null}
       <label htmlFor="inquiry-promote">What do they want to promote?</label>
       <input id="inquiry-promote" required value={values.promote} onChange={(event) => set("promote", event.target.value)} />
+      <label htmlFor="inquiry-ad-copy">Ad copy</label>
+      <textarea
+        id="inquiry-ad-copy"
+        maxLength={copyMax}
+        value={values.adCopy}
+        onChange={(event) => set("adCopy", event.target.value)}
+      />
+      <p className="form-note">
+        Ad copy is optional on older inquiries. When it is filled in, the limit is {copyMax} characters for this
+        placement.
+      </p>
       <label htmlFor="inquiry-budget">Budget</label>
       <input id="inquiry-budget" value={values.budget} onChange={(event) => set("budget", event.target.value)} />
       <label htmlFor="inquiry-status">Status</label>

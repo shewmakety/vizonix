@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
 import { submitAdmin } from "@/components/admin/submit-admin";
 import { getPlacement, wordCount } from "@/lib/rate-card";
-import { formatForPlacement, sectionLineMax } from "@/lib/sponsor-slots";
+import { formatForPlacement, isSectionSpot, sectionLineMax } from "@/lib/sponsor-slots";
 import { bookingStatuses, type BookingStatus } from "@/lib/sponsor-placements";
 import type { PlacementChoice } from "@/lib/sponsor-labels";
 
@@ -34,6 +34,7 @@ export function BookingForm({
   sponsors,
   segments,
   placementsBySegment,
+  sectionsBySegment,
 }: {
   initial: BookingFormValues;
   path: string;
@@ -42,14 +43,18 @@ export function BookingForm({
   sponsors: Array<{ id: string; company: string }>;
   segments: Array<{ slug: string; name: string }>;
   placementsBySegment: Record<string, PlacementChoice[]>;
+  sectionsBySegment: Record<string, PlacementChoice[]>;
 }) {
   const [values, setValues] = useState(initial);
+  const [product, setProduct] = useState(isSectionSpot(initial.placement) ? "section" : initial.placement || "primary");
+  const [spot, setSpot] = useState(isSectionSpot(initial.placement) ? initial.placement : "");
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
   const [working, setWorking] = useState(false);
   const turnstile = useRef<TurnstileHandle>(null);
   const placements = placementsBySegment[values.segment] ?? [];
-  const ceiling = getPlacement(formatForPlacement(values.placement) ?? "")?.maxWords ?? null;
+  const numbered = sectionsBySegment[values.segment] ?? [];
+  const ceiling = getPlacement(formatForPlacement(product) ?? "")?.maxWords ?? null;
   const words = values.body.trim() ? wordCount(values.body) : 0;
 
   function set<K extends keyof BookingFormValues>(field: K, value: BookingFormValues[K]) {
@@ -62,9 +67,14 @@ export function BookingForm({
       setError("Complete the verification, then save.");
       return;
     }
+    if (product === "section" && !spot) {
+      setError("Choose the numbered section.");
+      return;
+    }
     setWorking(true);
     setError("");
-    const result = await submitAdmin(path, method, { ...values, turnstileToken: token });
+    const placement = product === "section" ? spot : product;
+    const result = await submitAdmin(path, method, { ...values, placement, section: spot, turnstileToken: token });
     turnstile.current?.reset();
     setToken("");
     setWorking(false);
@@ -87,7 +97,16 @@ export function BookingForm({
         ))}
       </select>
       <label htmlFor="booking-segment">Section</label>
-      <select id="booking-segment" value={values.segment} onChange={(event) => set("segment", event.target.value)}>
+      <select
+        id="booking-segment"
+        value={values.segment}
+        onChange={(event) => {
+          const next = event.target.value;
+          set("segment", next);
+          const options = sectionsBySegment[next] ?? [];
+          if (spot && !options.some((item) => item.id === spot)) setSpot("");
+        }}
+      >
         {segments.map((segment) => (
           <option key={segment.slug} value={segment.slug}>
             {segment.name}
@@ -98,16 +117,29 @@ export function BookingForm({
         )}
       </select>
       <label htmlFor="booking-placement">Placement</label>
-      <select id="booking-placement" value={values.placement} onChange={(event) => set("placement", event.target.value)}>
+      <select id="booking-placement" value={product} onChange={(event) => setProduct(event.target.value)}>
         {placements.map((placement) => (
           <option key={placement.id} value={placement.id}>
             {placement.label}
           </option>
         ))}
-        {placements.some((placement) => placement.id === values.placement) ? null : (
-          <option value={values.placement}>{values.placement}</option>
+        {placements.some((placement) => placement.id === product) ? null : (
+          <option value={product}>{product}</option>
         )}
       </select>
+      {product === "section" ? (
+        <>
+          <label htmlFor="booking-section">Sponsored section</label>
+          <select id="booking-section" value={spot} onChange={(event) => setSpot(event.target.value)} required>
+            <option value="">Select a section</option>
+            {numbered.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : null}
       <div className="admin-split">
         <div>
           <label htmlFor="booking-start">Start date</label>
@@ -171,8 +203,8 @@ export function BookingForm({
         </p>
       ) : (
         <p className="form-note">
-          Section spots use the headline and a line of up to {sectionLineMax} characters. Newsletter slots
-          use the body as the ad copy.
+          Section sponsor uses the headline as the company name and a line of up to {sectionLineMax} characters.
+          Newsletter slots use the body as the ad copy. A logo can be added here later.
         </p>
       )}
       <label htmlFor="booking-cta">Call to action</label>
