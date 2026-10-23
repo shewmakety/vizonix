@@ -12,7 +12,7 @@ import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { sectionSponsorOpenLabel } from "@/lib/issue-present";
 import { availabilityAnchor, markAvailability, mondayOnOrBefore } from "@/lib/sponsor-calendar";
 import { applyBookingsToIssue, type SponsorBookingCreative } from "@/lib/sponsor-creative";
-import { placementChoices } from "@/lib/sponsor-labels";
+import { numberedSectionChoices, placementChoices } from "@/lib/sponsor-labels";
 import { bookingPlacements, isLiveBookingStatus } from "@/lib/sponsor-placements";
 import { blocksCheckout, importReservationRows, type Booking, type Sponsor } from "@/lib/sponsor-store";
 import { segments } from "@/lib/segments";
@@ -200,11 +200,11 @@ describe("sponsor migration", () => {
     }
     const offenders = found.filter((file) => /\baviation\b/i.test(fs.readFileSync(file, "utf8")));
     expect(offenders).toEqual([]);
-    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual([...bookingPlacements]);
-    expect(placementChoices("not-a-section").find((item) => item.id === "01")?.label).toBe("Section 01");
+    expect(placementChoices("not-a-section").map((item) => item.id)).toEqual(["primary", "secondary", "section"]);
+    expect(numberedSectionChoices("not-a-section").find((item) => item.id === "01")?.label).toBe("Section 01");
     const live = segments.find((segment) => segment.status === "active");
     expect(live).toBeTruthy();
-    expect(placementChoices(live!.slug).some((item) => item.label.startsWith("Section 01 - "))).toBe(true);
+    expect(numberedSectionChoices(live!.slug).some((item) => item.label.startsWith("Section 01 - "))).toBe(true);
   });
 });
 
@@ -410,7 +410,7 @@ describe("sponsor admin auth and storage", () => {
       company: "Northwind",
       contact: "Ada",
       email: "ada@example.com",
-      creativeUrl: "https://example.com/ad",
+      adCopy: "Parts search for an AOG desk.",
     });
     expect(saved).toMatchObject({ duplicate: false, stored: "supabase" });
     const bookingCall = fetchMock.mock.calls.find(
@@ -437,7 +437,7 @@ describe("sponsor admin auth and storage", () => {
         name: "Ada",
         company: "Hangar Co",
         email: "Ada@Hangar.Example",
-        promote: "A parts search tool",
+        adCopy: "A parts search tool for the desk.",
         budget: "$150 to $300",
         message: "We would like the founding listing.",
         segment: "aviation",

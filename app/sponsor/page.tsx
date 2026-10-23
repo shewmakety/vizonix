@@ -162,7 +162,7 @@ export default async function SponsorPage({
         </div>
 
         <div className="split" style={{ marginTop: "2rem" }}>
-          <SponsorCheckoutForm />
+          <SponsorCheckoutForm sectionsBySegment={inquiryOptions.sectionsBySegment} />
           <div>
             <h2>Reserved weeks</h2>
             {reserved.length === 0 ? (
@@ -204,15 +204,15 @@ export default async function SponsorPage({
               </p>
             )}
             <p>
-              Questions about a section sponsor or a multi-week run: use the{" "}
-              <a href="#inquiry">inquiry form</a>.
+              Section sponsor is on both forms. Pick the numbered section from the current issue.
+              Checkout will not charge it. Send the <a href="#inquiry">inquiry form</a> for a quote.
             </p>
           </div>
         </div>
         <div style={{ marginTop: "2rem" }}>
           <SponsorInquiryForm
             segments={inquiryOptions.segments}
-            placementsBySegment={inquiryOptions.placementsBySegment}
+            sectionsBySegment={inquiryOptions.sectionsBySegment}
           />
         </div>
       </div>

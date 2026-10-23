@@ -1,5 +1,10 @@
 import { placements, type Placement } from "@/lib/rate-card";
-import { isSectionSpot, sectionSpots, type SectionSpot } from "@/lib/sponsor-slots";
+import {
+  isSectionSpot,
+  sectionSpots,
+  type RenderedFormatId,
+  type SectionSpot,
+} from "@/lib/sponsor-slots";
 
 export { sectionSpots, isSectionSpot };
 export type { SectionSpot };
@@ -46,4 +51,34 @@ export function isCheckoutPlacement(value: string): value is Placement {
 export function sectionSpotIndex(placement: string): number | null {
   const index = sectionSpots.indexOf(placement as SectionSpot);
   return index >= 0 ? index : null;
+}
+
+export type ResolvedPublicPlacement = {
+  placement: BookingPlacement;
+  format: RenderedFormatId;
+};
+
+/**
+ * Public forms send primary, secondary, or section.
+ * A section sponsor also sends the numbered section. A spot id such as 01 already names that section.
+ * The allowed list comes from the live segment, not a fixed industry.
+ */
+export function resolvePublicPlacement(
+  placementRaw: string,
+  sectionRaw: string,
+  allowedSpots: readonly string[],
+): { ok: true; value: ResolvedPublicPlacement } | { ok: false; error: string } {
+  const placement = placementRaw.trim();
+  const section = sectionRaw.trim();
+  if (placement === "primary" || placement === "secondary") {
+    return { ok: true, value: { placement, format: placement } };
+  }
+  if (placement === "section" || isSectionSpot(placement)) {
+    const spot = placement === "section" ? section : placement;
+    if (!spot || !allowedSpots.includes(spot)) {
+      return { ok: false, error: "Choose the numbered section." };
+    }
+    return { ok: true, value: { placement: spot as BookingPlacement, format: "section" } };
+  }
+  return { ok: false, error: "Choose a placement." };
 }

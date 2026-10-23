@@ -1,5 +1,6 @@
 import { cloneElement, type ReactElement, type Ref } from "react";
 import { TurnstileField, type TurnstileHandle } from "@/components/TurnstileField";
+import { sponsorHumanLabel } from "@/lib/sponsor-form-copy";
 import type { TurnstileAction } from "@/lib/turnstile-public";
 
 function FieldFlag({ required }: { required: boolean }) {
@@ -97,7 +98,7 @@ export function SponsorVerification({
   return (
     <div className="field" role="group" aria-labelledby={labelId} aria-describedby={helpId} aria-required="true">
       <p id={labelId} className="verify-label">
-        Verification <FieldFlag required />
+        {sponsorHumanLabel} <FieldFlag required />
       </p>
       <TurnstileField ref={turnstileRef} action={action} onToken={onToken} />
       <p id={helpId} className="field-help">

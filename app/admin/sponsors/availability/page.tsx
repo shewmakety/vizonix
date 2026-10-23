@@ -1,10 +1,10 @@
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { AvailabilityBoard } from "@/components/admin/AvailabilityBoard";
-import { adminSegments, placementsBySegment } from "@/lib/admin-booking-options";
+import { adminSegments } from "@/lib/admin-booking-options";
 import { adminSignedIn, loadAdmin } from "@/lib/admin-gate";
 import { featuredSegment, getSegment } from "@/lib/segments";
 import { availabilityAnchor, markAvailability } from "@/lib/sponsor-calendar";
-import { placementChoices } from "@/lib/sponsor-labels";
+import { numberedSectionChoices, placementChoices } from "@/lib/sponsor-labels";
 import { isBookingPlacement } from "@/lib/sponsor-placements";
 import { listBookings, listSponsors } from "@/lib/sponsor-store";
 
@@ -35,7 +35,10 @@ export default async function AvailabilityPage({ searchParams }: Props) {
         placement={placement}
         start={start}
         segments={adminSegments()}
-        placements={placementsBySegment()[selected.slug] ?? placementChoices(selected.slug)}
+        placements={[
+          ...placementChoices().filter((item) => item.id !== "section"),
+          ...numberedSectionChoices(selected.slug),
+        ]}
         days={days}
       />
     </AdminFrame>

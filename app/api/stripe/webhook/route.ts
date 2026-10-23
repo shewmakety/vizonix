@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { recordPaidReservation, reservationFromSession } from "@/lib/bookings";
 import { notifyOps } from "@/lib/notify";
 import { manualCheckoutNotice, purchaseNotice } from "@/lib/owner-alerts";
+import { unpackAdCopy } from "@/lib/stripe-checkout";
 
 export const runtime = "nodejs";
 
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
     company: session.metadata?.company,
     contact: session.customer_details?.name,
     email: session.customer_email || session.customer_details?.email,
-    creativeUrl: session.metadata?.ad_copy_url,
+    adCopy: unpackAdCopy(session.metadata),
   });
   if (!saved.duplicate) {
     const alert = purchaseNotice({ session, reservation, saved });

@@ -55,8 +55,6 @@ export default function MediaKitPage() {
                 <p>
                   <strong>{byId.primary.name}.</strong> {byId.primary.summary}
                 </p>
-                <span className="mock-cta">Primary action</span>
-                <span className="mock-cta">Second action</span>
               </div>
               <p className="meta">
                 {byId.primary.placement} {byId.primary.fields}
@@ -76,7 +74,6 @@ export default function MediaKitPage() {
                 <p>
                   <strong>{byId.secondary.name}.</strong> {byId.secondary.summary}
                 </p>
-                <span className="mock-cta">Call to action</span>
               </div>
               <p className="meta">
                 {byId.secondary.placement} {byId.secondary.fields}

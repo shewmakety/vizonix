@@ -58,11 +58,11 @@ export type ResolvedSlot = {
 
 const houseCopy: Record<SlotName, { copy: string; cta: string }> = {
   primary: {
-    copy: "This primary slot is open. It sits at the top of each weekday issue: a logo, about 100 words, and two links. The listing stays in the archive.",
+    copy: "This primary slot is open. It sits at the top of each weekday issue: a company name and about 100 words. The listing stays in the archive.",
     cta: "View the rate card",
   },
   secondary: {
-    copy: "This mid-issue slot is open. About 50 words and one link.",
+    copy: "This mid-issue slot is open. A company name and about 50 words.",
     cta: "View the rate card",
   },
 };

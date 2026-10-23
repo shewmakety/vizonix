@@ -1,6 +1,7 @@
 import type { Reservation } from "@/lib/bookings";
 import { formatNewYorkTimestamp } from "@/lib/dates";
 import { getPlacement } from "@/lib/rate-card";
+import { unpackAdCopy } from "@/lib/stripe-checkout";
 
 export type PaidCheckout = {
   id: string;
@@ -93,7 +94,7 @@ export function purchaseNotice(input: {
   const founding = reservation.founding || session.metadata?.founding === "true";
   const foundingPromo = founding && (promos.length > 0 || discountCents > 0);
   const company = (session.metadata?.company || "").trim();
-  const creative = (session.metadata?.ad_copy_url || "").trim();
+  const creative = unpackAdCopy(session.metadata);
   const buyer = (session.customer_details?.name || "").trim();
   const email = (session.customer_email || session.customer_details?.email || "").trim();
 
@@ -110,7 +111,7 @@ export function purchaseNotice(input: {
     ...(promos.length ? [`Promotion code: ${promos.join(", ")}`] : []),
     `Billing: ${billing}`,
     `Requested dates: ${reservation.startDate} through ${reservation.endDate}`,
-    `Creative: ${creative || "Not collected"}`,
+    `Ad copy: ${creative || "Not collected"}`,
     ...customFieldLines(session),
     `Exclusivity requested: ${reservation.exclusivityRequested ? "yes" : "no"}`,
     `Stripe session: ${session.id}`,

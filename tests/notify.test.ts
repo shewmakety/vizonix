@@ -170,7 +170,7 @@ describe("owner notices", () => {
       payment_intent: "pi_123",
       metadata: {
         company: "Hangar Co",
-        ad_copy_url: "https://example.com/ad",
+        ad_copy: "Hangar parts this week.",
         founding: "true",
       },
       discounts: [{ promotion_code: "promo_founding" }],
@@ -193,7 +193,7 @@ describe("owner notices", () => {
     expect(notice.text).toContain("Promotion code: promo_founding");
     expect(notice.text).toContain("Billing: one-time");
     expect(notice.text).toContain("Requested dates: 2026-10-19 through 2026-10-25");
-    expect(notice.text).toContain("Creative: https://example.com/ad");
+    expect(notice.text).toContain("Ad copy: Hangar parts this week.");
     expect(notice.text).toContain("Stripe session: cs_test_1");
     expect(notice.text).toContain("Payment: pi_123");
     expect(notice.text).toContain("https://dashboard.stripe.com/payments/pi_123");

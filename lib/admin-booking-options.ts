@@ -1,4 +1,4 @@
-import { placementChoices, type PlacementChoice } from "@/lib/sponsor-labels";
+import { numberedSectionChoices, placementChoices, type PlacementChoice } from "@/lib/sponsor-labels";
 import { segments } from "@/lib/segments";
 import { listSponsors, type Sponsor } from "@/lib/sponsor-store";
 
@@ -8,6 +8,10 @@ export function adminSegments(): Array<{ slug: string; name: string }> {
 
 export function placementsBySegment(): Record<string, PlacementChoice[]> {
   return Object.fromEntries(segments.map((segment) => [segment.slug, placementChoices(segment.slug)]));
+}
+
+export function sectionsBySegment(): Record<string, PlacementChoice[]> {
+  return Object.fromEntries(segments.map((segment) => [segment.slug, numberedSectionChoices(segment.slug)]));
 }
 
 export async function sponsorOptions(): Promise<Array<{ id: string; company: string }>> {

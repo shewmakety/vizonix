@@ -3,12 +3,21 @@ import {
   foundingLockMonths,
   foundingSponsorCap,
 } from "@/lib/rate-card";
+import {
+  buyerCopyMax,
+  buyerWordMax,
+  sponsorNameMax,
+  type RenderedFormatId,
+} from "@/lib/sponsor-slots";
 
 export const sponsorRequiredLegend =
   "Fields marked Required have to be filled in. Optional fields can be left blank.";
 
-export const sponsorVerifyHelp =
-  "If a check appears, complete it before sending. A missing or invalid check is rejected.";
+export const sponsorHumanLabel = "Confirm you're human";
+
+export const sponsorVerifyHelp = "Stops spam. Completes automatically for most people.";
+
+export const sponsorHumanPending = "The human check is still loading. Try again.";
 
 export const sponsorContactLead = "You can also email";
 
@@ -16,7 +25,7 @@ export function sponsorContactNote(email: string): string {
   return `${sponsorContactLead} ${email}.`;
 }
 
-export type InquiryFieldName = "name" | "company" | "email" | "promote" | "budget" | "message";
+export type InquiryFieldName = "name" | "company" | "email" | "budget" | "message";
 
 export type InquiryFieldCopy = {
   label: string;
@@ -32,19 +41,14 @@ export const inquiryFieldCopy: Record<InquiryFieldName, InquiryFieldCopy> = {
     help: "Your name, so we know who to reply to.",
   },
   company: {
-    label: "Company",
+    label: "Company name",
     required: true,
-    help: "The business that would sponsor the briefing.",
+    help: companyNameHelp(),
   },
   email: {
     label: "Email",
     required: true,
     help: "Where we send the reply. Use an address you check.",
-  },
-  promote: {
-    label: "What do you want to promote?",
-    required: true,
-    help: "The product, service, or offer you want readers to see.",
   },
   budget: {
     label: "Budget",
@@ -54,14 +58,19 @@ export const inquiryFieldCopy: Record<InquiryFieldName, InquiryFieldCopy> = {
   message: {
     label: "Message",
     required: true,
-    help: "Your question, plus dates or a section if you already have them in mind.",
+    help: "Your question, plus dates if you already have them in mind.",
   },
 };
 
 export const inquiryPlacementLabel = "Placement";
 
 export const inquiryPlacementHelp =
-  "Primary and secondary have a listed weekly price. A numbered section is quoted.";
+  "Primary sponsor, secondary sponsor, or section sponsor. A section sponsor also needs the numbered section.";
+
+export const sponsoredSectionLabel = "Sponsored section";
+
+export const sponsoredSectionHelp =
+  "The numbered section this sponsorship runs on. The list is the current issue of the briefing you picked.";
 
 export const inquirySegmentLabel = "Section";
 
@@ -70,7 +79,7 @@ export function checkoutSegmentHelp(sectionNames: readonly string[]): string {
 }
 
 export const checkoutPlacementHelp =
-  "A newsletter placement. The week starts on Monday and runs Monday through Friday.";
+  "Primary sponsor, secondary sponsor, or section sponsor. A week starts on Monday and runs Monday through Friday. A section sponsor also needs the numbered section.";
 
 export const checkoutStartHelp =
   "The Monday the week starts. Pick today or a later Monday within the next year.";
@@ -78,16 +87,31 @@ export const checkoutStartHelp =
 export const checkoutQuantityHelp =
   "How many weeks to reserve. Enter a whole number from 1 to 12.";
 
-export const checkoutCompanyHelp =
-  "The name to put on the receipt. Leave this blank if you do not need it.";
+export function companyNameHelp(): string {
+  return `The company name that runs in the ad. Up to ${sponsorNameMax} characters.`;
+}
+
+export const checkoutCompanyHelp = companyNameHelp();
 
 export const checkoutEmailHelp =
   "Where Stripe sends the receipt. Use an address you check.";
 
-export const checkoutAdCopyLabel = "Link to ad copy";
+export const checkoutAdCopyLabel = "Ad copy";
 
-export const checkoutAdCopyHelp =
-  "A link to the copy or page you want used. Leave this blank if you will send it later. Start with https://.";
+function groupedCount(value: number): string {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+/** Character ceiling, plus the word ceiling when the slot has one. */
+export function adCopyLimitText(format: RenderedFormatId): string {
+  const characters = `Up to ${groupedCount(buyerCopyMax(format))} characters`;
+  const words = buyerWordMax(format);
+  return words == null ? `${characters}.` : `${characters} and ${words} words.`;
+}
+
+export function checkoutAdCopyHelp(format: RenderedFormatId): string {
+  return `The ad copy that runs with the company name. ${adCopyLimitText(format)}`;
+}
 
 export const checkoutFoundingLabel = "Request the founding rate";
 
@@ -103,7 +127,18 @@ export function checkoutExclusivityHelp(): string {
 }
 
 export const checkoutSectionQuoteNote =
-  "A numbered section sponsor is quoted. Use the inquiry form for that.";
+  "A section sponsor is quoted. Choose the numbered section, then send the inquiry form. Checkout will not charge this placement.";
+
+/** Checkout hands a section sponsor to the inquiry form on the same page. */
+export const sponsorInquiryPrefillEvent = "vizonix-sponsor-inquiry-prefill";
+
+export type SponsorInquiryPrefill = {
+  placement: "section";
+  segment: string;
+  section: string;
+  company: string;
+  adCopy: string;
+};
 
 function formatNameList(names: readonly string[]): string {
   if (names.length === 0) return "none open yet";

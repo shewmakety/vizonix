@@ -23,5 +23,8 @@ describe("media kit", () => {
     expect(text).not.toContain("Featured tool listing");
     expect(text).not.toContain("Section site banner");
     expect(text).not.toMatch(/\d+% open/);
+    expect(text.toLowerCase()).not.toContain("logo");
+    expect(text.toLowerCase()).not.toContain("call to action");
+    expect(text).not.toMatch(/\b(?:warehousing|legal|marketing)\b/i);
   });
 });
