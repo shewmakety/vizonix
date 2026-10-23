@@ -108,3 +108,16 @@ describe("turnstile and signup limits", () => {
     expect(text).not.toContain("Customize your issue:");
   });
 });
+
+describe("clientIpFromHeaders", () => {
+  it("prefers x-real-ip and ignores x-forwarded-for on Vercel", async () => {
+    const { clientIpFromHeaders } = await import("@/lib/rate-limit");
+    const prev = process.env.VERCEL;
+    const spoofed = new Headers({ "x-forwarded-for": "1.2.3.4", "x-real-ip": "203.0.113.9" });
+    expect(clientIpFromHeaders(spoofed)).toBe("203.0.113.9");
+    process.env.VERCEL = "1";
+    expect(clientIpFromHeaders(new Headers({ "x-forwarded-for": "1.2.3.4" }))).toBe("local");
+    if (prev === undefined) delete process.env.VERCEL;
+    else process.env.VERCEL = prev;
+  });
+});
