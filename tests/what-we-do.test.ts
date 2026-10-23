@@ -35,9 +35,13 @@ describe("What We Do and the shared issue header", () => {
       const html = renderToStaticMarkup(createElement(IssueBody, { issue }));
       const email = renderIssueEmail(issue, { mode: "broadcast" });
       const text = renderIssueText(issue, { mode: "broadcast" });
+      const subjectPage = issue.subject.replaceAll("&", "&amp;").replaceAll("'", "&#x27;");
+      const leadPage = issue.lead.title.replaceAll("&", "&amp;").replaceAll("'", "&#x27;");
+      const subjectEmail = escapeHtml(issue.subject);
+      const leadEmail = escapeHtml(issue.lead.title);
 
       expect(html).toContain(
-        `<h1 class="issue-title">${issue.subject}<span class="issue-title-date"> · ${numeric}</span></h1>`,
+        `<h1 class="issue-title">${subjectPage}<span class="issue-title-date"> · ${numeric}</span></h1>`,
       );
       expect(html).not.toContain("issue-dateline");
       const copyHtml = whatWeDo.copy.replaceAll("'", "&#x27;");
@@ -45,16 +49,16 @@ describe("What We Do and the shared issue header", () => {
       expect(html).toContain(`<h2 class="what-we-do-heading">${whatWeDo.heading}</h2>`);
       expect(html).toContain(copyHtml);
       expect(html.indexOf(`<h1 class="issue-title">`)).toBeLessThan(html.indexOf("what-we-do-heading"));
-      expect(html.indexOf(copyHtml)).toBeLessThan(html.indexOf(issue.lead.title));
+      expect(html.indexOf(copyHtml)).toBeLessThan(html.indexOf(leadPage));
 
       expect(email).toContain(
-        `font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${issue.subject}<span style="color:#c9b98f;"> · ${numeric}</span></h1>`,
+        `font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${subjectEmail}<span style="color:#c9b98f;"> · ${numeric}</span></h1>`,
       );
       expect(email).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
       expect(email).toContain(`color:#c9b98f;">${whatWeDo.heading}</h2>`);
       expect(email).toContain(copyEmail);
       expect(email.indexOf(`font-size:30px;`)).toBeLessThan(email.indexOf(whatWeDo.heading));
-      expect(email.indexOf(copyEmail)).toBeLessThan(email.indexOf(issue.lead.title));
+      expect(email.indexOf(copyEmail)).toBeLessThan(email.indexOf(leadEmail));
       expect(email).not.toContain("section-heading");
 
       expect(text.indexOf(`${issue.subject} · ${numeric}`)).toBeLessThan(text.indexOf("WHAT WE DO"));

@@ -108,6 +108,18 @@
     "url": "https://campaviate.aero/ai-sales-intelligence/"
   },
   {
+    "name": "AI-enabled borescope training",
+    "vendor": "Aero Engine Maintenance Training Center (AEMTC)",
+    "use": "Adding AI-enabled borescope training and mixed-reality instruction to prepare technicians for LEAP engine work.",
+    "categories": [
+      "Recruiting"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/"
+  },
+  {
     "name": "Aiir",
     "vendor": "Aiir Innovations",
     "use": "Reads borescope video and flags engine defects so an inspector can finish the check faster.",
@@ -530,6 +542,18 @@
     "url": "https://levo.aero/"
   },
   {
+    "name": "FlightBridge connector for AI assistants (beta)",
+    "vendor": "FlightBridge",
+    "use": "Lets an AI assistant such as Claude or ChatGPT find and book crew hotels and rental cars inside a FlightBridge account.",
+    "categories": [
+      "AOG support"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://home.flightbridge.com/"
+  },
+  {
     "name": "FLYR",
     "vendor": "FLYR",
     "use": "Sets airline fares and ancillary prices from demand.",
@@ -809,6 +833,18 @@
     "url": "https://otter.ai/"
   },
   {
+    "name": "PENTAGON AVENTUS AI agents",
+    "vendor": "Pentagon 2000 Software",
+    "use": "Reads incoming emails and turns them into quotes, sales orders and purchase invoices for the team to review.",
+    "categories": [
+      "Warehousing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.pentagon2000.com/post/introducing-pentagon-aventus-browser-based-erp"
+  },
+  {
     "name": "Perplexity",
     "vendor": "Perplexity",
     "use": "Answers a question and shows the pages it used.",
@@ -1038,6 +1074,30 @@
     "url": "https://www.smart-airport-systems.com/solution/taxibot/"
   },
   {
+    "name": "Total Care Package (IFEC predictive maintenance)",
+    "vendor": "Panasonic Technical Services (Panasonic Avionics)",
+    "use": "Can include advanced diagnostics and predictive maintenance for in-flight entertainment and connectivity systems.",
+    "categories": [
+      "Predictive maintenance"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://www.panasonic.aero/"
+  },
+  {
+    "name": "TruVideo AOG",
+    "vendor": "TruVideo",
+    "use": "Technicians capture guided video of a problem, remote specialists review it, and the video stays on the work order.",
+    "categories": [
+      "Maintenance activity optimization"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://truvideo.com/aviation/"
+  },
+  {
     "name": "Universal Robots",
     "vendor": "Universal Robots",
     "use": "Collaborative robot arms used in aerospace for assembly, inspection and moving parts.",
@@ -1060,6 +1120,18 @@
       "AI"
     ],
     "url": "https://www.virtualitics.com/"
+  },
+  {
+    "name": "Vista-Quote",
+    "vendor": "Ambry Hill Technologies",
+    "use": "Recognizes a plain-text RFQ email, stages it in a standard format, and lets rules route, check inventory, or auto-quote.",
+    "categories": [
+      "Sales and marketing"
+    ],
+    "tags": [
+      "AI"
+    ],
+    "url": "https://ambryhill.com/vista-quote/inbound-rfq-management"
   },
   {
     "name": "Web Manuals Amelia AI Compliance Assistant",

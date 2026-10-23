@@ -1,0 +1,17 @@
+{
+  "slug": "truvideo-aog",
+  "segment": "aviation",
+  "name": "TruVideo AOG",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "TruVideo",
+  "summary": "TruVideo sells verified video workflows for aviation maintenance. Technicians capture guided video of a problem, remote specialists review it, and teams can line up parts, labor and bay space before the aircraft is opened up further. Video is attached to the work order with timestamps and device details for audit. In the October 22 AviTrader roundtable, TruVideo's Tom Torosian said that where operators capture visual evidence tied to the job and the asset, AI models get far more accurate at flagging likely findings before a check starts.",
+  "paragraphs": [
+    "TruVideo sells verified video workflows for aviation maintenance. Technicians capture guided video of a problem, remote specialists review it, and teams can line up parts, labor and bay space before the aircraft is opened up further. Video is attached to the work order with timestamps and device details for audit. In the October 22 AviTrader roundtable, TruVideo's Tom Torosian said that where operators capture visual evidence tied to the job and the asset, AI models get far more accurate at flagging likely findings before a check starts."
+  ],
+  "whyItMatters": "Every hour a bay waits on a decision is an hour you cannot bill. Video that reaches the right expert quickly, and stays on the work order afterward, speeds up the repair now and builds the clean records any future AI planning tool will need.",
+  "pricing": "Contact TruVideo",
+  "sourceUrl": "https://avitrader.com/2026/10/22/beyond-the-hype-is-ai-ready-to-transform-aircraft-maintenance/",
+  "url": "https://truvideo.com/aviation/"
+}
