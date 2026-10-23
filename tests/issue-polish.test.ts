@@ -70,9 +70,31 @@ describe("issue polish", () => {
     expect(text).toContain(postalAddress);
     expect(email.indexOf(postalHtml)).toBeLessThan(email.indexOf("Contact us at:"));
     expect(text.indexOf(postalAddress)).toBeLessThan(text.indexOf("Contact us at:"));
+    expect(email).toContain(
+      '<p style="margin:0 0 8px;">You are receiving this because you confirmed a subscription',
+    );
+    const contactAt = email.indexOf('class="vz-footer-contact"');
+    expect(contactAt).toBeGreaterThan(email.indexOf("You are receiving this"));
+    expect(contactAt).toBeGreaterThan(email.indexOf(">SUBSCRIBE<"));
+    const contact = email.slice(contactAt, email.indexOf("</div>", contactAt));
+    expect(contact).toContain('align="center"');
+    expect(contact).toContain("text-align:center");
+    expect(contact).toContain(postalHtml);
+    expect(contact).toContain("Contact us at:");
+    expect(contact).toContain('href="mailto:admin@vizonix.com"');
+    expect(contact).toContain(">Unsubscribe</a>");
+    expect(contact).not.toContain("You are receiving this");
+    expect(contact).not.toContain(">SUBSCRIBE<");
+    const disclaimer = email.slice(email.lastIndexOf("<p", email.indexOf("You are receiving this")), email.indexOf("You are receiving this"));
+    expect(disclaimer).not.toContain("text-align:center");
 
     site.postalAddress = "   ";
-    expect(renderIssueEmail(issue, { mode: "test" })).not.toContain("Early Riser");
+    const blank = renderIssueEmail(issue, { mode: "test" });
+    expect(blank).not.toContain("Early Riser");
     expect(renderIssueText(issue, { mode: "test" })).not.toContain("Early Riser");
+    const blankContact = blank.slice(blank.indexOf('class="vz-footer-contact"'), blank.indexOf("</div>", blank.indexOf('class="vz-footer-contact"')));
+    expect(blankContact).toContain("text-align:center");
+    expect(blankContact).toContain("Contact us at:");
+    expect(blankContact).toContain(">Unsubscribe</a>");
   });
 });

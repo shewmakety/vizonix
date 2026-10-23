@@ -10,16 +10,19 @@ import { renderIssueEmail, renderIssueText } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { buildLinkedInPost } from "@/lib/linkedin";
 import { getSegment } from "@/lib/segments";
-import { whatWeDo } from "@/lib/site";
+import { customizeCard, whatWeDo, whatWeDoBody } from "@/lib/site";
 
 describe("What We Do and the shared issue header", () => {
   it("uses one constant on every issue page and email, ahead of the body", () => {
     expect(whatWeDo.heading).toBe("What We Do");
     expect(whatWeDo.copy).toBe(
-      "The VIZONIX Daily is a new, free briefing that helps aviation leaders put AI and robotics to work. Every weekday we pick the developments that matter to MROs, operators and suppliers, explain them in plain English, and show where they pay off. Choose the topics you care about, and we'll tailor every issue to you.",
+      "The Vizonix Daily is a new, free briefing that helps aviation leaders put AI and robotics to work. Every weekday we pick the developments that matter to MROs, operators and suppliers, explain them in plain English, and show where they pay off. Choose the topics you care about, and we'll tailor every issue to you.",
     );
-    expect(whatWeDo.copy).not.toMatch(/[\u2013\u2014]/);
-    expect(whatWeDo.copy).not.toMatch(/legal|warehousing|marketing/i);
+    expect(whatWeDo.copy).not.toContain("VIZONIX");
+    expect(whatWeDoBody()).toBe(`${whatWeDo.copy} ${customizeCard.copy}`);
+    expect(whatWeDoBody()).toContain("you. Make Vizonix yours.");
+    expect(whatWeDoBody()).not.toMatch(/[\u2013\u2014]/);
+    expect(whatWeDoBody()).not.toMatch(/legal|warehousing|marketing/i);
 
     const issues = listIssues("aviation");
     expect(issues.length).toBeGreaterThan(0);
@@ -40,10 +43,13 @@ describe("What We Do and the shared issue header", () => {
         `<h1 class="issue-title">${issue.subject}<span class="issue-title-date"> · ${numeric}</span></h1>`,
       );
       expect(html).not.toContain("issue-dateline");
-      const copyHtml = whatWeDo.copy.replaceAll("'", "&#x27;");
-      const copyEmail = escapeHtml(whatWeDo.copy);
+      const copyHtml = whatWeDoBody().replaceAll("'", "&#x27;");
+      const copyEmail = escapeHtml(whatWeDoBody());
       expect(html).toContain(`<h2 class="what-we-do-heading">${whatWeDo.heading}</h2>`);
+      expect(html.match(/class="what-we-do"/g)).toHaveLength(1);
+      expect(html).not.toContain(">Customize<");
       expect(html).toContain(copyHtml);
+      expect(html).toContain('href="/preferences">Update my preferences</a>');
       expect(html.indexOf(`<h1 class="issue-title">`)).toBeLessThan(html.indexOf("what-we-do-heading"));
       expect(html.indexOf(copyHtml)).toBeLessThan(html.indexOf(issue.lead.title));
 
@@ -52,13 +58,18 @@ describe("What We Do and the shared issue header", () => {
       );
       expect(email).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
       expect(email).toContain(`color:#c9b98f;">${whatWeDo.heading}</h2>`);
+      expect(email.match(/>What We Do</g)).toHaveLength(1);
+      expect(email).not.toContain(">Customize</h2>");
       expect(email).toContain(copyEmail);
+      expect(email).toContain(">Update my preferences</a>");
       expect(email.indexOf(`font-size:30px;`)).toBeLessThan(email.indexOf(whatWeDo.heading));
       expect(email.indexOf(copyEmail)).toBeLessThan(email.indexOf(issue.lead.title));
       expect(email).not.toContain("section-heading");
 
       expect(text.indexOf(`${issue.subject} · ${numeric}`)).toBeLessThan(text.indexOf("WHAT WE DO"));
-      expect(text.indexOf(whatWeDo.copy)).toBeLessThan(text.indexOf(issue.lead.title));
+      expect(text.indexOf(whatWeDoBody())).toBeLessThan(text.indexOf(`${customizeCard.action}: `));
+      expect(text.indexOf(`${customizeCard.action}: `)).toBeLessThan(text.indexOf(issue.lead.title));
+      expect(text).not.toMatch(/^CUSTOMIZE$/m);
 
       const post = buildLinkedInPost(issue, `https://www.vizonix.com/aviation/issues/${issue.date}`);
       expect(post).not.toContain(whatWeDo.copy);
