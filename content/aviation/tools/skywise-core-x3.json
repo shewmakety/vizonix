@@ -1,0 +1,17 @@
+{
+  "slug": "skywise-core-x3",
+  "segment": "aviation",
+  "name": "Skywise Core X3",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Skywise (Airbus)",
+  "summary": "Skywise announced on October 23 that IndiGo, India's largest airline, has signed for Skywise Core X3, the premium tier of its Core X suite. IndiGo has used Skywise Core since 2020 and is upgrading so it can build machine learning models, deploy operational applications and set up automated data pipelines on one data foundation built for flight operations and technical operations. Skywise says the tier comes pre-verified for aviation-grade needs and compliance, which cuts the custom work generic analytics tools require. IndiGo flies more than 430 aircraft and nearly 2,200 daily flights. Chief Operating Officer Isidre Porqueras said the aim is data that helps the airline look ahead, anticipate operational challenges and improve reliability.",
+  "paragraphs": [
+    "Skywise announced on October 23 that IndiGo, India's largest airline, has signed for Skywise Core X3, the premium tier of its Core X suite. IndiGo has used Skywise Core since 2020 and is upgrading so it can build machine learning models, deploy operational applications and set up automated data pipelines on one data foundation built for flight operations and technical operations. Skywise says the tier comes pre-verified for aviation-grade needs and compliance, which cuts the custom work generic analytics tools require. IndiGo flies more than 430 aircraft and nearly 2,200 daily flights. Chief Operating Officer Isidre Porqueras said the aim is data that helps the airline look ahead, anticipate operational challenges and improve reliability."
+  ],
+  "whyItMatters": "Predictive maintenance pays off only when the fleet data underneath it is clean and connected. An airline that can build its own models on that data can catch repeat defects earlier and line up parts and labor before a delay turns into an AOG. Smaller operators should ask their OEM or software provider the question IndiGo answered: who owns the data foundation, and can we build on it ourselves?",
+  "pricing": "Not published; contact Skywise",
+  "sourceUrl": "https://www.skywise.com/en/newsroom/press-releases/2026-10-indigo-selects-skywise-core-x3-to-power-next-generation-analytics-at-enterprise-scale",
+  "url": "https://www.skywise.com/"
+}

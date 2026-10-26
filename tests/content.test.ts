@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(5);
+    expect(issues).toHaveLength(6);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-26",
       "2026-10-22",
       "2026-10-21",
       "2026-10-20",
@@ -72,22 +73,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "AI agents are already calling charter operators for quotes. Plus 7 places to put AI and robotics to work",
+      "The AI company behind the FAA traffic tool SMART just raised $325 million. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "cae-ready-for-work",
-      "levo-flight-leads",
-      "optifly-opty",
-      "gulfstream-performance-analytics",
-      "ge-aerospace-celma-records-ai",
-      "aerokeeper-due-list-agent",
-      "uas-skyx",
-      "ajw-apollo",
-      "flyexclusive-contrails-fms",
-      "claude-duet",
-      "gemini-customize-hub",
+      "unseq-baggage-hold-robot",
+      "google-meet-speech-translation",
+      "skywise-core-x3",
+      "google-chat-meeting-recaps",
+      "pratt-whitney-percept",
+      "autostore-cube-storage",
+      "asi-operational-ai",
+      "chatgpt-slides-collaboration",
+      "google-docs-live-mobile",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -107,20 +106,25 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(94);
+    expect(tools).toHaveLength(99);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
       "aeroquote",
       "ajw-apollo",
+      "asi-operational-ai",
+      "autostore-cube-storage",
       "cae-ready-for-work",
       "flightbridge-21x-ai-concierge",
       "flyexclusive-contrails-fms",
       "ge-aerospace-celma-records-ai",
       "gulfstream-performance-analytics",
+      "pratt-whitney-percept",
       "rolls-royce-optimiser",
       "sensos-jssi-tracking",
+      "skywise-core-x3",
       "uas-skyx",
+      "unseq-baggage-hold-robot",
     ]);
     expect(getTool("aviation", "flightbridge-21x-ai-concierge")?.pricing).toBe("Not announced (beta)");
     expect(getTool("aviation", "rolls-royce-optimiser")?.pricing).toBe("Internal Rolls-Royce system");

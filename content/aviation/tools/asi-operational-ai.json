@@ -1,0 +1,17 @@
+{
+  "slug": "asi-operational-ai",
+  "segment": "aviation",
+  "name": "ASI operational AI for airlines",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "ASI (formerly Air Space Intelligence)",
+  "summary": "ASI says its software runs continuous forward simulations of an operation hours, days and weeks ahead, balancing deterministic and probabilistic modeling, to flag problems before they disrupt the schedule. The company says its systems orchestrate operations for Delta Air Lines, Alaska Airlines and United Airlines, and it holds an $875 million FAA and DOT program of record to modernize the National Airspace System. It announced a $325 million Series C at a $3 billion valuation on October 20.",
+  "paragraphs": [
+    "ASI says its software runs continuous forward simulations of an operation hours, days and weeks ahead, balancing deterministic and probabilistic modeling, to flag problems before they disrupt the schedule. The company says its systems orchestrate operations for Delta Air Lines, Alaska Airlines and United Airlines, and it holds an $875 million FAA and DOT program of record to modernize the National Airspace System. It announced a $325 million Series C at a $3 billion valuation on October 20."
+  ],
+  "whyItMatters": "An aircraft that goes AOG at an outstation is rarely the only problem; crews, connections and the next day's flying ripple out from it. Software that shows the knock-on effects early lets operations pick the cheapest recovery while there are still options, instead of paying for overtime, hotels and cancellations later.",
+  "pricing": "Not published; contact ASI",
+  "sourceUrl": "https://www.airspace-intelligence.com/news/asi-secures-usd325m-series-c-at-usd3b-valuation",
+  "url": "https://www.airspace-intelligence.com/"
+}
