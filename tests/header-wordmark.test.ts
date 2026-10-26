@@ -87,6 +87,12 @@ describe("header wordmark", () => {
     );
     expect(email).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
     expect(email).toContain(`>${escapeHtml(wordmark)}</a>`);
+    expect(email).toContain(`font-size:32px;line-height:1.2;word-break:normal;overflow-wrap:normal;">${escapeHtml(wordmark)}</a>`);
+    expect(email).toContain('class="vz-logo" valign="middle" align="center" width="72" height="72"');
+    expect(email).toContain("width:72px;height:72px;");
+    expect(email).toContain(".vz-brand { font-size: 28px !important; line-height: 1.25 !important; }");
+    expect(email).toContain(".vz-logo { width: 64px !important; height: 64px !important; font-size: 34px !important; line-height: 64px !important; }");
+    expect(email).toContain(".vz-logo-cell, .vz-brand-cell { display: block !important; width: 100% !important; max-width: 100% !important; }");
     expect(email.indexOf(">V</a>")).toBeLessThan(email.indexOf(`>${escapeHtml(issue.subject)}<span`));
     expect(email).toContain('bgcolor="#122033" style="background-color:#122033;border-radius:8px;');
     expect(email).toContain('background:#13233b;border-radius:8px;');

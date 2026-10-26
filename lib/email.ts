@@ -24,7 +24,6 @@ import {
 import { formatNumericDate } from "@/lib/dates";
 import { escapeHtml, publicHref } from "@/lib/html";
 import {
-  chipLabel,
   contactVendorParts,
   forwardMailto,
   forwardedSubscribeUrl,
@@ -511,27 +510,29 @@ function emailSiteHeader(issue: Issue): string {
   const navLink =
     "color:#f6f3ec;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.2;";
   const nameStyle =
-    "color:#f6f3ec;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.15;";
+    "color:#f6f3ec;text-decoration:none;font-family:Georgia,'Times New Roman',serif;font-size:32px;line-height:1.2;word-break:normal;overflow-wrap:normal;";
   return `<tr>
-            <td bgcolor="#122033" style="background-color:#122033;border-radius:8px;padding:16px 20px 14px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+            <td bgcolor="#122033" style="background-color:#122033;border-radius:8px;padding:18px 20px 16px;">
+              <table role="presentation" class="vz-brand-lockup" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;table-layout:fixed;">
                 <tr>
-                  <td align="left" valign="middle">
-                    <table role="presentation" align="left" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+                  <td class="vz-logo-cell" valign="middle" width="72" style="width:72px;vertical-align:middle;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
                       <tr>
-                        <td valign="middle" align="center" width="32" height="32" bgcolor="#122033" style="width:32px;height:32px;border:1px solid #c8b48a;text-align:center;vertical-align:middle;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:32px;mso-line-height-rule:exactly;color:#f3ead8;">
-                          <a href="${escapeHtml(home)}" style="color:#f3ead8;text-decoration:none;">V</a>
-                        </td>
-                        <td width="10" style="width:10px;font-size:0;line-height:0;">&nbsp;</td>
-                        <td valign="middle" style="vertical-align:middle;">
-                          <a href="${escapeHtml(home)}" style="${nameStyle}">${escapeHtml(wordmark)}</a>
+                        <td class="vz-logo" valign="middle" align="center" width="72" height="72" bgcolor="#122033" style="width:72px;height:72px;border:1px solid #c8b48a;text-align:center;vertical-align:middle;font-family:Georgia,'Times New Roman',serif;font-size:38px;line-height:72px;mso-line-height-rule:exactly;color:#f3ead8;">
+                          <a href="${escapeHtml(home)}" style="color:#f3ead8;text-decoration:none;font-size:38px;line-height:72px;">V</a>
                         </td>
                       </tr>
                     </table>
                   </td>
+                  <td class="vz-brand-gap" width="14" style="width:14px;font-size:0;line-height:0;">&nbsp;</td>
+                  <td class="vz-brand-cell" valign="middle" style="vertical-align:middle;word-break:normal;overflow-wrap:normal;">
+                    <a class="vz-brand" href="${escapeHtml(home)}" style="${nameStyle}">${escapeHtml(wordmark)}</a>
+                  </td>
                 </tr>
+              </table>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
                 <tr>
-                  <td align="right" style="padding:12px 0 0;text-align:right;">
+                  <td align="right" style="padding:14px 0 0;text-align:right;">
                     <table role="presentation" align="right" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-left:auto;">
                       <tr>
                         <td valign="middle" style="padding:0 16px 0 0;"><a href="${escapeHtml(sponsor)}" style="${navLink}">Sponsor</a></td>
@@ -562,20 +563,16 @@ function issueHeaderHtml(title: string, numericDate: string): string {
           </tr>`;
 }
 
-function jumpEmailHtml(sections: IssueSectionView[]): string {
-  const chips = sections
-    .map((section, index) => {
-      const topic = section.topic ?? "Tool Highlights";
-      const number = String(index + 1).padStart(2, "0");
-      const style =
-        "display:inline-block;border:1px solid #c9d0db;border-radius:20px;padding:5px 12px;margin:0 6px 8px 0;font-size:13px;color:#13233b;background:#ffffff;text-decoration:none;font-family:Arial,Helvetica,sans-serif;";
-      return `<a href="#${escapeHtml(sectionAnchor(topic))}" style="${style}"><b style="color:#14532D;">${number}</b> ${escapeHtml(sectionHeadingLabel(chipLabel(topic)))}</a>`;
-    })
-    .join("");
+/** Small-caps lead label. Sits above the title card. Mail clients drop in-page # links, so there is no jump row. */
+function topStoryKickerEmailHtml(kicker: string): string {
   return `<tr>
-            <td style="padding:16px 20px 0;">
-              <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#6b7280;margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;">Jump to</div>
-              ${chips}
+            <td style="padding:0 20px 10px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                <tr>
+                  ${emailIconCell(kicker, kicker, 28)}
+                  <td valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#14532D;">${escapeHtml(topStoryLabel)}</td>
+                </tr>
+              </table>
             </td>
           </tr>`;
 }
@@ -649,6 +646,14 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
       .vz-wrap { width: 100% !important; max-width: 100% !important; }
       .vz-stack, .vz-stack tbody, .vz-stack tr, .vz-stack td { display: block !important; width: 100% !important; max-width: 100% !important; }
       .vz-actions { font-size: 10px !important; letter-spacing: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+      .vz-brand { font-size: 28px !important; line-height: 1.25 !important; }
+      .vz-logo { width: 64px !important; height: 64px !important; font-size: 34px !important; line-height: 64px !important; }
+      .vz-logo a { font-size: 34px !important; line-height: 64px !important; }
+    }
+    @media only screen and (max-width: 480px) {
+      .vz-logo-cell, .vz-brand-cell { display: block !important; width: 100% !important; max-width: 100% !important; }
+      .vz-brand-gap { display: none !important; width: 0 !important; max-height: 0 !important; overflow: hidden !important; }
+      .vz-brand-cell { padding-top: 10px !important; }
     }
     @media only screen and (max-width: 380px) {
       .vz-actions { font-size: 9px !important; }
@@ -672,10 +677,10 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f4f6" style="width:100%;border-collapse:separate;border-spacing:0;background-color:#f3f4f6;table-layout:fixed;word-break:break-word;">
           ${emailSiteHeader(issue)}
           ${emailHeaderGap()}
+          ${topStoryKickerEmailHtml(issue.lead.kicker)}
           ${issueHeaderHtml(issue.subject, formatNumericDate(issue.date))}
           ${issueActionsEmailHtml(issue, archive, preferences)}
           ${directoryRow}
-          ${jumpEmailHtml(visibleSections)}
           ${intro}
           ${sample}
           ${slotHtml(primary, absolute)}
@@ -683,12 +688,6 @@ export function renderIssueEmail(issue: Issue, options: IssueRenderOptions): str
           <tr>
             <td style="padding:14px 20px 0;">
               <div style="background:#ffffff;border-radius:8px;border-top:5px solid #14532D;padding:22px;">
-                <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 8px;">
-                  <tr>
-                    ${emailIconCell(issue.lead.kicker, issue.lead.kicker, 28)}
-                    <td valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#14532D;">${escapeHtml(topStoryLabel)}</td>
-                  </tr>
-                </table>
                 <h2 style="margin:0 0 10px;font-family:Arial,Helvetica,sans-serif;font-size:24px;line-height:1.25;font-weight:800;color:#13233b;">${escapeHtml(issue.lead.title)}</h2>
                 <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#4a5262;">${escapeHtml(issue.lead.summary)}</p>
                 ${whyPaysHtml(issue.lead.whyItMatters)}
