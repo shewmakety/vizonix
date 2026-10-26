@@ -1,0 +1,17 @@
+{
+  "slug": "autostore-cube-storage",
+  "segment": "aviation",
+  "name": "AutoStore cube storage (Satair Singapore)",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "AutoStore, installed by Satair (Airbus)",
+  "summary": "Satair, Airbus's parts distribution business, has inaugurated an AutoStore system at its Singapore facility, according to a Satair press release published by the Singapore Economic Development Board. It is Satair's third AutoStore site after Hamburg and Dulles. The system uses 23 robots and 60,000 bins to store about 80% of the site's small and medium-sized parts inside the existing 1,000 square meter footprint. Satair says the site is preparing to add autonomous mobile robots and automated guided vehicles to move parts from picking to shipping.",
+  "paragraphs": [
+    "Satair, Airbus's parts distribution business, has inaugurated an AutoStore system at its Singapore facility, according to a Satair press release published by the Singapore Economic Development Board. It is Satair's third AutoStore site after Hamburg and Dulles. The system uses 23 robots and 60,000 bins to store about 80% of the site's small and medium-sized parts inside the existing 1,000 square meter footprint. Satair says the site is preparing to add autonomous mobile robots and automated guided vehicles to move parts from picking to shipping."
+  ],
+  "whyItMatters": "Floor space and pick time are what limit most parts rooms. Robots that bring bins to the picker fit far more stock in the same building and cut the walking, which means faster AOG shipments without a bigger warehouse. Ask your distributors which of their sites are automated, because that affects how fast your order leaves the dock.",
+  "pricing": "Contact AutoStore or an AutoStore integrator",
+  "sourceUrl": "https://www.edb.gov.sg/en/about-edb/media-releases-publications/satair-launches-autostore-to-scale-apac-aerospace-logistics.html",
+  "url": "https://www.autostoresystem.com/"
+}

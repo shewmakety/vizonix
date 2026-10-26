@@ -17,6 +17,7 @@ const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-26", "The AI company behind the FAA traffic tool SMART raised $325 million"],
   ["/aviation/issues/2026-10-22", "AI agents are already shopping for charter"],
   ["/aviation/issues/2026-10-21", "Boeing launches Dataliner"],
   ["/aviation/issues/2026-10-20", "False alerts are the real test"],
@@ -47,6 +48,11 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/gulfstream-performance-analytics", "Performance Analytics"],
   ["/aviation/tools/optifly-opty", "Opty"],
   ["/aviation/tools/uas-skyx", "SkyX"],
+  ["/aviation/tools/unseq-baggage-hold-robot", "Baggage-hold loading robot"],
+  ["/aviation/tools/skywise-core-x3", "Skywise Core X3"],
+  ["/aviation/tools/pratt-whitney-percept", "Percept"],
+  ["/aviation/tools/autostore-cube-storage", "AutoStore cube storage"],
+  ["/aviation/tools/asi-operational-ai", "ASI operational AI for airlines"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
   ["/sponsor", "Aviation is the first list"],
   ["/media-kit", "Audience numbers will be published after our first full month."],
@@ -290,6 +296,13 @@ async function main() {
     if (!thursdayIssue.includes(titleDate("2026-10-22")) || thursdayIssue.includes(titleDate("2026-10-21"))) {
       throw new Error("The October 22 issue date did not stay on 10-22-2026.");
     }
+    const monday26Issue = await fetch(`${base}/aviation/issues/2026-10-26`).then((response) => response.text());
+    if (monday26Issue.includes("noindex")) {
+      throw new Error("The October 26 aviation issue is marked noindex.");
+    }
+    if (!monday26Issue.includes(titleDate("2026-10-26")) || monday26Issue.includes(titleDate("2026-10-25"))) {
+      throw new Error("The October 26 issue date did not stay on 10-26-2026.");
+    }
     if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
       throw new Error("The issue still renders the classified quick-link slot.");
     }
@@ -312,6 +325,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-26") ||
       !sitemap.includes("/aviation/issues/2026-10-22") ||
       !sitemap.includes("/aviation/issues/2026-10-21") ||
       !sitemap.includes("/aviation/issues/2026-10-20") ||
@@ -363,7 +377,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-22")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-26")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);

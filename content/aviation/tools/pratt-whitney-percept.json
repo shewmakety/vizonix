@@ -1,0 +1,17 @@
+{
+  "slug": "pratt-whitney-percept",
+  "segment": "aviation",
+  "name": "Percept",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Pratt & Whitney (RTX), developed with Awiros",
+  "summary": "AviNews reported on October 23, from Pratt & Whitney's Aviation Week interview, that Percept is part of the engine maker's AI toolset alongside the Aiir borescope software it acquired in July. Percept, developed with Indian startup Awiros, uses computer vision so users can capture images and video of engines on mobile devices and get real-time information on parts availability. Pratt & Whitney says it cuts inspection time by nearly 90%. Rob Griffiths, senior vice president for commercial engines operations, said the company expects to extend AI-assisted visual inspection to other inspection processes.",
+  "paragraphs": [
+    "AviNews reported on October 23, from Pratt & Whitney's Aviation Week interview, that Percept is part of the engine maker's AI toolset alongside the Aiir borescope software it acquired in July. Percept, developed with Indian startup Awiros, uses computer vision so users can capture images and video of engines on mobile devices and get real-time information on parts availability. Pratt & Whitney says it cuts inspection time by nearly 90%. Rob Griffiths, senior vice president for commercial engines operations, said the company expects to extend AI-assisted visual inspection to other inspection processes."
+  ],
+  "whyItMatters": "Most of the time lost on an engine finding is the gap between spotting a problem and knowing whether the part is on the shelf. A phone that recognizes the part and shows availability on the spot lets the shop quote and order the same day, which shortens the visit and gets the engine back on wing sooner. The 90% figure is the company's own, so ask for a demo on your engine types.",
+  "pricing": "Not published; contact Pratt & Whitney",
+  "sourceUrl": "https://avi-go.com/news/articles/07026efe246f74d88613f5032d1148c8",
+  "url": "https://www.prattwhitney.com/"
+}

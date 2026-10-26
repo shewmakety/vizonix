@@ -1,0 +1,17 @@
+{
+  "slug": "unseq-baggage-hold-robot",
+  "segment": "aviation",
+  "name": "Baggage-hold loading robot (in development)",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "UNSEQ",
+  "summary": "In an IO+ profile published October 24, Eindhoven startup UNSEQ said it is building physical AI robots to load and unload baggage inside narrow-body aircraft holds. CEO Robert de Bruijne said a ground handler might lift up to 180 bags in one turnaround, some weighing up to 32 kilograms, in a space where they cannot stand upright. UNSEQ pairs vision-language-action models with world action models and reinforcement learning so the robot can recognize each bag, decide how to grasp it and plan its moves in tight space. Its intended approach keeps a human operator or supervisor outside the aircraft, and the robot is meant to stop safely or ask for help when it is uncertain. UNSEQ is a finalist in the AI Pitch Competition, with finals on November 12. No customers, prices or delivery dates were announced.",
+  "paragraphs": [
+    "In an IO+ profile published October 24, Eindhoven startup UNSEQ said it is building physical AI robots to load and unload baggage inside narrow-body aircraft holds. CEO Robert de Bruijne said a ground handler might lift up to 180 bags in one turnaround, some weighing up to 32 kilograms, in a space where they cannot stand upright. UNSEQ pairs vision-language-action models with world action models and reinforcement learning so the robot can recognize each bag, decide how to grasp it and plan its moves in tight space. Its intended approach keeps a human operator or supervisor outside the aircraft, and the robot is meant to stop safely or ask for help when it is uncertain. UNSEQ is a finalist in the AI Pitch Competition, with finals on November 12. No customers, prices or delivery dates were announced."
+  ],
+  "whyItMatters": "De Bruijne said ground handlers struggle to recruit and keep staff, and repetitive heavy lifting drives injuries and turnover. A robot that takes the worst lifting out of the hold could keep turns on time with fewer hard-to-fill roles and make the remaining jobs easier to keep. It is early, so treat this as one to watch, not one to budget for yet.",
+  "pricing": "Not for sale yet; in development",
+  "sourceUrl": "https://ioplus.nl/en/posts/a-flight-should-not-come-at-the-expense-of-someones-back",
+  "url": "https://ioplus.nl/en/posts/a-flight-should-not-come-at-the-expense-of-someones-back"
+}

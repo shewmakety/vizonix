@@ -1,0 +1,219 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-26",
+  "publishedAt": "2026-10-26T05:45:00-04:00",
+  "sample": false,
+  "subject": "The AI company behind the FAA traffic tool SMART just raised $325 million. Plus 7 places to put AI and robotics to work",
+  "preheader": "ASI hits a $3 billion valuation, IndiGo builds its own AI on Skywise, a robot for the baggage hold, Pratt & Whitney's Percept, robotic parts storage, and an honest note on a thin weekend.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "The AI company behind the FAA traffic tool SMART raised $325 million, and it already runs operations software for Delta, Alaska and United",
+    "summary": "ASI, the Boston company formerly called Air Space Intelligence, announced on October 20 a $325 million Series C round that values it at $3 billion. Spark Capital led, with affiliates of Citadel Securities, Meritech Capital, Craft Ventures, Energy Impact Partners and Andreessen Horowitz. ASI holds an $875 million program of record from the U.S. Department of Transportation and the FAA to modernize the National Airspace System. Flightdeck Report, covering the round on October 23 and citing Bloomberg, said that program runs 12 years and that ASI beat bidders including Palantir and Thales. AeroTime has reported that the contract covers SMART, the FAA's AI-supported tool that began limited use around Washington, D.C., on September 21 and that some lawmakers have asked the FAA to pause. ASI says its systems also orchestrate operations for Delta Air Lines, Alaska Airlines and United Airlines, and that the U.S. Army recently awarded it a $99 million contract. The company says its software runs continuous forward simulations hours, days and weeks ahead, balancing deterministic and probabilistic modeling instead of relying only on large language models. The new money goes to energy, logistics and defense deployments and to research and engineering in Boston.",
+    "whyItMatters": "Airspace access is turning into something software forecasts and rations, and the company writing that software now has the cash to scale. If SMART's recommendations shape departure times, operators who plan around them lose fewer hours to ground delays, crew duty limits and missed trips. Ask your dispatch or trip support provider how they will see and use these forecasts, and keep an eye on the congressional pushback, because a pause would change the timeline.",
+    "sourceName": "ASI, October 20, 2026; Flightdeck Report, October 23, 2026",
+    "sourceUrl": "https://www.airspace-intelligence.com/news/asi-secures-usd325m-series-c-at-usd3b-valuation",
+    "productUrl": "/aviation/tools/asi-operational-ai"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "coverageNote": "Thin weekend for news. No new AI hiring tool surfaced since October 23. The item below is a robot aimed at the staffing squeeze in ground handling, and it is still in development. Several sections further down say plainly where we had to reach back or cross-list.",
+      "tools": [
+        {
+          "name": "Baggage-hold loading robot (in development)",
+          "slug": "unseq-baggage-hold-robot",
+          "company": "UNSEQ",
+          "summary": "In an IO+ profile published October 24, Eindhoven startup UNSEQ said it is building physical AI robots to load and unload baggage inside narrow-body aircraft holds. CEO Robert de Bruijne said a ground handler might lift up to 180 bags in one turnaround, some weighing up to 32 kilograms, in a space where they cannot stand upright. UNSEQ pairs vision-language-action models with world action models and reinforcement learning so the robot can recognize each bag, decide how to grasp it and plan its moves in tight space. Its intended approach keeps a human operator or supervisor outside the aircraft, and the robot is meant to stop safely or ask for help when it is uncertain. UNSEQ is a finalist in the AI Pitch Competition, with finals on November 12. No customers, prices or delivery dates were announced.",
+          "whyItMatters": "De Bruijne said ground handlers struggle to recruit and keep staff, and repetitive heavy lifting drives injuries and turnover. A robot that takes the worst lifting out of the hold could keep turns on time with fewer hard-to-fill roles and make the remaining jobs easier to keep. It is early, so treat this as one to watch, not one to budget for yet.",
+          "url": "/aviation/tools/unseq-baggage-hold-robot",
+          "sourceUrl": "https://ioplus.nl/en/posts/a-flight-should-not-come-at-the-expense-of-someones-back",
+          "pricing": "Not for sale yet; in development"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "In an Aviation Week MRO Outlook column published October 26, Sean Broderick wrote that the commercial aftermarket boom is coming to an end as new-aircraft deliveries rise, though the slowdown may be gradual. Aviation Week's new forecast puts MRO growth at a 3.6% compound annual rate for the next decade. When growth slows, winning work from customers abroad matters more.",
+      "introSourceUrl": "https://aviationweek.com/mro/supply-chain/mro-outlook-dont-shut-those-shop-floor-lights-just-yet",
+      "coverageNote": "No new aviation-specific AI sales tool surfaced since October 23. The item below is a general tool that helps on sales calls with customers who speak another language.",
+      "tools": [
+        {
+          "name": "Speech translation in Google Meet (63 languages)",
+          "slug": "google-meet-speech-translation",
+          "company": "Google",
+          "summary": "Google said on October 22 that Gemini-powered speech translation in Meet now covers 63 languages on web, Android and iOS, using Gemini 3.5 Live Translate. Meet detects the language being spoken and translates it into each listener's preferred language in near real time, even when speakers switch languages mid-call, with matching translated captions. Each participant turns it on for themselves, and guests from other companies can use it when the organizer has an eligible plan. Sessions run up to 90 minutes per meeting on eligible base Workspace and Google AI Pro plans. It does not work in recordings, live streams or dial-in calls. Rapid Release domains began getting it October 22; Scheduled Release domains start November 2.",
+          "whyItMatters": "Parts brokers and MROs quote customers in Latin America, the Middle East and Asia every day. A call where each side speaks its own language moves a quote or a repair discussion forward faster than a week of email. Confirm part numbers, prices and terms in writing afterward, because a mistranslated number is expensive.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/real-time-speech-translation-in-google-Meet-expands-to-63-languages-with-automatic-language-detection.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/real-time-speech-translation-in-google-Meet-expands-to-63-languages-with-automatic-language-detection.html",
+          "vendorUrl": "https://workspace.google.com/products/meet/",
+          "pricing": "Included in Business Standard and Plus, Enterprise Standard and Plus, and Google AI Pro and Ultra plans"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "intro": "Runway Girl Network reported this month that more than 100 operators and about 12,000 aircraft are now connected to Airbus's Skywise platform. Airbus's Arnaud Demeusois said its more than 100 predictive algorithms help customers avoid cancellations every week.",
+      "introSourceUrl": "https://runwaygirlnetwork.com/2026/10/digital-connectivity-underpin-airbus-global-services-forecast/",
+      "tools": [
+        {
+          "name": "Skywise Core X3",
+          "slug": "skywise-core-x3",
+          "company": "Skywise (Airbus)",
+          "summary": "Skywise announced on October 23 that IndiGo, India's largest airline, has signed for Skywise Core X3, the premium tier of its Core X suite. IndiGo has used Skywise Core since 2020 and is upgrading so it can build machine learning models, deploy operational applications and set up automated data pipelines on one data foundation built for flight operations and technical operations. Skywise says the tier comes pre-verified for aviation-grade needs and compliance, which cuts the custom work generic analytics tools require. IndiGo flies more than 430 aircraft and nearly 2,200 daily flights. Chief Operating Officer Isidre Porqueras said the aim is data that helps the airline look ahead, anticipate operational challenges and improve reliability.",
+          "whyItMatters": "Predictive maintenance pays off only when the fleet data underneath it is clean and connected. An airline that can build its own models on that data can catch repeat defects earlier and line up parts and labor before a delay turns into an AOG. Smaller operators should ask their OEM or software provider the question IndiGo answered: who owns the data foundation, and can we build on it ourselves?",
+          "url": "/aviation/tools/skywise-core-x3",
+          "sourceUrl": "https://www.skywise.com/en/newsroom/press-releases/2026-10-indigo-selects-skywise-core-x3-to-power-next-generation-analytics-at-enterprise-scale",
+          "vendorUrl": "https://www.skywise.com/",
+          "pricing": "Not published; contact Skywise"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "No new aviation-specific item since October 23. The item below is a general tool from October 19 that fits the daily planning meeting.",
+      "tools": [
+        {
+          "name": "Meeting recaps in Google Chat",
+          "slug": "google-chat-meeting-recaps",
+          "company": "Google",
+          "summary": "Google announced on October 19 that meeting recaps now post automatically in the Chat space linked to a Google Meet call when Take notes for me is on. Each recap gives a short summary, the key decisions, action items with named owners, and links to the full Gemini notes, recording and transcript. Rapid Release domains began getting it October 16; Scheduled Release domains start October 27. It is available on Business Standard and Plus, Enterprise Standard and Plus, and Frontline Plus.",
+          "whyItMatters": "Morning production meetings decide who works which aircraft, and the decisions often live in someone's head. A recap with owners posted where the team already talks means fewer missed tasks and fewer people waiting on a call back. Keep anything that affects airworthiness in your approved systems, not in chat.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/follow-through-on-your-meeting-tasks-with-meeting-recaps-in-Google-Chat.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/follow-through-on-your-meeting-tasks-with-meeting-recaps-in-Google-Chat.html",
+          "vendorUrl": "https://workspace.google.com/products/chat/",
+          "pricing": "Included in Business Standard and Plus, Enterprise Standard and Plus, and Frontline Plus"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "No brand-new launch here. This tool was mentioned on October 22 and 23 in coverage of Pratt & Whitney's Aiir borescope acquisition, and it is new to Vizonix.",
+      "tools": [
+        {
+          "name": "Percept",
+          "slug": "pratt-whitney-percept",
+          "company": "Pratt & Whitney (RTX), developed with Awiros",
+          "summary": "AviNews reported on October 23, from Pratt & Whitney's Aviation Week interview, that Percept is part of the engine maker's AI toolset alongside the Aiir borescope software it acquired in July. Percept, developed with Indian startup Awiros, uses computer vision so users can capture images and video of engines on mobile devices and get real-time information on parts availability. Pratt & Whitney says it cuts inspection time by nearly 90%. Rob Griffiths, senior vice president for commercial engines operations, said the company expects to extend AI-assisted visual inspection to other inspection processes.",
+          "whyItMatters": "Most of the time lost on an engine finding is the gap between spotting a problem and knowing whether the part is on the shelf. A phone that recognizes the part and shows availability on the spot lets the shop quote and order the same day, which shortens the visit and gets the engine back on wing sooner. The 90% figure is the company's own, so ask for a demo on your engine types.",
+          "url": "/aviation/tools/pratt-whitney-percept",
+          "sourceUrl": "https://avi-go.com/news/articles/07026efe246f74d88613f5032d1148c8",
+          "vendorUrl": "https://www.prattwhitney.com/",
+          "pricing": "Not published; contact Pratt & Whitney"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new warehousing item since October 23. Satair announced this installation earlier this year; we include it because it is a real, working robotic parts store at an aviation distributor that we had not covered.",
+      "tools": [
+        {
+          "name": "AutoStore cube storage (Satair Singapore)",
+          "slug": "autostore-cube-storage",
+          "company": "AutoStore, installed by Satair (Airbus)",
+          "summary": "Satair, Airbus's parts distribution business, has inaugurated an AutoStore system at its Singapore facility, according to a Satair press release published by the Singapore Economic Development Board. It is Satair's third AutoStore site after Hamburg and Dulles. The system uses 23 robots and 60,000 bins to store about 80% of the site's small and medium-sized parts inside the existing 1,000 square meter footprint. Satair says the site is preparing to add autonomous mobile robots and automated guided vehicles to move parts from picking to shipping.",
+          "whyItMatters": "Floor space and pick time are what limit most parts rooms. Robots that bring bins to the picker fit far more stock in the same building and cut the walking, which means faster AOG shipments without a bigger warehouse. Ask your distributors which of their sites are automated, because that affects how fast your order leaves the dock.",
+          "url": "/aviation/tools/autostore-cube-storage",
+          "sourceUrl": "https://www.edb.gov.sg/en/about-edb/media-releases-publications/satair-launches-autostore-to-scale-apac-aerospace-logistics.html",
+          "vendorUrl": "https://www.autostoresystem.com/",
+          "pricing": "Contact AutoStore or an AutoStore integrator"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "coverageNote": "No new AI parts-sourcing or AOG tool surfaced since October 23. Listed here from today's top story, because disruption forecasting is where an AOG ripples first.",
+      "tools": [
+        {
+          "name": "ASI operational AI for airlines",
+          "slug": "asi-operational-ai",
+          "company": "ASI (formerly Air Space Intelligence)",
+          "summary": "ASI says its software runs continuous forward simulations of an operation hours, days and weeks ahead, balancing deterministic and probabilistic modeling, to flag problems before they disrupt the schedule. The company says its systems orchestrate operations for Delta Air Lines, Alaska Airlines and United Airlines, and it holds an $875 million FAA and DOT program of record to modernize the National Airspace System. It announced a $325 million Series C at a $3 billion valuation on October 20.",
+          "whyItMatters": "An aircraft that goes AOG at an outstation is rarely the only problem; crews, connections and the next day's flying ripple out from it. Software that shows the knock-on effects early lets operations pick the cheapest recovery while there are still options, instead of paying for overtime, hotels and cancellations later.",
+          "url": "/aviation/tools/asi-operational-ai",
+          "sourceUrl": "https://www.airspace-intelligence.com/news/asi-secures-usd325m-series-c-at-usd3b-valuation",
+          "vendorUrl": "https://www.airspace-intelligence.com/",
+          "pricing": "Not published; contact ASI"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived in the last week. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "ChatGPT Slides team collaboration",
+          "slug": "chatgpt-slides-collaboration",
+          "company": "OpenAI",
+          "summary": "Reported October 24 by Storyboard18. OpenAI expanded ChatGPT Slides so teams can share a deck with view, comment or edit permissions, work on it at the same time and leave comments. You can tag ChatGPT in a comment to revise text or charts, edit individual slide elements directly, and build a deck from a conversation, a shared file, an outline or a template, or follow the style of an uploaded example deck. Decks can be presented inside ChatGPT or exported to PowerPoint or Google Slides and stay editable. The features are available on ChatGPT Pro, Business and Enterprise plans.",
+          "whyItMatters": "Customer reviews, monthly reliability reports and capability pitches eat hours of manager time. Drafting from your notes and letting colleagues comment in the same file cuts the back-and-forth. Check every number before a deck goes to a customer.",
+          "url": "https://www.storyboard18.com/digital/openai-upgrades-chatgpt-slides-with-team-collaboration-real-time-editing-113249.htm",
+          "sourceUrl": "https://www.storyboard18.com/digital/openai-upgrades-chatgpt-slides-with-team-collaboration-real-time-editing-113249.htm",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Included in ChatGPT Pro, Business and Enterprise plans"
+        },
+        {
+          "name": "Docs Live in Google Docs on mobile",
+          "slug": "google-docs-live-mobile",
+          "company": "Google",
+          "summary": "Google began rolling out Docs Live in the Google Docs app on Android and iOS on October 21 for eligible Workspace users. You talk naturally, even if your thoughts are unstructured, and Gemini builds a structured first draft such as a project update, proposal or customer pitch, pulling context from your Gmail, Drive, Chat and the web. It is on by default for users with Gemini in Docs enabled and is available now on Business Standard and Plus, Enterprise Standard and Plus, and Google AI Pro and Ultra plans.",
+          "whyItMatters": "Supervisors and sales staff rarely sit at a desk. Talking through a customer update on the walk back from the hangar and getting a structured draft saves an evening of typing. Do not use it for maintenance records, which must follow your approved procedures.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/create-structured-documents-using-just-your-voice-with-Docs-Live-in-Google-Docs-on-mobile.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/create-structured-documents-using-just-your-voice-with-Docs-Live-in-Google-Docs-on-mobile.html",
+          "vendorUrl": "https://workspace.google.com/products/docs/",
+          "pricing": "Included in Business Standard and Plus, Enterprise Standard and Plus, and Google AI Pro and Ultra plans"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI speech translation",
+      "definition": "Software that listens to someone speaking one language and, within a second or two, plays or captions what they said in another language."
+    },
+    {
+      "term": "Computer vision",
+      "definition": "AI that understands photos or video, for example recognizing an engine part in a phone picture and looking up whether it is in stock."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The kind of AI behind chat assistants such as ChatGPT and Gemini. It learned from huge amounts of text and writes by predicting what words should come next."
+    },
+    {
+      "term": "Machine learning model",
+      "definition": "A program that learns patterns from past data, such as years of fault messages and repairs, and uses them to flag what is likely to happen next."
+    },
+    {
+      "term": "Physical AI",
+      "definition": "AI that controls machines in the real world, such as a robot moving bags, rather than only producing text or images on a screen."
+    },
+    {
+      "term": "Probabilistic modeling",
+      "definition": "Forecasting that gives the odds of different outcomes, such as a 70% chance of a delay, instead of a single fixed answer."
+    },
+    {
+      "term": "Reinforcement learning",
+      "definition": "A way of training AI by trial and error, rewarding the moves that worked so the system gets better at a task over many attempts."
+    },
+    {
+      "term": "Vision-language-action model",
+      "definition": "An AI model that connects what a robot's cameras see and the instruction it is given to the physical movements it should make next."
+    },
+    {
+      "term": "World action model",
+      "definition": "An AI model that predicts how things around a robot will change when it acts, so the robot can choose moves that are likely to work before trying them."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}
