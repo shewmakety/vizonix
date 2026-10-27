@@ -40,7 +40,7 @@ describe("What We Do and the shared issue header", () => {
       const text = renderIssueText(issue, { mode: "broadcast" });
 
       expect(html).toContain(
-        `<h1 class="issue-title">${issue.subject}<span class="issue-title-date"> · ${numeric}</span></h1>`,
+        `<h1 class="issue-title">${issue.subject.replaceAll("'", "&#x27;")}<span class="issue-title-date"> · ${numeric}</span></h1>`,
       );
       expect(html).not.toContain("issue-dateline");
       const copyHtml = whatWeDoBody().replaceAll("'", "&#x27;");
@@ -54,7 +54,7 @@ describe("What We Do and the shared issue header", () => {
       expect(html.indexOf(copyHtml)).toBeLessThan(html.indexOf(issue.lead.title));
 
       expect(email).toContain(
-        `font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${issue.subject}<span style="color:#c9b98f;"> · ${numeric}</span></h1>`,
+        `font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.15;font-weight:normal;color:#ffffff;">${escapeHtml(issue.subject)}<span style="color:#c9b98f;"> · ${numeric}</span></h1>`,
       );
       expect(email).not.toContain("letter-spacing:0.08em;line-height:1.4;color:#c9b98f;");
       expect(email).toContain(`color:#c9b98f;">${whatWeDo.heading}</h2>`);
