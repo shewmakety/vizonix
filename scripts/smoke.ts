@@ -17,6 +17,7 @@ const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-27", "driverless tow tractors reach a third airport"],
   ["/aviation/issues/2026-10-26", "The AI company behind the FAA traffic tool SMART raised $325 million"],
   ["/aviation/issues/2026-10-22", "AI agents are already shopping for charter"],
   ["/aviation/issues/2026-10-21", "Boeing launches Dataliner"],
@@ -53,6 +54,12 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/pratt-whitney-percept", "Percept"],
   ["/aviation/tools/autostore-cube-storage", "AutoStore cube storage"],
   ["/aviation/tools/asi-operational-ai", "ASI operational AI for airlines"],
+  ["/aviation/tools/tld-robotics-eztow", "EZTow driverless tow tractor"],
+  ["/aviation/tools/fleetcraft-voice-to-log", "Fleetcraft voice-to-log for MRO technicians"],
+  ["/aviation/tools/smartkargo-aircam", "SmartKargo AIRCAM"],
+  ["/aviation/tools/smartkargo-aiuld", "SmartKargo AIULD"],
+  ["/aviation/tools/autostore-robotic-cycle-counting", "AutoStore robotic cycle counting"],
+  ["/aviation/tools/sita-occam-flightscape", "SITA OCCam disruption recovery"],
   ["/aviation/tools/veryon-defect-analysis", "https://veryon.com/press-media/veryon-unveils-next-generation-defect-analysis"],
   ["/sponsor", "Aviation is the first list"],
   ["/media-kit", "Audience numbers will be published after our first full month."],
@@ -303,6 +310,13 @@ async function main() {
     if (!monday26Issue.includes(titleDate("2026-10-26")) || monday26Issue.includes(titleDate("2026-10-25"))) {
       throw new Error("The October 26 issue date did not stay on 10-26-2026.");
     }
+    const tuesday27Issue = await fetch(`${base}/aviation/issues/2026-10-27`).then((response) => response.text());
+    if (tuesday27Issue.includes("noindex")) {
+      throw new Error("The October 27 aviation issue is marked noindex.");
+    }
+    if (!tuesday27Issue.includes(titleDate("2026-10-27")) || tuesday27Issue.includes(titleDate("2026-10-26"))) {
+      throw new Error("The October 27 issue date did not stay on 10-27-2026.");
+    }
     if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
       throw new Error("The issue still renders the classified quick-link slot.");
     }
@@ -325,6 +339,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-27") ||
       !sitemap.includes("/aviation/issues/2026-10-26") ||
       !sitemap.includes("/aviation/issues/2026-10-22") ||
       !sitemap.includes("/aviation/issues/2026-10-21") ||
@@ -377,7 +392,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-26")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-27")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);

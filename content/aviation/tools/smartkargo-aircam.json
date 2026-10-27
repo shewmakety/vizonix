@@ -1,0 +1,17 @@
+{
+  "slug": "smartkargo-aircam",
+  "segment": "aviation",
+  "name": "SmartKargo AIRCAM (AI Revenue and Capacity Management)",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "SmartKargo",
+  "summary": "SmartKargo announced on October 26 the first release of its AI Apps portfolio for airline cargo: four applications delivered through APIs that run on top of an airline's existing cargo management system, commercial or in-house, without a system migration. AIRCAM forecasts capacity, predicts demand and recommends dynamic spot rates in real time for each flight and route, so cargo teams can price and plan loads for maximum yield. The other three are AINOC, a predictive cargo control tower that flags exceptions before they become delays; AIULD, for container tracking; and AICTX, a standards-based messaging layer between cargo systems and partners. SmartKargo says the apps are modular, go live in weeks and are available now to airlines on any major cargo management system.",
+  "paragraphs": [
+    "SmartKargo announced on October 26 the first release of its AI Apps portfolio for airline cargo: four applications delivered through APIs that run on top of an airline's existing cargo management system, commercial or in-house, without a system migration. AIRCAM forecasts capacity, predicts demand and recommends dynamic spot rates in real time for each flight and route, so cargo teams can price and plan loads for maximum yield. The other three are AINOC, a predictive cargo control tower that flags exceptions before they become delays; AIULD, for container tracking; and AICTX, a standards-based messaging layer between cargo systems and partners. SmartKargo says the apps are modular, go live in weeks and are available now to airlines on any major cargo management system."
+  ],
+  "whyItMatters": "Belly cargo space that flies empty or sells too cheap is revenue gone for good. Spot rates that follow forecast demand on each flight can lift yield without adding an aircraft. Because AIRCAM sits on top of the system you already run, you can test it on a handful of routes and compare yield against the rest of the network before you commit.",
+  "pricing": "Not published; request a demo from SmartKargo",
+  "sourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388100/0/en/smartkargo-launches-ai-apps-portfolio-to-help-airlines-reduce-risk-drive-revenue-and-cut-cost.html",
+  "url": "https://www.smartkargo.com/"
+}
