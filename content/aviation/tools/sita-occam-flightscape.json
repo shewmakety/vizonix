@@ -1,0 +1,17 @@
+{
+  "slug": "sita-occam-flightscape",
+  "segment": "aviation",
+  "name": "SITA OCCam disruption recovery, adding Flightscape",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "SITA",
+  "summary": "SITA said on October 26 that it has agreed to acquire Flightscape, the airline operations software business of CAE, whose tools for flight planning, crew management, operations control, ground coordination and in-flight services are used daily by more than 90 airlines. CAE said the sale is for an enterprise value of US$500 million, subject to customary adjustments, and closing is expected in the first half of 2027, subject to regulatory approvals. SITA plans to bring Flightscape together in stages with OCCam, the AI-enabled disruption recovery platform it bought with Big Blue Analytics in June. OCCam weighs aircraft, crew, passenger itineraries and maintenance constraints together and produces ranked, feasible recovery plans in minutes; SITA says airlines using it in production have cut disruption costs by up to 30%. SITA says integration work starts only after the deal closes, Flightscape customers keep their current service and support, and the products stay modular.",
+  "paragraphs": [
+    "SITA said on October 26 that it has agreed to acquire Flightscape, the airline operations software business of CAE, whose tools for flight planning, crew management, operations control, ground coordination and in-flight services are used daily by more than 90 airlines. CAE said the sale is for an enterprise value of US$500 million, subject to customary adjustments, and closing is expected in the first half of 2027, subject to regulatory approvals. SITA plans to bring Flightscape together in stages with OCCam, the AI-enabled disruption recovery platform it bought with Big Blue Analytics in June. OCCam weighs aircraft, crew, passenger itineraries and maintenance constraints together and produces ranked, feasible recovery plans in minutes; SITA says airlines using it in production have cut disruption costs by up to 30%. SITA says integration work starts only after the deal closes, Flightscape customers keep their current service and support, and the products stay modular."
+  ],
+  "whyItMatters": "SITA puts disruption costs for a mid-size airline with just over 100 aircraft at US$70 million to US$80 million a year. A recovery plan that accounts for maintenance status alongside crew and passengers keeps one AOG from turning into a day of cancellations. When you evaluate operations control software, ask whether its recovery plans see your maintenance and parts constraints, and whether it reports the savings from each decision.",
+  "pricing": "Not published; contact SITA",
+  "sourceUrl": "https://www.sita.aero/about-us/pressroom/news-releases/sita-strengthens-its-position-in-airline-operations-with-agreement-to-acquire-flightscape/",
+  "url": "https://www.sita.aero/"
+}

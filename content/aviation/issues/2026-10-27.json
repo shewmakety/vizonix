@@ -1,0 +1,219 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-27",
+  "publishedAt": "2026-10-27T05:45:00-04:00",
+  "sample": false,
+  "subject": "Japan Airlines' driverless tow tractors reach a third airport. Plus 7 places to put AI and robotics to work",
+  "preheader": "JAL adds Fukuoka to its driverless tractor routes, SITA buys Flightscape for $500 million, SmartKargo's AI cargo apps, OpenAI's GPT-6.1 Terra, and an honest note on a thin week.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Japan Airlines now runs driverless tow tractors at a third airport, and says the reason is a shortage of ground handlers",
+    "summary": "Japan Airlines and Fukuoka International Airport Co. announced that Level 4 autonomous operations for towing tractors, meaning fully driverless transport under specified operating conditions, began at Fukuoka Airport on October 26. Fukuoka is the third airport in JAL's domestic network to use Level 4 autonomous driving, after Tokyo Haneda and Narita started at the same time in December 2025. At Fukuoka the tractors move cargo containers on a route of about 1.7 km between the Domestic Cargo Terminal and a GSE holding area. The vehicle is the EZTow from TLD Robotics, formerly TractEasy: 3.20 m long, weighing 4.07 tonnes, with a maximum towing capacity of 14.0 tonnes. JAL gives three reasons: offsetting labor constraints from Japan's declining working-age population, cutting emissions with electric vehicles, and reducing human-error risk on busy ramps. JAL and the airport company set joint operating rules and upgraded airside infrastructure to allow fully driverless transport. JAL says it will expand fleet sizes, routes and coverage across Japan and combine the tractors with remote-controlled aircraft tugs, automated aircraft washing equipment and single-operator snowplows. With support from Japan's transport ministry, it will also coordinate with All Nippon Airways, which JAL says is considering similar adoptions.",
+    "whyItMatters": "Ramp and cargo shuttle work is where staffing gaps show up first, as late bags, slow turns and freight that misses its flight. A driverless tractor that runs a fixed route all day frees scarce ramp staff for loading and safety-critical jobs instead of driving the same 1.7 km loop. JAL's rollout also shows the real work involved: shared operating rules with the airport and changes to airside infrastructure. If you run a cargo or ground handling operation with one repetitive tow route, ask your airport and GSE supplier what it would take to automate that route first.",
+    "sourceName": "Japan Airlines, October 26, 2026",
+    "sourceUrl": "https://press.jal.co.jp/en/release/202610/009781.html",
+    "productUrl": "/aviation/tools/tld-robotics-eztow"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "coverageNote": "No new AI hiring tool surfaced since October 26; the top story is this issue's main workforce item. The tool below attacks the technician shortage by giving back paperwork time. It was profiled in Twin & Turbine's October 2026 issue, so it is older than our usual window.",
+      "tools": [
+        {
+          "name": "Fleetcraft voice-to-log for MRO technicians",
+          "slug": "fleetcraft-voice-to-log",
+          "company": "Fleetcraft",
+          "summary": "Twin & Turbine's October 2026 issue profiled Fleetcraft, an AI maintenance software company based in San Francisco and London and founded by two aerospace technicians, CEO Finn Quinlan and CTO Ammar Naseer. With its voice-to-log feature, a technician notes a discrepancy by phone, lapel mic or smart glasses and keeps working. Fleetcraft runs the audio through its aviation-specific AI model and returns a squawk entry that the company says has a 98% first-pass acceptance rate. The technician reviews the entry, adds anything flagged as missing, such as a part number, and passes it to a crew supervisor. To guard against hallucination, the model never produces final statements on its own; a human reviews and signs off on every entry. Fleetcraft can also match the entry against on-site or supplier inventory and generate a change order from the shop's flat-rate records. The company says onboarding takes about four weeks and that it keeps zero data retention with its large language model providers.",
+          "whyItMatters": "When you cannot hire enough licensed technicians, every trip to a kiosk to type up a finding is lost wrench time. Logging by voice gives that time back, which works like adding capacity without adding headcount, and faster, cleaner quotes help you bill change orders before the aircraft leaves. Quinlan told Twin & Turbine the tool is built to cut documentation time, not technicians. Run it on one line or shop first and track how many entries need correcting and how many hours come back.",
+          "url": "/aviation/tools/fleetcraft-voice-to-log",
+          "sourceUrl": "https://www.twinandturbine.com/fleetcraft-ai-tool-for-mros-and-part-145-shops/",
+          "vendorUrl": "https://fleetcraft.com/",
+          "pricing": "Not published; contact Fleetcraft"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "In an Aviacionline interview published October 26, George Varghese, head of IBS Software's Data and AI Centre of Excellence, said pricing has to weigh value from both the passenger's side and the airline's, and that a price is never perfect. \"You will never get the exact price; it will always be an estimate. The rest is monitoring it,\" he said.",
+      "introSourceUrl": "https://www.aviacionline.com/english/technology/george-varghese-ibs-software-don-t-solve-a-project-with-an-llm-_a6adfac2a859e993210b43b94",
+      "tools": [
+        {
+          "name": "SmartKargo AIRCAM (AI Revenue and Capacity Management)",
+          "slug": "smartkargo-aircam",
+          "company": "SmartKargo",
+          "summary": "SmartKargo announced on October 26 the first release of its AI Apps portfolio for airline cargo: four applications delivered through APIs that run on top of an airline's existing cargo management system, commercial or in-house, without a system migration. AIRCAM forecasts capacity, predicts demand and recommends dynamic spot rates in real time for each flight and route, so cargo teams can price and plan loads for maximum yield. The other three are AINOC, a predictive cargo control tower that flags exceptions before they become delays; AIULD, for container tracking; and AICTX, a standards-based messaging layer between cargo systems and partners. SmartKargo says the apps are modular, go live in weeks and are available now to airlines on any major cargo management system.",
+          "whyItMatters": "Belly cargo space that flies empty or sells too cheap is revenue gone for good. Spot rates that follow forecast demand on each flight can lift yield without adding an aircraft. Because AIRCAM sits on top of the system you already run, you can test it on a handful of routes and compare yield against the rest of the network before you commit.",
+          "url": "/aviation/tools/smartkargo-aircam",
+          "sourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388100/0/en/smartkargo-launches-ai-apps-portfolio-to-help-airlines-reduce-risk-drive-revenue-and-cut-cost.html",
+          "vendorUrl": "https://www.smartkargo.com/",
+          "pricing": "Not published; request a demo from SmartKargo"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "coverageNote": "Thin. No new aviation predictive maintenance announcement surfaced since October 26 that we had not already covered. The item below applies forecasting to the containers around the aircraft rather than to the aircraft itself.",
+      "tools": [
+        {
+          "name": "SmartKargo AIULD (AI ULD and Asset Management)",
+          "slug": "smartkargo-aiuld",
+          "company": "SmartKargo",
+          "summary": "Part of the AI Apps release SmartKargo announced on October 26, AIULD tracks and forecasts the location, condition and availability of unit load devices, the containers and pallets that carry freight and bags in the hold. SmartKargo says it cuts the losses and delays that come from guessing where assets are. Like the other apps in the release, it connects through APIs to an airline's existing cargo management system and can be adopted on its own.",
+          "whyItMatters": "A damaged or missing container at the wrong station means offloaded freight, a late departure or an expensive repositioning. Forecasting where containers will run short, and which ones are due for repair, lets you fix and move them before the bank of flights instead of during it. SmartKargo published no results figures, so ask current users for their loss and damage numbers before you buy.",
+          "url": "/aviation/tools/smartkargo-aiuld",
+          "sourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388100/0/en/smartkargo-launches-ai-apps-portfolio-to-help-airlines-reduce-risk-drive-revenue-and-cut-cost.html",
+          "vendorUrl": "https://www.smartkargo.com/",
+          "pricing": "Not published; request a demo from SmartKargo"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "No new aviation-specific item since October 26. The item below is a general tool from Google's October 23 recap that fits the spreadsheet many shops use to run the day.",
+      "tools": [
+        {
+          "name": "Gemini in Google Sheets on iPhone and iPad",
+          "slug": "gemini-sheets-ios",
+          "company": "Google",
+          "summary": "Google said in its October 23 Workspace recap that Gemini in Google Sheets is now available on iOS, following the web and Android versions; the gradual rollout started October 15. You tap the Gemini spark icon in a spreadsheet to ask questions about your data, generate analytical insights and create charts, with suggested prompts such as Summarize this table and Analyze for insights. It is available on Business Starter, Standard and Plus, Enterprise Starter, Standard and Plus, and Google AI Plus, Pro and Ultra plans.",
+          "whyItMatters": "Many shops still track open task cards, labor hours and parts holds in a shared spreadsheet. A lead who can ask which checks are behind or which cards are waiting on parts from a phone on the hangar floor can move people before the shift slips. Check the answer against the sheet before acting on it.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/",
+          "vendorUrl": "https://workspace.google.com/products/sheets/",
+          "pricing": "Included in Business Starter, Standard and Plus, Enterprise Starter, Standard and Plus, and Google AI Plus, Pro and Ultra plans"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "No new aviation-specific troubleshooting tool since October 26. The item below is a general AI model released October 26 that reads drawings and screens; it is not trained on your approved data.",
+      "tools": [
+        {
+          "name": "GPT-6.1 Terra",
+          "slug": "gpt-6-1-terra",
+          "company": "OpenAI",
+          "summary": "OpenAI introduced GPT-6.1 Terra on October 26, a fast, lower-cost model that combines detailed visual reasoning with computer use, meaning it can look at screens and images and then take actions in a browser, desktop or apps. OpenAI lists interpreting technical drawings and filling out forms among the tasks it handles. On OpenAI's internal benchmark of error-inducing prompts, the error rate at low reasoning effort fell from 53.6% with GPT-5.6 Terra to 16.7% with GPT-6.1 Terra, and to 4.3% at maximum effort. It is available in ChatGPT Work and Codex on Plus, Pro, Business, Enterprise and Edu plans, but not in regular Chat. API pricing is $1 per million input tokens and $5 per million output tokens.",
+          "whyItMatters": "Troubleshooting often starts with a photo of a placard, a schematic or a screenshot of a fault page. A model that reads those images and pulls the relevant facts together can shorten the search, and lower error rates make it more usable for first-pass research. It is a general model with no access to your approved maintenance data, so treat its answers as a lead and confirm every step in the manuals you are approved to use.",
+          "url": "https://openai.com/index/introducing-gpt-6-1-terra",
+          "sourceUrl": "https://openai.com/index/introducing-gpt-6-1-terra",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Included in ChatGPT Plus, Pro, Business, Enterprise and Edu plans; API $1 per million input tokens, $5 per million output tokens"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation warehousing item since October 26. The update below is from AutoStore's October 13 product announcement, older than our usual window, and matters to any parts store that runs or is pricing cube storage, including the Satair Singapore site we covered October 26.",
+      "tools": [
+        {
+          "name": "AutoStore robotic cycle counting and CubeFleet",
+          "slug": "autostore-robotic-cycle-counting",
+          "company": "AutoStore",
+          "summary": "In its Fall 2026 product announcement on October 13, AutoStore said it is expanding robotic piece picking with automated item induction, barcode scanning at the workstation and automated inventory validation through robotic cycle counting. VersaAI, its robotic arm picking system, now supports more system configurations and can be added to new or existing systems. CubeFleet puts maintenance alerts, guidance and work-order creation for the storage robots in one view across one or many sites, using live operating data and maintenance thresholds; AutoStore estimates it can cut unplanned downtime by 35-45%. FlexBinsPort, arriving in Q4 2026, handles all standard bin heights at one workstation, which AutoStore estimates can improve storage utilization by 10-15%. Pio Pal brings robotic picking to smaller businesses on a robotics-as-a-service model.",
+          "whyItMatters": "Inventory accuracy is money in a parts store: a bin count that is wrong means a part you think you have is not there when an aircraft is waiting. Robotic cycle counting checks stock without pulling people off picking, and earlier maintenance alerts keep the storage system itself from becoming the bottleneck. If you already run or are pricing cube storage, ask your integrator which of these work on your installed system.",
+          "url": "/aviation/tools/autostore-robotic-cycle-counting",
+          "sourceUrl": "https://www.autostoresystem.com/news/autostore-advances-the-path-toward-autonomy-with-fall-2026-product-announcement",
+          "vendorUrl": "https://www.autostoresystem.com/",
+          "pricing": "Not published; contact AutoStore"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "In the same October 26 Aviacionline interview, IBS Software's George Varghese said using a large language model on its own for airline disruption recovery is \"nonsense\" because it is a combinatorial problem in which the model can hallucinate and burn tokens. IBS instead gives an AI agent a deterministic algorithm as a tool, and the agent reasons about whether the resulting recovery plan is a good one.",
+      "introSourceUrl": "https://www.aviacionline.com/english/technology/george-varghese-ibs-software-don-t-solve-a-project-with-an-llm-_a6adfac2a859e993210b43b94",
+      "tools": [
+        {
+          "name": "SITA OCCam disruption recovery, adding Flightscape",
+          "slug": "sita-occam-flightscape",
+          "company": "SITA",
+          "summary": "SITA said on October 26 that it has agreed to acquire Flightscape, the airline operations software business of CAE, whose tools for flight planning, crew management, operations control, ground coordination and in-flight services are used daily by more than 90 airlines. CAE said the sale is for an enterprise value of US$500 million, subject to customary adjustments, and closing is expected in the first half of 2027, subject to regulatory approvals. SITA plans to bring Flightscape together in stages with OCCam, the AI-enabled disruption recovery platform it bought with Big Blue Analytics in June. OCCam weighs aircraft, crew, passenger itineraries and maintenance constraints together and produces ranked, feasible recovery plans in minutes; SITA says airlines using it in production have cut disruption costs by up to 30%. SITA says integration work starts only after the deal closes, Flightscape customers keep their current service and support, and the products stay modular.",
+          "whyItMatters": "SITA puts disruption costs for a mid-size airline with just over 100 aircraft at US$70 million to US$80 million a year. A recovery plan that accounts for maintenance status alongside crew and passengers keeps one AOG from turning into a day of cancellations. When you evaluate operations control software, ask whether its recovery plans see your maintenance and parts constraints, and whether it reports the savings from each decision.",
+          "url": "/aviation/tools/sita-occam-flightscape",
+          "sourceUrl": "https://www.sita.aero/about-us/pressroom/news-releases/sita-strengthens-its-position-in-airline-operations-with-agreement-to-acquire-flightscape/",
+          "vendorUrl": "https://www.sita.aero/",
+          "pricing": "Not published; contact SITA"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates are rolling out this week or arrived in the last few days. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "AI Inbox in Gmail for Workspace",
+          "slug": "gmail-ai-inbox",
+          "company": "Google",
+          "summary": "Google is expanding AI Inbox in Gmail to paid Workspace users. It pulls suggested to-dos, deliverables and deadlines out of email conversations and gives short summaries of the topics you most need to catch up on, including long back-and-forth threads. Rapid Release domains started getting it October 12, and Scheduled Release domains began on October 26, with up to 15 days for it to appear. It covers Business Standard and Plus, Enterprise Standard and Plus, Frontline Plus and AI Pro for Education, with Starter and Education editions to follow in the coming months, and for now only users in the US with English (US) as their language.",
+          "whyItMatters": "Quote requests, customer approvals and vendor delivery dates get buried in a busy inbox, and a missed one can cost a job or hold an aircraft. A daily list of what you owe and what changed helps you answer the money emails first. Keep anything that affects airworthiness in your formal tracking system, not in an inbox summary.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/gmails-ai-inbox-is-rolling-out-to-paid-Workspace-users.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/gmails-ai-inbox-is-rolling-out-to-paid-Workspace-users.html",
+          "vendorUrl": "https://workspace.google.com/products/gmail/",
+          "pricing": "Included in Business Standard and Plus, Enterprise Standard and Plus, and Frontline Plus plans; Starter editions later"
+        },
+        {
+          "name": "Gemini Notebook as a connected app in Gemini",
+          "slug": "gemini-notebook-connected-app",
+          "company": "Google",
+          "summary": "Google said on October 23 that Gemini Notebook is now a connected app inside the Gemini app. You type @Gemini Notebook in a chat to create notebooks, add sources, save notes or ask questions answered from the material already in your notebooks, and Gemini can also decide on its own when to use it. It is available now to all Google Workspace customers, Workspace Individual subscribers and personal Google accounts, on by default except in the European Economic Area.",
+          "whyItMatters": "Keep a notebook per customer or per aircraft program with contracts, past quotes and meeting notes, and pull answers out of it while you draft a proposal in the same chat. That cuts the time spent hunting through folders before a customer call. Do not load anything into it that your contracts or data rules keep out of outside services.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/take-actions-on-your-notebooks-from-Gemini-Notebook-directly-in-the-Gemini-app.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/take-actions-on-your-notebooks-from-Gemini-Notebook-directly-in-the-Gemini-app.html",
+          "vendorUrl": "https://gemini.google.com/",
+          "pricing": "Included for Google Workspace customers, Workspace Individual subscribers and personal Google accounts"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI agent",
+      "definition": "AI software that does more than answer questions: it takes steps toward a goal, such as running a planning tool, checking the result and suggesting what to do next, with a person approving."
+    },
+    {
+      "term": "Aviation-specific AI model",
+      "definition": "An AI model trained or tuned on aviation material, such as maintenance write-ups and part numbers, so it understands shop language better than a general chat assistant."
+    },
+    {
+      "term": "Computer use",
+      "definition": "The ability of an AI model to look at a screen and operate software the way a person would, by clicking, typing and filling in forms."
+    },
+    {
+      "term": "Hallucination",
+      "definition": "When an AI model states something that sounds confident but is wrong or made up, such as a part number or a step that does not exist. It is why a person checks AI output."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The kind of AI behind chat assistants such as ChatGPT and Gemini. It learned from huge amounts of text and writes by predicting what words should come next."
+    },
+    {
+      "term": "Level 4 autonomous driving",
+      "definition": "A vehicle that drives itself with no one at the wheel, but only inside set conditions, such as a fixed route on an airport ramp. Outside those limits it stops or hands back to people."
+    },
+    {
+      "term": "Robotic cycle counting",
+      "definition": "Robots in an automated storage system checking how many of each item are in the bins, so stock records stay accurate without staff stopping work to count."
+    },
+    {
+      "term": "Robotic piece picking",
+      "definition": "A robot arm that picks individual items out of storage bins and places them for an order, a job people usually do by hand."
+    },
+    {
+      "term": "Visual reasoning",
+      "definition": "An AI model's ability to understand what is in an image, such as a drawing, a photo or a screenshot, and draw conclusions from it."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

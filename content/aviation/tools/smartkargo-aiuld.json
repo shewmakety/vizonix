@@ -1,0 +1,17 @@
+{
+  "slug": "smartkargo-aiuld",
+  "segment": "aviation",
+  "name": "SmartKargo AIULD (AI ULD and Asset Management)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "SmartKargo",
+  "summary": "Part of the AI Apps release SmartKargo announced on October 26, AIULD tracks and forecasts the location, condition and availability of unit load devices, the containers and pallets that carry freight and bags in the hold. SmartKargo says it cuts the losses and delays that come from guessing where assets are. Like the other apps in the release, it connects through APIs to an airline's existing cargo management system and can be adopted on its own.",
+  "paragraphs": [
+    "Part of the AI Apps release SmartKargo announced on October 26, AIULD tracks and forecasts the location, condition and availability of unit load devices, the containers and pallets that carry freight and bags in the hold. SmartKargo says it cuts the losses and delays that come from guessing where assets are. Like the other apps in the release, it connects through APIs to an airline's existing cargo management system and can be adopted on its own."
+  ],
+  "whyItMatters": "A damaged or missing container at the wrong station means offloaded freight, a late departure or an expensive repositioning. Forecasting where containers will run short, and which ones are due for repair, lets you fix and move them before the bank of flights instead of during it. SmartKargo published no results figures, so ask current users for their loss and damage numbers before you buy.",
+  "pricing": "Not published; request a demo from SmartKargo",
+  "sourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388100/0/en/smartkargo-launches-ai-apps-portfolio-to-help-airlines-reduce-risk-drive-revenue-and-cut-cost.html",
+  "url": "https://www.smartkargo.com/"
+}

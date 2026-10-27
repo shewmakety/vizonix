@@ -1,0 +1,17 @@
+{
+  "slug": "fleetcraft-voice-to-log",
+  "segment": "aviation",
+  "name": "Fleetcraft voice-to-log for MRO technicians",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "Fleetcraft",
+  "summary": "Twin & Turbine's October 2026 issue profiled Fleetcraft, an AI maintenance software company based in San Francisco and London and founded by two aerospace technicians, CEO Finn Quinlan and CTO Ammar Naseer. With its voice-to-log feature, a technician notes a discrepancy by phone, lapel mic or smart glasses and keeps working. Fleetcraft runs the audio through its aviation-specific AI model and returns a squawk entry that the company says has a 98% first-pass acceptance rate. The technician reviews the entry, adds anything flagged as missing, such as a part number, and passes it to a crew supervisor. To guard against hallucination, the model never produces final statements on its own; a human reviews and signs off on every entry. Fleetcraft can also match the entry against on-site or supplier inventory and generate a change order from the shop's flat-rate records. The company says onboarding takes about four weeks and that it keeps zero data retention with its large language model providers.",
+  "paragraphs": [
+    "Twin & Turbine's October 2026 issue profiled Fleetcraft, an AI maintenance software company based in San Francisco and London and founded by two aerospace technicians, CEO Finn Quinlan and CTO Ammar Naseer. With its voice-to-log feature, a technician notes a discrepancy by phone, lapel mic or smart glasses and keeps working. Fleetcraft runs the audio through its aviation-specific AI model and returns a squawk entry that the company says has a 98% first-pass acceptance rate. The technician reviews the entry, adds anything flagged as missing, such as a part number, and passes it to a crew supervisor. To guard against hallucination, the model never produces final statements on its own; a human reviews and signs off on every entry. Fleetcraft can also match the entry against on-site or supplier inventory and generate a change order from the shop's flat-rate records. The company says onboarding takes about four weeks and that it keeps zero data retention with its large language model providers."
+  ],
+  "whyItMatters": "When you cannot hire enough licensed technicians, every trip to a kiosk to type up a finding is lost wrench time. Logging by voice gives that time back, which works like adding capacity without adding headcount, and faster, cleaner quotes help you bill change orders before the aircraft leaves. Quinlan told Twin & Turbine the tool is built to cut documentation time, not technicians. Run it on one line or shop first and track how many entries need correcting and how many hours come back.",
+  "pricing": "Not published; contact Fleetcraft",
+  "sourceUrl": "https://www.twinandturbine.com/fleetcraft-ai-tool-for-mros-and-part-145-shops/",
+  "url": "https://fleetcraft.com/"
+}

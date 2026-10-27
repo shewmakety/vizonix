@@ -1,0 +1,17 @@
+{
+  "slug": "autostore-robotic-cycle-counting",
+  "segment": "aviation",
+  "name": "AutoStore robotic cycle counting and CubeFleet",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "AutoStore",
+  "summary": "In its Fall 2026 product announcement on October 13, AutoStore said it is expanding robotic piece picking with automated item induction, barcode scanning at the workstation and automated inventory validation through robotic cycle counting. VersaAI, its robotic arm picking system, now supports more system configurations and can be added to new or existing systems. CubeFleet puts maintenance alerts, guidance and work-order creation for the storage robots in one view across one or many sites, using live operating data and maintenance thresholds; AutoStore estimates it can cut unplanned downtime by 35-45%. FlexBinsPort, arriving in Q4 2026, handles all standard bin heights at one workstation, which AutoStore estimates can improve storage utilization by 10-15%. Pio Pal brings robotic picking to smaller businesses on a robotics-as-a-service model.",
+  "paragraphs": [
+    "In its Fall 2026 product announcement on October 13, AutoStore said it is expanding robotic piece picking with automated item induction, barcode scanning at the workstation and automated inventory validation through robotic cycle counting. VersaAI, its robotic arm picking system, now supports more system configurations and can be added to new or existing systems. CubeFleet puts maintenance alerts, guidance and work-order creation for the storage robots in one view across one or many sites, using live operating data and maintenance thresholds; AutoStore estimates it can cut unplanned downtime by 35-45%. FlexBinsPort, arriving in Q4 2026, handles all standard bin heights at one workstation, which AutoStore estimates can improve storage utilization by 10-15%. Pio Pal brings robotic picking to smaller businesses on a robotics-as-a-service model."
+  ],
+  "whyItMatters": "Inventory accuracy is money in a parts store: a bin count that is wrong means a part you think you have is not there when an aircraft is waiting. Robotic cycle counting checks stock without pulling people off picking, and earlier maintenance alerts keep the storage system itself from becoming the bottleneck. If you already run or are pricing cube storage, ask your integrator which of these work on your installed system.",
+  "pricing": "Not published; contact AutoStore",
+  "sourceUrl": "https://www.autostoresystem.com/news/autostore-advances-the-path-toward-autonomy-with-fall-2026-product-announcement",
+  "url": "https://www.autostoresystem.com/"
+}

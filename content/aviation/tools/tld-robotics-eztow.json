@@ -1,0 +1,18 @@
+{
+  "slug": "tld-robotics-eztow",
+  "segment": "aviation",
+  "name": "EZTow driverless tow tractor",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "TLD Robotics (formerly TractEasy)",
+  "summary": "The EZTow is an electric driverless tow tractor from TLD Robotics, formerly TractEasy. Japan Airlines uses it for Level 4 autonomous cargo container transport at Tokyo Haneda and Narita since December 2025 and at Fukuoka since October 26, 2026, where it runs a route of about 1.7 km. JAL lists it at 3.20 m long and 4.07 tonnes, with a maximum towing capacity of 14.0 tonnes. TractEasy says its EZFleet system lets one operator oversee a fleet of driverless vehicles with real-time tracking, route optimization and mission scheduling.",
+  "paragraphs": [
+    "The EZTow is an electric driverless tow tractor from TLD Robotics, formerly TractEasy. Japan Airlines uses it for Level 4 autonomous cargo container transport at Tokyo Haneda and Narita since December 2025 and at Fukuoka since October 26, 2026, where it runs a route of about 1.7 km. JAL lists it at 3.20 m long and 4.07 tonnes, with a maximum towing capacity of 14.0 tonnes.",
+    "TractEasy says its EZFleet system lets one operator oversee a fleet of driverless vehicles with real-time tracking, route optimization and mission scheduling."
+  ],
+  "whyItMatters": "JAL says it is automating airside transport to offset ground handling labor shortages. A tractor that runs a fixed cargo route on its own frees ramp staff for loading and safety-critical work, and one operator can supervise several vehicles.",
+  "pricing": "Not published; contact TLD Robotics",
+  "sourceUrl": "https://press.jal.co.jp/en/release/202610/009781.html",
+  "url": "https://tracteasy.com/eztow/"
+}
