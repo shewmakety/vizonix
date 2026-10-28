@@ -1,0 +1,18 @@
+{
+  "slug": "airtrek-groundwatch",
+  "segment": "aviation",
+  "name": "Airtrek Groundwatch wing-walking robots",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "Airtrek Robotics",
+  "summary": "Airtrek Groundwatch is an autonomous wing-walking system from Airtrek Robotics. Two robots, one at each wingtip, ride alongside an aircraft while it is towed or pushed and watch the whole aircraft in real time with LiDAR and camera perception; when anything gets too close, the tow operator gets an alert on a tablet and can stop before contact. Every tow is recorded for later review. Airtrek says the robots can also sweep for FOD and scan an aircraft's condition. NBAA reported on October 27, 2026 that Pentastar Aviation has added Airtrek's wing-walking robots to its ground support staff to cope with a shortage of line service personnel. The technician selects the task on a controller and supervises while the robot executes.",
+  "paragraphs": [
+    "Airtrek Groundwatch is an autonomous wing-walking system from Airtrek Robotics. Two robots, one at each wingtip, ride alongside an aircraft while it is towed or pushed and watch the whole aircraft in real time with LiDAR and camera perception; when anything gets too close, the tow operator gets an alert on a tablet and can stop before contact. Every tow is recorded for later review. Airtrek says the robots can also sweep for FOD and scan an aircraft's condition.",
+    "NBAA reported on October 27, 2026 that Pentastar Aviation has added Airtrek's wing-walking robots to its ground support staff to cope with a shortage of line service personnel. The technician selects the task on a controller and supervises while the robot executes."
+  ],
+  "whyItMatters": "Line service staff are hard to hire and keep, and tow damage is expensive. Robots that watch both wingtips let a smaller crew move aircraft safely and leave a record of every tow if a customer questions damage later.",
+  "pricing": "Not published; contact Airtrek Robotics",
+  "sourceUrl": "https://nbaa.org/aircraft-operations/safety/safety-through-innovation/safety-through-innovation-robots-bring-new-safety-capabilities-to-bizav-ground-operations/",
+  "url": "https://www.airtrekrobotics.com/"
+}

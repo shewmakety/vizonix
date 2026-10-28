@@ -1,0 +1,215 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-28",
+  "publishedAt": "2026-10-28T05:45:00-04:00",
+  "sample": false,
+  "subject": "FBOs put robots on the ramp as line staff stay scarce. Plus 7 places to put AI and robotics to work",
+  "preheader": "Wing-walking and washing robots at FBOs, MTU's METAVION engine fleet manager, Boeing's Dataliner agent, Amadeus AI rebooking, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "FBOs short on line staff are putting robots on the ramp for wing walking, FOD sweeps and aircraft washing",
+    "summary": "NBAA reported on October 27 that business aviation operators are turning to robots for aircraft ground handling, partly to fill gaps left by workforce shortages. Pentastar Aviation recently added autonomous wing-walking robots from Airtrek Robotics to its ground support staff. Ben Hammond, Pentastar's vice president of FBO services, said the company has had difficulty finding and retaining line service personnel since COVID, largely because the work is outdoors in all weather. Airtrek CEO Chris Lee said the robots combine cameras, 3D sensors and aviation-specific autonomy software to monitor clearances during towing; the line technician picks the task on a controller and supervises while the robot executes, and warnings through LED lights, the technician's screen and the operator's headset intensify as a hazard gets closer. Airtrek's website says it uses two robots, one at each wingtip, with LiDAR and camera perception, and records every tow for later review. NBAA also described Pratt Miller's FOD*BOSS autonomous robot, demonstrated towing a sweeper across the ramp at Gerald R. Ford International Airport in Grand Rapids, and Nordic Dino Robotics' remotely operated washing robots, which the company says let one operator clean a jet in under two hours instead of eight or more workers taking up to eight hours, using about 12 gallons of water for a dry wash versus 3,100 gallons to wash a typical narrowbody by hand. Hammond said Pentastar may next use Airtrek's scanning to document the condition of each arriving aircraft before service.",
+    "whyItMatters": "Hangar rash and ramp damage are among the most expensive mistakes an FBO can make, and they tend to happen when crews are short and rushed. A robot that watches both wingtips on every tow lets you move aircraft with fewer people and keeps a record if a customer questions damage later. Washing robots turn a full-crew, full-shift job into a one-person job, which can make washing a service you can sell rather than one you avoid. Start by counting how many tows and washes you do each month and what one hangar-rash claim cost you last year, then ask vendors for references at operations your size.",
+    "sourceName": "NBAA, October 27, 2026",
+    "sourceUrl": "https://nbaa.org/aircraft-operations/safety/safety-through-innovation/safety-through-innovation-robots-bring-new-safety-capabilities-to-bizav-ground-operations/",
+    "productUrl": "/aviation/tools/airtrek-groundwatch"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "At MRO Europe on October 27, an audience poll ranked time to competency, how long it takes a new technician to work independently and safely, as the biggest workforce challenge, ahead of skills shortages, recruiting and retention. \"We are racing against time. It is time to competency,\" said Kenan Şahan, senior vice president of human resources at Turkish Technic, which takes about 55 recruits a year through a student pipeline with vocational schools and universities.",
+      "introSourceUrl": "https://aviationweek.com/mro/workforce-training/mro-workforce-challenge-shifts-toward-time-competency",
+      "tools": [
+        {
+          "name": "iMAPLE AI competency management (Contextere and Lockheed Martin Canada)",
+          "slug": "contextere-imaple",
+          "company": "Contextere",
+          "summary": "MRO Business Today reported on October 28 that Lockheed Martin Canada is investing $10 million in iMAPLE, the Intelligent Maintenance, Asset, Personnel and Learning Environment, an AI-powered competency management platform being built with the Royal Canadian Air Force and Canadian company Contextere for the RCAF's CC-130J Hercules fleet. The aim is to match workforce competencies to maintenance tasks so personnel have the skills and knowledge for the work they are assigned, and to support sustainment decisions and aircraft availability. Contextere builds AI workforce tools that turn institutional knowledge into guidance for the people who maintain and operate complex assets. Lockheed Martin will also act as an AI and machine learning adviser, providing validated machine learning methods and quality reviews. The partners say the platform could later extend to other defense and aerospace programs.",
+          "whyItMatters": "Every week a new technician waits for an authorization is a week you pay for a person you cannot fully schedule. Knowing exactly which skills each person has, and which tasks they are cleared for, lets planners staff a check with what they actually have and target training at the gaps that block revenue work. This is a military program still in development, so treat it as a model to ask your own training and records vendors about, not a product you can buy today.",
+          "url": "/aviation/tools/contextere-imaple",
+          "sourceUrl": "https://mrobusinesstoday.com/lockheed-martin-invests-10m-in-ai-for-hercules-sustainment/",
+          "vendorUrl": "https://contextere.com/",
+          "pricing": "Not published; military development program"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "coverageNote": "Thin. No new aviation AI sales or marketing tool surfaced since October 26. The item below is about servicing existing bookings, which protects revenue more than it creates new sales.",
+      "tools": [
+        {
+          "name": "Amadeus Max for Travelers",
+          "slug": "amadeus-max-for-travelers",
+          "company": "Amadeus",
+          "summary": "Amadeus has introduced Max for Travelers, which uses agentic AI for airline commerce, according to Terminair, which first reported it on October 26. Amadeus says it is meant to cover booking, voluntary rebooking and disruption management; the first available use case is voluntary rebooking, meaning a traveler changing a flight's date or time. It is available first to Altéa and Nevio customers, by voice and text across call centers, apps and the web, in multiple languages. Agent-to-agent communication lets the conversational agent a traveler talks to ask a travel-specific AI agent for help, and every option is checked against live inventory, fare rules and airline policy before it is offered. Requests that need a person go to a human agent. Airlines can plug it into a traveler-facing assistant they already run or have Amadeus integrate it. Conversational booking and disruption recovery are still to come.",
+          "whyItMatters": "Change requests are among the most common calls an airline contact center handles, and every one a person handles costs agent time. Automating the routine ones, with fees and fare rules applied correctly, can protect change revenue and free agents for disrupted passengers and high-value sales. If you run on Altéa or Nevio, ask Amadeus what share of changes it completes without a person and how fee collection is reported.",
+          "url": "/aviation/tools/amadeus-max-for-travelers",
+          "sourceUrl": "https://terminair.com/story/76181-amadeus-max-for-travelers-starts-with-voluntary-flight",
+          "vendorUrl": "https://amadeus.com/",
+          "pricing": "Not published; available first to Amadeus Altéa and Nevio customers"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "METAVION engine fleet manager",
+          "slug": "mtu-metavion",
+          "company": "MTU Maintenance",
+          "summary": "MTU Maintenance launched METAVION in Amsterdam on October 27, an AI-assisted suite of digital services that pulls real-time engine data into a live view of fleet condition, performance and remaining life for airlines, lessors and other engine operators. It has three services. Monitoring combines data from many inputs into a picture of engine health and runs analytical predictions. Performance plans an engine fleet around the operator's utilization strategy using condition data and contract terms, with scenarios such as lowest cost, highest reliability and line of balance. Value optimization manages individual service life and phase-in and phase-out plans, for goals such as the highest net cash position. MTU says METAVION runs independently of its engine MRO and leasing business and that customer data is used only within METAVION. BBN Airlines and other undisclosed customers have signed up; a BBN senior engineer said it gives the ACMI carrier the transparency it needs to manage engine utilization.",
+          "whyItMatters": "Engines are usually the most expensive part of keeping an aircraft flying, and a shop visit that comes early, or an engine pulled with green time left, costs real money. Planning removals around actual condition and your contract terms, not a fixed schedule, helps you get the full value out of each engine and avoid surprise downtime. Before you share data, ask MTU how it keeps your engine data apart from its own MRO and leasing teams and what you get back if you leave.",
+          "url": "/aviation/tools/mtu-metavion",
+          "sourceUrl": "https://www.mtu.de/newsroom/press/latest-press-releases/press-release-detail/mtu-maintenance-launches-metavion-digital-service-for-aero-engines/",
+          "vendorUrl": "https://www.metavion.com/",
+          "pricing": "Not published; contact MTU Maintenance"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "This is a follow-up on Dataliner, which led our October 21 issue. What is new is Boeing's word that a TechOps AI agent and a planning tool are live, and its talks with engine makers.",
+      "tools": [
+        {
+          "name": "Boeing Dataliner TechOps AI agent and asset lifecycle planning",
+          "slug": "boeing-dataliner",
+          "company": "Boeing Global Services",
+          "summary": "At MRO Europe on October 27, Boeing Global Services CEO Chris Raymond said Boeing has launched a TechOps AI agent and an asset lifecycle planning tool on Dataliner, the AI-powered data platform it announced the week before, which we covered on October 21. Dataliner was developed with Microsoft and connects fragmented data to support fleet maintenance planning. Raymond said Boeing has held initial talks about engine manufacturers joining the platform, without naming them, because combining aircraft and engine data could help anticipate maintenance needs and improve understanding of reliability. Longer term Boeing wants to link maintenance data with parts usage and distribution, modifications and safety data. Raymond said Dataliner connects to customers' own systems through interfaces and that customers decide what data to share through data-sharing agreements and permissions.",
+          "whyItMatters": "Maintenance planners lose time stitching together data from separate aircraft, engine and parts systems before they can decide when to bring an aircraft in. A planning view that sees all of it can line up checks, parts and engine work in one visit, which means fewer days out of service. Ask exactly what the TechOps agent does today, and get the data-permission terms in writing before you connect your systems.",
+          "url": "/aviation/tools/boeing-dataliner",
+          "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/boeing-sees-engine-oem-role-dataliner-platform",
+          "vendorUrl": "https://services.boeing.com/",
+          "pricing": "Not published; contact Boeing Global Services"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "Thin. No released aviation troubleshooting tool surfaced since October 26. The item below is a preview being shown at MRO Europe this week, sourced to the company's own announcement.",
+      "tools": [
+        {
+          "name": "OASES AI Assistant (preview)",
+          "slug": "oases-ai-assistant",
+          "company": "OASES (Valsoft)",
+          "summary": "OASES, the maintenance and engineering software company that is part of Valsoft, is showing its upcoming AI Assistant for the first time at MRO Europe in Amsterdam on October 28-29, Hall 5, Stand 1017. OASES says the assistant turns a simple prompt into the figures and graphs that management and authorities ask for, such as fleet status, overdue tasks, defect trends and reporting. It is a preview of an unreleased product, and OASES has not published availability or pricing.",
+          "whyItMatters": "Chasing a repeat defect usually starts with someone building a report by hand to see whether the same fault keeps coming back across tails. Asking the maintenance system directly for defect trends and overdue items can surface the pattern in minutes, and fixing a chronic fault for good beats paying for it again and again. If you run OASES, ask for a demo on your own data and check every number against a report you trust.",
+          "url": "/aviation/tools/oases-ai-assistant",
+          "sourceUrl": "https://www.linkedin.com/posts/commsoft_oases_oases-mroeurope2026-aviationmaintenance-activity-7516527577726038016-5CzN",
+          "vendorUrl": "https://www.oases.aero/",
+          "pricing": "Not yet released; contact OASES"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation parts warehouse automation item since October 26. The item below is about the cargo warehouse side of an airport.",
+      "tools": [
+        {
+          "name": "Kalé Airport Cargo Community System at Miami International",
+          "slug": "kale-accs-miami",
+          "company": "Kalé",
+          "summary": "Miami International Airport announced at TIACA's Air Cargo Forum on October 27 that it has launched an AI-powered Airport Cargo Community System built by Kalé. MIA says it is now the busiest cargo hub in the world to use such a platform. The system gives MIA's freight forwarders, cargo handlers, truckers, carriers and ground handlers one shared online portal in place of fragmented, manual information exchange, with better information sharing, advance planning and truck scheduling. MIA says trucks now often arrive with limited information about arrival times and cargo types. MIA handled a record 3.4 million US tons of freight in 2025, with an average of 190 cargo-only flights and more than 1,600 truck trips a day. Based on what it calls modest estimates, including two hours saved per truck turnaround, MIA says full adoption could save up to $250 million a year in operating costs across its cargo supply chain.",
+          "whyItMatters": "Trucks that show up unannounced pile up at the cargo warehouse door, and every hour a truck waits is labor and dock space you are paying for. Knowing what is arriving and when lets a cargo handler staff the dock and stage freight ahead of time, so more shipments move per shift. If you handle freight at an airport building a community system, sign up early and ask which data you have to provide and who can see it.",
+          "url": "/aviation/tools/kale-accs-miami",
+          "sourceUrl": "https://news.miami-airport.com/mia-becomes-the-worlds-largest-cargo-airport-to-launch-an-ai-powered-digital-platform/",
+          "vendorUrl": "https://www.kalelogistics.com/",
+          "pricing": "Not published; contact Kalé"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Lufthansa Technik's David Doyle told MRO Europe on October 27 that Pentagon priority for TF34 engine parts is hurting commercial CF34 support, especially bearings. \"Our customers' engines are sitting there months-long, waiting for these parts,\" he said, adding that Lufthansa Technik is now creating special US component pools to serve US customers.",
+      "introSourceUrl": "https://aviationweek.com/mro/supply-chain/pentagon-tf34-parts-demand-hits-commercial-mros",
+      "coverageNote": "No new aviation-specific AOG tool surfaced since October 26. The item below is general supply chain software that addresses the same problem: deciding who gets scarce parts.",
+      "tools": [
+        {
+          "name": "Oracle Fusion Supply Planning Allocation agentic application",
+          "slug": "oracle-fusion-supply-planning-allocation",
+          "company": "Oracle",
+          "summary": "Oracle announced on October 26 new agentic applications in Oracle Fusion Cloud Supply Chain and Manufacturing, running on Fusion Claw, its governed runtime for AI agents that reason, plan and carry out longer work within set permissions, powered by large language models. Supply Planning Allocation decides how to split scarce materials and capacity across competing demand, compares allocation scenarios and prepares plans for people to review, refine and approve. Two others arrived alongside it: Shipment Load Planning, which looks for ways to consolidate shipments, and Procurement Spend, which flags off-contract buying and savings opportunities. Oracle says built-in monitoring, ROI measurement and safety controls track what the agents do. This is general supply chain software, not aviation-specific, and it works only for companies running Oracle Fusion.",
+          "whyItMatters": "When a part is short, who gets the next one decides which aircraft fly and which customers wait. A tool that lays out the trade-offs between competing orders helps planners give scarce stock to the jobs that matter most and explain why. Because people approve every plan, you keep control over priority calls for AOG customers.",
+          "url": "https://www.oracle.com/news/announcement/ai-world-oracle-introduces-claw-powered-fusion-agentic-applications-for-supply-chain-2026-10-26/",
+          "sourceUrl": "https://www.oracle.com/news/announcement/ai-world-oracle-introduces-claw-powered-fusion-agentic-applications-for-supply-chain-2026-10-26/",
+          "vendorUrl": "https://www.oracle.com/scm/",
+          "pricing": "Included in Oracle Fusion Cloud Supply Chain and Manufacturing; contact Oracle for licensing"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived on October 26 and 27. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Get data skill in Copilot in Excel for the web",
+          "slug": "copilot-excel-get-data",
+          "company": "Microsoft",
+          "summary": "Microsoft's Microsoft 365 roadmap lists a new get data skill for Copilot in Excel for the web as rolling out, with general availability in October 2026; the item was dated October 26. You describe the data you need and how you want it prepared, and Copilot connects to the source, transforms the data and loads the results into your workbook using Power Query. It also writes the Power Query script, which you can open, edit and refresh instead of rebuilding the steps yourself. Some data sources may require sign-in. Windows Report noted on October 27 that Microsoft has not yet published the full list of supported sources.",
+          "whyItMatters": "Monthly reports on labor hours, parts spend or charter revenue often start with someone cleaning the same exports by hand. Describing the cleanup once and getting a query you can refresh next month gives those hours back. Check the first results against last month's numbers before anyone relies on them.",
+          "url": "https://mc.merill.net/message/RM577745",
+          "sourceUrl": "https://mc.merill.net/message/RM577745",
+          "vendorUrl": "https://www.microsoft.com/en-us/microsoft-365/excel",
+          "pricing": "Requires a Microsoft 365 Copilot license; Excel for the web"
+        },
+        {
+          "name": "Multi-slide editing with Gemini in Google Slides (Beta)",
+          "slug": "gemini-slides-multi-slide-editing",
+          "company": "Google",
+          "summary": "Google added multi-slide editing in Google Slides to its Gemini Beta feature list on October 27. From one prompt, such as asking Gemini to update the style and theme of a deck, Gemini can reformat layouts, rewrite slide content and apply consistent styling across selected slides or the whole presentation. Supported editions include Business Standard and Business Plus, Enterprise Standard and Enterprise Plus, and some education editions. It is part of the Gemini Beta program, which a Workspace administrator turns on or off.",
+          "whyItMatters": "Capability decks, customer proposals and quarterly reviews get rebuilt over and over with small changes. Updating a whole deck in one pass leaves more time for the numbers and the pitch. Check every price, date and capability claim after Gemini edits, because a rewritten slide can change meaning.",
+          "url": "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini/turn-access-to-google-workspace-with-gemini-beta-on-or-off",
+          "sourceUrl": "https://knowledge.workspace.google.com/admin/generative-ai/workspace-with-gemini/turn-access-to-google-workspace-with-gemini-beta-on-or-off",
+          "vendorUrl": "https://workspace.google.com/products/slides/",
+          "pricing": "Included in Business Standard and Plus and Enterprise Standard and Plus when an admin turns on Gemini Beta"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agentic AI",
+      "definition": "AI that carries out a task in steps on its own, such as checking options and preparing a change, within limits a person sets, instead of only answering questions."
+    },
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal, such as rebooking a flight or drafting an allocation plan, by checking information and taking steps, with a person approving the important ones."
+    },
+    {
+      "term": "Autonomy software",
+      "definition": "The software that lets a robot or vehicle sense what is around it and decide how to move or act without a person steering it."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The kind of AI behind chat assistants such as ChatGPT and Gemini. It learned from huge amounts of text and writes by predicting what words should come next."
+    },
+    {
+      "term": "LiDAR",
+      "definition": "A sensor that fires laser pulses and times their return to build a 3D picture of its surroundings, so a robot can measure distances in the dark or glare."
+    },
+    {
+      "term": "Machine learning",
+      "definition": "A way of building AI where software learns patterns from past data, such as engine readings or task records, instead of following rules a person wrote by hand."
+    },
+    {
+      "term": "Prompt",
+      "definition": "The plain-language instruction or question you type to an AI tool, such as asking for overdue tasks or a cleaned-up spreadsheet."
+    },
+    {
+      "term": "Wing-walking robot",
+      "definition": "A small ground robot that moves alongside an aircraft wingtip during towing and warns the tow operator when the aircraft gets too close to an obstacle."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}
