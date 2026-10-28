@@ -1,0 +1,17 @@
+{
+  "slug": "boeing-dataliner",
+  "segment": "aviation",
+  "name": "Boeing Dataliner TechOps AI agent and asset lifecycle planning",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "Boeing Global Services",
+  "summary": "At MRO Europe on October 27, Boeing Global Services CEO Chris Raymond said Boeing has launched a TechOps AI agent and an asset lifecycle planning tool on Dataliner, the AI-powered data platform it announced the week before, which we covered on October 21. Dataliner was developed with Microsoft and connects fragmented data to support fleet maintenance planning. Raymond said Boeing has held initial talks about engine manufacturers joining the platform, without naming them, because combining aircraft and engine data could help anticipate maintenance needs and improve understanding of reliability. Longer term Boeing wants to link maintenance data with parts usage and distribution, modifications and safety data. Raymond said Dataliner connects to customers' own systems through interfaces and that customers decide what data to share through data-sharing agreements and permissions.",
+  "paragraphs": [
+    "At MRO Europe on October 27, Boeing Global Services CEO Chris Raymond said Boeing has launched a TechOps AI agent and an asset lifecycle planning tool on Dataliner, the AI-powered data platform it announced the week before, which we covered on October 21. Dataliner was developed with Microsoft and connects fragmented data to support fleet maintenance planning. Raymond said Boeing has held initial talks about engine manufacturers joining the platform, without naming them, because combining aircraft and engine data could help anticipate maintenance needs and improve understanding of reliability. Longer term Boeing wants to link maintenance data with parts usage and distribution, modifications and safety data. Raymond said Dataliner connects to customers' own systems through interfaces and that customers decide what data to share through data-sharing agreements and permissions."
+  ],
+  "whyItMatters": "Maintenance planners lose time stitching together data from separate aircraft, engine and parts systems before they can decide when to bring an aircraft in. A planning view that sees all of it can line up checks, parts and engine work in one visit, which means fewer days out of service. Ask exactly what the TechOps agent does today, and get the data-permission terms in writing before you connect your systems.",
+  "pricing": "Not published; contact Boeing Global Services",
+  "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/boeing-sees-engine-oem-role-dataliner-platform",
+  "url": "https://services.boeing.com/"
+}

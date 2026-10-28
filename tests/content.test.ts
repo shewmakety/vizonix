@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(7);
+    expect(issues).toHaveLength(8);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-28",
       "2026-10-27",
       "2026-10-26",
       "2026-10-22",
@@ -74,20 +75,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "Japan Airlines' driverless tow tractors reach a third airport. Plus 7 places to put AI and robotics to work",
+      "FBOs put robots on the ramp as line staff stay scarce. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "fleetcraft-voice-to-log",
-      "smartkargo-aircam",
-      "smartkargo-aiuld",
-      "gemini-sheets-ios",
-      "gpt-6-1-terra",
-      "autostore-robotic-cycle-counting",
-      "sita-occam-flightscape",
-      "gmail-ai-inbox",
-      "gemini-notebook-connected-app",
+      "contextere-imaple",
+      "amadeus-max-for-travelers",
+      "mtu-metavion",
+      "boeing-dataliner",
+      "oases-ai-assistant",
+      "kale-accs-miami",
+      "oracle-fusion-supply-planning-allocation",
+      "copilot-excel-get-data",
+      "gemini-slides-multi-slide-editing",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -107,21 +108,28 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(105);
+    expect(tools).toHaveLength(112);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
       "aeroquote",
+      "airtrek-groundwatch",
       "ajw-apollo",
+      "amadeus-max-for-travelers",
       "asi-operational-ai",
       "autostore-cube-storage",
       "autostore-robotic-cycle-counting",
+      "boeing-dataliner",
       "cae-ready-for-work",
+      "contextere-imaple",
       "fleetcraft-voice-to-log",
       "flightbridge-21x-ai-concierge",
       "flyexclusive-contrails-fms",
       "ge-aerospace-celma-records-ai",
       "gulfstream-performance-analytics",
+      "kale-accs-miami",
+      "mtu-metavion",
+      "oases-ai-assistant",
       "pratt-whitney-percept",
       "rolls-royce-optimiser",
       "sensos-jssi-tracking",

@@ -1,0 +1,17 @@
+{
+  "slug": "contextere-imaple",
+  "segment": "aviation",
+  "name": "iMAPLE AI competency management (Contextere and Lockheed Martin Canada)",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "Contextere",
+  "summary": "MRO Business Today reported on October 28 that Lockheed Martin Canada is investing $10 million in iMAPLE, the Intelligent Maintenance, Asset, Personnel and Learning Environment, an AI-powered competency management platform being built with the Royal Canadian Air Force and Canadian company Contextere for the RCAF's CC-130J Hercules fleet. The aim is to match workforce competencies to maintenance tasks so personnel have the skills and knowledge for the work they are assigned, and to support sustainment decisions and aircraft availability. Contextere builds AI workforce tools that turn institutional knowledge into guidance for the people who maintain and operate complex assets. Lockheed Martin will also act as an AI and machine learning adviser, providing validated machine learning methods and quality reviews. The partners say the platform could later extend to other defense and aerospace programs.",
+  "paragraphs": [
+    "MRO Business Today reported on October 28 that Lockheed Martin Canada is investing $10 million in iMAPLE, the Intelligent Maintenance, Asset, Personnel and Learning Environment, an AI-powered competency management platform being built with the Royal Canadian Air Force and Canadian company Contextere for the RCAF's CC-130J Hercules fleet. The aim is to match workforce competencies to maintenance tasks so personnel have the skills and knowledge for the work they are assigned, and to support sustainment decisions and aircraft availability. Contextere builds AI workforce tools that turn institutional knowledge into guidance for the people who maintain and operate complex assets. Lockheed Martin will also act as an AI and machine learning adviser, providing validated machine learning methods and quality reviews. The partners say the platform could later extend to other defense and aerospace programs."
+  ],
+  "whyItMatters": "Every week a new technician waits for an authorization is a week you pay for a person you cannot fully schedule. Knowing exactly which skills each person has, and which tasks they are cleared for, lets planners staff a check with what they actually have and target training at the gaps that block revenue work. This is a military program still in development, so treat it as a model to ask your own training and records vendors about, not a product you can buy today.",
+  "pricing": "Not published; military development program",
+  "sourceUrl": "https://mrobusinesstoday.com/lockheed-martin-invests-10m-in-ai-for-hercules-sustainment/",
+  "url": "https://contextere.com/"
+}

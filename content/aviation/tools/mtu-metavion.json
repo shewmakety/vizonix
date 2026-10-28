@@ -1,0 +1,17 @@
+{
+  "slug": "mtu-metavion",
+  "segment": "aviation",
+  "name": "METAVION engine fleet manager",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "MTU Maintenance",
+  "summary": "MTU Maintenance launched METAVION in Amsterdam on October 27, an AI-assisted suite of digital services that pulls real-time engine data into a live view of fleet condition, performance and remaining life for airlines, lessors and other engine operators. It has three services. Monitoring combines data from many inputs into a picture of engine health and runs analytical predictions. Performance plans an engine fleet around the operator's utilization strategy using condition data and contract terms, with scenarios such as lowest cost, highest reliability and line of balance. Value optimization manages individual service life and phase-in and phase-out plans, for goals such as the highest net cash position. MTU says METAVION runs independently of its engine MRO and leasing business and that customer data is used only within METAVION. BBN Airlines and other undisclosed customers have signed up; a BBN senior engineer said it gives the ACMI carrier the transparency it needs to manage engine utilization.",
+  "paragraphs": [
+    "MTU Maintenance launched METAVION in Amsterdam on October 27, an AI-assisted suite of digital services that pulls real-time engine data into a live view of fleet condition, performance and remaining life for airlines, lessors and other engine operators. It has three services. Monitoring combines data from many inputs into a picture of engine health and runs analytical predictions. Performance plans an engine fleet around the operator's utilization strategy using condition data and contract terms, with scenarios such as lowest cost, highest reliability and line of balance. Value optimization manages individual service life and phase-in and phase-out plans, for goals such as the highest net cash position. MTU says METAVION runs independently of its engine MRO and leasing business and that customer data is used only within METAVION. BBN Airlines and other undisclosed customers have signed up; a BBN senior engineer said it gives the ACMI carrier the transparency it needs to manage engine utilization."
+  ],
+  "whyItMatters": "Engines are usually the most expensive part of keeping an aircraft flying, and a shop visit that comes early, or an engine pulled with green time left, costs real money. Planning removals around actual condition and your contract terms, not a fixed schedule, helps you get the full value out of each engine and avoid surprise downtime. Before you share data, ask MTU how it keeps your engine data apart from its own MRO and leasing teams and what you get back if you leave.",
+  "pricing": "Not published; contact MTU Maintenance",
+  "sourceUrl": "https://www.mtu.de/newsroom/press/latest-press-releases/press-release-detail/mtu-maintenance-launches-metavion-digital-service-for-aero-engines/",
+  "url": "https://www.metavion.com/"
+}

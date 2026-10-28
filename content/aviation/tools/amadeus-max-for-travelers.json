@@ -1,0 +1,17 @@
+{
+  "slug": "amadeus-max-for-travelers",
+  "segment": "aviation",
+  "name": "Amadeus Max for Travelers",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Amadeus",
+  "summary": "Amadeus has introduced Max for Travelers, which uses agentic AI for airline commerce, according to Terminair, which first reported it on October 26. Amadeus says it is meant to cover booking, voluntary rebooking and disruption management; the first available use case is voluntary rebooking, meaning a traveler changing a flight's date or time. It is available first to Altéa and Nevio customers, by voice and text across call centers, apps and the web, in multiple languages. Agent-to-agent communication lets the conversational agent a traveler talks to ask a travel-specific AI agent for help, and every option is checked against live inventory, fare rules and airline policy before it is offered. Requests that need a person go to a human agent. Airlines can plug it into a traveler-facing assistant they already run or have Amadeus integrate it. Conversational booking and disruption recovery are still to come.",
+  "paragraphs": [
+    "Amadeus has introduced Max for Travelers, which uses agentic AI for airline commerce, according to Terminair, which first reported it on October 26. Amadeus says it is meant to cover booking, voluntary rebooking and disruption management; the first available use case is voluntary rebooking, meaning a traveler changing a flight's date or time. It is available first to Altéa and Nevio customers, by voice and text across call centers, apps and the web, in multiple languages. Agent-to-agent communication lets the conversational agent a traveler talks to ask a travel-specific AI agent for help, and every option is checked against live inventory, fare rules and airline policy before it is offered. Requests that need a person go to a human agent. Airlines can plug it into a traveler-facing assistant they already run or have Amadeus integrate it. Conversational booking and disruption recovery are still to come."
+  ],
+  "whyItMatters": "Change requests are among the most common calls an airline contact center handles, and every one a person handles costs agent time. Automating the routine ones, with fees and fare rules applied correctly, can protect change revenue and free agents for disrupted passengers and high-value sales. If you run on Altéa or Nevio, ask Amadeus what share of changes it completes without a person and how fee collection is reported.",
+  "pricing": "Not published; available first to Amadeus Altéa and Nevio customers",
+  "sourceUrl": "https://terminair.com/story/76181-amadeus-max-for-travelers-starts-with-voluntary-flight",
+  "url": "https://amadeus.com/"
+}

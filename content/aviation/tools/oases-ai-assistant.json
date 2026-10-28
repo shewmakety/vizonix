@@ -1,0 +1,17 @@
+{
+  "slug": "oases-ai-assistant",
+  "segment": "aviation",
+  "name": "OASES AI Assistant (preview)",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "OASES (Valsoft)",
+  "summary": "OASES, the maintenance and engineering software company that is part of Valsoft, is showing its upcoming AI Assistant for the first time at MRO Europe in Amsterdam on October 28-29, Hall 5, Stand 1017. OASES says the assistant turns a simple prompt into the figures and graphs that management and authorities ask for, such as fleet status, overdue tasks, defect trends and reporting. It is a preview of an unreleased product, and OASES has not published availability or pricing.",
+  "paragraphs": [
+    "OASES, the maintenance and engineering software company that is part of Valsoft, is showing its upcoming AI Assistant for the first time at MRO Europe in Amsterdam on October 28-29, Hall 5, Stand 1017. OASES says the assistant turns a simple prompt into the figures and graphs that management and authorities ask for, such as fleet status, overdue tasks, defect trends and reporting. It is a preview of an unreleased product, and OASES has not published availability or pricing."
+  ],
+  "whyItMatters": "Chasing a repeat defect usually starts with someone building a report by hand to see whether the same fault keeps coming back across tails. Asking the maintenance system directly for defect trends and overdue items can surface the pattern in minutes, and fixing a chronic fault for good beats paying for it again and again. If you run OASES, ask for a demo on your own data and check every number against a report you trust.",
+  "pricing": "Not yet released; contact OASES",
+  "sourceUrl": "https://www.linkedin.com/posts/commsoft_oases_oases-mroeurope2026-aviationmaintenance-activity-7516527577726038016-5CzN",
+  "url": "https://www.oases.aero/"
+}
