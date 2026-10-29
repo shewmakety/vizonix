@@ -1,0 +1,18 @@
+{
+  "slug": "beacon-ai-murdock",
+  "segment": "aviation",
+  "name": "Murdock AI pilot assistant",
+  "sample": false,
+  "category": "Flight operations",
+  "topic": "flight-operations",
+  "company": "Beacon AI",
+  "summary": "Murdock is Beacon AI's in-cockpit AI pilot assistant: a modular compute and crew-interface system that reads data from an aircraft's certified avionics buses, advises the crew and records every flight, without modifying flight-critical systems. It connects by satellite to Lighthouse, Beacon's cloud-based fleet data platform and web application for planning, operations, fleet management and post-flight review. Beacon calls its approach Level 2 assistance: the system advises and the crew decides. Beacon announced on October 27, 2026 that Murdock flew aboard three operational U.S. Air Force KC-46A Pegasus tankers over five flights and about 20 hours in August and September 2026, under an AFWERX Tactical Funding Increase contract with Air Mobility Command, at Eglin Air Force Base and two other airfields, including a civil airport. Beacon says it has 13 U.S. military contracts and three commercial airline engagements, and sees the KC-46, a Boeing 767 derivative, as a bridge to commercial 767 fleets.",
+  "paragraphs": [
+    "Murdock is Beacon AI's in-cockpit AI pilot assistant: a modular compute and crew-interface system that reads data from an aircraft's certified avionics buses, advises the crew and records every flight, without modifying flight-critical systems. It connects by satellite to Lighthouse, Beacon's cloud-based fleet data platform and web application for planning, operations, fleet management and post-flight review. Beacon calls its approach Level 2 assistance: the system advises and the crew decides.",
+    "Beacon announced on October 27, 2026 that Murdock flew aboard three operational U.S. Air Force KC-46A Pegasus tankers over five flights and about 20 hours in August and September 2026, under an AFWERX Tactical Funding Increase contract with Air Mobility Command, at Eglin Air Force Base and two other airfields, including a civil airport. Beacon says it has 13 U.S. military contracts and three commercial airline engagements, and sees the KC-46, a Boeing 767 derivative, as a bridge to commercial 767 fleets."
+  ],
+  "whyItMatters": "Crew workload drives fatigue and errors. An advisory system that reads the avionics, keeps procedures on track and records every flight could make training reviews and safety reporting cheaper without an avionics change. It has flown in military testing only and is not approved for airline or business aviation use.",
+  "pricing": "Not published; contact Beacon AI",
+  "sourceUrl": "https://www.prnewswire.com/news-releases/a-world-first-beacon-ai-flies-murdock-its-ai-pilot-assistant-system-aboard-operational-usaf-tankers-302921059.html",
+  "url": "https://beaconai.co/"
+}

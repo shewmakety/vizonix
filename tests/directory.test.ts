@@ -53,7 +53,7 @@ describe("tool directory topics", () => {
     expect(predictive.map((tool) => tool.slug)).toEqual(
       expect.arrayContaining(["standardaero-maintenance-insight", "veryon-defect-analysis"]),
     );
-    expect(predictive).toHaveLength(15);
+    expect(predictive).toHaveLength(16);
     const byCompany = filterDirectoryTools(tools, { q: "aar", knownKeys: known });
     expect(byCompany.map((tool) => tool.slug)).toEqual(["airvoyant"]);
     const narrowed = filterDirectoryTools(tools, {
@@ -81,12 +81,12 @@ describe("tool directory topics", () => {
     expect(chips.find((chip) => chip.key === "all")?.href).toBe("/aviation/toolbox");
     expect(chips.find((chip) => chip.key === "predictive-maintenance")).toMatchObject({
       label: "Predictive Maintenance",
-      count: 15,
+      count: 16,
       href: "/aviation/tools?topic=predictive-maintenance",
     });
     expect(chips.at(-1)?.key).toBe("general-ai");
     expect(chips.find((chip) => chip.key === "records-and-documentation")?.count).toBe(2);
-    expect(chips.find((chip) => chip.key === "flight-operations")?.count).toBe(4);
+    expect(chips.find((chip) => chip.key === "flight-operations")?.count).toBe(5);
     expect(chips.find((chip) => chip.key === "general-ai")?.count).toBe(15);
     expect(chips.some((chip) => chip.key === "other")).toBe(false);
     const pathChips = directoryChips("aviation", topics, tools, "path");

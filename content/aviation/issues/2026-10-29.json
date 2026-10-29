@@ -1,0 +1,221 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-29",
+  "publishedAt": "2026-10-29T05:45:00-04:00",
+  "sample": false,
+  "subject": "An AI pilot assistant flies on working Air Force tankers. Plus 7 places to put AI and robotics to work",
+  "preheader": "Beacon AI's Murdock on KC-46s, Jet2 picks Aerogility, Incheon's AI ramp watch, robotic MRO stores, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "An AI pilot assistant has flown on working Air Force tankers, and its maker is eyeing the 767s airlines fly",
+    "summary": "Beacon AI announced on October 27 that Murdock, its AI pilot assistant, flew aboard three operational U.S. Air Force KC-46A Pegasus tankers, a military derivative of the Boeing 767, over five flights and about 20 hours in August and September. The flights began during the Emerald Flag exercise at Eglin Air Force Base, Florida, and continued at two more airfields, including a civil airport, under an AFWERX Tactical Funding Increase contract with Air Mobility Command. Murdock is a compute and crew-interface unit that reads data from the aircraft's certified avionics buses, advises the crew and records every flight, without modifying flight-critical systems; it links by satellite to Lighthouse, Beacon's cloud fleet-data platform. Military Aerospace reported on October 28 that the system is meant to help crews with routine cockpit tasks, following procedures, route planning and monitoring factors such as crew readiness, while flight decisions stay with the crew. Beacon calls this Level 2 assistance: the system advises and the crew decides. Beacon believes Murdock is the first commercially developed AI pilot assistant to fly aboard multiple operational aircraft. The company notes that 1,361 Boeing 767s have been delivered since 1982 and says the KC-46 work is a natural bridge to commercial 767 fleets. Beacon says it has 13 U.S. military contracts and three commercial airline engagements, which it did not name, and wants Murdock to assist across the whole flight, from scheduling to debriefing.",
+    "whyItMatters": "Crew workload drives fatigue and errors, and in the end limits how hard you can safely schedule your pilots. An advisory system that reads the avionics, keeps procedures on track and records every flight could make training reviews, line checks and safety reporting cheaper, without paying for an avionics change. This is military testing and nothing here is approved for airline or business aviation use yet, so for now ask your avionics and flight data vendors whether advisory tools like this are on their roadmap and what data they would need from your aircraft.",
+    "sourceName": "Beacon AI via PR Newswire, October 27, 2026",
+    "sourceUrl": "https://www.prnewswire.com/news-releases/a-world-first-beacon-ai-flies-murdock-its-ai-pilot-assistant-system-aboard-operational-usaf-tankers-302921059.html",
+    "productUrl": "/aviation/tools/beacon-ai-murdock"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Etihad Engineering Technical Training has begun what it says is the first MRO-led CAR 147 aircraft maintenance engineering program in Abu Dhabi approved by the UAE's General Civil Aviation Authority, Aviation Week reported on October 28. The first intake is Emirati trainees, and the company says future intakes will be open to other regional and global applicants.",
+      "introSourceUrl": "https://aviationweek.com/mro/mro-industry-rolling-daily-updates-october-2026",
+      "coverageNote": "Thin. No new AI or robotics recruiting tool for aviation surfaced since October 27. The item below is a free general learning tool that happens to include a look inside a jet engine, useful for school outreach and career days.",
+      "tools": [
+        {
+          "name": "Immersive explorations in the Gemini app",
+          "slug": "gemini-immersive-explorations",
+          "company": "Google",
+          "summary": "Google added a library of immersive explorations to the Gemini app on October 28, an interactive, visual way to explore a topic layer by layer. Google's examples include peering inside a jet engine, tracing trade routes on the Silk Road and studying the physics of lightning. Each scene unfolds into interactive nodes with guided explanations, and users tap a layer to dig deeper; Google says audio narration is coming. It is available on web and mobile to all Google Workspace customers, Workspace Individual subscribers and personal Google accounts at gemini.google.com/immersive-explorations, in English, Indonesian, Hindi, Brazilian Portuguese, French and simplified Chinese, with other languages getting English for now.",
+          "whyItMatters": "Hangars compete with every other trade for the same young people, and a student who has already looked inside a jet engine on a phone is easier to bring in for a tour or an apprenticeship. Using a free tool at school visits and career days costs a few minutes of setup, not a training budget. Check what each scene shows before you use it with students, because a general learning tool is not approved training material and does not replace a type course.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/immersive-explorations-now-available-in-the-Gemini-app.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/immersive-explorations-now-available-in-the-Gemini-app.html",
+          "vendorUrl": "https://gemini.google.com/immersive-explorations",
+          "pricing": "Free in the Gemini app for Workspace and personal Google accounts"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "Opening IATA's World Financial and World Passenger Symposiums in Macao on October 28, IATA said AI assistants and automated agents are changing how travelers discover and compare travel, and that airlines should prepare while keeping control of their data and commercial relationships. \"Offers and Orders are the foundation; AI is the accelerator,\" said Sandrine Le Borgne, IATA's interim director general. IATA said seven airlines are live or implementing Orders, with more than 20 expected to follow from 2027.",
+      "introSourceUrl": "https://www.iata.org/en/pressroom/2026-releases/10-28-iata-highlights-priorities-create-value-digitalization/",
+      "coverageNote": "No new airline or charter AI sales tool surfaced since October 27. The item below is built for tour and package sellers; it is here because it runs on OAG flight data and protects the margin on trips built around flights.",
+      "tools": [
+        {
+          "name": "Tai Guard trip risk agent (Nezasa, with OAG flight data)",
+          "slug": "nezasa-tai-guard",
+          "company": "Nezasa",
+          "summary": "Nezasa launched Tai Guard in Zurich on October 27, the flagship agent in Tai Workbench, its AI agent platform for travel sellers. Tai Guard checks every itinerary for flight, destination and connection risk while the seller can still change it: how each flight has actually performed, whether a country on the route has an active travel alert, and whether connections hold and the trip makes sense in sequence. Flight data comes from OAG, both historical and real-time. Each operator sets what Tai Guard checks and how strict it is. Findings can go to a person or to another agent; for example, a flight flagged on a confirmed departure can trigger an agent that finds every other booking on that flight, and the operator decides which steps need a person to approve. It is integrated with Nezasa TripBuilder and can connect to other booking systems.",
+          "whyItMatters": "A package or charter trip that looks profitable when it is sold can lose its margin when a tight connection breaks and the rebooking and hotel bill land on you. Catching weak connections and chronically late flights weeks before departure lets you fix the trip while seats are still cheap, instead of paying for recovery on the day. If you sell trips that combine your flights with other legs, ask how the risk rules are set and test it against last season's problem trips.",
+          "url": "/aviation/tools/nezasa-tai-guard",
+          "sourceUrl": "https://nezasa.com/news/tai-guard-by-nezasa-powered-by-oag/",
+          "vendorUrl": "https://nezasa.com/",
+          "pricing": "Not published; contact Nezasa"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "coverageNote": "Thin. No new commercial predictive maintenance product surfaced since October 27. The item below is NASA-funded development work for electric and hybrid-electric aircraft, not something you can buy today.",
+      "tools": [
+        {
+          "name": "AstraSense onboard propulsion health monitoring (in development)",
+          "slug": "astraqua-astrasense",
+          "company": "AstraQua",
+          "summary": "Military Aerospace reported on October 27 that NASA has awarded AstraQua a $1.27 million SBIR Phase II contract to develop AstraSense, software that monitors electric aircraft propulsion and identifies potential equipment failures; AstraQua announced the award on October 21 and puts it at $1,274,990, for electric and hybrid-electric aircraft including advanced air mobility. AstraSense processes sensor data directly on the aircraft or autonomous platform instead of relying on a constant link to outside computers, and aims to detect component degradation, diagnose faults and estimate how much operating capability is left. Instead of only raising an alarm when a reading crosses a limit, it estimates how degradation could affect future operation, so a system could decide to continue, adjust its mission or return for maintenance. Phase II will test it on hardware testbeds, with a focus on fault-prediction performance. AstraQua's founder and CEO, Loay Elbasyouni, led electrical and power-electronics work for NASA's Ingenuity Mars helicopter. The company has not reported Phase II results or a deployment schedule.",
+          "whyItMatters": "Electric and hybrid-electric aircraft will need maintenance programs before there is decades of fleet experience to build them on. Software that tracks how a motor or power system is wearing, and how much life it has left, is what lets an operator replace parts on condition instead of on a conservative fixed schedule, which is where the savings are. If you are planning for electric aircraft or drones, ask manufacturers what health data their propulsion systems record and who gets to see it.",
+          "url": "/aviation/tools/astraqua-astrasense",
+          "sourceUrl": "https://www.militaryaerospace.com/commercial-aerospace/news/55414371/nasa-awards-astraqua-127-million-for-aircraft-propulsion-monitoring",
+          "vendorUrl": "https://www.astraqua.com/",
+          "pricing": "Not commercially available; NASA-funded development"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "intro": "At MRO Europe on October 27, Wizz Air renewed its long-term agreement with Lufthansa Technik for the AVIATAR electronic Technical Logbook, now covering more than 400 Airbus A320-family aircraft. Wizz Air reports more than 25 percent fewer Maintenance Control Center calls since going digital, and Lufthansa Technik says manual documentation can drop by up to 50 percent. The logbook is a digital workflow, not an AI tool, but clean, connected defect data is what AI planning tools depend on.",
+      "introSourceUrl": "https://newsroom.lufthansa-technik.com/wizz-air-renews-aviatar-technical-logbook-agreement-with-lufthansa-technik/",
+      "coverageNote": "Aerogility posted the item below on October 27; the release itself carries a September 10 dateline. We first covered Aerogility on October 16.",
+      "tools": [
+        {
+          "name": "Aerogility AI digital twin planning at Jet2",
+          "slug": "aerogility",
+          "company": "Aerogility",
+          "summary": "Aerogility posted on October 27 that Jet2, the UK's third-largest airline, has selected its AI-powered digital twin platform for fleet and maintenance planning. Jet2 is taking three modules: Long Term Planning, Powerplant Lifecycle Planning and Fleet Strategic Planning, which give it one view from long-range fleet strategy down to day-to-day operational planning. Aerogility says its digital twin optimises fleet planning, maintenance scheduling and resource allocation and can cut planning time from weeks to minutes. Jet2 has 155 firm-ordered Airbus A321neos due over the next decade. Tyler Gruszka, Jet2's general manager of capacity and planning, said the airline needed a platform that supports greater efficiency, optimisation and decision-making as its fleet grows.",
+          "whyItMatters": "Heavy checks and engine shop visits that land at the wrong time pull aircraft out of the summer schedule, which is when a leisure airline earns most of its money. Testing plans against a model of the whole fleet lets planners move checks into quiet months and line up engine removals with lease returns and deliveries, so more aircraft fly when demand peaks. Ask an existing customer for real planning-time and availability numbers, not just the vendor's weeks-to-minutes claim.",
+          "url": "/aviation/tools/aerogility",
+          "sourceUrl": "https://www.aerogility.com/jet2-selects-aerogility/",
+          "vendorUrl": "https://www.aerogility.com/",
+          "pricing": "Not published; contact Aerogility"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "Thin. No new aviation troubleshooting tool surfaced since October 27. The item below is an airport system that spots hazards on the ramp and in the air traffic control process in real time; it is not for sale, but the approach is worth knowing.",
+      "tools": [
+        {
+          "name": "AI-based aviation safety management system at Incheon Airport",
+          "slug": "incheon-ai-safety-management",
+          "company": "Incheon International Airport Corporation",
+          "summary": "Aju Press reported on October 28 that Incheon International Airport Corporation won the top prize in the AI utilization excellence category of South Korea's 2026 Public Institution AI Innovation Challenge for an AI-based safety management system that monitors an aircraft from landing to takeoff in real time. The system uses AI predictive data to detect potential risks across air traffic control, aircraft operations and ground handling. AI video analysis flags risky situations and abnormal behavior in the air traffic control process, and while aircraft are guided to their parking stands, AI identifies the aircraft and nearby obstacles and gives real-time alerts for hazardous conditions such as low visibility or lightning. The airport handles about 1,200 flights and 210,000 passengers a day and plans to extend AI safety tools across its operations.",
+          "whyItMatters": "Stand and ramp incidents usually come from something nobody was watching at the moment it mattered, and a damaged aircraft costs far more than any alert. A camera system that watches every stand and warns early about an obstacle or lightning gives crews time to stop. If your airport or ground handler is adding video analytics, ask to receive the alerts for your aircraft and stands, and ask how false alarms are handled.",
+          "url": "https://www.ajupress.com/view/20261028170070234",
+          "sourceUrl": "https://www.ajupress.com/view/20261028170070234",
+          "vendorUrl": "https://www.airport.kr/ap/en/index.do",
+          "pricing": "Not for sale; operated by Incheon Airport"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation warehouse automation item surfaced since October 27. The item below was announced earlier in October and we had not covered it.",
+      "tools": [
+        {
+          "name": "Swisslog AutoStore and pallet automation for a Saudi MRO warehouse (Starlinks)",
+          "slug": "swisslog-starlinks-mro-warehouse",
+          "company": "Swisslog",
+          "summary": "Starlinks, a Gulf logistics and supply chain provider, has selected Swisslog to deliver a warehouse automation program for a new aviation MRO facility in Saudi Arabia, part of a broader supply chain solution for what the companies call a leading aviation company in the Middle East, which they did not name. The system combines high-density AutoStore cube storage, where bins are stacked in a grid and robots moving on top retrieve spare parts, with a pallet automated storage and retrieval system using Swisslog Vectura stacker cranes, ProMove pallet conveyors, a pallet shuttle car, inbound transport systems and picking stations, all coordinated by Swisslog's SynQ software. The goal is one material flow from receiving and inspection through storage to order fulfillment, for both small parts and pallets. Contract value, site and go-live date were not disclosed.",
+          "whyItMatters": "In a busy MRO, mechanics waiting at the stores window are paid hours that produce nothing, and a part that cannot be found can hold an aircraft past its slot. Robots that bring the bin to the picker make picks faster and more accurate and fit far more parts into the same floor space, which lets a shop grow without a bigger building. If you are planning a new store, ask vendors for pick rates and accuracy at a running aviation site and how serial numbers and release certificates stay tied to each part.",
+          "url": "/aviation/tools/swisslog-starlinks-mro-warehouse",
+          "sourceUrl": "https://www.zawya.com/en/press-release/companies-news/starlinks-selects-swisslog-for-major-aviation-logistics-automation-programme-in-saudi-arabia-559416",
+          "vendorUrl": "https://www.swisslog.com/",
+          "pricing": "Not disclosed; contact Swisslog"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "At MRO Europe on October 28, Frank Stevens, Embraer's global MRO services vice president, said an aircraft might arrive with 98 percent of the required parts available, but the remaining 2 percent could keep it grounded. An audience poll at the same panel found 74 percent put turnaround time ahead of price, and Embraer is developing an app that lets operators review discrepancies and approve parts purchases, Aviation Week reported.",
+      "introSourceUrl": "https://aviationweek.com/mro/safety-ops-regulation/mros-prioritize-turnaround-time-operators-seek-more-predictability",
+      "coverageNote": "Thin. No new AOG-specific AI tool surfaced since October 27. The item below is a robotic store for a part that is changed often at the line: tires. It went live earlier in October and we had not covered it.",
+      "tools": [
+        {
+          "name": "Automated tire warehouse at Turkish Technic (LOG-X Systems)",
+          "slug": "log-x-turkish-technic-tire-warehouse",
+          "company": "LOG-X Systems",
+          "summary": "Turkish Technic has commissioned an automated tire warehouse at Istanbul Airport, supplied by LOG-X Systems. The 1,600 square meter system stores up to 3,770 tires and automates the process from storing tires to delivering them to the workshops, handling up to 120 tires an hour. Turkish outlet Herdem Aviation reported the commissioning on October 8, quoting Turkish Technic CEO Mikail Akbulut that automation robots and other technology cut tire delivery time to the workshops from 30 minutes to 6, an 80 percent improvement, and also improved workforce efficiency and traceability. LOG-X says the project was managed by Mopcons Consulting.",
+          "whyItMatters": "Tires are changed often, and every minute spent finding and moving the right one is a minute an aircraft waits instead of earning. Cutting delivery from 30 minutes to 6 gets aircraft back in service sooner and frees the people who used to push tire carts. If your wheel and tire volume is high, time how long a tire takes from request to aircraft today before you price automation.",
+          "url": "/aviation/tools/log-x-turkish-technic-tire-warehouse",
+          "sourceUrl": "https://en.log-x.systems/news/automated-tire-warehouse-for-turkish-technic/",
+          "vendorUrl": "https://en.log-x.systems/",
+          "pricing": "Not published; contact LOG-X Systems"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived on October 27 and 28. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Cell-level citations in Fill with Gemini for Google Sheets",
+          "slug": "gemini-sheets-fill-citations",
+          "company": "Google",
+          "summary": "Google said on October 28 that when you use the AI function in Google Sheets to generate cell values, Gemini now shows the exact web sources it used inside each individual cell, so you can audit and cross-check each result. Upgraded processing also gives faster responses and more consistent results from cell to cell, and one request can now cover up to 3,000 cells. Google says an internal study of 95 participants found it up to 55 times faster than manual entry for a 500-cell task. Citations are available in Sheets on the web. The gradual rollout started on October 20 for Business Standard and Plus, Enterprise Standard and Plus, and Google AI Pro and Ultra, among others.",
+          "whyItMatters": "Building a list of prospects, FBOs, repair stations or suppliers with their details usually means hours of copying from websites. Filling those columns with Gemini and seeing the source in each cell lets you check the facts before anyone picks up the phone, turning a day of research into an hour. Spot-check the sources, because a cited web page can still be out of date.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/fill-with-gemini-now-provides-cell-level-citations-for-web-sources-and-supports-larger-requests.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/fill-with-gemini-now-provides-cell-level-citations-for-web-sources-and-supports-larger-requests.html",
+          "vendorUrl": "https://workspace.google.com/products/sheets/",
+          "pricing": "Included in Business Standard and Plus, Enterprise Standard and Plus, and Google AI Pro and Ultra"
+        },
+        {
+          "name": "iCloud Mail and Calendar plugins in ChatGPT",
+          "slug": "chatgpt-icloud-mail-calendar",
+          "company": "OpenAI",
+          "summary": "OpenAI's ChatGPT release notes for October 27 say iCloud users can now connect Mail and Calendar to ChatGPT to find emails, catch up on their inbox, check their schedule and update calendar events. It is available on all ChatGPT plans on the web, in the desktop app and on iOS.",
+          "whyItMatters": "Many owner-operators, chief pilots and small shop owners run the business from an iCloud inbox and calendar. Asking ChatGPT to find the quote a customer sent last week, or to show what is booked tomorrow, saves minutes many times a day. Connect only the account you mean to, and check any calendar change before you rely on it.",
+          "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "sourceUrl": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Available on all ChatGPT plans, including Free"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal, such as checking a trip for risky connections, by looking up information and taking steps, with a person approving the important ones."
+    },
+    {
+      "term": "AI pilot assistant",
+      "definition": "Software in the cockpit that reads aircraft data and offers advice, reminders and checklists to the crew. It does not fly the aircraft; the pilots decide."
+    },
+    {
+      "term": "Automated storage and retrieval system",
+      "definition": "A warehouse system of cranes, shuttles or robots that stores items and brings them to a person on request, so nobody has to walk the aisles to find a part."
+    },
+    {
+      "term": "Cube storage",
+      "definition": "A robotic storage system, AutoStore is the best-known brand, where bins are stacked in a tight grid and robots on top dig out the bin you need and deliver it to a picking station."
+    },
+    {
+      "term": "Digital twin",
+      "definition": "A computer model of your fleet or operation that you can test plans against, such as moving a heavy check, before you change anything in real life."
+    },
+    {
+      "term": "Level 2 assistance",
+      "definition": "Beacon AI's label for a cockpit system that advises the crew but leaves every decision and control input to the pilots."
+    },
+    {
+      "term": "Plugin",
+      "definition": "An add-on that connects an AI assistant such as ChatGPT to another app, like your email or calendar, so it can look things up or make changes there for you."
+    },
+    {
+      "term": "Video analytics",
+      "definition": "AI that watches camera feeds and flags things worth a person's attention, such as an obstacle near a parking aircraft, instead of someone watching every screen."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}
