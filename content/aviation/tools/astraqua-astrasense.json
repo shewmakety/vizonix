@@ -1,0 +1,17 @@
+{
+  "slug": "astraqua-astrasense",
+  "segment": "aviation",
+  "name": "AstraSense onboard propulsion health monitoring (in development)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "AstraQua",
+  "summary": "Military Aerospace reported on October 27 that NASA has awarded AstraQua a $1.27 million SBIR Phase II contract to develop AstraSense, software that monitors electric aircraft propulsion and identifies potential equipment failures; AstraQua announced the award on October 21 and puts it at $1,274,990, for electric and hybrid-electric aircraft including advanced air mobility. AstraSense processes sensor data directly on the aircraft or autonomous platform instead of relying on a constant link to outside computers, and aims to detect component degradation, diagnose faults and estimate how much operating capability is left. Instead of only raising an alarm when a reading crosses a limit, it estimates how degradation could affect future operation, so a system could decide to continue, adjust its mission or return for maintenance. Phase II will test it on hardware testbeds, with a focus on fault-prediction performance. AstraQua's founder and CEO, Loay Elbasyouni, led electrical and power-electronics work for NASA's Ingenuity Mars helicopter. The company has not reported Phase II results or a deployment schedule.",
+  "paragraphs": [
+    "Military Aerospace reported on October 27 that NASA has awarded AstraQua a $1.27 million SBIR Phase II contract to develop AstraSense, software that monitors electric aircraft propulsion and identifies potential equipment failures; AstraQua announced the award on October 21 and puts it at $1,274,990, for electric and hybrid-electric aircraft including advanced air mobility. AstraSense processes sensor data directly on the aircraft or autonomous platform instead of relying on a constant link to outside computers, and aims to detect component degradation, diagnose faults and estimate how much operating capability is left. Instead of only raising an alarm when a reading crosses a limit, it estimates how degradation could affect future operation, so a system could decide to continue, adjust its mission or return for maintenance. Phase II will test it on hardware testbeds, with a focus on fault-prediction performance. AstraQua's founder and CEO, Loay Elbasyouni, led electrical and power-electronics work for NASA's Ingenuity Mars helicopter. The company has not reported Phase II results or a deployment schedule."
+  ],
+  "whyItMatters": "Electric and hybrid-electric aircraft will need maintenance programs before there is decades of fleet experience to build them on. Software that tracks how a motor or power system is wearing, and how much life it has left, is what lets an operator replace parts on condition instead of on a conservative fixed schedule, which is where the savings are. If you are planning for electric aircraft or drones, ask manufacturers what health data their propulsion systems record and who gets to see it.",
+  "pricing": "Not commercially available; NASA-funded development",
+  "sourceUrl": "https://www.militaryaerospace.com/commercial-aerospace/news/55414371/nasa-awards-astraqua-127-million-for-aircraft-propulsion-monitoring",
+  "url": "https://www.astraqua.com/"
+}

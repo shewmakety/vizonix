@@ -1,0 +1,17 @@
+{
+  "slug": "nezasa-tai-guard",
+  "segment": "aviation",
+  "name": "Tai Guard trip risk agent (Nezasa, with OAG flight data)",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Nezasa",
+  "summary": "Nezasa launched Tai Guard in Zurich on October 27, the flagship agent in Tai Workbench, its AI agent platform for travel sellers. Tai Guard checks every itinerary for flight, destination and connection risk while the seller can still change it: how each flight has actually performed, whether a country on the route has an active travel alert, and whether connections hold and the trip makes sense in sequence. Flight data comes from OAG, both historical and real-time. Each operator sets what Tai Guard checks and how strict it is. Findings can go to a person or to another agent; for example, a flight flagged on a confirmed departure can trigger an agent that finds every other booking on that flight, and the operator decides which steps need a person to approve. It is integrated with Nezasa TripBuilder and can connect to other booking systems.",
+  "paragraphs": [
+    "Nezasa launched Tai Guard in Zurich on October 27, the flagship agent in Tai Workbench, its AI agent platform for travel sellers. Tai Guard checks every itinerary for flight, destination and connection risk while the seller can still change it: how each flight has actually performed, whether a country on the route has an active travel alert, and whether connections hold and the trip makes sense in sequence. Flight data comes from OAG, both historical and real-time. Each operator sets what Tai Guard checks and how strict it is. Findings can go to a person or to another agent; for example, a flight flagged on a confirmed departure can trigger an agent that finds every other booking on that flight, and the operator decides which steps need a person to approve. It is integrated with Nezasa TripBuilder and can connect to other booking systems."
+  ],
+  "whyItMatters": "A package or charter trip that looks profitable when it is sold can lose its margin when a tight connection breaks and the rebooking and hotel bill land on you. Catching weak connections and chronically late flights weeks before departure lets you fix the trip while seats are still cheap, instead of paying for recovery on the day. If you sell trips that combine your flights with other legs, ask how the risk rules are set and test it against last season's problem trips.",
+  "pricing": "Not published; contact Nezasa",
+  "sourceUrl": "https://nezasa.com/news/tai-guard-by-nezasa-powered-by-oag/",
+  "url": "https://nezasa.com/"
+}

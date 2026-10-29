@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(8);
+    expect(issues).toHaveLength(9);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-29",
       "2026-10-28",
       "2026-10-27",
       "2026-10-26",
@@ -75,20 +76,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "FBOs put robots on the ramp as line staff stay scarce. Plus 7 places to put AI and robotics to work",
+      "An AI pilot assistant flies on working Air Force tankers. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "contextere-imaple",
-      "amadeus-max-for-travelers",
-      "mtu-metavion",
-      "boeing-dataliner",
-      "oases-ai-assistant",
-      "kale-accs-miami",
-      "oracle-fusion-supply-planning-allocation",
-      "copilot-excel-get-data",
-      "gemini-slides-multi-slide-editing",
+      "gemini-immersive-explorations",
+      "nezasa-tai-guard",
+      "astraqua-astrasense",
+      "aerogility",
+      "incheon-ai-safety-management",
+      "swisslog-starlinks-mro-warehouse",
+      "log-x-turkish-technic-tire-warehouse",
+      "gemini-sheets-fill-citations",
+      "chatgpt-icloud-mail-calendar",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -108,7 +109,7 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(112);
+    expect(tools).toHaveLength(117);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
@@ -117,8 +118,10 @@ describe("segment config and sample content", () => {
       "ajw-apollo",
       "amadeus-max-for-travelers",
       "asi-operational-ai",
+      "astraqua-astrasense",
       "autostore-cube-storage",
       "autostore-robotic-cycle-counting",
+      "beacon-ai-murdock",
       "boeing-dataliner",
       "cae-ready-for-work",
       "contextere-imaple",
@@ -128,7 +131,9 @@ describe("segment config and sample content", () => {
       "ge-aerospace-celma-records-ai",
       "gulfstream-performance-analytics",
       "kale-accs-miami",
+      "log-x-turkish-technic-tire-warehouse",
       "mtu-metavion",
+      "nezasa-tai-guard",
       "oases-ai-assistant",
       "pratt-whitney-percept",
       "rolls-royce-optimiser",
@@ -137,6 +142,7 @@ describe("segment config and sample content", () => {
       "skywise-core-x3",
       "smartkargo-aircam",
       "smartkargo-aiuld",
+      "swisslog-starlinks-mro-warehouse",
       "tld-robotics-eztow",
       "uas-skyx",
       "unseq-baggage-hold-robot",
