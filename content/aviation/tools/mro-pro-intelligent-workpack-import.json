@@ -1,0 +1,17 @@
+{
+  "slug": "mro-pro-intelligent-workpack-import",
+  "segment": "aviation",
+  "name": "Intelligent Workpack Import (MRO-PRO)",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "MRO-PRO",
+  "summary": "MRO-PRO, an AI maintenance software company, added an Intelligent Workpack Import function that uses AI document processing to pull information out of incoming maintenance workpacks and turn it into structured digital data, cutting manual data entry, MRO Business Today reported on October 7. It also added a Customer Portal where MRO customers can see maintenance information, follow work in progress and work on documents together. At the same time, Airhub Aviation, part of Lithuania's GetJet Group, selected MRO-PRO to manage and coordinate its line maintenance operations; Airhub's chief technical officer said he expects the AI features to improve efficiency and streamline processes. MRO-PRO said it would exhibit at MRO Europe in Amsterdam this week, its first time there. The company has not published accuracy or time-saving figures for the import.",
+  "paragraphs": [
+    "MRO-PRO, an AI maintenance software company, added an Intelligent Workpack Import function that uses AI document processing to pull information out of incoming maintenance workpacks and turn it into structured digital data, cutting manual data entry, MRO Business Today reported on October 7. It also added a Customer Portal where MRO customers can see maintenance information, follow work in progress and work on documents together. At the same time, Airhub Aviation, part of Lithuania's GetJet Group, selected MRO-PRO to manage and coordinate its line maintenance operations; Airhub's chief technical officer said he expects the AI features to improve efficiency and streamline processes. MRO-PRO said it would exhibit at MRO Europe in Amsterdam this week, its first time there. The company has not published accuracy or time-saving figures for the import."
+  ],
+  "whyItMatters": "Every check starts with a planner retyping a customer's workpack into the shop's own system, and every retyped task card is a chance for a missed item. If AI can read the workpack and set up the work, planners spend their time on parts and labor instead of data entry, and a check can open sooner. Test it on your messiest customer's workpacks and count how many lines still need fixing by hand.",
+  "pricing": "Not published; contact MRO-PRO",
+  "sourceUrl": "https://mrobusinesstoday.com/airhub-aviation-selects-mro-pro-to-digitise-line-maintenance-operations/",
+  "url": "https://www.mro-pro.com/"
+}

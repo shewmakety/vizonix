@@ -1,0 +1,18 @@
+{
+  "slug": "surfos-operatoros",
+  "segment": "aviation",
+  "name": "SurfOS (OperatorOS and BrokerOS)",
+  "sample": false,
+  "category": "Flight operations",
+  "topic": "flight-operations",
+  "company": "Surf Air Mobility",
+  "summary": "SurfOS is Surf Air Mobility's AI-enabled software operating system for private aviation and regional airlines, powered by Palantir and built inside Surf Air's own commuter airline and charter business. OperatorOS is the module for aircraft operators; BrokerOS is the module for charter brokers and has been commercially live since December 2025. OperatorOS has FAA authorization as a system of record, letting Surf Air's airline use electronic signatures, records and manuals in place of paper. On October 29, 2026, Surf Air said it had signed OperatorOS agreements with five Part 135 operators (Sprintbach Aviation, SkyDance Air, Air Fuga, Clipper Aviation and Flying Zebra), earning a percentage of revenue on trips managed through the system, and a multi-year Enterprise BrokerOS contract with Wheels Up worth up to $12 million. It reports a 6 percent reduction in direct operating cost per block hour in its airline year to date, and plans AI-enabled modules for dynamic pricing, automated crew scheduling and aircraft-on-ground recovery, plus predictive maintenance workflows.",
+  "paragraphs": [
+    "SurfOS is Surf Air Mobility's AI-enabled software operating system for private aviation and regional airlines, powered by Palantir and built inside Surf Air's own commuter airline and charter business. OperatorOS is the module for aircraft operators; BrokerOS is the module for charter brokers and has been commercially live since December 2025. OperatorOS has FAA authorization as a system of record, letting Surf Air's airline use electronic signatures, records and manuals in place of paper.",
+    "On October 29, 2026, Surf Air said it had signed OperatorOS agreements with five Part 135 operators (Sprintbach Aviation, SkyDance Air, Air Fuga, Clipper Aviation and Flying Zebra), earning a percentage of revenue on trips managed through the system, and a multi-year Enterprise BrokerOS contract with Wheels Up worth up to $12 million. It reports a 6 percent reduction in direct operating cost per block hour in its airline year to date, and plans AI-enabled modules for dynamic pricing, automated crew scheduling and aircraft-on-ground recovery, plus predictive maintenance workflows."
+  ],
+  "whyItMatters": "Small Part 135 operators often run quoting, scheduling, crew pay and records on separate tools. One connected system paid as a share of trip revenue avoids a large upfront license, but costs rise with volume. The efficiency figures are Surf Air's own; ask for references from outside operators.",
+  "pricing": "OperatorOS: percentage of revenue on trips managed; BrokerOS enterprise contracts negotiated",
+  "sourceUrl": "https://www.businesswire.com/news/home/20261029755789/en/Surf-Air-Mobility-Provides-SurfOS-Business-Update-Highlighting-OperatorOS-Commercial-Launch-and-Enterprise-Growth-Priorities",
+  "url": "https://www.surfair.com/"
+}

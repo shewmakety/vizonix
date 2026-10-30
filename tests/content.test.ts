@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(9);
+    expect(issues).toHaveLength(10);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-10-30",
       "2026-10-29",
       "2026-10-28",
       "2026-10-27",
@@ -76,20 +77,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "An AI pilot assistant flies on working Air Force tankers. Plus 7 places to put AI and robotics to work",
+      "Small charter operators sign up for an AI operating system. Plus 7 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "gemini-immersive-explorations",
-      "nezasa-tai-guard",
-      "astraqua-astrasense",
-      "aerogility",
-      "incheon-ai-safety-management",
-      "swisslog-starlinks-mro-warehouse",
-      "log-x-turkish-technic-tire-warehouse",
-      "gemini-sheets-fill-citations",
-      "chatgpt-icloud-mail-calendar",
+      "jal-toyota-haneda-autonomous-towing",
+      "privatejet-wilbur",
+      "afi-klm-prognos",
+      "mro-pro-intelligent-workpack-import",
+      "menzies-morse-ai-assist",
+      "jungheinrich-deutsche-aircraft-warehouse",
+      "ncs-changi-iferret",
+      "gemini-app-file-creation",
+      "chatgpt-texting-your-dot",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -109,7 +110,7 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(117);
+    expect(tools).toHaveLength(124);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
@@ -130,18 +131,25 @@ describe("segment config and sample content", () => {
       "flyexclusive-contrails-fms",
       "ge-aerospace-celma-records-ai",
       "gulfstream-performance-analytics",
+      "jal-toyota-haneda-autonomous-towing",
+      "jungheinrich-deutsche-aircraft-warehouse",
       "kale-accs-miami",
       "log-x-turkish-technic-tire-warehouse",
+      "menzies-morse-ai-assist",
+      "mro-pro-intelligent-workpack-import",
       "mtu-metavion",
+      "ncs-changi-iferret",
       "nezasa-tai-guard",
       "oases-ai-assistant",
       "pratt-whitney-percept",
+      "privatejet-wilbur",
       "rolls-royce-optimiser",
       "sensos-jssi-tracking",
       "sita-occam-flightscape",
       "skywise-core-x3",
       "smartkargo-aircam",
       "smartkargo-aiuld",
+      "surfos-operatoros",
       "swisslog-starlinks-mro-warehouse",
       "tld-robotics-eztow",
       "uas-skyx",

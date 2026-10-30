@@ -17,6 +17,7 @@ const pages: Array<[string, string]> = [
   ["/", "Aviation"],
   ["/aviation", "maintenance / AOG teams"],
   ["/aviation/issues", "Boeing brings AI to fleet-wide maintenance data"],
+  ["/aviation/issues/2026-10-30", "Small charter operators sign up for an AI operating system"],
   ["/aviation/issues/2026-10-29", "An AI pilot assistant flies on working Air Force tankers"],
   ["/aviation/issues/2026-10-28", "robots on the ramp as line staff stay scarce"],
   ["/aviation/issues/2026-10-27", "driverless tow tractors reach a third airport"],
@@ -66,6 +67,13 @@ const pages: Array<[string, string]> = [
   ["/aviation/tools/swisslog-starlinks-mro-warehouse", "Swisslog"],
   ["/aviation/tools/log-x-turkish-technic-tire-warehouse", "Turkish Technic"],
   ["/aviation/tools/beacon-ai-murdock", "Murdock"],
+  ["/aviation/tools/surfos-operatoros", "SurfOS"],
+  ["/aviation/tools/jal-toyota-haneda-autonomous-towing", "Level 4 autonomous towing"],
+  ["/aviation/tools/privatejet-wilbur", "Wilbur"],
+  ["/aviation/tools/mro-pro-intelligent-workpack-import", "Intelligent Workpack Import"],
+  ["/aviation/tools/menzies-morse-ai-assist", "MORSE"],
+  ["/aviation/tools/jungheinrich-deutsche-aircraft-warehouse", "PowerCube"],
+  ["/aviation/tools/ncs-changi-iferret", "iFerret"],
   ["/aviation/tools/boeing-dataliner", "Boeing Dataliner"],
   ["/aviation/tools/oases-ai-assistant", "OASES AI Assistant"],
   ["/aviation/tools/kale-accs-miami", "Airport Cargo Community System"],
@@ -345,6 +353,13 @@ async function main() {
     if (!thursday29Issue.includes(titleDate("2026-10-29")) || thursday29Issue.includes(titleDate("2026-10-28"))) {
       throw new Error("The October 29 issue date did not stay on 10-29-2026.");
     }
+    const friday30Issue = await fetch(`${base}/aviation/issues/2026-10-30`).then((response) => response.text());
+    if (friday30Issue.includes("noindex")) {
+      throw new Error("The October 30 aviation issue is marked noindex.");
+    }
+    if (!friday30Issue.includes(titleDate("2026-10-30")) || friday30Issue.includes(titleDate("2026-10-29"))) {
+      throw new Error("The October 30 issue date did not stay on 10-30-2026.");
+    }
     if (thursdayIssue.includes("This quick-link slot is open") || thursdayIssue.includes("Classified - open")) {
       throw new Error("The issue still renders the classified quick-link slot.");
     }
@@ -367,6 +382,7 @@ async function main() {
 
     const sitemap = await fetch(`${base}/sitemap.xml`).then((response) => response.text());
     if (
+      !sitemap.includes("/aviation/issues/2026-10-30") ||
       !sitemap.includes("/aviation/issues/2026-10-29") ||
       !sitemap.includes("/aviation/issues/2026-10-28") ||
       !sitemap.includes("/aviation/issues/2026-10-27") ||
@@ -422,7 +438,7 @@ async function main() {
     }
 
     const mediaKit = await fetch(`${base}/media-kit`).then((response) => response.text());
-    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-29")) {
+    if (!mediaKit.includes("Tyler Shewmake") || !mediaKit.includes("/aviation/issues/2026-10-30")) {
       throw new Error("Media kit is missing the founder or the latest issue.");
     }
     const pdf = await fetch(`${base}/media-kit.pdf`);
