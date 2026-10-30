@@ -1,0 +1,223 @@
+{
+  "segment": "aviation",
+  "date": "2026-10-30",
+  "publishedAt": "2026-10-30T05:45:00-04:00",
+  "sample": false,
+  "subject": "Small charter operators sign up for an AI operating system. Plus 7 places to put AI and robotics to work",
+  "preheader": "Surf Air's SurfOS deals, Wilbur on Instagram, Prognos turns ten, driverless tugs in Haneda tunnels, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Five small charter operators sign up for an AI operating system built inside an airline, and Wheels Up commits up to $12 million to its broker side",
+    "summary": "Surf Air Mobility gave an update on October 29 on SurfOS, the AI-enabled software operating system it built inside its own commuter airline and charter business, powered by Palantir. It has signed definitive OperatorOS agreements with five small and mid-sized Part 135 operators: Sprintbach Aviation, SkyDance Air, Air Fuga, Clipper Aviation and Flying Zebra. Surf Air earns a percentage of revenue on every trip managed through OperatorOS and is now implementing those operators. OperatorOS has also received FAA authorization as a system of record, which lets Surf Air's airline use electronic signatures, records and manuals in place of paper. On the broker side, Wheels Up signed a multi-year Enterprise BrokerOS contract worth up to $12 million over its term. BrokerOS has been commercially live since December 2025, and Surf Air says that in its own charter business it is helping win more bookings with a faster quote-to-close time. Surf Air also reports a 6 percent reduction in direct operating cost per block hour in its airline so far in 2026, which it attributes to SurfOS efficiency gains. Recent modules include automated pilot pay, crew reserves, fuel optimization, CRM in BrokerOS, BrokerOS mobile apps and a travel agent portal. Next on its list are AI-enabled modules for dynamic pricing, automated crew scheduling and aircraft-on-ground recovery, plus predictive maintenance workflows. Palantir co-sells SurfOS to large prospects under an exclusive teaming agreement, and Surf Air says it has more than 450 operator relationships to sell into.",
+    "whyItMatters": "Small Part 135 operators usually run scheduling, quoting, crew pay and records on separate tools and spreadsheets, and every hand-off costs office hours and lost quotes. Software paid as a percentage of trip revenue means no large upfront license, but it also means you pay more as you grow, so run the numbers at your busiest month, not your slowest. The 6 percent cost cut and the faster quote-to-close are Surf Air's own figures from its own operation; ask for references from operators outside Surf Air before you sign, and ask exactly what data leaves your operation and who can see it.",
+    "sourceName": "Surf Air Mobility via Business Wire, October 29, 2026",
+    "sourceUrl": "https://www.businesswire.com/news/home/20261029755789/en/Surf-Air-Mobility-Provides-SurfOS-Business-Update-Highlighting-OperatorOS-Commercial-Launch-and-Enterprise-Growth-Priorities",
+    "productUrl": "/aviation/tools/surfos-operatoros"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "coverageNote": "Thin. No new AI or robotics recruiting tool for aviation surfaced since October 28. The item below is ground handling robotics that targets the labor shortage directly. We covered JAL's driverless towing at Fukuoka on October 27; this is a new step at Haneda.",
+      "tools": [
+        {
+          "name": "Level 4 autonomous towing tractor trials at Haneda (JAL and Toyota Industries)",
+          "slug": "jal-toyota-haneda-autonomous-towing",
+          "company": "Toyota Industries",
+          "summary": "Japan Airlines and Toyota Industries announced on October 30 that they will start trials in November 2026 to expand Level 4 autonomous towing at Tokyo Haneda, meaning fully unmanned operation under specific conditions, using a towing tractor built by Toyota Industries. JAL has run a Level 4 autonomous towing tractor commercially at Haneda since December 15, 2025, using shared signals and cameras installed by the Japan Civil Aviation Bureau. The new routes include tunnel sections, which the companies say are much harder than today's routes, and the trials will also test coordination with new shared infrastructure the bureau is building. The stated goals are better efficiency and lower labor demands in ground handling, with electric vehicles cutting emissions, and the companies have an eye on airports nationwide.",
+          "whyItMatters": "Every baggage and cargo run a tractor makes on its own is a driver you do not have to hire, train and schedule, at a time when ramp staff are the hardest people to keep. Watch how JAL handles the tunnel routes, because mixed traffic and poor sight lines are where most airports will struggle. If you run ground handling, start by counting the repeat routes that never change; those are the first candidates for driverless towing.",
+          "url": "/aviation/tools/jal-toyota-haneda-autonomous-towing",
+          "sourceUrl": "https://www.toyota-industries.com/news/2026/10/30/009103/index.html",
+          "vendorUrl": "https://www.toyota-industries.com/",
+          "pricing": "Not published; trials with JAL"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "Fresh data point on why AI assistants matter for selling seats: easyJet says organic traffic from ChatGPT to easyJet.com for flights is up 400 percent year on year, and traffic to its holidays site is up 125 percent. It launched a plugin on October 5 that lets travelers search flights, package holidays and live flight status inside ChatGPT, with bookings completed on easyJet's own sites.",
+      "introSourceUrl": "https://www.easyjet.com/en/news/airline/story/easyjet-chatgpt-flights-package-holidays",
+      "tools": [
+        {
+          "name": "Wilbur AI charter assistant on Instagram (PrivateJet.com)",
+          "slug": "privatejet-wilbur",
+          "company": "PrivateJet.com",
+          "summary": "PrivateJet.com, a Miami charter broker, said on October 29 that travelers can now send a direct message to @PrivateJet on Instagram and use Wilbur, its AI charter assistant, without leaving the app. Travelers say where they want to go, how many are flying and what they need, and Wilbur recommends and compares aircraft, shows photos, evaluates routes and gives estimated charter rates; it also answers general questions about aircraft and the charter process. PrivateJet.com says the estimates draw on more than one million charter quotes in its internal data. Wilbur handles the early stage of a request, and the company's advisors take over when a traveler is ready to book. It is also available on PrivateJet.com.",
+          "whyItMatters": "Most charter leads go cold in the hours between the first question and the first price. An assistant that answers inside the app where the customer already is, with a realistic estimate, keeps the lead warm until a person can close it. If you sell charter, look at where your inquiries actually start, and make sure any AI estimate is clearly an estimate so it does not set a price your team cannot honor.",
+          "url": "/aviation/tools/privatejet-wilbur",
+          "sourceUrl": "https://www.accessnewswire.com/newsroom/en/aerospace-and-defense/privatejet.com-brings-worlds-first-ai-private-jet-broker-assistant-wilbur-to-1243405",
+          "vendorUrl": "https://privatejet.com/wilbur/",
+          "pricing": "Free for travelers; PrivateJet.com's own tool, not sold to other operators"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "PROGNOS predictive maintenance suite (AFI KLM E&M)",
+          "slug": "afi-klm-prognos",
+          "company": "AFI KLM E&M",
+          "summary": "Air France Industries KLM Engineering and Maintenance marked ten years of Prognos on October 29. The suite now covers aircraft, engines and auxiliary power units: it analyzes operational data, and dedicated monitoring teams turn the alerts into maintenance recommendations for each operator. Prognos for APU, run by its subsidiary EPCOR, has grown from one customer in 2017 to more than 55 in 2026, monitors over 1,800 APUs across nine types and processes more than 3,500 APU reports a day. AFI KLM E&M says research through Prognos on Boeing 787 air-conditioning systems contributed in 2024 to a modification that improves Air Cycle Machine reliability across the worldwide 787 fleet, and that APU monitoring has allowed timely removals ahead of serious failures such as blade walk and bearing problems. Next, it plans to move toward prescriptive maintenance, using AI and refined algorithms to recommend not only that a part may fail but what action to take and when.",
+          "whyItMatters": "An APU that fails in service means a ground power cart, a hot cabin, a possible delay and often an expensive unplanned shop visit. Planned removals ahead of failure turn that into a scheduled job at a station with the spare already there. If you buy APU or engine monitoring as a service, ask how many alerts led to a confirmed finding, and who on their side reads the data, because the monitoring team is as important as the algorithm.",
+          "url": "/aviation/tools/afi-klm-prognos",
+          "sourceUrl": "https://www.afiklmem.com/en/press-release/afi-klm-e-m-celebrates-10-years-of-prognos-predictive-maintenance",
+          "vendorUrl": "https://www.afiklmem.com/en/solutions/about-prognos",
+          "pricing": "Not published; contact AFI KLM E&M"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "Thin. No new AI maintenance planning launch surfaced since October 28. The item below was announced on October 7 and we had not covered it; MRO-PRO was due to exhibit at MRO Europe this week.",
+      "tools": [
+        {
+          "name": "Intelligent Workpack Import (MRO-PRO)",
+          "slug": "mro-pro-intelligent-workpack-import",
+          "company": "MRO-PRO",
+          "summary": "MRO-PRO, an AI maintenance software company, added an Intelligent Workpack Import function that uses AI document processing to pull information out of incoming maintenance workpacks and turn it into structured digital data, cutting manual data entry, MRO Business Today reported on October 7. It also added a Customer Portal where MRO customers can see maintenance information, follow work in progress and work on documents together. At the same time, Airhub Aviation, part of Lithuania's GetJet Group, selected MRO-PRO to manage and coordinate its line maintenance operations; Airhub's chief technical officer said he expects the AI features to improve efficiency and streamline processes. MRO-PRO said it would exhibit at MRO Europe in Amsterdam this week, its first time there. The company has not published accuracy or time-saving figures for the import.",
+          "whyItMatters": "Every check starts with a planner retyping a customer's workpack into the shop's own system, and every retyped task card is a chance for a missed item. If AI can read the workpack and set up the work, planners spend their time on parts and labor instead of data entry, and a check can open sooner. Test it on your messiest customer's workpacks and count how many lines still need fixing by hand.",
+          "url": "/aviation/tools/mro-pro-intelligent-workpack-import",
+          "sourceUrl": "https://mrobusinesstoday.com/airhub-aviation-selects-mro-pro-to-digitise-line-maintenance-operations/",
+          "vendorUrl": "https://www.mro-pro.com/",
+          "pricing": "Not published; contact MRO-PRO"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "No new AI fault-finding tool for aircraft surfaced since October 28. The item below helps find the cause of ramp and ground incidents, which is troubleshooting for the operation rather than the aircraft.",
+      "tools": [
+        {
+          "name": "AI Assist and AI quality review in the MORSE safety system (Menzies Aviation)",
+          "slug": "menzies-morse-ai-assist",
+          "company": "Menzies Aviation",
+          "summary": "Menzies Aviation said on October 29 that it has added AI to MORSE, the safety management system it uses at 347 airports in 65 countries for incident and hazard reports, investigations and safety data. A built-in AI Assist helps employees complete reports and investigations more accurately and concisely, and an AI quality review checks incident reports for completeness and accuracy and suggests improvements, with people still making the safety-critical decisions. Menzies teams identified 46,950 hazards in 2025, up 29 percent, and the company says hazard reporting has prevented more than 6,800 potential disruptions so far this year, including an aircraft tyre defect found in Romania and undeclared dangerous goods caught in Uganda before loading. Menzies next plans to explore using the AI to find patterns and contributing factors behind incidents.",
+          "whyItMatters": "A vague incident report leads to a vague fix, and the same ramp damage happens again. AI that helps the person on shift write a complete, clear report means investigators spend less time chasing details and more time finding the real cause, and repeat damage is what drives your insurance and repair bills. If your handler or your own team writes safety reports, ask for the same thing: a check that flags a missing time, location or tail number before the report is filed.",
+          "url": "/aviation/tools/menzies-morse-ai-assist",
+          "sourceUrl": "https://menziesaviation.com/news/menzies-aviation-enhances-morse-safety-platform-with-ai-capabilities/",
+          "vendorUrl": "https://menziesaviation.com/",
+          "pricing": "Not for sale; used inside Menzies Aviation operations"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin. No new aviation warehouse automation item surfaced since October 28. The robotic store below opened earlier in October and we had not covered it.",
+      "tools": [
+        {
+          "name": "Jungheinrich PowerCube and automated narrow aisle warehouse at Deutsche Aircraft",
+          "slug": "jungheinrich-deutsche-aircraft-warehouse",
+          "company": "Jungheinrich",
+          "summary": "Jungheinrich has handed over an automated logistics center at Leipzig/Halle Airport to Deutsche Aircraft for D328eco regional aircraft production, Deutsche Aircraft announced on October 6. It is the first industrial installation that runs Jungheinrich's PowerCube automated compact bin storage and an automated very narrow aisle warehouse together under one control system. On about 210 square meters, the PowerCube holds more than 6,500 bins on 26 levels, with 16 shuttles moving bins to five workstations; often-used parts are stored low and rarely used parts drift to the upper levels over time. Two autonomous trucks store and retrieve 624 Euro pallets in two aisles, and every pallet is scanned and checked for size and weight on the move. The bin store runs in reduced oxygen to cut fire risk. Deutsche Aircraft is planning for up to 48 aircraft a year.",
+          "whyItMatters": "Floor space in or next to a hangar is expensive, and parts spread across shelves cost walking time on every job. Fitting 6,500 bins on roughly the footprint of a small office, with the robot bringing the bin to the person, frees floor for paying work. This is a production line, not an MRO, but the same layout suits a busy repair station's stores. Ask how the system tracks lot and serial numbers before you compare prices.",
+          "url": "/aviation/tools/jungheinrich-deutsche-aircraft-warehouse",
+          "sourceUrl": "https://www.deutscheaircraft.com/news/jungheinrich-deutsche-aircraft-a-pioneering-automated-warehouse-for-one-of-the-most-advanced-regional-aircraft-production-facilities",
+          "vendorUrl": "https://www.jungheinrich.com/",
+          "pricing": "Not disclosed; contact Jungheinrich"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "At MRO Europe on October 29, Boeing and Lufthansa Technik renewed their Tailored Parts Package for three years. It covers more than 6,500 Boeing part numbers across all Boeing commercial platforms, with Boeing running supply chain execution for those parts. This is a supply agreement, not an AI tool, but parts availability is still the biggest lever on AOG time.",
+      "introSourceUrl": "https://newsroom.lufthansa-technik.com/boeing-and-lufthansa-technik-extend-tailored-parts-deal/",
+      "coverageNote": "Thin. No new AOG-specific AI tool surfaced since October 28. The item below is about preventing one common cause of unplanned engine removals: debris on the runway.",
+      "tools": [
+        {
+          "name": "iFerret AI runway debris detection, third generation (Changi Airport Group and NCS)",
+          "slug": "ncs-changi-iferret",
+          "company": "NCS",
+          "summary": "NCS, a Singtel subsidiary, signed a memorandum of understanding with Changi Airport Group on October 29 to enhance and scale iFerret, the runway surveillance system the two developed together to spot foreign object debris. iFerret has watched Changi's runways around the clock for more than ten years. Lianhe Zaobao reported that the partners will build a third-generation system with more advanced AI that can find objects as small as about 4 cm with around 95 percent accuracy. NCS says AI has already improved iFerret's ability to tell real debris from shadows and reflections, and that new requirements are tested in the live airport before global deployment. No timeline or price was given.",
+          "whyItMatters": "A bolt or a piece of tire on the runway can mean an engine removal, weeks on the ground and a bill in the millions. Finding a 4 cm object quickly, without closing the runway for a sweep, protects aircraft and keeps runway time available. If you operate into airports that have automated debris detection, ask whether they share alerts with operators, and check that your own ramp sweeps happen at the times your aircraft are most exposed.",
+          "url": "/aviation/tools/ncs-changi-iferret",
+          "sourceUrl": "https://www.zaobao.com.sg/en/news/singapore/changi-airport-upgrade-ai-runway-monitoring-system-detect-objects-small-4cm",
+          "vendorUrl": "https://www.ncs.co/",
+          "pricing": "Not published; contact NCS"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived on October 29. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Create, preview and edit files in the Gemini app",
+          "slug": "gemini-app-file-creation",
+          "company": "Google",
+          "summary": "Google said on October 29 that you can now generate, preview and edit files right inside a Gemini app chat. You can expand to full screen to type edits yourself, highlight text to ask questions, or have Gemini refine it. Examples include slide decks you can open in Google Slides or download as PowerPoint or PDF, structured trackers and tables you can open in Google Sheets, and drafts of PDFs, Google Docs, Markdown or text files you can save to Drive. PDF preview and editing works on web and mobile; the other formats are web only. Google says it is available now to all Google Workspace customers, Workspace Individual subscribers and personal Google accounts in every language where the Gemini app is offered.",
+          "whyItMatters": "Quotes, customer decks, parts trackers and audit checklists all start as a blank file. Asking for a first draft and fixing it in the same window saves the copy and paste between tools, which adds up over a week of proposals. Check every number and part reference before anything goes to a customer or an inspector.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/create-preview-and-edit-files-directly-in-the-Gemini-app.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/create-preview-and-edit-files-directly-in-the-Gemini-app.html",
+          "vendorUrl": "https://gemini.google.com/",
+          "pricing": "Included in the Gemini app for Workspace and personal Google accounts"
+        },
+        {
+          "name": "Texting your dot in ChatGPT (beta)",
+          "slug": "chatgpt-texting-your-dot",
+          "company": "OpenAI",
+          "summary": "OpenAI's ChatGPT release notes for October 29 say Pro users in the U.S. can now start texting their dot, the always-on agent in ChatGPT, through iMessage or RCS, in beta. The dot can also text you first with updates that may be relevant. OpenAI says only you can text your dot and it can only text you, and it does not get access to your other text conversations. Texting shares the same memory and plugins as the dot in the ChatGPT app, so context carries over. OpenAI uses Linq, a third-party messaging provider, to send and receive the texts.",
+          "whyItMatters": "Owners, chief pilots and shop managers spend much of the day away from a desk. Sending a quick text to an agent that already knows your projects, for example to check a quote's status or draft a reply, can keep work moving between flights or from the hangar floor. It is a paid Pro feature in beta, so try it on low-stakes tasks first, and keep anything sensitive out of text messages.",
+          "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "sourceUrl": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "ChatGPT Pro plans, U.S. only, beta"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal on your behalf, such as following up on a task or texting you an update, with a person approving the important steps."
+    },
+    {
+      "term": "AI assistant",
+      "definition": "A chat tool that answers questions and gives estimates in plain language, such as a charter price for a route, before a person takes over to close the sale."
+    },
+    {
+      "term": "Automated compact bin storage",
+      "definition": "A robotic parts store where bins are stacked tightly in a grid and shuttles bring the bin you need to a workstation, so nobody walks the aisles to find a part."
+    },
+    {
+      "term": "Dynamic pricing",
+      "definition": "Software that adjusts the price of a seat or a charter trip based on demand, timing and available aircraft, instead of using a fixed rate card."
+    },
+    {
+      "term": "Foreign object debris detection",
+      "definition": "Cameras or sensors with AI that watch the runway and flag loose objects such as bolts or tire pieces, so crews can remove them before an aircraft runs over them."
+    },
+    {
+      "term": "Intelligent document processing",
+      "definition": "AI that reads documents such as maintenance workpacks and pulls the key details into structured data, so planners do not have to retype them."
+    },
+    {
+      "term": "Level 4 autonomous driving",
+      "definition": "A vehicle that drives itself with nobody on board, but only on set routes and under set conditions, such as a towing tractor on a known airport road."
+    },
+    {
+      "term": "Plugin",
+      "definition": "An add-on that connects an AI assistant such as ChatGPT to another company's service, so it can look up live flights, prices or your own data inside the chat."
+    },
+    {
+      "term": "Predictive maintenance",
+      "definition": "Using aircraft data to spot a part that is wearing out so it can be replaced at a planned stop, before it fails in service."
+    },
+    {
+      "term": "Prescriptive maintenance",
+      "definition": "The next step after predictive maintenance: the software recommends what action to take and when, not just which part may fail."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

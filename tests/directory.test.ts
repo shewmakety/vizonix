@@ -86,7 +86,7 @@ describe("tool directory topics", () => {
     });
     expect(chips.at(-1)?.key).toBe("general-ai");
     expect(chips.find((chip) => chip.key === "records-and-documentation")?.count).toBe(2);
-    expect(chips.find((chip) => chip.key === "flight-operations")?.count).toBe(5);
+    expect(chips.find((chip) => chip.key === "flight-operations")?.count).toBe(6);
     expect(chips.find((chip) => chip.key === "general-ai")?.count).toBe(15);
     expect(chips.some((chip) => chip.key === "other")).toBe(false);
     const pathChips = directoryChips("aviation", topics, tools, "path");

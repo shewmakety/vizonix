@@ -1,0 +1,17 @@
+{
+  "slug": "menzies-morse-ai-assist",
+  "segment": "aviation",
+  "name": "AI Assist and AI quality review in the MORSE safety system (Menzies Aviation)",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Menzies Aviation",
+  "summary": "Menzies Aviation said on October 29 that it has added AI to MORSE, the safety management system it uses at 347 airports in 65 countries for incident and hazard reports, investigations and safety data. A built-in AI Assist helps employees complete reports and investigations more accurately and concisely, and an AI quality review checks incident reports for completeness and accuracy and suggests improvements, with people still making the safety-critical decisions. Menzies teams identified 46,950 hazards in 2025, up 29 percent, and the company says hazard reporting has prevented more than 6,800 potential disruptions so far this year, including an aircraft tyre defect found in Romania and undeclared dangerous goods caught in Uganda before loading. Menzies next plans to explore using the AI to find patterns and contributing factors behind incidents.",
+  "paragraphs": [
+    "Menzies Aviation said on October 29 that it has added AI to MORSE, the safety management system it uses at 347 airports in 65 countries for incident and hazard reports, investigations and safety data. A built-in AI Assist helps employees complete reports and investigations more accurately and concisely, and an AI quality review checks incident reports for completeness and accuracy and suggests improvements, with people still making the safety-critical decisions. Menzies teams identified 46,950 hazards in 2025, up 29 percent, and the company says hazard reporting has prevented more than 6,800 potential disruptions so far this year, including an aircraft tyre defect found in Romania and undeclared dangerous goods caught in Uganda before loading. Menzies next plans to explore using the AI to find patterns and contributing factors behind incidents."
+  ],
+  "whyItMatters": "A vague incident report leads to a vague fix, and the same ramp damage happens again. AI that helps the person on shift write a complete, clear report means investigators spend less time chasing details and more time finding the real cause, and repeat damage is what drives your insurance and repair bills. If your handler or your own team writes safety reports, ask for the same thing: a check that flags a missing time, location or tail number before the report is filed.",
+  "pricing": "Not for sale; used inside Menzies Aviation operations",
+  "sourceUrl": "https://menziesaviation.com/news/menzies-aviation-enhances-morse-safety-platform-with-ai-capabilities/",
+  "url": "https://menziesaviation.com/"
+}

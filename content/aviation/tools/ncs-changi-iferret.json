@@ -1,0 +1,17 @@
+{
+  "slug": "ncs-changi-iferret",
+  "segment": "aviation",
+  "name": "iFerret AI runway debris detection, third generation (Changi Airport Group and NCS)",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "NCS",
+  "summary": "NCS, a Singtel subsidiary, signed a memorandum of understanding with Changi Airport Group on October 29 to enhance and scale iFerret, the runway surveillance system the two developed together to spot foreign object debris. iFerret has watched Changi's runways around the clock for more than ten years. Lianhe Zaobao reported that the partners will build a third-generation system with more advanced AI that can find objects as small as about 4 cm with around 95 percent accuracy. NCS says AI has already improved iFerret's ability to tell real debris from shadows and reflections, and that new requirements are tested in the live airport before global deployment. No timeline or price was given.",
+  "paragraphs": [
+    "NCS, a Singtel subsidiary, signed a memorandum of understanding with Changi Airport Group on October 29 to enhance and scale iFerret, the runway surveillance system the two developed together to spot foreign object debris. iFerret has watched Changi's runways around the clock for more than ten years. Lianhe Zaobao reported that the partners will build a third-generation system with more advanced AI that can find objects as small as about 4 cm with around 95 percent accuracy. NCS says AI has already improved iFerret's ability to tell real debris from shadows and reflections, and that new requirements are tested in the live airport before global deployment. No timeline or price was given."
+  ],
+  "whyItMatters": "A bolt or a piece of tire on the runway can mean an engine removal, weeks on the ground and a bill in the millions. Finding a 4 cm object quickly, without closing the runway for a sweep, protects aircraft and keeps runway time available. If you operate into airports that have automated debris detection, ask whether they share alerts with operators, and check that your own ramp sweeps happen at the times your aircraft are most exposed.",
+  "pricing": "Not published; contact NCS",
+  "sourceUrl": "https://www.zaobao.com.sg/en/news/singapore/changi-airport-upgrade-ai-runway-monitoring-system-detect-objects-small-4cm",
+  "url": "https://www.ncs.co/"
+}
