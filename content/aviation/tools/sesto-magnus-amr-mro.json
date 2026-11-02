@@ -1,0 +1,17 @@
+{
+  "slug": "sesto-magnus-amr-mro",
+  "segment": "aviation",
+  "name": "SESTO Magnus autonomous mobile robot for MRO parts delivery",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "SESTO Robotics",
+  "summary": "SESTO Robotics describes a deployment at an aerospace MRO facility where its Magnus autonomous mobile robot, fitted with custom shelving for large tote boxes, carries bulky and odd-sized parts from the storeroom to multiple repair stations. The robot navigates the facility on its own and avoids obstacles in a busy work area, making repeated batch deliveries through the day. SESTO says technicians can stay at their workstations instead of walking back and forth to stores, and that parts arrive on time even when the team is running back-to-back jobs. The case study does not name the facility or give numbers.",
+  "paragraphs": [
+    "SESTO Robotics describes a deployment at an aerospace MRO facility where its Magnus autonomous mobile robot, fitted with custom shelving for large tote boxes, carries bulky and odd-sized parts from the storeroom to multiple repair stations. The robot navigates the facility on its own and avoids obstacles in a busy work area, making repeated batch deliveries through the day. SESTO says technicians can stay at their workstations instead of walking back and forth to stores, and that parts arrive on time even when the team is running back-to-back jobs. The case study does not name the facility or give numbers."
+  ],
+  "whyItMatters": "Every trip a technician makes to stores is billable time not spent on the aircraft, and on a busy check those trips add up to whole shifts. A robot that brings the tote to the bay keeps skilled people on the work and keeps parts moving when stores is short-staffed. Count your walking trips for one week before you price a robot; that number is the business case.",
+  "pricing": "Not published; contact SESTO Robotics",
+  "sourceUrl": "https://www.sestorobotics.com/automated-delivery-of-aircraft-parts-from-storeroom-to-maintenance-repair-stations-in-an-aerospace-facility/",
+  "url": "https://www.sestorobotics.com/"
+}

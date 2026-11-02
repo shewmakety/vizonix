@@ -1,0 +1,18 @@
+{
+  "slug": "flyjets-jetgpt",
+  "segment": "aviation",
+  "name": "JetGPT AI charter agent (FlyJets)",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "FlyJets",
+  "summary": "JetGPT is the AI agent on FlyJets, a New York charter marketplace run as a benefit corporation that does not own or operate aircraft. Users type or speak a request, such as every empty leg out of a given airport this week or shared seats on a route this month, and JetGPT returns availability and pricing from the roughly 400 aircraft listed on FlyJets, which can be exported to a spreadsheet. It is built on a large language model FlyJets declined to name, using retrieval-augmented generation so answers come from FlyJets' own database, and FlyJets says prices are no more than five minutes old. JetGPT came out of beta in October 2026 after testing that began in February, Corporate Jet Investor reported on October 30. Users can book through it, with a hand-off to the standard checkout and a human advisory desk available. FlyJets takes no payment until an operator confirms the trip, says every client sees the same prices, and plans pricing suggestions for seat sellers over the coming year. It is free for FlyJets Exchange members for now.",
+  "paragraphs": [
+    "JetGPT is the AI agent on FlyJets, a New York charter marketplace run as a benefit corporation that does not own or operate aircraft. Users type or speak a request, such as every empty leg out of a given airport this week or shared seats on a route this month, and JetGPT returns availability and pricing from the roughly 400 aircraft listed on FlyJets, which can be exported to a spreadsheet. It is built on a large language model FlyJets declined to name, using retrieval-augmented generation so answers come from FlyJets' own database, and FlyJets says prices are no more than five minutes old.",
+    "JetGPT came out of beta in October 2026 after testing that began in February, Corporate Jet Investor reported on October 30. Users can book through it, with a hand-off to the standard checkout and a human advisory desk available. FlyJets takes no payment until an operator confirms the trip, says every client sees the same prices, and plans pricing suggestions for seat sellers over the coming year. It is free for FlyJets Exchange members for now."
+  ],
+  "whyItMatters": "Charter pricing still runs largely on phone and email. An agent that answers plain-language questions with live, bookable prices shortens the time from inquiry to booking, and operators whose empty legs are listed where agents can see them get found faster.",
+  "pricing": "Free for FlyJets Exchange members for now",
+  "sourceUrl": "https://www.corporatejetinvestor.com/news/flyjets-brings-ai-agent-out-of-beta-testing/",
+  "url": "https://www.flyjets.com/"
+}

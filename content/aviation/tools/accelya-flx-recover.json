@@ -1,0 +1,17 @@
+{
+  "slug": "accelya-flx-recover",
+  "segment": "aviation",
+  "name": "FLX Recover agentic disruption recovery (Accelya)",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "Accelya",
+  "summary": "Accelya launched FLX Recover on October 13 at World Aviation Festival in Lisbon. It uses AI agents, built on Amazon Bedrock AgentCore, to assess a disruption such as a cancelled hub departure, work through the affected passengers in parallel, compare rebooking options including onward connections and interline flights, and coordinate the follow-up: reaccommodation, passenger care, messages and compensation. Depending on the airline's own policies, it can recommend an action for a person to approve or carry it out automatically, and every action is logged. Accelya says it works with an airline's existing passenger service, order and customer systems rather than replacing them. It is available now and will also be sold through AWS Marketplace.",
+  "paragraphs": [
+    "Accelya launched FLX Recover on October 13 at World Aviation Festival in Lisbon. It uses AI agents, built on Amazon Bedrock AgentCore, to assess a disruption such as a cancelled hub departure, work through the affected passengers in parallel, compare rebooking options including onward connections and interline flights, and coordinate the follow-up: reaccommodation, passenger care, messages and compensation. Depending on the airline's own policies, it can recommend an action for a person to approve or carry it out automatically, and every action is logged. Accelya says it works with an airline's existing passenger service, order and customer systems rather than replacing them. It is available now and will also be sold through AWS Marketplace."
+  ],
+  "whyItMatters": "When an aircraft goes AOG, the repair is only half the cost; rebooking, hotels, meals and compensation for everyone on board can match it. Agentic AI that works through a full flight of passengers in minutes, within rules you set, cuts the overtime and the refunds that pile up while agents rebook one by one. Start with clear rules on what it may do on its own and what needs a person.",
+  "pricing": "Not published; also offered through AWS Marketplace",
+  "sourceUrl": "https://w3.accelya.com/resources/press-releases/flx-recover-airline-disruption-recovery/",
+  "url": "https://w3.accelya.com/"
+}

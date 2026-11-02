@@ -1,0 +1,17 @@
+{
+  "slug": "gpms-foresight-mx",
+  "segment": "aviation",
+  "name": "Foresight MX health and usage monitoring for Bell helicopters (GPMS)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "GPMS International",
+  "summary": "GPMS International said on October 5 that Wisk Air Helicopters, a Thunder Bay, Ontario operator flying firefighting, powerline, forestry, mining and remote access missions, will equip its Bell 412 and Bell 407GXi with Foresight MX, its health and usage monitoring system. Foresight MX pairs MEMS smart sensors with predictive analytics, monitors the health of its own sensors and gives access to the raw vibration signals so alerts can be checked, which GPMS says improves fault detection and cuts unnecessary troubleshooting from false alarms. Data uploads automatically after flights and can be reviewed in a browser even when the aircraft is away from base, and the system includes onboard track and balance. GPMS says it is the only non-OEM system of its kind fully supported by Bell Product Support on the Bell 505, 407, 429, 212 and 412. Wisk Air planned to start its program this fall.",
+  "paragraphs": [
+    "GPMS International said on October 5 that Wisk Air Helicopters, a Thunder Bay, Ontario operator flying firefighting, powerline, forestry, mining and remote access missions, will equip its Bell 412 and Bell 407GXi with Foresight MX, its health and usage monitoring system. Foresight MX pairs MEMS smart sensors with predictive analytics, monitors the health of its own sensors and gives access to the raw vibration signals so alerts can be checked, which GPMS says improves fault detection and cuts unnecessary troubleshooting from false alarms. Data uploads automatically after flights and can be reviewed in a browser even when the aircraft is away from base, and the system includes onboard track and balance. GPMS says it is the only non-OEM system of its kind fully supported by Bell Product Support on the Bell 505, 407, 429, 212 and 412. Wisk Air planned to start its program this fall."
+  ],
+  "whyItMatters": "A utility helicopter that breaks down at a remote fire camp is the most expensive kind of unscheduled maintenance: the parts, the mechanic and sometimes a replacement aircraft all have to travel to it. Spotting a bearing or gearbox trend a few flights early turns that into a planned fix at base. Ask any monitoring vendor how often its alerts turned out to be real, because false alarms cost hours too.",
+  "pricing": "Not published; contact GPMS",
+  "sourceUrl": "https://verticalmag.com/press-releases/wisk-air-helicopters-selects-gpms-hums-to-monitor-bell-412-and-bell-407gxi/",
+  "url": "https://verticalmag.com/press-releases/wisk-air-helicopters-selects-gpms-hums-to-monitor-bell-412-and-bell-407gxi/"
+}
