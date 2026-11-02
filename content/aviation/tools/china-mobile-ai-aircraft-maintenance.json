@@ -1,0 +1,17 @@
+{
+  "slug": "china-mobile-ai-aircraft-maintenance",
+  "segment": "aviation",
+  "name": "China Mobile AI-plus aircraft maintenance solution (with China Eastern)",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "China Mobile",
+  "summary": "The MRO and PMA exhibition organizers in China published a feature on November 2 describing China Mobile's AI-plus aircraft maintenance solution for airlines, airports and maintenance companies. It covers four maintenance settings: engines, components, hangar checks and line maintenance, and uses private 5G networks, computing power, computer vision and digital twin technology to cut maintenance risk, shorten time on the ground and raise efficiency. The solution grew out of several years of work with China Eastern Airlines. The two describe a series of industry firsts, including a 5G and AI robot system that detects wrongly installed or missing engine parts, a structured-light system that finds skin defects, a digital twin of a connected hangar, an augmented reality maintenance assistant and a large model trained for aviation maintenance. No performance figures or prices were published.",
+  "paragraphs": [
+    "The MRO and PMA exhibition organizers in China published a feature on November 2 describing China Mobile's AI-plus aircraft maintenance solution for airlines, airports and maintenance companies. It covers four maintenance settings: engines, components, hangar checks and line maintenance, and uses private 5G networks, computing power, computer vision and digital twin technology to cut maintenance risk, shorten time on the ground and raise efficiency. The solution grew out of several years of work with China Eastern Airlines. The two describe a series of industry firsts, including a 5G and AI robot system that detects wrongly installed or missing engine parts, a structured-light system that finds skin defects, a digital twin of a connected hangar, an augmented reality maintenance assistant and a large model trained for aviation maintenance. No performance figures or prices were published."
+  ],
+  "whyItMatters": "A missing clip or a wrongly fitted part found at engine run-up, or worse in service, costs far more than one found by a camera before the cowl closes. Robots and vision checks that look at every fastener the same way every time take some of the human error out of repetitive inspection steps. Outside China this exact package is unlikely to be on offer, but the list is a good map of where to look for similar tools.",
+  "pricing": "Not published",
+  "sourceUrl": "https://www.mro-pmaexhibition.com/en/news/176",
+  "url": "https://www.10086.cn/"
+}

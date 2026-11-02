@@ -1,0 +1,227 @@
+{
+  "segment": "aviation",
+  "date": "2026-11-02",
+  "publishedAt": "2026-11-02T05:45:00-05:00",
+  "sample": false,
+  "subject": "A charter marketplace takes its AI agent live. Plus 8 places to put AI and robotics to work",
+  "preheader": "FlyJets' JetGPT out of beta, Kenya Airways picks PROS, robot checks for engine parts, drones at ST Engineering, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "A charter marketplace takes its AI agent live: ask for every empty leg out of Van Nuys this week and get prices that are no more than five minutes old",
+    "summary": "New York charter marketplace FlyJets has moved JetGPT, its AI agent, out of beta and onto its web and mobile apps this month, Corporate Jet Investor reported on October 30. Testing began in February. Users type or speak requests such as every empty leg out of Van Nuys this week, or all shared seats on heavy jets from Los Angeles to Teterboro this month, and the agent returns availability and pricing from operators on the platform, about 400 aircraft, which can be exported to a spreadsheet. FlyJets says prices and availability are no more than five minutes old. It built the agent on a large language model it declined to name, using retrieval-augmented generation, so answers come from FlyJets' own database rather than general web knowledge; that also means it only sees operators listed on FlyJets. Users can book through JetGPT, which hands off to the normal checkout pages, and FlyJets' human advisory desk stays available. FlyJets does not take payment until an operator confirms it can fly the trip. CEO Jessica Fisher said JetGPT will not tailor prices to individual customers, and that every client sees the same pricing. JetGPT is free for FlyJets Exchange members for now. Next, over the coming year, FlyJets plans pricing suggestions for people selling seats, plus links to flyer and operator dashboards and fleet operating models.",
+    "whyItMatters": "Most charter pricing still lives in phone calls and email threads, and every hour spent chasing an empty-leg price is an hour a competitor can close the trip. An agent that answers a plain-language question with live, bookable prices shortens that loop for brokers and buyers alike. If you operate aircraft, listing your empty legs where these agents can see them is now part of selling them. If you build or buy one, insist on the same two things FlyJets highlights: answers drawn only from your own current data, and no payment until the operator confirms.",
+    "sourceName": "Corporate Jet Investor, October 30, 2026",
+    "sourceUrl": "https://www.corporatejetinvestor.com/news/flyjets-brings-ai-agent-out-of-beta-testing/",
+    "productUrl": "/aviation/tools/flyjets-jetgpt"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Not AI, but relevant to the technician pipeline: American Airlines and the Aviation Institute of Maintenance announced on October 30 a Charlotte partnership with $25,000 in scholarships for dual credit AMT students, mentoring from American's technicians, guaranteed interviews for top graduates, and a 10 percent tuition discount for anyone who works at Charlotte Douglas International Airport.",
+      "introSourceUrl": "https://www.aviationpros.com/aircraft-maintenance-technology/mros-repair-shops/press-release/55414993/american-airlines-announces-partnership-with-aim-to-expand-maintenance-career-pathways",
+      "coverageNote": "Thin. No new AI or robotics recruiting tool for aviation surfaced since October 30. The item below is about the AI jobs now being created inside MRO.",
+      "tools": [
+        {
+          "name": "Safran.AI Singapore AI Centre of Excellence for digital inspection",
+          "slug": "safran-ai-singapore",
+          "company": "Safran",
+          "summary": "Safran.AI, the Safran subsidiary that builds AI for imagery and industrial digital inspection, announced on October 29 that it will open its first international subsidiary in Singapore after Safran signed a memorandum of understanding with the Singapore Economic Development Board. The Centre of Excellence will first focus on automating digital inspection to support Singapore's MRO 4.0 ambitions for Safran, its partners and customers, and it will serve Safran.AI customers across Southeast Asia. Hiring starts in the first quarter of 2027, with roles including data scientists and AI engineers, and the unit is expected to grow to around 50 people over five years. Safran already employs about 900 people across five sites in Singapore.",
+          "whyItMatters": "The people who make AI inspection work in a hangar are a new kind of hire, and big players are now setting up dedicated teams to win them. If you run an MRO, expect competition for data scientists who understand maintenance, and consider growing that skill from inside: a technician who knows what a real defect looks like is the best person to check what an inspection model flags.",
+          "url": "/aviation/tools/safran-ai-singapore",
+          "sourceUrl": "https://www.safran-group.com/pressroom/safran-signs-memorandum-understanding-singapore-economic-development-board-and-chooses-singapore-new-2026-10-29",
+          "vendorUrl": "https://www.safran-group.com/companies/safran-ai",
+          "pricing": "Not applicable; new Safran unit, hiring from early 2027"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "intro": "The other side of AI pricing: Reuters reported on October 30 that as U.S. airlines use AI to help set fares, startups including JetBack, Junova and Refare watch fares after travelers book and claim refunds or credits when prices fall. Lawmakers are also asking questions about how airlines use AI in pricing.",
+      "introSourceUrl": "https://money.usnews.com/investing/news/articles/2026-10-30/as-us-airlines-deploy-ai-pricing-tools-startups-help-travelers-cash-in-on-fare-drops",
+      "tools": [
+        {
+          "name": "PROS Revenue Management Advantage at Kenya Airways",
+          "slug": "pros-revenue-management-advantage",
+          "company": "PROS",
+          "summary": "Kenya Airways said on October 30 that it has selected PROS, after an extensive evaluation of revenue management solutions, and will implement PROS Revenue Management Advantage. The airline says the AI-powered system combines advanced forecasting with network planning to help it anticipate demand, find revenue across its network and make faster commercial decisions. Kenya Airways described it as a foundation for offer optimization and its wider move to modern airline retailing. No contract value, timeline or results were disclosed.",
+          "whyItMatters": "Seats and charter hours are perishable: every one that leaves empty or sells too cheap is money gone for good. Better demand forecasting is how airlines decide when to hold a price and when to drop it. Smaller operators do not need an airline system to learn from this, but they should be tracking their own booking curves by route and season, because that history is what any forecasting tool will need first.",
+          "url": "/aviation/tools/pros-revenue-management-advantage",
+          "sourceUrl": "https://corporate.kenya-airways.com/en/news-press-release/2026/october/kenya-airways-selects-pros-ai-technology-to-improve-revenue-forecasting-and-commercial-performance/",
+          "vendorUrl": "https://pros.com/",
+          "pricing": "Not published; contact PROS"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "coverageNote": "Thin. No new predictive maintenance launch surfaced since October 30. The item below was announced on October 5 and we had not covered it.",
+      "tools": [
+        {
+          "name": "Foresight MX health and usage monitoring for Bell helicopters (GPMS)",
+          "slug": "gpms-foresight-mx",
+          "company": "GPMS International",
+          "summary": "GPMS International said on October 5 that Wisk Air Helicopters, a Thunder Bay, Ontario operator flying firefighting, powerline, forestry, mining and remote access missions, will equip its Bell 412 and Bell 407GXi with Foresight MX, its health and usage monitoring system. Foresight MX pairs MEMS smart sensors with predictive analytics, monitors the health of its own sensors and gives access to the raw vibration signals so alerts can be checked, which GPMS says improves fault detection and cuts unnecessary troubleshooting from false alarms. Data uploads automatically after flights and can be reviewed in a browser even when the aircraft is away from base, and the system includes onboard track and balance. GPMS says it is the only non-OEM system of its kind fully supported by Bell Product Support on the Bell 505, 407, 429, 212 and 412. Wisk Air planned to start its program this fall.",
+          "whyItMatters": "A utility helicopter that breaks down at a remote fire camp is the most expensive kind of unscheduled maintenance: the parts, the mechanic and sometimes a replacement aircraft all have to travel to it. Spotting a bearing or gearbox trend a few flights early turns that into a planned fix at base. Ask any monitoring vendor how often its alerts turned out to be real, because false alarms cost hours too.",
+          "url": "/aviation/tools/gpms-foresight-mx",
+          "sourceUrl": "https://verticalmag.com/press-releases/wisk-air-helicopters-selects-gpms-hums-to-monitor-bell-412-and-bell-407gxi/",
+          "pricing": "Not published; contact GPMS"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "tools": [
+        {
+          "name": "China Mobile AI-plus aircraft maintenance solution (with China Eastern)",
+          "slug": "china-mobile-ai-aircraft-maintenance",
+          "company": "China Mobile",
+          "summary": "The MRO and PMA exhibition organizers in China published a feature on November 2 describing China Mobile's AI-plus aircraft maintenance solution for airlines, airports and maintenance companies. It covers four maintenance settings: engines, components, hangar checks and line maintenance, and uses private 5G networks, computing power, computer vision and digital twin technology to cut maintenance risk, shorten time on the ground and raise efficiency. The solution grew out of several years of work with China Eastern Airlines. The two describe a series of industry firsts, including a 5G and AI robot system that detects wrongly installed or missing engine parts, a structured-light system that finds skin defects, a digital twin of a connected hangar, an augmented reality maintenance assistant and a large model trained for aviation maintenance. No performance figures or prices were published.",
+          "whyItMatters": "A missing clip or a wrongly fitted part found at engine run-up, or worse in service, costs far more than one found by a camera before the cowl closes. Robots and vision checks that look at every fastener the same way every time take some of the human error out of repetitive inspection steps. Outside China this exact package is unlikely to be on offer, but the list is a good map of where to look for similar tools.",
+          "url": "/aviation/tools/china-mobile-ai-aircraft-maintenance",
+          "sourceUrl": "https://www.mro-pmaexhibition.com/en/news/176",
+          "vendorUrl": "https://www.10086.cn/",
+          "pricing": "Not published"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "tools": [
+        {
+          "name": "Mainblades automated drone inspection, expanded with ST Engineering",
+          "slug": "mainblades",
+          "company": "Mainblades",
+          "summary": "ST Engineering Commercial Aerospace and Mainblades signed a memorandum of understanding at MRO Europe in Amsterdam to apply Mainblades' automated aircraft inspection technology across ST Engineering's MRO operations and facilities, in Singapore and beyond, MRO Business Today reported on October 30. Mainblades makes automated drone inspection for aircraft exteriors with AI-assisted damage detection. The agreement formalizes work the two have already done together on automated inspection in Singapore. No fleet numbers, timelines or prices were given.",
+          "whyItMatters": "Finding damage on the upper fuselage and wings usually means a lift, two or three people and most of a shift. A drone that flies a set path and flags possible damage for an inspector to review can turn that into a short job, which means faster answers after a lightning strike or a bird strike and less time with the aircraft out of service. Ask how the system records findings for your maintenance records before you sign.",
+          "url": "/aviation/tools/mainblades",
+          "sourceUrl": "https://mrobusinesstoday.com/st-engineering-and-mainblades-partner-to-advance-automated-aircraft-inspection/",
+          "vendorUrl": "https://www.mainblades.com/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation warehouse automation news surfaced since October 30. The item below is a vendor case study we had not covered, not a new announcement.",
+      "tools": [
+        {
+          "name": "SESTO Magnus autonomous mobile robot for MRO parts delivery",
+          "slug": "sesto-magnus-amr-mro",
+          "company": "SESTO Robotics",
+          "summary": "SESTO Robotics describes a deployment at an aerospace MRO facility where its Magnus autonomous mobile robot, fitted with custom shelving for large tote boxes, carries bulky and odd-sized parts from the storeroom to multiple repair stations. The robot navigates the facility on its own and avoids obstacles in a busy work area, making repeated batch deliveries through the day. SESTO says technicians can stay at their workstations instead of walking back and forth to stores, and that parts arrive on time even when the team is running back-to-back jobs. The case study does not name the facility or give numbers.",
+          "whyItMatters": "Every trip a technician makes to stores is billable time not spent on the aircraft, and on a busy check those trips add up to whole shifts. A robot that brings the tote to the bay keeps skilled people on the work and keeps parts moving when stores is short-staffed. Count your walking trips for one week before you price a robot; that number is the business case.",
+          "url": "/aviation/tools/sesto-magnus-amr-mro",
+          "sourceUrl": "https://www.sestorobotics.com/automated-delivery-of-aircraft-parts-from-storeroom-to-maintenance-repair-stations-in-an-aerospace-facility/",
+          "vendorUrl": "https://www.sestorobotics.com/",
+          "pricing": "Not published; contact SESTO Robotics"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Two parts-support deals reported on November 2, neither of them AI: Satair will manage consumable and expendable parts for Sabena technics' Airbus work with on-site stock and a pay-after-use model, the first independent European MRO on its Integrated Material Services program, and Air France-KLM and Airbus have formed Alpha Component Solutions, a 50/50 venture for A350 component pooling that already covers more than 500 aircraft.",
+      "introSourceUrl": "https://asianaviation.com/posts/mro-news-in-brief-02-november-2026",
+      "coverageNote": "Thin. No new AOG-specific AI tool surfaced since October 30. The item below, launched October 13, handles the passenger side of a disruption, which is often the biggest bill when an aircraft goes AOG.",
+      "tools": [
+        {
+          "name": "FLX Recover agentic disruption recovery (Accelya)",
+          "slug": "accelya-flx-recover",
+          "company": "Accelya",
+          "summary": "Accelya launched FLX Recover on October 13 at World Aviation Festival in Lisbon. It uses AI agents, built on Amazon Bedrock AgentCore, to assess a disruption such as a cancelled hub departure, work through the affected passengers in parallel, compare rebooking options including onward connections and interline flights, and coordinate the follow-up: reaccommodation, passenger care, messages and compensation. Depending on the airline's own policies, it can recommend an action for a person to approve or carry it out automatically, and every action is logged. Accelya says it works with an airline's existing passenger service, order and customer systems rather than replacing them. It is available now and will also be sold through AWS Marketplace.",
+          "whyItMatters": "When an aircraft goes AOG, the repair is only half the cost; rebooking, hotels, meals and compensation for everyone on board can match it. Agentic AI that works through a full flight of passengers in minutes, within rules you set, cuts the overtime and the refunds that pile up while agents rebook one by one. Start with clear rules on what it may do on its own and what needs a person.",
+          "url": "/aviation/tools/accelya-flx-recover",
+          "sourceUrl": "https://w3.accelya.com/resources/press-releases/flx-recover-airline-disruption-recovery/",
+          "vendorUrl": "https://w3.accelya.com/",
+          "pricing": "Not published; also offered through AWS Marketplace"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates arrived on October 30. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Account switching in the ChatGPT mobile apps",
+          "slug": "chatgpt-mobile-account-switching",
+          "company": "OpenAI",
+          "summary": "OpenAI's ChatGPT release notes for October 30 say account switching is rolling out to the ChatGPT iOS and Android apps. You can stay signed in to up to two ChatGPT accounts at once and switch between them without signing out, and each account keeps its own chats, memory, settings and subscription. It is under Settings, then Switch account.",
+          "whyItMatters": "Many owners and managers run a company ChatGPT account and a personal one, and mixing them means customer data in the wrong place or work lost in the wrong history. Switching cleanly on the phone keeps company work in the company account, which matters if your business plan has data protections your personal plan does not.",
+          "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "sourceUrl": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Included in the ChatGPT mobile apps"
+        },
+        {
+          "name": "Claude Ultra plan with no five-hour limit for verified accounts",
+          "slug": "claude-ultra-plan",
+          "company": "Anthropic",
+          "summary": "Anthropic renamed its Claude Max plans on October 30: Max 5x is now Max at $100 a month, and Max 20x is now Ultra at $200 a month, with no price change. Claude's help center says Ultra includes 10 times the Pro plan's usage every week, and verified Ultra accounts no longer have the five-hour limit, so you can work at your own pace within the weekly limit. Anthropic verifies accounts automatically using factors like account and payment history; until then a temporary limit applies. Ultra also includes Claude Code, background work on reports, spreadsheets and presentations, and monthly API credits.",
+          "whyItMatters": "Long jobs such as summarizing a stack of maintenance manuals, building a parts price comparison or drafting a full proposal used to stall when a session limit hit mid-task. Removing that limit lets a heavy user finish the job in one sitting. At $200 a month it only pays off for people who use AI for hours each day; most staff will do fine on a cheaper plan.",
+          "url": "https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan",
+          "sourceUrl": "https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan",
+          "vendorUrl": "https://claude.ai/",
+          "pricing": "Ultra $200 a month; Max $100 a month"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Agentic AI",
+      "definition": "AI that does not just answer a question but carries out a chain of steps, such as rebooking a full flight of passengers, within rules a person sets."
+    },
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal on your behalf, such as finding every matching charter flight and its price, with a person approving the important steps."
+    },
+    {
+      "term": "Augmented reality",
+      "definition": "Digital information laid over what a technician sees through a headset or tablet, such as the next task step or the location of a part."
+    },
+    {
+      "term": "Autonomous mobile robot",
+      "definition": "A robot cart that finds its own way around a building, avoiding people and obstacles, to carry parts or tools from one place to another."
+    },
+    {
+      "term": "Computer vision",
+      "definition": "AI that reads images or video from cameras to spot things such as a missing part, a dent or corrosion."
+    },
+    {
+      "term": "Demand forecasting",
+      "definition": "Using past bookings and market data to predict how many seats or flights customers will want, so prices and capacity can be set ahead of time."
+    },
+    {
+      "term": "Digital inspection",
+      "definition": "Using cameras, scanners and AI to check parts or aircraft surfaces for defects, instead of relying only on a person's eyes."
+    },
+    {
+      "term": "Digital twin",
+      "definition": "A live computer model of a real hangar, aircraft or operation that is updated with real data, so you can see status and test changes before making them."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The type of AI behind chat tools such as ChatGPT and Claude, trained on large amounts of text so it can read and write in plain language."
+    },
+    {
+      "term": "Predictive analytics",
+      "definition": "Software that looks at trends in data, such as vibration readings over many flights, to warn that a part is wearing out before it fails."
+    },
+    {
+      "term": "Retrieval-augmented generation",
+      "definition": "A way of building an AI assistant so it looks up answers in your own trusted data, such as live charter prices, instead of relying on what it learned in general training."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

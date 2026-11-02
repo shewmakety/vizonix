@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(10);
+    expect(issues).toHaveLength(11);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-11-02",
       "2026-10-30",
       "2026-10-29",
       "2026-10-28",
@@ -77,20 +78,20 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "Small charter operators sign up for an AI operating system. Plus 7 places to put AI and robotics to work",
+      "A charter marketplace takes its AI agent live. Plus 8 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "jal-toyota-haneda-autonomous-towing",
-      "privatejet-wilbur",
-      "afi-klm-prognos",
-      "mro-pro-intelligent-workpack-import",
-      "menzies-morse-ai-assist",
-      "jungheinrich-deutsche-aircraft-warehouse",
-      "ncs-changi-iferret",
-      "gemini-app-file-creation",
-      "chatgpt-texting-your-dot",
+      "safran-ai-singapore",
+      "pros-revenue-management-advantage",
+      "gpms-foresight-mx",
+      "china-mobile-ai-aircraft-maintenance",
+      "mainblades",
+      "sesto-magnus-amr-mro",
+      "accelya-flx-recover",
+      "chatgpt-mobile-account-switching",
+      "claude-ultra-plan",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -110,10 +111,11 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(124);
+    expect(tools).toHaveLength(131);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
+      "accelya-flx-recover",
       "aeroquote",
       "airtrek-groundwatch",
       "ajw-apollo",
@@ -125,11 +127,14 @@ describe("segment config and sample content", () => {
       "beacon-ai-murdock",
       "boeing-dataliner",
       "cae-ready-for-work",
+      "china-mobile-ai-aircraft-maintenance",
       "contextere-imaple",
       "fleetcraft-voice-to-log",
       "flightbridge-21x-ai-concierge",
       "flyexclusive-contrails-fms",
+      "flyjets-jetgpt",
       "ge-aerospace-celma-records-ai",
+      "gpms-foresight-mx",
       "gulfstream-performance-analytics",
       "jal-toyota-haneda-autonomous-towing",
       "jungheinrich-deutsche-aircraft-warehouse",
@@ -143,8 +148,11 @@ describe("segment config and sample content", () => {
       "oases-ai-assistant",
       "pratt-whitney-percept",
       "privatejet-wilbur",
+      "pros-revenue-management-advantage",
       "rolls-royce-optimiser",
+      "safran-ai-singapore",
       "sensos-jssi-tracking",
+      "sesto-magnus-amr-mro",
       "sita-occam-flightscape",
       "skywise-core-x3",
       "smartkargo-aircam",
