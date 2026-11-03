@@ -1,0 +1,17 @@
+{
+  "slug": "aws-part-substitution-assistant",
+  "segment": "aviation",
+  "name": "Agentic part-substitution assistant reference design (AWS)",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "Amazon Web Services",
+  "summary": "AWS published a reference design on November 2 for an AI assistant that helps aerospace engineers evaluate substitute parts when a qualified component goes obsolete or hits a long lead time, work AWS says can take an engineer days of cross-referencing datasheets, interface control documents and qualification records. A planner routes each question to three specialist AI agents: Catalog finds candidate parts, Evaluation scores them against tolerance rules written as ordinary code so the same inputs always give the same pass or flag result, and Knowledge answers from datasheets and checks live end-of-life notices on the web. It can also compare part photos using embeddings to spot differences in mounting patterns and connectors. The system drafts justification memos and impact assessments and writes an audit trail entry aligned with AS9100 sections 8.4 and 8.5.6, but it never recommends or approves a substitution; the engineer decides. It runs on Amazon Bedrock AgentCore with Anthropic Claude large language models, and the sample code on GitHub uses seven reaction wheels from a fictional maker.",
+  "paragraphs": [
+    "AWS published a reference design on November 2 for an AI assistant that helps aerospace engineers evaluate substitute parts when a qualified component goes obsolete or hits a long lead time, work AWS says can take an engineer days of cross-referencing datasheets, interface control documents and qualification records. A planner routes each question to three specialist AI agents: Catalog finds candidate parts, Evaluation scores them against tolerance rules written as ordinary code so the same inputs always give the same pass or flag result, and Knowledge answers from datasheets and checks live end-of-life notices on the web. It can also compare part photos using embeddings to spot differences in mounting patterns and connectors. The system drafts justification memos and impact assessments and writes an audit trail entry aligned with AS9100 sections 8.4 and 8.5.6, but it never recommends or approves a substitution; the engineer decides. It runs on Amazon Bedrock AgentCore with Anthropic Claude large language models, and the sample code on GitHub uses seven reaction wheels from a fictional maker."
+  ],
+  "whyItMatters": "When a part is out of stock with the aircraft on the ground, the first question is often whether an approved alternate exists, and digging that answer out of manuals and datasheets can burn hours of the most expensive downtime there is. A tool that assembles the evidence while a person makes the call shortens that search. In civil aviation any alternate still needs approved data, such as the parts catalog's interchangeability, a PMA or an engineering approval, so treat this as a way to find and document options faster, never as the approval itself.",
+  "pricing": "Sample code free on GitHub; you pay for the AWS services it uses",
+  "sourceUrl": "https://aws.amazon.com/blogs/machine-learning/agentic-engineering-intelligence-with-amazon-nova-multimodal-embeddings-and-amazon-bedrock-agentcore/",
+  "url": "https://aws.amazon.com/bedrock/agentcore/"
+}
