@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(11);
+    expect(issues).toHaveLength(12);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-11-03",
       "2026-11-02",
       "2026-10-30",
       "2026-10-29",
@@ -78,20 +79,21 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "A charter marketplace takes its AI agent live. Plus 8 places to put AI and robotics to work",
+      "Ryanair says AI already added 4% capacity, and it wants more. Plus 8 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "safran-ai-singapore",
-      "pros-revenue-management-advantage",
-      "gpms-foresight-mx",
-      "china-mobile-ai-aircraft-maintenance",
-      "mainblades",
-      "sesto-magnus-amr-mro",
-      "accelya-flx-recover",
-      "chatgpt-mobile-account-switching",
-      "claude-ultra-plan",
+      "aemtc-ai-borescope-training",
+      "jeju-air-hijeco",
+      "sky-ict-suvarnabhumi-humanoid-pilot",
+      "incheon-bhs-smart-monitoring",
+      "taski-robotic-floor-care-iah",
+      "hexagon-waygate-inspection",
+      "kardex-bininductai",
+      "aws-part-substitution-assistant",
+      "copilot-accounting-excel-cowork",
+      "google-vids-custom-avatar-upload",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -111,11 +113,12 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(131);
+    expect(tools).toHaveLength(139);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
       "accelya-flx-recover",
+      "aemtc-ai-borescope-training",
       "aeroquote",
       "airtrek-groundwatch",
       "ajw-apollo",
@@ -124,6 +127,7 @@ describe("segment config and sample content", () => {
       "astraqua-astrasense",
       "autostore-cube-storage",
       "autostore-robotic-cycle-counting",
+      "aws-part-substitution-assistant",
       "beacon-ai-murdock",
       "boeing-dataliner",
       "cae-ready-for-work",
@@ -136,9 +140,12 @@ describe("segment config and sample content", () => {
       "ge-aerospace-celma-records-ai",
       "gpms-foresight-mx",
       "gulfstream-performance-analytics",
+      "incheon-bhs-smart-monitoring",
       "jal-toyota-haneda-autonomous-towing",
+      "jeju-air-hijeco",
       "jungheinrich-deutsche-aircraft-warehouse",
       "kale-accs-miami",
+      "kardex-bininductai",
       "log-x-turkish-technic-tire-warehouse",
       "menzies-morse-ai-assist",
       "mro-pro-intelligent-workpack-import",
@@ -154,11 +161,13 @@ describe("segment config and sample content", () => {
       "sensos-jssi-tracking",
       "sesto-magnus-amr-mro",
       "sita-occam-flightscape",
+      "sky-ict-suvarnabhumi-humanoid-pilot",
       "skywise-core-x3",
       "smartkargo-aircam",
       "smartkargo-aiuld",
       "surfos-operatoros",
       "swisslog-starlinks-mro-warehouse",
+      "taski-robotic-floor-care-iah",
       "tld-robotics-eztow",
       "uas-skyx",
       "unseq-baggage-hold-robot",

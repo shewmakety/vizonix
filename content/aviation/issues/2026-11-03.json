@@ -1,0 +1,232 @@
+{
+  "segment": "aviation",
+  "date": "2026-11-03",
+  "publishedAt": "2026-11-03T05:45:00-05:00",
+  "sample": false,
+  "subject": "Ryanair says AI already added 4% capacity, and it wants more. Plus 8 places to put AI and robotics to work",
+  "preheader": "Ryanair leans on AI as fuel bites, Incheon predicts baggage system failures, Jeju Air's 180-language chatbot, robots cleaning IAH, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Ryanair puts AI on its cost-cutting list after a 2 billion euro fuel warning, and says AI scheduling has already squeezed 4% more capacity from its fleet",
+    "summary": "Ryanair reported first-half results on November 2: profit after tax fell 15% to 2.15 billion euros as the price of the 20% of its jet fuel it had not hedged doubled to about $130 a barrel, while traffic grew 6% to 125.8 million passengers. Looking ahead, the airline estimates its fuel bill for the year to March 2028 will rise by about 2 billion euros as its cheap hedges roll off. CEO Michael O'Leary said higher fares are unlikely to cover all of it, so Ryanair is reviewing all costs across its group airlines, with a particular focus on airport negotiations, maturing labour agreements that may require temporary pay freezes, lower crewing ratios and increased use of AI to drive further productivity in operations and in back-office and support functions. According to the Guardian, O'Leary said AI had already been used to increase capacity by 4%. \"When you're running 650 aircraft, it's too big for a human to be able to do it,\" he said. \"The machines can actually design the schedules better than we know [how to do], so we are getting more productivity out of the aircraft.\" Ryanair also said it is slowing hiring meaningfully for pilots, cabin crew and training courses, with almost no staff leaving. The Unite union said it has a multiyear pay deal covering next year and expects it to be honored. Ryanair did not say which AI tools it uses or put a figure on the savings it expects from AI.",
+    "whyItMatters": "When the largest low-cost airline in Europe names AI next to pay and airport fees as a cost lever, it tells you where every operator's budget conversation is heading. The 4% claim matters most: squeezing more flying out of the same aircraft through better schedules is the cheapest capacity there is, because the aircraft, crews and leases are already paid for. You do not need 600 jets to apply the idea. Charter operators, flight schools and MROs all build schedules by hand and leave slack in them. Start by measuring how many hours your aircraft, bays or instructors sit idle each week, then ask any scheduling tool vendor to show the gain on your own data before you buy.",
+    "sourceName": "The Guardian and Ryanair results, November 2, 2026",
+    "sourceUrl": "https://www.theguardian.com/business/2026/nov/02/ryanair-considers-pay-freezes-reducing-crew-on-flights-fuel-costs-soar-ai"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Not AI, but relevant to the charter sales pipeline: AIN reported on November 2 that Jet Mentis Academy has opened enrollment for its Charter Foundation, a program of 14 self-paced modules, each with its own exam, to train new private charter brokers. It covers the legal differences between Part 91 and Part 135, preparing quotes and working with operators and clients. Standard tuition is $3,995.",
+      "introSourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-11-02/jet-mentis-launches-charter-broker-training-foundation",
+      "coverageNote": "Thin. No new AI or robotics recruiting tool for aviation surfaced since October 30. The item below, reported on October 14, is about using AI to train engine technicians, and we had not covered it.",
+      "tools": [
+        {
+          "name": "AI-enabled borescope training at AEMTC",
+          "slug": "aemtc-ai-borescope-training",
+          "company": "Aero Engine Maintenance Training Center (AEMTC)",
+          "summary": "China's Aero Engine Maintenance Training Center, set up in 1996 through a partnership involving GE Aerospace, Safran Aircraft Engines, CFM International, China Aviation Supplies and Chinese aviation authorities, is introducing AI-enabled borescope training and mixed-reality teaching methods, MRO Business Today reported on October 14. The center says the aim is to make training more efficient and accurate while keeping human judgment at the center of inspection and maintenance decisions. Based at the Civil Aviation Flight University of China in Guanghan, Sichuan, the 7,500 square meter center has 10 training engines covering nine models, including the CFM56 family, LEAP-1A, LEAP-1B, LEAP-1C and CF34-10A, and had trained about 17,500 people from more than 120 airlines, MROs and manufacturers by the end of 2025. The report cites IATA figures projecting annual LEAP shop visits to rise from about 600 to 800 in 2025 to 1,800 to 2,000 by 2030. No details were given on how the AI training works.",
+          "whyItMatters": "Borescope inspection is one of the slowest skills to build, and a technician who misreads a blade can cost an engine removal or miss a real defect. If AI can show a trainee what good and bad findings look like on hundreds of examples, new hires reach a useful level sooner, which is billable time for an MRO short of engine people. When you hire, ask candidates what borescope training they have had, and ask training providers how much hands-on time sits behind any AI module.",
+          "url": "/aviation/tools/aemtc-ai-borescope-training",
+          "sourceUrl": "https://mrobusinesstoday.com/aemtc-expands-engine-mro-training-as-leap-shop-visits-rise/",
+          "pricing": "Not published; contact AEMTC"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "HiJeco generative AI chatbot and AI consultation assistant (Jeju Air)",
+          "slug": "jeju-air-hijeco",
+          "company": "Jeju Air",
+          "summary": "South Korean low-cost carrier Jeju Air said on November 2 that it is expanding AI in customer service, MoneyToday reported. It introduced an AI consultation assistant for its call center representatives in July last year to help them answer customers faster and more accurately, and it says the average number of inquiries its representatives handled each month from January to September rose 19.9% from the same period a year earlier. Online, it runs 1:1 chat inquiries and HiJeco, a generative AI chatbot that handles consultations in more than 180 languages. The share of foreign-language consultations through HiJeco rose from 14.1% in January to September last year to 23% in the same period this year. Jeju Air also runs quarterly training so representatives can rehearse inquiry scenarios before they happen.",
+          "whyItMatters": "Every unanswered message is a booking that goes to whoever replies first, and foreign-language travelers are often the ones left waiting. An assistant that helps each agent handle more inquiries, plus a chatbot that answers in the customer's own language around the clock, raises sales without adding headcount. Charter operators and FBOs can do the same at a smaller scale: track how many inquiries go unanswered after hours and in other languages, because that is the revenue an AI front desk can win back.",
+          "url": "/aviation/tools/jeju-air-hijeco",
+          "sourceUrl": "https://www.mt.co.kr/en/industry/2026/11/02/2026110209301212367",
+          "vendorUrl": "https://www.jejuair.net/",
+          "pricing": "Not applicable; Jeju Air's own service"
+        },
+        {
+          "name": "Humanoid robot pilot for passenger service at Suvarnabhumi Airport (SKY ICT)",
+          "slug": "sky-ict-suvarnabhumi-humanoid-pilot",
+          "company": "SKY ICT",
+          "summary": "Sky ICT, the Thai company behind check-in, pre-screening, automated bag drop, automated boarding gate and biometric systems at Thai airports, said on November 2 that it will pilot humanoid robots for services inside Suvarnabhumi Airport by the end of this year, along with new smart operations centers to make ground operations more efficient. CEO Sittidej Mailap described humanoid robots that can guide passengers on airport services the way staff do, and conventional robots that help move baggage or packages on airport conveyor belts. The company frames the plan in three phases: an aviation data hub, agentic AI for personalized service and predictive maintenance, and finally a more autonomous airport using automation, biometrics and robots. No robot maker, number of units, costs or performance targets were given in the announcement.",
+          "whyItMatters": "Passenger-facing robots are still pilots, not proven sales tools, but the airports trying them are testing whether a robot can answer the simple questions that tie up staff at peak times. If it works, staff are freed for the higher-value conversations that sell upgrades and services. Watch the results from Suvarnabhumi before spending on one yourself; the cheaper first step for most operators is a good chatbot.",
+          "url": "/aviation/tools/sky-ict-suvarnabhumi-humanoid-pilot",
+          "sourceUrl": "https://en.moneyandbanking.co.th/2026/283762/",
+          "vendorUrl": "https://www.skyict.co.th/",
+          "pricing": "Not applicable; pilot planned by the end of 2026"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "BHS Smart Monitoring System for baggage handling at Incheon Airport",
+          "slug": "incheon-bhs-smart-monitoring",
+          "company": "Incheon International Airport Corporation",
+          "summary": "Incheon International Airport Corporation said on November 2 that its BHS Smart Monitoring System has been running in the baggage handling system at Terminal 2 since October 26, the Korea Times reported. Sensors collect data from key equipment, including baggage sorters, the motors that drive the conveyors and the carousels in the arrival halls, and machine learning software analyzes it to find parts that are likely to fail. Results appear on a three-level color scale, green for normal, yellow for caution and red for danger, along with the likely cause of each problem, so maintenance crews can replace parts or take other steps before a fault occurs. Under the old approach, crews mostly repaired equipment after it had failed. The airport expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. No vendor, cost or results to date were disclosed.",
+          "whyItMatters": "A conveyor motor that fails in the morning bank delays bags, flights and connections, and the repair is always more expensive in a rush. Flagging the worn part days ahead turns an outage into a scheduled swap. The same idea applies to the ground equipment most operators own: tugs, GPUs, fuel trucks, hangar doors and compressors. Before you buy sensors, list the five machines whose failure costs you the most per hour, and start there.",
+          "url": "/aviation/tools/incheon-bhs-smart-monitoring",
+          "sourceUrl": "https://www.koreatimes.co.kr/business/20261102/incheon-intl-airport-uses-ai-to-predict-baggage-system-failures",
+          "vendorUrl": "https://www.airport.kr/",
+          "pricing": "Not applicable; the airport's own system"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "Thin. No new aircraft maintenance planning tool surfaced since October 30. The item below, announced October 30, is robotics for facility upkeep, which applies to terminals, FBOs and hangar offices.",
+      "tools": [
+        {
+          "name": "TASKI autonomous sweeper and scrubber robots at Houston Bush Intercontinental",
+          "slug": "taski-robotic-floor-care-iah",
+          "company": "TASKI",
+          "summary": "Houston Airports said on October 30 that four TASKI cleaning robots are now working at George Bush Intercontinental (IAH), making it the first U.S. airport to deploy the company's combination of autonomous sweepers and scrubbers. The machines went into operational use the week of August 10. A compact TASKI Phantas sweeps, vacuums, scrubs and dust-mops in the Terminal E security queue, an Ecobot 50 scrubs and dries the Terminal E mezzanine, and two Ecobot 40 sweepers work the Terminal D-West concourse, with manufacturer-rated coverage of roughly 7,500 to 19,400 square feet per hour depending on the model. Employees map and assign the routes; the robots use laser-based navigation, cameras and sensors to detect passengers, luggage and obstacles and adjust their paths, while custodians oversee routing, performance and maintenance. The airport says the robots are not replacing custodians but handling repetitive floor care so staff can focus on restrooms and high-touch surfaces. More robots are budgeted for Terminals A, D and E and the airport subway tunnel.",
+          "whyItMatters": "Floor care is steady, repetitive labor that eats hours every night in terminals, FBO lobbies and hangar offices. Moving it to a robot frees people for the tasks customers notice, such as clean restrooms and a tidy ramp lounge, without adding staff. Ask for the robot's real coverage on your own floors, since rated figures assume open space, and count the overnight labor hours it would replace.",
+          "url": "/aviation/tools/taski-robotic-floor-care-iah",
+          "sourceUrl": "https://www.fly2houston.com/airport-business/newsroom/articles/item/iah-is-first-u-s-airport-to-deploy-taski-robotic-sweeper-scrubber-combination/",
+          "vendorUrl": "https://taski.com/",
+          "pricing": "Not published; contact TASKI"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "Thin. No new AI troubleshooting tool for aviation surfaced since October 30. The item below is an ownership change at a major maker of inspection equipment used in engine shops, not a product launch.",
+      "tools": [
+        {
+          "name": "Waygate Technologies inspection portfolio, now part of Hexagon",
+          "slug": "hexagon-waygate-inspection",
+          "company": "Hexagon (Waygate Technologies)",
+          "summary": "Hexagon closed its acquisition of Waygate Technologies from Baker Hughes on November 2, Waygate announced. The deal was first announced on April 13. Waygate makes non-destructive testing equipment, including industrial computed tomography, field radiography, ultrasonic testing and remote visual inspection, the category that includes the videoscopes and borescopes used in engine shops, and it describes its tools as increasingly cloud-based and AI-enhanced. It now sits in Hexagon's Manufacturing Intelligence business, which is known for coordinate measuring machines, portable measuring devices, scanners and metrology software. The companies say combining them covers a part from its outside dimensions and surface through to its internal structure, for customers in aerospace, automotive and other industries. Waygate says customers keep their familiar products, services and contacts, and that ongoing projects, service agreements and orders continue without interruption. No product changes were announced.",
+          "whyItMatters": "Inspection equipment is only as useful as the service and software support behind it, and a borescope that is down for calibration is an engine that cannot be signed off. If your shop runs Waygate equipment, nothing changes today, but this is a good moment to confirm your service agreement, software updates and any AI defect-detection features you rely on are carried forward. Shops buying new inspection kit can ask whether surface scanning and internal inspection data will land in one record, which cuts the time spent matching findings by hand.",
+          "url": "/aviation/tools/hexagon-waygate-inspection",
+          "sourceUrl": "https://waygate-technologies.prezly.com/waygate-technologies-joins-hexagon-stronger-together-in-measurement-technology-and-non-destructive-testing",
+          "vendorUrl": "https://www.waygate-tech.com/",
+          "pricing": "Contact the vendor"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation warehouse automation news surfaced since October 30. The item below is a general warehouse launch from October 27 that applies to MRO and parts stores running AutoStore robotic storage, such as Satair's Singapore site.",
+      "tools": [
+        {
+          "name": "BinInductAI computer vision bin induction for AutoStore (Kardex)",
+          "slug": "kardex-bininductai",
+          "company": "Kardex",
+          "summary": "Kardex launched BinInductAI on October 27, an add-on for the AutoStore automated storage and retrieval system, where robots on a grid fetch storage bins and deliver them to picking ports. BinInductAI uses computer vision and AI-based image analysis when bins are loaded into the system. An operator places a bin in the induction port with no manual scanning or pre-checks, and the system checks that the bin is present, inspects the bin walls and the holes the robots use to lift it, and confirms the barcode can be read. It then checks with AutoStore that the bin is not already registered, to prevent duplicates, and sends the commands to put it into the grid. Damaged, dirty or out-of-spec bins are flagged before they can disrupt the grid. Kardex says it cuts on-site induction time by up to 30%. It joins other Kardex AutoStore add-ons, including its FulfillX warehouse execution software, a picking assistant that projects instructions onto the port, and PortScale weighing.",
+          "whyItMatters": "In a parts store, a duplicate or unreadable bin is a part the system cannot find, and that is how a part on the shelf turns into an AOG purchase from someone else. Catching bad bins and barcodes at the door keeps inventory records honest. If you are installing or expanding robotic storage, ask your integrator how bins are checked during loading and how errors are caught, because that is when most bad data gets in.",
+          "url": "/aviation/tools/kardex-bininductai",
+          "sourceUrl": "https://kardex-us.prezly.com/faster-more-accurate-autostore-implementation-with-kardex-ai-powered-bininductai",
+          "vendorUrl": "https://www.kardex.com/",
+          "pricing": "Not published; contact Kardex"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Not AI, but worth knowing before you trust a marketplace search: Aviation Week reported on November 3 that better inventory systems are improving visibility across the aircraft parts market, but speculative listings, repair backlogs and documentation gaps still create uncertainty about what can actually be supplied. Parts listed on digital marketplaces might not actually be sitting on the shelves.",
+      "introSourceUrl": "https://aviationweek.com/mro/supply-chain/ghost-listings-cloud-certainty-aircraft-parts-market",
+      "coverageNote": "Thin. No new AOG-specific AI product surfaced since October 30. The item below is a reference design published by AWS on November 2, not a finished product, and its sample data is spacecraft parts.",
+      "tools": [
+        {
+          "name": "Agentic part-substitution assistant reference design (AWS)",
+          "slug": "aws-part-substitution-assistant",
+          "company": "Amazon Web Services",
+          "summary": "AWS published a reference design on November 2 for an AI assistant that helps aerospace engineers evaluate substitute parts when a qualified component goes obsolete or hits a long lead time, work AWS says can take an engineer days of cross-referencing datasheets, interface control documents and qualification records. A planner routes each question to three specialist AI agents: Catalog finds candidate parts, Evaluation scores them against tolerance rules written as ordinary code so the same inputs always give the same pass or flag result, and Knowledge answers from datasheets and checks live end-of-life notices on the web. It can also compare part photos using embeddings to spot differences in mounting patterns and connectors. The system drafts justification memos and impact assessments and writes an audit trail entry aligned with AS9100 sections 8.4 and 8.5.6, but it never recommends or approves a substitution; the engineer decides. It runs on Amazon Bedrock AgentCore with Anthropic Claude large language models, and the sample code on GitHub uses seven reaction wheels from a fictional maker.",
+          "whyItMatters": "When a part is out of stock with the aircraft on the ground, the first question is often whether an approved alternate exists, and digging that answer out of manuals and datasheets can burn hours of the most expensive downtime there is. A tool that assembles the evidence while a person makes the call shortens that search. In civil aviation any alternate still needs approved data, such as the parts catalog's interchangeability, a PMA or an engineering approval, so treat this as a way to find and document options faster, never as the approval itself.",
+          "url": "/aviation/tools/aws-part-substitution-assistant",
+          "sourceUrl": "https://aws.amazon.com/blogs/machine-learning/agentic-engineering-intelligence-with-amazon-nova-multimodal-embeddings-and-amazon-bedrock-agentcore/",
+          "vendorUrl": "https://aws.amazon.com/bedrock/agentcore/",
+          "pricing": "Sample code free on GitHub; you pay for the AWS services it uses"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. Both updates were posted on November 2. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Accounting capabilities in Copilot in Excel and Cowork",
+          "slug": "copilot-accounting-excel-cowork",
+          "company": "Microsoft",
+          "summary": "Microsoft's message center notice MC1536053, posted November 2, says new accounting capabilities are coming to Microsoft 365 Copilot in Excel and Cowork. Users can reconcile accounts by comparing balances and transactions and preparing reconciling items for review, draft journal entries such as accruals, reclassifications, allocations, reversals and recurring entries with checks for required inputs and balanced entries, and analyze performance against plan with variance analysis and financial reporting. Additional capabilities cover budgeting, forecasting, audit, tax and compliance. In Excel, users can choose to capture an audit trail of what Copilot changed and why. Copilot prepares the work, and nothing is posted to an ERP or system of record without user approval. Public preview started rolling out in late October for licensed users enrolled in Microsoft's Frontier program, and general availability starts rolling out on November 13, completing by late November.",
+          "whyItMatters": "Month-end close in a small charter company, FBO or repair station often comes down to one person matching fuel invoices, card charges and work orders by hand. Help drafting reconciliations and accruals, with a person approving every entry, shortens that close and catches mismatches sooner, which is cash you can chase. Turn on the audit trail so your accountant can see what the AI changed.",
+          "url": "https://mc.merill.net/message/MC1536053",
+          "sourceUrl": "https://mc.merill.net/message/MC1536053",
+          "vendorUrl": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+          "pricing": "Requires a Microsoft Copilot license"
+        },
+        {
+          "name": "Custom avatars from an uploaded image in Google Vids",
+          "slug": "google-vids-custom-avatar-upload",
+          "company": "Google",
+          "summary": "Google's Workspace Updates blog said on November 2 that users can now upload an image to create a custom AI avatar in Google Vids, its video creation app. You choose an image from your computer, Drive or Photos, refine it inside Vids to clean up the background or lighting, and the avatar is saved to the project so it can be reused consistently across a video. This adds to the existing option of building a custom avatar from scratch. The rollout to Rapid Release domains started on October 30 and may take up to 15 days; Scheduled Release domains start on November 20. It is available on Business Starter, Standard and Plus, Enterprise plans, Education Plus, personal Google accounts and Google AI Pro and Ultra, among other editions. There is no admin control for the feature.",
+          "whyItMatters": "Short training and safety videos, such as a ramp briefing, a new customer welcome or a parts receiving procedure, are cheap to script but slow to film. A consistent avatar presenter lets one person produce and update them without booking a camera or pulling staff off the floor. Only use a real person's photo with their written consent, and keep a human review on any video that carries safety content.",
+          "url": "https://workspaceupdates.googleblog.com/2026/11/create-a-custom-avatar-google-vids.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/11/create-a-custom-avatar-google-vids.html",
+          "vendorUrl": "https://workspace.google.com/products/vids/",
+          "pricing": "Included in eligible Google Workspace and Google AI plans"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal on your behalf, such as finding candidate replacement parts and checking their specs, with a person approving the important steps."
+    },
+    {
+      "term": "Automated storage and retrieval system",
+      "definition": "A storage setup where robots or machines fetch bins or trays and bring them to a person at a picking station, instead of staff walking the shelves."
+    },
+    {
+      "term": "Autonomous robot",
+      "definition": "A robot that moves and does its job on its own along routes people set, using sensors to avoid people and obstacles, such as a floor-cleaning robot in a terminal."
+    },
+    {
+      "term": "Computer vision",
+      "definition": "AI that reads images or video from cameras to check things, such as whether a storage bin is damaged or a barcode can be read."
+    },
+    {
+      "term": "Embeddings",
+      "definition": "A way for AI to turn text or pictures into numbers so it can measure how alike two things are, such as two photos of similar parts."
+    },
+    {
+      "term": "Generative AI",
+      "definition": "AI that writes new text, images or video in response to a request, such as a chatbot answering a customer or a video avatar reading a script."
+    },
+    {
+      "term": "Humanoid robot",
+      "definition": "A robot built roughly in the shape of a person, with a head, arms and sometimes legs, so it can work in spaces designed for people."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The type of AI behind chat tools such as ChatGPT, Claude and Copilot, trained on large amounts of text so it can read and write in plain language."
+    },
+    {
+      "term": "Machine learning",
+      "definition": "Software that learns patterns from past data, such as motor readings before earlier failures, and uses them to make predictions about new data."
+    },
+    {
+      "term": "Predictive maintenance",
+      "definition": "Using sensor data and AI to spot equipment that is likely to fail soon, so it can be fixed on schedule instead of after it breaks."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

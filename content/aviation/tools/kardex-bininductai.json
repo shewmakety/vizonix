@@ -1,0 +1,17 @@
+{
+  "slug": "kardex-bininductai",
+  "segment": "aviation",
+  "name": "BinInductAI computer vision bin induction for AutoStore (Kardex)",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "Kardex",
+  "summary": "Kardex launched BinInductAI on October 27, an add-on for the AutoStore automated storage and retrieval system, where robots on a grid fetch storage bins and deliver them to picking ports. BinInductAI uses computer vision and AI-based image analysis when bins are loaded into the system. An operator places a bin in the induction port with no manual scanning or pre-checks, and the system checks that the bin is present, inspects the bin walls and the holes the robots use to lift it, and confirms the barcode can be read. It then checks with AutoStore that the bin is not already registered, to prevent duplicates, and sends the commands to put it into the grid. Damaged, dirty or out-of-spec bins are flagged before they can disrupt the grid. Kardex says it cuts on-site induction time by up to 30%. It joins other Kardex AutoStore add-ons, including its FulfillX warehouse execution software, a picking assistant that projects instructions onto the port, and PortScale weighing.",
+  "paragraphs": [
+    "Kardex launched BinInductAI on October 27, an add-on for the AutoStore automated storage and retrieval system, where robots on a grid fetch storage bins and deliver them to picking ports. BinInductAI uses computer vision and AI-based image analysis when bins are loaded into the system. An operator places a bin in the induction port with no manual scanning or pre-checks, and the system checks that the bin is present, inspects the bin walls and the holes the robots use to lift it, and confirms the barcode can be read. It then checks with AutoStore that the bin is not already registered, to prevent duplicates, and sends the commands to put it into the grid. Damaged, dirty or out-of-spec bins are flagged before they can disrupt the grid. Kardex says it cuts on-site induction time by up to 30%. It joins other Kardex AutoStore add-ons, including its FulfillX warehouse execution software, a picking assistant that projects instructions onto the port, and PortScale weighing."
+  ],
+  "whyItMatters": "In a parts store, a duplicate or unreadable bin is a part the system cannot find, and that is how a part on the shelf turns into an AOG purchase from someone else. Catching bad bins and barcodes at the door keeps inventory records honest. If you are installing or expanding robotic storage, ask your integrator how bins are checked during loading and how errors are caught, because that is when most bad data gets in.",
+  "pricing": "Not published; contact Kardex",
+  "sourceUrl": "https://kardex-us.prezly.com/faster-more-accurate-autostore-implementation-with-kardex-ai-powered-bininductai",
+  "url": "https://www.kardex.com/"
+}

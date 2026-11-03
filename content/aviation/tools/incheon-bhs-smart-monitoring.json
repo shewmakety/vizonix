@@ -1,0 +1,17 @@
+{
+  "slug": "incheon-bhs-smart-monitoring",
+  "segment": "aviation",
+  "name": "BHS Smart Monitoring System for baggage handling at Incheon Airport",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Incheon International Airport Corporation",
+  "summary": "Incheon International Airport Corporation said on November 2 that its BHS Smart Monitoring System has been running in the baggage handling system at Terminal 2 since October 26, the Korea Times reported. Sensors collect data from key equipment, including baggage sorters, the motors that drive the conveyors and the carousels in the arrival halls, and machine learning software analyzes it to find parts that are likely to fail. Results appear on a three-level color scale, green for normal, yellow for caution and red for danger, along with the likely cause of each problem, so maintenance crews can replace parts or take other steps before a fault occurs. Under the old approach, crews mostly repaired equipment after it had failed. The airport expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. No vendor, cost or results to date were disclosed.",
+  "paragraphs": [
+    "Incheon International Airport Corporation said on November 2 that its BHS Smart Monitoring System has been running in the baggage handling system at Terminal 2 since October 26, the Korea Times reported. Sensors collect data from key equipment, including baggage sorters, the motors that drive the conveyors and the carousels in the arrival halls, and machine learning software analyzes it to find parts that are likely to fail. Results appear on a three-level color scale, green for normal, yellow for caution and red for danger, along with the likely cause of each problem, so maintenance crews can replace parts or take other steps before a fault occurs. Under the old approach, crews mostly repaired equipment after it had failed. The airport expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. No vendor, cost or results to date were disclosed."
+  ],
+  "whyItMatters": "A conveyor motor that fails in the morning bank delays bags, flights and connections, and the repair is always more expensive in a rush. Flagging the worn part days ahead turns an outage into a scheduled swap. The same idea applies to the ground equipment most operators own: tugs, GPUs, fuel trucks, hangar doors and compressors. Before you buy sensors, list the five machines whose failure costs you the most per hour, and start there.",
+  "pricing": "Not applicable; the airport's own system",
+  "sourceUrl": "https://www.koreatimes.co.kr/business/20261102/incheon-intl-airport-uses-ai-to-predict-baggage-system-failures",
+  "url": "https://www.airport.kr/"
+}
