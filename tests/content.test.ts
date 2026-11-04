@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(11);
+    expect(issues).toHaveLength(12);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-11-04",
       "2026-11-02",
       "2026-10-30",
       "2026-10-29",
@@ -78,20 +79,22 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "A charter marketplace takes its AI agent live. Plus 8 places to put AI and robotics to work",
+      "Arab airlines get an AI agent for lost and delayed bags. Plus 8 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "safran-ai-singapore",
-      "pros-revenue-management-advantage",
-      "gpms-foresight-mx",
-      "china-mobile-ai-aircraft-maintenance",
-      "mainblades",
-      "sesto-magnus-amr-mro",
-      "accelya-flx-recover",
-      "chatgpt-mobile-account-switching",
-      "claude-ultra-plan",
+      "gh-italia-comau-exoskeleton-bologna",
+      "birmingham-airport-babs",
+      "truealtitude-passenger-engagement",
+      "fpt-skywise-vietnam-airlines-ai-lab",
+      "akzonobel-mixit-aerospace",
+      "aerosense-ai-portable-maintenance-assistant",
+      "jungheinrich-eac-212a",
+      "ai-usm-parts-trading-outlook",
+      "copilot-chat-built-in-document-creation",
+      "copilot-chat-fair-use-limits",
+      "google-meet-green-room-policy-notice",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -111,20 +114,24 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(131);
+    expect(tools).toHaveLength(139);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
       "accelya-flx-recover",
       "aeroquote",
+      "aerosense-ai-portable-maintenance-assistant",
+      "ai-usm-parts-trading-outlook",
       "airtrek-groundwatch",
       "ajw-apollo",
+      "akzonobel-mixit-aerospace",
       "amadeus-max-for-travelers",
       "asi-operational-ai",
       "astraqua-astrasense",
       "autostore-cube-storage",
       "autostore-robotic-cycle-counting",
       "beacon-ai-murdock",
+      "birmingham-airport-babs",
       "boeing-dataliner",
       "cae-ready-for-work",
       "china-mobile-ai-aircraft-maintenance",
@@ -133,11 +140,14 @@ describe("segment config and sample content", () => {
       "flightbridge-21x-ai-concierge",
       "flyexclusive-contrails-fms",
       "flyjets-jetgpt",
+      "fpt-skywise-vietnam-airlines-ai-lab",
       "ge-aerospace-celma-records-ai",
+      "gh-italia-comau-exoskeleton-bologna",
       "gpms-foresight-mx",
       "gulfstream-performance-analytics",
       "jal-toyota-haneda-autonomous-towing",
       "jungheinrich-deutsche-aircraft-warehouse",
+      "jungheinrich-eac-212a",
       "kale-accs-miami",
       "log-x-turkish-technic-tire-warehouse",
       "menzies-morse-ai-assist",
@@ -160,6 +170,7 @@ describe("segment config and sample content", () => {
       "surfos-operatoros",
       "swisslog-starlinks-mro-warehouse",
       "tld-robotics-eztow",
+      "truealtitude-passenger-engagement",
       "uas-skyx",
       "unseq-baggage-hold-robot",
     ]);

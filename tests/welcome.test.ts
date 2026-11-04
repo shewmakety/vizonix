@@ -89,16 +89,16 @@ describe("welcome email on confirm", () => {
     expect(payload.html).toContain("short AI briefing every weekday morning for Aviation");
     expect(payload.html).toContain("admin@vizonix.com");
     expect(payload.html).toContain(
-      "A charter marketplace takes its AI agent live: ask for every empty leg out of Van Nuys this week and get prices that are no more than five minutes old",
+      "Arab airlines can now hand routine lost and delayed bag cases to an AI agent, with a person taking over the hard ones",
     );
-    expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-11-02");
+    expect(payload.html).toContain("https://vizonix.com/aviation/issues/2026-11-04");
     expect(payload.html).toContain("https://vizonix.com/aviation/toolbox?src=email");
     expect(payload.html).toContain("The Vizonix Toolbox");
     expect(payload.html).toContain("Open the Toolbox");
     expect(payload.html).not.toContain("Visit the Toolbox");
     expect(payload.html).toContain(">READ ON WEB<");
     expect(payload.text).toContain("Open the Toolbox: https://vizonix.com/aviation/toolbox?src=email");
-    expect(payload.text).toContain("READ ON WEB: https://vizonix.com/aviation/issues/2026-11-02");
+    expect(payload.text).toContain("READ ON WEB: https://vizonix.com/aviation/issues/2026-11-04");
     expect(payload.html).toContain("/aviation/unsubscribe?token=");
     expect(payload.html).toContain("Contact us at:");
     expect(payload.html).toContain(">CUSTOMIZE<");

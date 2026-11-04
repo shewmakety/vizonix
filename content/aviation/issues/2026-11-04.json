@@ -1,0 +1,238 @@
+{
+  "segment": "aviation",
+  "date": "2026-11-04",
+  "publishedAt": "2026-11-04T05:45:00-05:00",
+  "sample": false,
+  "subject": "Arab airlines get an AI agent for lost and delayed bags. Plus 8 places to put AI and robotics to work",
+  "preheader": "SITA's Bag Mate comes to Arab airlines, Vietnam Airlines and Skywise open an AI lab, Birmingham Airport's 24/7 assistant, an exoskeleton for baggage handlers, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Arab airlines can now hand routine lost and delayed bag cases to an AI agent, with a person taking over the hard ones",
+    "summary": "The Arab Air Carriers' Organization (AACO) and SITA signed a memorandum of understanding on November 3 at AACO's 59th annual general meeting in Doha that makes SITA WorldTracer Bag Mate available to AACO member airlines, on preferential terms for those that join. Passengers report a delayed, damaged or lost bag on the airline's website or WhatsApp in their own words. The AI works out what they mean, asks only for the details still missing and works within each airline's rules. It then opens a case in WorldTracer, SITA's global baggage tracing system, updates the passenger as the bag is traced and answers follow-up questions. When a case needs human judgment, a specialist takes over with the full story already captured. SITA runs it as a fully managed service. Citing its 2026 Baggage IT Insights report, SITA says mishandled bags cost the industry $6.3 billion in 2025, even though mishandling rates fell 23%, and three in four were delayed rather than lost or damaged. SITA says pilot results show Bag Mate could automate a significant share of passenger interactions, but it gave no figure, and further pilots will test it at higher passenger volumes.",
+    "whyItMatters": "Every delayed bag turns into calls, emails and desk visits, and most of them ask the same question: where is my bag? An agent that takes the report, opens the trace and keeps the passenger updated takes that repeat work off your staff and cuts the complaints that cost you repeat business. You do not need to be an airline to use the idea. FBOs, charter operators and ground handlers field the same kind of repeat questions about bags, catering and trip status. Count how many of your inbound messages are status questions, because those are the first ones an AI agent can answer, with a person kept on anything that needs judgment.",
+    "sourceName": "SITA, November 3, 2026",
+    "sourceUrl": "https://www.sita.aero/about-us/pressroom/news-releases/aaco-and-sita-come-together-to-put-ai-to-work-on-baggage-disruption-for-arab-airlines/"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Not AI, but a useful read on hiring: in its third-quarter update on November 3, Lufthansa Technik said it employed 22,036 people on September 30, 4% fewer than a year earlier, while it welcomed 287 new apprentices and dual students to meet customer demand over the long term.",
+      "introSourceUrl": "https://newsroom.lufthansa-technik.com/lufthansa-technik-remains-on-track-after-a-strong-third-quarter/",
+      "coverageNote": "Thin. No new AI recruiting tool for aviation surfaced since November 2. The item below, reported on October 29, is robotics aimed at keeping baggage handlers healthy, which matters for retention.",
+      "tools": [
+        {
+          "name": "Comau passive exoskeletons for baggage handlers at Bologna Airport (GH Italia)",
+          "slug": "gh-italia-comau-exoskeleton-bologna",
+          "company": "GH Italia (devices made by Comau)",
+          "summary": "Ground handler GH Italia has introduced exoskeletons at Bologna's Marconi airport for staff who move bags from the check-in conveyors onto the carts that go to the aircraft hold, Italian news agency DIRE reported on October 29. The devices, made by Comau and certified, are carbon fiber frames worn like a small backpack, strapped to the arms and around the hips with padded straps. They are passive and mechanical, with no motor or battery: springs and elastic materials store energy as the wearer bends and give it back during the lift. They help the wearer move their back correctly and reduce the load on shoulders and arms. The airport says the maker estimates they can ease the load on arms, shoulders and back by up to 50%. GH Italia has enough devices to cover a whole team per shift, each adjustable to the wearer. Bologna is the first test site, and GH Italia aims to extend the devices to other Italian airports afterward.",
+          "whyItMatters": "Back and shoulder injuries are a main reason ramp and baggage staff go out on leave or quit, and every lost handler is another hire to recruit and train. A passive exoskeleton has no battery to charge and costs far less than a powered suit, so it is an easy pilot. Before you buy, ask your staff to wear one for a full shift, and compare injury reports and sick days before and after, since the 50% figure is the maker's estimate.",
+          "url": "/aviation/tools/gh-italia-comau-exoskeleton-bologna",
+          "sourceUrl": "https://www.dire.it/29-10-2026/1282290-si-indossa-come-uno-zaino-e-dimezza-il-peso-dei-bagagli-un-esoscheletro-aiuta-i-facchini-allaeroporto-di-bologna/",
+          "vendorUrl": "https://www.comau.com/",
+          "pricing": "Not published; contact Comau"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "BABS AI passenger assistant at Birmingham Airport (Hello Lamp Post)",
+          "slug": "birmingham-airport-babs",
+          "company": "Birmingham Airport and Hello Lamp Post",
+          "summary": "Future Travel Experience reported this month that Birmingham Airport's AI customer assistant, BABS, built with conversational AI company Hello Lamp Post, gives passengers instant answers around the clock, online and in the terminal. It has handled thousands of enquiries on check-in, security, baggage, car parking, lounges, accessibility services and terminal facilities, and it adapts its guidance to where the passenger is asking from, whether planning ahead or walking through the airport. The airport analyzes the conversations to spot trends and recurring questions and improve the customer journey. Birmingham says it is exploring more personalization, more languages, links to other airport systems and self-service options, and possibly using BABS to help staff and day-to-day operations. No usage counts beyond thousands of enquiries, costs or results were published.",
+          "whyItMatters": "Parking, lounges and other paid services are where an airport or FBO makes money beyond the flight, and a customer who cannot get a quick answer often does not buy. An assistant that answers at 2 a.m. keeps those sales, and the questions it logs tell you which services people want and cannot find. Start by pulling your last month of calls and emails, and list the ten questions you answer most, because those are what a chatbot should handle first.",
+          "url": "/aviation/tools/birmingham-airport-babs",
+          "sourceUrl": "https://www.futuretravelexperience.com/2026/11/birmingham-airport-uses-ai-assistant-babs-to-enhance-passenger-experience-and-customer-support/",
+          "vendorUrl": "https://www.hlp.city/",
+          "pricing": "Not published; contact Hello Lamp Post"
+        },
+        {
+          "name": "TrueAltitude AI passenger engagement platform",
+          "slug": "truealtitude-passenger-engagement",
+          "company": "TrueAltitude",
+          "summary": "TrueAltitude launched a cloud-based passenger engagement platform on November 2 for airlines with high-speed inflight connectivity, Onboard Hospitality reported. It gives each airline a branded digital space passengers can use through the trip, with interactive flight and airport maps, destination information, on-demand and live entertainment including free ad-supported streaming channels, shopping, travel services and an order-to-seat function for buying onboard. AI personalization picks the content, recommendations and advertising based on the flight, the destination and the stage of the journey. Airlines can connect loyalty services and see analytics on engagement and sales, and the business model rests on curated advertising and brand partnerships. The company is targeting connected narrowbody fleets, especially low-cost carriers, and says it is in commercial talks covering more than 1,000 connected aircraft. No airline customers were named.",
+          "whyItMatters": "Operators are paying for satellite connectivity, and a passenger who only checks email gives nothing back on that cost. Showing the right offer at the right moment, such as a ground transfer near landing or a destination tour on a leisure route, can turn connectivity into revenue. For business aviation the same idea applies to a branded cabin portal for repeat clients. Ask any vendor for real sales per flight from a live customer, since none were published here.",
+          "url": "/aviation/tools/truealtitude-passenger-engagement",
+          "sourceUrl": "https://www.onboardhospitality.com/truealtitude-targets-new-airline-revenues-with-ai-powered-passenger-engagement-platform/",
+          "vendorUrl": "https://truealtitude.ai/",
+          "pricing": "Not published; contact TrueAltitude"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "Aviation AI Lab for fleet reliability (FPT, Skywise and Vietnam Airlines)",
+          "slug": "fpt-skywise-vietnam-airlines-ai-lab",
+          "company": "FPT, Skywise (Airbus) and Vietnam Airlines",
+          "summary": "FPT, Vietnam Airlines and Skywise, the Airbus digital services company, signed a memorandum of understanding announced on November 4 at the Vietnam Aerospace Forum in Hanoi to explore AI-powered services. The first focus is fleet reliability, technical operations and disruption management: combining Skywise data with maintenance planning, parts readiness and flight schedules to improve aircraft availability and help the airline weigh recovery options faster when things go wrong. The three plan a joint Aviation AI Lab with engineering, maintenance, IT and data specialists. The next step is a workshop at Vietnam Airlines to agree on business goals, data needs and success measures, and to pick up to four use cases to assess. Vietnam Airlines flies more than 100 aircraft, including Boeing 787s and Airbus A350s. This is an agreement to explore, so no products, costs or results exist yet.",
+          "whyItMatters": "The most useful detail is the order of work: business goals, data and success measures first, then up to four use cases. That is the right way for any operator to start with predictive maintenance, and it avoids paying for a tool before you know which failures cost you the most. Before you talk to a vendor, write down your top delay causes by ATA chapter and how much each one cost last year, then ask which ones their models can predict on your own data.",
+          "url": "/aviation/tools/fpt-skywise-vietnam-airlines-ai-lab",
+          "sourceUrl": "https://fptsoftware.com/newsroom/news-and-press-releases/press-release/fpt-vna-airbus-to-advance-ai-powered-airline-operations",
+          "vendorUrl": "https://www.skywise.com/",
+          "pricing": "Not applicable; an exploratory agreement"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "Thin. No new AI maintenance planning tool surfaced since November 2. The item below is a digital tool for paint shops, not AI, reported on November 2 after its launch at MRO Europe.",
+      "tools": [
+        {
+          "name": "MIXIT digital colour retrieval for aircraft coatings (AkzoNobel)",
+          "slug": "akzonobel-mixit-aerospace",
+          "company": "AkzoNobel Aerospace Coatings",
+          "summary": "AkzoNobel Aerospace Coatings has brought its MIXIT digital colour retrieval system to aviation, MRO Business Today reported on November 2, after launching it at MRO Europe in Amsterdam. The cloud-based platform lets MRO providers, airline paint shops and distributors look up approved colour formulas on desktops, tablets and phones. When the formula is unknown, a connected spectrophotometer, a handheld colour-measuring device, scans the aircraft surface or a paint sample and finds the closest match in the database. Technicians then use a mixing wall and precision scales to prepare the coating with the right tints, hardeners and thinners. The first database has more than 2,700 formulas for frequently requested tints of Topcoat FR2-55, a coating used for cabin interiors. Exterior coating formulas are planned for 2027, and AkzoNobel is considering stock management, e-commerce, reporting and customer-stored formulas for the same year. The system has been used in car refinishing for about a decade.",
+          "whyItMatters": "A cabin panel that waits for the right paint is an aircraft that cannot go back to service, and mixing on site from a verified formula saves the wait for a shipment or a second try at matching by eye. If your shop does cabin touch-ups, ask how many of the colours you use are already in the database and what the scanner costs, since exterior colours do not arrive until 2027.",
+          "url": "/aviation/tools/akzonobel-mixit-aerospace",
+          "sourceUrl": "https://mrobusinesstoday.com/akzonobel-introduces-mixit-digital-colour-system-for-aerospace-coatings/",
+          "vendorUrl": "https://aerospace.akzonobel.com/",
+          "pricing": "Not published; contact AkzoNobel"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "coverageNote": "The item below is a university project that won a national award, not a commercial product yet.",
+      "tools": [
+        {
+          "name": "AeroSense AI portable ground maintenance assistant (National Formosa University)",
+          "slug": "aerosense-ai-portable-maintenance-assistant",
+          "company": "National Formosa University AeroSense AI team",
+          "summary": "A student team at Taiwan's National Formosa University has built a portable ground maintenance assistant that uses generative AI, Commercial Times reported on November 2. It won the gold medal in the student AI application category of the Ministry of Economic Affairs' Smart Innovation Award. The system replaces large, wired test equipment with a lightweight handheld device that pulls data wirelessly. It keeps analyzing air pressure, stress and other sensor readings from flight to flag sensors, equipment or parts of the airframe that may be going wrong before a warning threshold is reached. It also uses a large language model with retrieval-augmented generation to compare the readings and fault codes with the maintenance manual and suggest likely causes and where to look. The team says it cut operating time for specific maintenance tasks by about 50% compared with L-3 equipment in current use, and it weighs about 72.4% less than an industry-standard unit. The team plans to start with trainers, propeller aircraft and small jets before larger airliners.",
+          "whyItMatters": "Most troubleshooting time goes into reading the fault, finding the right manual page and ruling out causes one by one, and it leans on the few senior technicians who have seen it before. A handheld tool that ties the live data to the manual can help a less experienced technician get to the likely fix faster. This one is still a student project, so treat it as a sign of where tools are going. When a vendor shows you something similar, ask it to cite the exact manual task for every suggestion.",
+          "url": "/aviation/tools/aerosense-ai-portable-maintenance-assistant",
+          "sourceUrl": "https://www.ctee.com.tw/news/20261102700432-431202",
+          "pricing": "Not applicable; a university project"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No new aviation warehouse automation news surfaced since November 2. The item below is a general warehouse robot launched for sale on November 2 that fits pallet moves in parts stores and MRO receiving.",
+      "tools": [
+        {
+          "name": "EAC 212a autonomous mobile robot (Jungheinrich)",
+          "slug": "jungheinrich-eac-212a",
+          "company": "Jungheinrich",
+          "summary": "Jungheinrich officially started selling its EAC 212a autonomous mobile robot on November 2, Warehouse and Logistics News reported. Introduced at the LogiMAT 2026 trade show, it was built for automated pallet transport and uses a built-in lift to connect different parts of the material flow: goods receipt, storage, production and dispatch. It links floor storage spots, lanes, block storage, conveyors, automated storage and retrieval systems, and production and packaging equipment. Jungheinrich's product page lists a capacity of up to 1,200 kg and a lift range of 250 to 1,200 mm. The company says interest before the launch exceeded its expectations, and it stresses easy integration into existing operations. No prices or customer names were given.",
+          "whyItMatters": "In a parts store or MRO receiving dock, staff spend hours driving pallets from the dock to storage and from storage to the shop. A robot that does those repeat runs frees a forklift driver for the loads that need judgment, such as engines or oversize crates. Measure how many pallet moves you make per shift and how far they travel before asking for a quote, because short, repeated runs are where these robots pay back.",
+          "url": "/aviation/tools/jungheinrich-eac-212a",
+          "sourceUrl": "https://warehousenews.co.uk/2026/11/jungheinrich-launches-sales-of-autonomous-robot/",
+          "vendorUrl": "https://www.jungheinrich.ie/automation/mobile-robots/low-level-applications/eac-212a-2582760",
+          "pricing": "Not published; contact Jungheinrich"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Not AI, but more used parts are coming to market: Aviation Week reported on November 3 that Setna iO has bought four Airbus A320-200 airframes previously flown by Spirit Airlines, which it will take apart in Goodyear, Arizona, and process the recovered components as used serviceable material.",
+      "introSourceUrl": "https://aviationweek.com/mro/mro-industry-rolling-daily-updates-november-2026",
+      "coverageNote": "Thin. No new AOG-specific AI product surfaced since November 2. The item below is industry commentary from October 21 on how parts traders are using AI, not a product launch.",
+      "tools": [
+        {
+          "name": "AI in used serviceable material trading, per traders at AJW, APOC and GA Telesis",
+          "slug": "ai-usm-parts-trading-outlook",
+          "company": "Aviation Week (Inside MRO)",
+          "summary": "Aviation Week's MRO Memo of October 21 asked parts traders how AI is changing the used serviceable material market, which is drawing private equity, institutional and lessor money as demand surges. AJW Group's chief commercial officer Scott Symington said automated inventory tracking and forecasting can cut errors and delays, and that AJW's own system uses probabilistic modeling to balance service levels against the capital tied up in stock; he expects prediction to matter more for positioning material before it is needed. Darren Naughton, engines vice president at APOC Aviation, said the quality of in-house data will matter more than the model on top of it, and that human judgment remains vital for a part's condition and traceability. GA Telesis chief executive Abdol Moabery, whose company began investing seriously in AI in 2022, warned of paper tigers: a chatbot attached to an ERP system is not an AI strategy.",
+          "whyItMatters": "When an aircraft is on the ground, the winner is the supplier who already has the right part in the right place. Traders using AI to forecast demand and position stock will answer AOG calls faster, so when you pick suppliers, ask how they decide where to hold rotables near your bases. If you hold your own spares, your clean part and removal history is the data any forecasting tool will need, so start keeping it in one place now.",
+          "url": "/aviation/tools/ai-usm-parts-trading-outlook",
+          "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading",
+          "pricing": "Not applicable; industry commentary"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. All three updates were posted on November 3. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Built-in document, spreadsheet and slide creation in Copilot Chat",
+          "slug": "copilot-chat-built-in-document-creation",
+          "company": "Microsoft",
+          "summary": "Microsoft's message center notice MC1536062, posted November 3, says the standalone Word, Excel and PowerPoint agents in Microsoft Copilot are being replaced by document creation and editing built into the Copilot app for users with a Microsoft 365 Copilot license. Users simply ask Copilot Chat to create or refine a document, workbook or presentation, without picking a separate agent. The standalone agents will disappear from the left rail and agent discovery, and can no longer be pinned, mentioned or invoked. Files made earlier stay where they are in OneDrive or SharePoint, and old conversations stay viewable, but users must start a new chat to keep editing. Rollout starts in mid-November and should finish by late December.",
+          "whyItMatters": "One place to ask for a quote sheet, a maintenance status deck or a customer letter means less time hunting for the right agent. The catch is that anyone with steps that say to open the Excel agent will be confused, so update your internal how-to guides now and tell staff to start new chats for edits.",
+          "url": "https://pupuweb.com/mc1536062-changes-to-word-excel-and-powerpoint-agents-in-microsoft-copilot/",
+          "sourceUrl": "https://pupuweb.com/mc1536062-changes-to-word-excel-and-powerpoint-agents-in-microsoft-copilot/",
+          "vendorUrl": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+          "pricing": "Requires a Microsoft 365 Copilot license"
+        },
+        {
+          "name": "Fair use limits in Copilot Chat for unlicensed users",
+          "slug": "copilot-chat-fair-use-limits",
+          "company": "Microsoft",
+          "summary": "Microsoft's message center notice MC1536163, posted November 3, says Microsoft will apply fair use limits to more Copilot Chat features for users without a Microsoft 365 Copilot license, starting November 9. Features such as image generation already have limits. The limits apply in Copilot Chat on the web, desktop and mobile apps, can vary through the day, and cannot be viewed or adjusted by admins. Users are told in the product when a feature is not available and when to try again, and responses already in progress are not cut off. Microsoft recommends telling help desk staff and reviewing how the organization handles self-service license requests.",
+          "whyItMatters": "Many small operators run their office on the free Copilot Chat that comes with Microsoft 365. If staff lean on it for daily work such as drafting customer replies, they may hit a limit at a busy moment. Find out who uses it most, and decide whether a few paid licenses are cheaper than the lost time, before staff start buying licenses on their own.",
+          "url": "https://mc.merill.net/message/MC1536163",
+          "sourceUrl": "https://mc.merill.net/message/MC1536163",
+          "vendorUrl": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+          "pricing": "Free Copilot Chat with limits; a Microsoft 365 Copilot license removes them"
+        },
+        {
+          "name": "Custom policy notice before Google Meet calls when Gemini takes notes",
+          "slug": "google-meet-green-room-policy-notice",
+          "company": "Google",
+          "summary": "Google's Workspace Updates blog said on November 3 that admins can now set a short custom message, with an optional link to a page with more detail, that appears in the Google Meet green room before people join a call. Admins can show it always or only when the meeting is being recorded, transcribed or when Gemini is taking notes. The feature is off by default and is turned on by organizational unit under Meet safety settings. An extended rollout, possibly longer than 15 days, started on November 2 for Rapid and Scheduled Release domains. It is available on Business Standard and Plus, Enterprise Standard and Plus, Education Fundamentals, Standard and Plus, Frontline Plus and Google AI Pro for Education.",
+          "whyItMatters": "Calls with charter clients, aircraft owners and vendors often cover tail numbers, prices and travel plans that people expect to stay private. Telling everyone up front when Gemini is recording or taking notes, with a link to your policy, protects client trust and keeps you on the right side of consent rules. It takes one admin setting to turn on.",
+          "url": "https://workspaceupdates.googleblog.com/2026/10/display-custom-policy-in-green-room-before-Google-Meet-Calls.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/10/display-custom-policy-in-green-room-before-Google-Meet-Calls.html",
+          "vendorUrl": "https://workspace.google.com/products/meet/",
+          "pricing": "Included in eligible Google Workspace plans"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal on your behalf, such as taking a lost bag report and opening the trace, with a person stepping in on the hard cases."
+    },
+    {
+      "term": "AI personalization",
+      "definition": "Using AI to choose which content, offers or ads each person sees based on things like their flight, destination or past choices."
+    },
+    {
+      "term": "Autonomous mobile robot",
+      "definition": "A robot that drives itself around a building using sensors and maps, such as one that carries pallets from the receiving dock to storage without a driver."
+    },
+    {
+      "term": "Conversational AI",
+      "definition": "AI that holds a back-and-forth conversation in plain language by text or voice, such as an airport chatbot answering questions about parking and check-in."
+    },
+    {
+      "term": "Exoskeleton",
+      "definition": "A frame worn on the body that supports the back, shoulders or arms during lifting. A passive one uses springs instead of motors or batteries."
+    },
+    {
+      "term": "Generative AI",
+      "definition": "AI that writes new text, images or other content in response to a request, such as a suggested cause for a fault code or a draft document."
+    },
+    {
+      "term": "Large language model",
+      "definition": "The type of AI behind chat tools such as ChatGPT, Gemini and Copilot, trained on large amounts of text so it can read and write in plain language."
+    },
+    {
+      "term": "Predictive maintenance",
+      "definition": "Using sensor data and AI to spot equipment or aircraft systems that are likely to fail soon, so they can be fixed on schedule instead of after they break."
+    },
+    {
+      "term": "Retrieval-augmented generation",
+      "definition": "A way of making an AI answer from your own documents, such as a maintenance manual, by looking up the relevant pages first and then writing the answer from them."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

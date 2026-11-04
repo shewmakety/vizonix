@@ -1,0 +1,17 @@
+{
+  "slug": "ai-usm-parts-trading-outlook",
+  "segment": "aviation",
+  "name": "AI in used serviceable material trading, per traders at AJW, APOC and GA Telesis",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "Aviation Week (Inside MRO)",
+  "summary": "Aviation Week's MRO Memo of October 21 asked parts traders how AI is changing the used serviceable material market, which is drawing private equity, institutional and lessor money as demand surges. AJW Group's chief commercial officer Scott Symington said automated inventory tracking and forecasting can cut errors and delays, and that AJW's own system uses probabilistic modeling to balance service levels against the capital tied up in stock; he expects prediction to matter more for positioning material before it is needed. Darren Naughton, engines vice president at APOC Aviation, said the quality of in-house data will matter more than the model on top of it, and that human judgment remains vital for a part's condition and traceability. GA Telesis chief executive Abdol Moabery, whose company began investing seriously in AI in 2022, warned of paper tigers: a chatbot attached to an ERP system is not an AI strategy.",
+  "paragraphs": [
+    "Aviation Week's MRO Memo of October 21 asked parts traders how AI is changing the used serviceable material market, which is drawing private equity, institutional and lessor money as demand surges. AJW Group's chief commercial officer Scott Symington said automated inventory tracking and forecasting can cut errors and delays, and that AJW's own system uses probabilistic modeling to balance service levels against the capital tied up in stock; he expects prediction to matter more for positioning material before it is needed. Darren Naughton, engines vice president at APOC Aviation, said the quality of in-house data will matter more than the model on top of it, and that human judgment remains vital for a part's condition and traceability. GA Telesis chief executive Abdol Moabery, whose company began investing seriously in AI in 2022, warned of paper tigers: a chatbot attached to an ERP system is not an AI strategy."
+  ],
+  "whyItMatters": "When an aircraft is on the ground, the winner is the supplier who already has the right part in the right place. Traders using AI to forecast demand and position stock will answer AOG calls faster, so when you pick suppliers, ask how they decide where to hold rotables near your bases. If you hold your own spares, your clean part and removal history is the data any forecasting tool will need, so start keeping it in one place now.",
+  "pricing": "Not applicable; industry commentary",
+  "sourceUrl": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading",
+  "url": "https://aviationweek.com/mro/emerging-technologies/mro-memo-part-ificial-intelligence-ai-comes-usm-trading"
+}

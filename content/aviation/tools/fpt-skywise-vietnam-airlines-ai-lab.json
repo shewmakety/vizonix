@@ -1,0 +1,17 @@
+{
+  "slug": "fpt-skywise-vietnam-airlines-ai-lab",
+  "segment": "aviation",
+  "name": "Aviation AI Lab for fleet reliability (FPT, Skywise and Vietnam Airlines)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "FPT, Skywise (Airbus) and Vietnam Airlines",
+  "summary": "FPT, Vietnam Airlines and Skywise, the Airbus digital services company, signed a memorandum of understanding announced on November 4 at the Vietnam Aerospace Forum in Hanoi to explore AI-powered services. The first focus is fleet reliability, technical operations and disruption management: combining Skywise data with maintenance planning, parts readiness and flight schedules to improve aircraft availability and help the airline weigh recovery options faster when things go wrong. The three plan a joint Aviation AI Lab with engineering, maintenance, IT and data specialists. The next step is a workshop at Vietnam Airlines to agree on business goals, data needs and success measures, and to pick up to four use cases to assess. Vietnam Airlines flies more than 100 aircraft, including Boeing 787s and Airbus A350s. This is an agreement to explore, so no products, costs or results exist yet.",
+  "paragraphs": [
+    "FPT, Vietnam Airlines and Skywise, the Airbus digital services company, signed a memorandum of understanding announced on November 4 at the Vietnam Aerospace Forum in Hanoi to explore AI-powered services. The first focus is fleet reliability, technical operations and disruption management: combining Skywise data with maintenance planning, parts readiness and flight schedules to improve aircraft availability and help the airline weigh recovery options faster when things go wrong. The three plan a joint Aviation AI Lab with engineering, maintenance, IT and data specialists. The next step is a workshop at Vietnam Airlines to agree on business goals, data needs and success measures, and to pick up to four use cases to assess. Vietnam Airlines flies more than 100 aircraft, including Boeing 787s and Airbus A350s. This is an agreement to explore, so no products, costs or results exist yet."
+  ],
+  "whyItMatters": "The most useful detail is the order of work: business goals, data and success measures first, then up to four use cases. That is the right way for any operator to start with predictive maintenance, and it avoids paying for a tool before you know which failures cost you the most. Before you talk to a vendor, write down your top delay causes by ATA chapter and how much each one cost last year, then ask which ones their models can predict on your own data.",
+  "pricing": "Not applicable; an exploratory agreement",
+  "sourceUrl": "https://fptsoftware.com/newsroom/news-and-press-releases/press-release/fpt-vna-airbus-to-advance-ai-powered-airline-operations",
+  "url": "https://www.skywise.com/"
+}
