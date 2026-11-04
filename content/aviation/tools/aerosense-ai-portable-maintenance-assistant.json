@@ -1,0 +1,17 @@
+{
+  "slug": "aerosense-ai-portable-maintenance-assistant",
+  "segment": "aviation",
+  "name": "AeroSense AI portable ground maintenance assistant (National Formosa University)",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "National Formosa University AeroSense AI team",
+  "summary": "A student team at Taiwan's National Formosa University has built a portable ground maintenance assistant that uses generative AI, Commercial Times reported on November 2. It won the gold medal in the student AI application category of the Ministry of Economic Affairs' Smart Innovation Award. The system replaces large, wired test equipment with a lightweight handheld device that pulls data wirelessly. It keeps analyzing air pressure, stress and other sensor readings from flight to flag sensors, equipment or parts of the airframe that may be going wrong before a warning threshold is reached. It also uses a large language model with retrieval-augmented generation to compare the readings and fault codes with the maintenance manual and suggest likely causes and where to look. The team says it cut operating time for specific maintenance tasks by about 50% compared with L-3 equipment in current use, and it weighs about 72.4% less than an industry-standard unit. The team plans to start with trainers, propeller aircraft and small jets before larger airliners.",
+  "paragraphs": [
+    "A student team at Taiwan's National Formosa University has built a portable ground maintenance assistant that uses generative AI, Commercial Times reported on November 2. It won the gold medal in the student AI application category of the Ministry of Economic Affairs' Smart Innovation Award. The system replaces large, wired test equipment with a lightweight handheld device that pulls data wirelessly. It keeps analyzing air pressure, stress and other sensor readings from flight to flag sensors, equipment or parts of the airframe that may be going wrong before a warning threshold is reached. It also uses a large language model with retrieval-augmented generation to compare the readings and fault codes with the maintenance manual and suggest likely causes and where to look. The team says it cut operating time for specific maintenance tasks by about 50% compared with L-3 equipment in current use, and it weighs about 72.4% less than an industry-standard unit. The team plans to start with trainers, propeller aircraft and small jets before larger airliners."
+  ],
+  "whyItMatters": "Most troubleshooting time goes into reading the fault, finding the right manual page and ruling out causes one by one, and it leans on the few senior technicians who have seen it before. A handheld tool that ties the live data to the manual can help a less experienced technician get to the likely fix faster. This one is still a student project, so treat it as a sign of where tools are going. When a vendor shows you something similar, ask it to cite the exact manual task for every suggestion.",
+  "pricing": "Not applicable; a university project",
+  "sourceUrl": "https://www.ctee.com.tw/news/20261102700432-431202",
+  "url": "https://www.ctee.com.tw/news/20261102700432-431202"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "birmingham-airport-babs",
+  "segment": "aviation",
+  "name": "BABS AI passenger assistant at Birmingham Airport (Hello Lamp Post)",
+  "sample": false,
+  "category": "Sales and marketing",
+  "topic": "sales-and-marketing",
+  "company": "Birmingham Airport and Hello Lamp Post",
+  "summary": "Future Travel Experience reported this month that Birmingham Airport's AI customer assistant, BABS, built with conversational AI company Hello Lamp Post, gives passengers instant answers around the clock, online and in the terminal. It has handled thousands of enquiries on check-in, security, baggage, car parking, lounges, accessibility services and terminal facilities, and it adapts its guidance to where the passenger is asking from, whether planning ahead or walking through the airport. The airport analyzes the conversations to spot trends and recurring questions and improve the customer journey. Birmingham says it is exploring more personalization, more languages, links to other airport systems and self-service options, and possibly using BABS to help staff and day-to-day operations. No usage counts beyond thousands of enquiries, costs or results were published.",
+  "paragraphs": [
+    "Future Travel Experience reported this month that Birmingham Airport's AI customer assistant, BABS, built with conversational AI company Hello Lamp Post, gives passengers instant answers around the clock, online and in the terminal. It has handled thousands of enquiries on check-in, security, baggage, car parking, lounges, accessibility services and terminal facilities, and it adapts its guidance to where the passenger is asking from, whether planning ahead or walking through the airport. The airport analyzes the conversations to spot trends and recurring questions and improve the customer journey. Birmingham says it is exploring more personalization, more languages, links to other airport systems and self-service options, and possibly using BABS to help staff and day-to-day operations. No usage counts beyond thousands of enquiries, costs or results were published."
+  ],
+  "whyItMatters": "Parking, lounges and other paid services are where an airport or FBO makes money beyond the flight, and a customer who cannot get a quick answer often does not buy. An assistant that answers at 2 a.m. keeps those sales, and the questions it logs tell you which services people want and cannot find. Start by pulling your last month of calls and emails, and list the ten questions you answer most, because those are what a chatbot should handle first.",
+  "pricing": "Not published; contact Hello Lamp Post",
+  "sourceUrl": "https://www.futuretravelexperience.com/2026/11/birmingham-airport-uses-ai-assistant-babs-to-enhance-passenger-experience-and-customer-support/",
+  "url": "https://www.hlp.city/"
+}
