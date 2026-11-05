@@ -1,0 +1,231 @@
+{
+  "segment": "aviation",
+  "date": "2026-11-05",
+  "publishedAt": "2026-11-05T05:45:00-05:00",
+  "sample": false,
+  "subject": "The FAA wants to know what self-driving tugs do when the signal drops. Plus 8 places to put AI and robotics to work",
+  "preheader": "FAA research on self-driving airport vehicles, an AI scheduler for flight schools, Ask Moove for charter crews, AI corrosion checks at AMAC and Calgary's AI cargo apron.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "The FAA is funding research on what self-driving tugs, baggage tractors and de-icers should do when they lose their link, get hacked or jam airport radios",
+    "summary": "The FAA is seeking applied research into three risks of autonomous ground vehicles at airports, Military Aerospace reported on November 4. The topics sit in the FAA's Aviation Research 2025 Broad Agency Announcement, most recently amended on November 3. The vehicles named include those used for aircraft towing, baggage transport, de-icing, employee shuttles, debris (FOD) collection and perimeter inspections, plus self-driving jet bridges. The first topic, added September 29, covers cybersecurity, including the control centers and the tablets and phones staff use to command the vehicles, and how to detect an attack and safely return a vehicle to service afterward. The second, added October 19, asks what a vehicle should do when it loses its link to the human-monitored control system: carry on, stop on the spot, move to a safe area or go back to base, and what it should do once the link returns. The third asks how to find and prevent radio interference between the vehicles and airport equipment such as navigation aids, bird radar, drone detection and FOD detection systems. Each project is expected to run no more than 12 months, and the FAA is asking for approaches rather than prescribing a solution.",
+    "whyItMatters": "Autonomous tugs, baggage tractors and sweepers are already being trialed at airports, and the FAA research is an early look at the questions an airport or ground handler will have to answer before running them airside. If you are pricing a robot vehicle for your ramp or FBO, ask the vendor now what the vehicle does when it loses its signal, how its control tablets are secured and which radio frequencies it uses. A vendor with clear answers will be easier to get approved and cheaper to insure, and you will not be paying to retrofit later.",
+    "sourceName": "Military Aerospace, November 4, 2026",
+    "sourceUrl": "https://www.militaryaerospace.com/commercial-aerospace/article/55416388/faa-expands-research-into-spectrum-communications-risks-of-autonomous-airport-vehicles"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Not AI, but a hiring signal: Aviation Week reported on November 4 that FL Technics has expanded its engineering team in Bangkok to review technical records, verify maintenance status and inspect aircraft for lease transitions across Southeast Asia.",
+      "introSourceUrl": "https://aviationweek.com/mro/mro-industry-rolling-daily-updates-november-2026",
+      "tools": [
+        {
+          "name": "Charlie AI scheduling assistant for flight schools (Private-Radar)",
+          "slug": "private-radar-charlie-ai-scheduling",
+          "company": "Private-Radar",
+          "summary": "Flight school management software provider Private-Radar has introduced Charlie, an AI scheduling assistant for flight training organizations, AFM reported on November 4. Schedulers describe their requirements in everyday language, such as 15 to 30 minutes between flights or a 30-minute refueling break after four hours of flying, and Charlie proposes a schedule. It picks which students to schedule based on their course, training group, progress, recent flights and certification status, then chooses the next lesson in the syllabus. If a planned lesson cannot go ahead because an aircraft is unavailable, it looks for another lesson that fits the student's progress. People stay in control: staff review and change the proposal before Charlie creates unpublished bookings, and the scheduler decides when to publish. It builds on Private-Radar's rule-based auto-scheduling.",
+          "whyItMatters": "The pilot shortage is a training throughput problem, and a lot of training time is lost to scheduling gaps and canceled lessons. A school that keeps aircraft and instructors busier trains more students with the same fleet, which means more revenue and more graduates to hire. If you run or sponsor a training program, measure how many aircraft hours sit unused each week before and after trying a tool like this.",
+          "url": "/aviation/tools/private-radar-charlie-ai-scheduling",
+          "sourceUrl": "https://afm.aero/private-radar-launches-ai-scheduling-assistant-for-flight-schools",
+          "vendorUrl": "https://www.private-radar.com/",
+          "pricing": "Not published; contact Private-Radar"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "Crew Currency Management and Ask Moove AI assistant (Moove)",
+          "slug": "moove-crew-currency-ask-moove",
+          "company": "Moove",
+          "summary": "French business aviation booking and scheduling company Moove has added a Crew Currency Management System to its Instant Booking Engine, along with Ask Moove, an AI conversational assistant, Business Air News reported on November 1. The currency system lets corporate flight departments and charter operators build their own crew currency rules into scheduling and trip requests, including complex ones such as the FAA night-with-turbine-alternate rule in 14 CFR 61.57(e)(4), so they can check that a qualified crew is available before a flight is confirmed through the customer booking page. Ask Moove answers plain-language questions across Moove's reporting, scheduling, passenger and crew data. The assistant chief pilot at Clayton Aviation, the flight department of Clayton Homes, said instant currency checks tied to trip requests make scheduling much faster and more reliable. No pricing was published.",
+          "whyItMatters": "A charter quote you cannot fly because no current crew is available costs you the trip and the client's trust. Checking crew currency at the moment of booking lets you say yes faster to the trips you can actually operate. If your sales team still waits on the chief pilot to confirm crew, time how long that takes, since that delay is where you lose bookings to faster operators.",
+          "url": "/aviation/tools/moove-crew-currency-ask-moove",
+          "sourceUrl": "https://www.businessairnews.com/mag_story.html?ident=38656",
+          "vendorUrl": "https://www.flymoove.com/",
+          "pricing": "Not published; contact Moove"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "AI-assisted corrosion detection at AMAC Aerospace",
+          "slug": "amac-aerospace-ai-corrosion-detection",
+          "company": "AMAC Aerospace",
+          "summary": "AIN reported on November 4 that AMAC Aerospace, whose main MRO facility is in Basel, Switzerland, has invested in technology to catch corrosion early on business jets and bizliners. Its inspectors now use AI-based digital imaging that compares the current inspection more accurately with earlier images of the same airframe surface. AMAC also uses eddy current arrays that cover larger areas than single probes, ultrasonic and phased array ultrasonic testing, infrared thermography, X-rays and 3D laser scanning, and it expects to use more robotic inspections in the future. AMAC says the operating environment, such as a base near saltwater, humidity or industrial pollution, predicts corrosion risk better than aircraft age. The article does not name the AI software or give results.",
+          "whyItMatters": "Corrosion found early is a small repair, and corrosion found late can mean a long downtime and a big hit to the aircraft's resale value. AI that compares each inspection with the last one helps spot small changes a tired eye can miss. When you choose a shop for heavy checks, ask whether it keeps images from past inspections of your aircraft and compares them, especially if you are based near the coast.",
+          "url": "/aviation/tools/amac-aerospace-ai-corrosion-detection",
+          "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-11-04/amac-applies-new-approaches-tackling-corrosion",
+          "vendorUrl": "https://www.amacaerospace.com/",
+          "pricing": "Part of AMAC MRO services; contact AMAC"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "coverageNote": "Thin. No new maintenance planning tool surfaced since November 3. The item below is AI for ground operations on a cargo apron, the closest fit.",
+      "tools": [
+        {
+          "name": "ApronAI turnaround tracking on the YYC cargo apron (Assaia)",
+          "slug": "assaia-apronai-yyc-cargo",
+          "company": "Calgary Airports and Assaia",
+          "summary": "Calgary Airports is extending Assaia's ApronAI platform from its passenger gates to Apron 9, one of its dedicated cargo aprons, Inside Logistics reported on November 4, following the airport's October 28 announcement. AI-enabled cameras are installed and the system goes live on November 10. It tracks each freighter turnaround from arrival to departure and logs when unloading, loading and fueling start and end, and the airport, cargo operators and ground handlers all see the same real-time information. Calgary says it chose to go live just before its busiest cargo season to learn where operations run smoothly and where they can improve, for planning 2027. The project was supported by Canada's National Trade Corridors Fund. YYC recorded more than 5,200 cargo landings last year.",
+          "whyItMatters": "On a turnaround, the minutes lost are usually between steps, such as a loader that arrives late or fueling that starts after unloading instead of during it. Camera data shows exactly where those minutes go, which helps a handler win contracts on proven on-time performance and helps an operator push back on delays that are not its fault. If you handle freighters, ask the airport whether turnaround data like this can be shared with you.",
+          "url": "/aviation/tools/assaia-apronai-yyc-cargo",
+          "sourceUrl": "https://www.insidelogistics.ca/technology/yyc-deploys-ai-platform-for-cargo-operations/",
+          "vendorUrl": "https://www.assaia.com/",
+          "pricing": "Not published; contact Assaia"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "tools": [
+        {
+          "name": "Blade Inspection Toolkit for GEnx engines (GE Aerospace)",
+          "slug": "ge-aerospace-genx-blade-inspection-toolkit",
+          "company": "GE Aerospace",
+          "summary": "GE Aerospace is rolling out an AI-based inspection tool for commercial aircraft engines in the United States that cuts turbine blade inspection time by roughly half, news aggregator Terminair reported on November 3, citing aeronoticias.com.pe. The system analyzes images taken during internal engine inspections and points technicians to the areas that need a close look, while the technician still makes the final airworthiness decision. The report says it is being deployed at more than a dozen GE Aerospace maintenance facilities and customer sites and has been used on the GEnx for about three years. GE's product page for its Blade Inspection Toolkit describes fixed cameras that install in the GEnx-1B and -2B borescope ports for high pressure turbine stage 1 and 2 blades, AI that extracts and groups the images for review, tools to flag and measure defects, and an automatically generated inspection report. Only one publisher has reported the rollout so far.",
+          "whyItMatters": "Borescope inspections are slow, and results vary from one inspector to the next, which can lead to engines pulled early or problems missed. A tool that takes consistent pictures and shows the inspector where to look shortens the inspection and makes the call easier to defend. If you operate GEnx engines, ask GE whether the toolkit is available for your fleet, and if you run other engine types, ask your engine shop what similar guidance it uses.",
+          "url": "/aviation/tools/ge-aerospace-genx-blade-inspection-toolkit",
+          "sourceUrl": "https://terminair.com/story/103529-ge-aerospace-rolls-out-ai-engine-inspection-tool",
+          "vendorUrl": "https://www.geaerospace.com/commercial/services/engine-maintenance-technologies/blade-inspection-tool",
+          "pricing": "Not published; contact GE Aerospace"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "No aviation-specific warehouse robotics news surfaced since November 3. The robot below is general warehouse equipment.",
+      "tools": [
+        {
+          "name": "Stretch Gen 2 trailer unloading robot (Boston Dynamics)",
+          "slug": "boston-dynamics-stretch-gen-2",
+          "company": "Boston Dynamics",
+          "summary": "Boston Dynamics announced Stretch Gen 2 on November 3, a redesign of its mobile robot that unloads boxes from trailers and picks cases, RobotsBeat reported on November 4. The company quotes up to 1,000 cases an hour, depending on box weight and how the load is stacked. The redesign is aimed at keeping the robot working: Boston Dynamics says internal cabling is cut by 81% and replacing a drive module now takes about an hour instead of a full day. It also has stronger connectors, an updated gripper and joints that rotate continuously, and a battery that lasts two shifts and fast charges to 90% in about 75 minutes. These are the maker's figures, and real results depend on the site and the freight.",
+          "whyItMatters": "Unloading trucks by hand is heavy, injury-prone work that is hard to staff, and a parts distribution center or cargo warehouse that falls behind at the dock falls behind on every order after it. For a buyer, repair time matters as much as speed, because a fast robot that is down for a day leaves freight waiting. Ask any vendor for uptime and repair times from a live customer before you buy.",
+          "url": "/aviation/tools/boston-dynamics-stretch-gen-2",
+          "sourceUrl": "https://robotsbeat.com/boston-dynamics-stretch-gen2-warehouse-unloading-robot/",
+          "vendorUrl": "https://bostondynamics.com/products/stretch/",
+          "pricing": "Not published; contact Boston Dynamics"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "intro": "Not AI, but AOG related: Aviation Week reported on November 4 that Air Europa extended its Boeing 787 nacelle maintenance agreement with Collins Aerospace through 2037, partly to get rapid nacelle support during aircraft-on-ground events.",
+      "introSourceUrl": "https://aviationweek.com/mro/mro-industry-rolling-daily-updates-november-2026",
+      "coverageNote": "Thin. No new civil AOG tool surfaced since November 3. The item below is a military program, included because it tackles how many spare parts to stock.",
+      "tools": [
+        {
+          "name": "AI maintenance and spare parts prediction project led by KAI (South Korea)",
+          "slug": "kai-ram-c-ai-maintenance-prediction",
+          "company": "Korea Aerospace Industries (KAI), with South Korea's defense and trade ministries",
+          "summary": "South Korea has launched a four-year project worth about $22 million to develop an AI system that predicts maintenance needs for military equipment, Aju Press reported on November 4. The Ministry of National Defense and the Ministry of Trade, Industry and Resources held the launch meeting in Daejeon with about 100 people from KAI, the armed forces and research institutes. KAI will lead the work. The system is built on a framework called RAM-C, which looks at how often equipment breaks, whether it is ready for use, how quickly it can be repaired and what it costs to maintain over its life. By analyzing maintenance records for systems including the FA-50 light combat aircraft and K2 tanks, the AI is meant to tell when equipment needs repairs and how many spare parts should be kept in stock. Officials said it could also give export customers better estimates of long-term maintenance costs.",
+          "whyItMatters": "Most AOG pain comes from not having the part where it is needed, and most spares budgets are set by habit rather than data. The same idea works for a civil fleet: use your own removal and repair history to decide which rotables to hold and where. Start by pulling a year of AOG events and listing which parts caused them, because that list tells you what to stock first.",
+          "url": "/aviation/tools/kai-ram-c-ai-maintenance-prediction",
+          "sourceUrl": "https://www.ajupress.com/view/20261104104716536",
+          "vendorUrl": "https://www.koreaaero.com/",
+          "pricing": "Not applicable; government research program"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. All three updates were announced on November 4. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Images 2.6 with animated GIFs in ChatGPT",
+          "slug": "chatgpt-images-2-6-gifs",
+          "company": "OpenAI",
+          "summary": "OpenAI introduced Images 2.6 on November 4 in ChatGPT, Codex and its API. It generates images 50% faster than before, keeps characters, products and brand details more consistent across edits, and can now create animated GIFs, for example animating a mascot or turning a product shot into a short loop. OpenAI says it is available globally in ChatGPT across all subscription tiers on desktop, mobile and web. In the API, developers can pick between two models, Flare for speed and Sunburst for higher quality, and can now export SVG files.",
+          "whyItMatters": "Small aviation businesses rarely have a designer on staff. Quick, consistent visuals, such as an animated aircraft shot for an empty leg post or a clean graphic for a hangar open house, make social posts and emails look more professional without paying an agency. Check that any aircraft or logo in an AI image is accurate before you post it.",
+          "url": "https://openai.com/index/introducing-images-2-6/",
+          "sourceUrl": "https://openai.com/index/introducing-images-2-6/",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "Available on all ChatGPT plans, including free"
+        },
+        {
+          "name": "monday.com connected app in Google Gemini",
+          "slug": "monday-com-in-google-gemini",
+          "company": "monday.com",
+          "summary": "monday.com said on November 4 that it is now a connected app in Google Gemini, for personal Google accounts and for Google Workspace teams. Users tag @monday.com in a Gemini chat to ask about project status, overdue items or their own workload, and Gemini reads their monday boards to answer. For Workspace customers, it is in the Google Workspace Marketplace, so Gemini can pull monday data into Gmail, Docs, Slides and Sheets, for example while drafting a follow-up email or a status presentation. The consumer rollout is live and expanding to English-speaking countries. It is built on MCP, an open standard for connecting AI assistants to other software.",
+          "whyItMatters": "If your shop tracks aircraft projects, customer requests or parts orders on monday boards, staff can get status answers without switching tools and pull them straight into customer emails. That saves time on the daily status questions that eat a coordinator's morning.",
+          "url": "https://monday.com/blog/product/monday-available-in-google-gemini/",
+          "sourceUrl": "https://monday.com/blog/product/monday-available-in-google-gemini/",
+          "vendorUrl": "https://monday.com/",
+          "pricing": "Requires a monday.com account and Gemini; plan limits may apply"
+        },
+        {
+          "name": "Adobe CX Enterprise Coworker inside ChatGPT, Claude, Gemini and Copilot",
+          "slug": "adobe-cx-enterprise-coworker-ai-platforms",
+          "company": "Adobe",
+          "summary": "Adobe announced on November 4 that CX Enterprise Coworker, its AI agent for planning and running marketing and customer experience work, is now available inside ChatGPT as a plugin, Claude, Databricks Genie, Gemini for business and Microsoft Copilot, with Amazon Quick, IBM and Snowflake to follow. Adobe says it analyzes campaign performance and trends, forecasts audiences, improves customer journeys and helps with planning and project management, with human oversight. Adobe also released ready-made connectors to tools such as Amazon Ads, Meta campaigns, Demandbase and Microsoft Work IQ, so one request can pull data and take actions across several systems. It runs on Adobe CX Enterprise, Adobe's enterprise marketing platform.",
+          "whyItMatters": "This one is for larger operators, airlines and MRO groups that already pay for Adobe's enterprise marketing tools. For them, letting marketers ask campaign questions inside the chat tool they already use can shorten the time from a report to a change in spend. Smaller shops can skip it, since it depends on Adobe's enterprise platform.",
+          "url": "https://news.adobe.com/news/2026/11/adobe-integrates-agentic-cx-enterprise-coworker-into-ai-platforms",
+          "sourceUrl": "https://news.adobe.com/news/2026/11/adobe-integrates-agentic-cx-enterprise-coworker-into-ai-platforms",
+          "vendorUrl": "https://www.adobe.com/",
+          "pricing": "Requires Adobe CX Enterprise; contact Adobe"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Autonomous ground vehicle",
+      "definition": "A vehicle that drives itself on the airport, such as a baggage tractor, aircraft tug, de-icer or debris sweeper, usually watched over by a person through a remote control system."
+    },
+    {
+      "term": "Command and control link",
+      "definition": "The wireless connection between a self-driving vehicle or robot and the people monitoring it, used to start, stop or abort its tasks."
+    },
+    {
+      "term": "AI agent",
+      "definition": "A piece of AI software that works toward a goal on your behalf, such as analyzing a campaign and making changes across several systems, with a person keeping oversight."
+    },
+    {
+      "term": "Conversational AI",
+      "definition": "AI that answers questions or takes requests in plain language by text or voice, such as asking a scheduling system which crews are current for a trip."
+    },
+    {
+      "term": "Natural language",
+      "definition": "Everyday wording, the way you would say it to a colleague, instead of codes, menus or fixed rules a computer normally needs."
+    },
+    {
+      "term": "Computer vision",
+      "definition": "AI that understands images or video, such as cameras that log when loading or fueling starts on a turnaround, or software that spots defects in inspection photos."
+    },
+    {
+      "term": "Predictive maintenance",
+      "definition": "Using data and AI to spot equipment or aircraft problems that are likely to develop, so they can be fixed on schedule instead of after they cause a breakdown."
+    },
+    {
+      "term": "Generative AI",
+      "definition": "AI that creates new content such as text, images or animated GIFs in response to a request."
+    },
+    {
+      "term": "Model Context Protocol (MCP)",
+      "definition": "An open standard that lets AI assistants such as Gemini or ChatGPT connect to other software, like a project board, to read data and take actions."
+    },
+    {
+      "term": "Mobile manipulation robot",
+      "definition": "A robot that both drives itself around and uses an arm to handle things, such as one that rolls into a trailer and unloads boxes."
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}
