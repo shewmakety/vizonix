@@ -1,0 +1,17 @@
+{
+  "slug": "ge-aerospace-genx-blade-inspection-toolkit",
+  "segment": "aviation",
+  "name": "Blade Inspection Toolkit for GEnx engines (GE Aerospace)",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "GE Aerospace",
+  "summary": "GE Aerospace is rolling out an AI-based inspection tool for commercial aircraft engines in the United States that cuts turbine blade inspection time by roughly half, news aggregator Terminair reported on November 3, citing aeronoticias.com.pe. The system analyzes images taken during internal engine inspections and points technicians to the areas that need a close look, while the technician still makes the final airworthiness decision. The report says it is being deployed at more than a dozen GE Aerospace maintenance facilities and customer sites and has been used on the GEnx for about three years. GE's product page for its Blade Inspection Toolkit describes fixed cameras that install in the GEnx-1B and -2B borescope ports for high pressure turbine stage 1 and 2 blades, AI that extracts and groups the images for review, tools to flag and measure defects, and an automatically generated inspection report. Only one publisher has reported the rollout so far.",
+  "paragraphs": [
+    "GE Aerospace is rolling out an AI-based inspection tool for commercial aircraft engines in the United States that cuts turbine blade inspection time by roughly half, news aggregator Terminair reported on November 3, citing aeronoticias.com.pe. The system analyzes images taken during internal engine inspections and points technicians to the areas that need a close look, while the technician still makes the final airworthiness decision. The report says it is being deployed at more than a dozen GE Aerospace maintenance facilities and customer sites and has been used on the GEnx for about three years. GE's product page for its Blade Inspection Toolkit describes fixed cameras that install in the GEnx-1B and -2B borescope ports for high pressure turbine stage 1 and 2 blades, AI that extracts and groups the images for review, tools to flag and measure defects, and an automatically generated inspection report. Only one publisher has reported the rollout so far."
+  ],
+  "whyItMatters": "Borescope inspections are slow, and results vary from one inspector to the next, which can lead to engines pulled early or problems missed. A tool that takes consistent pictures and shows the inspector where to look shortens the inspection and makes the call easier to defend. If you operate GEnx engines, ask GE whether the toolkit is available for your fleet, and if you run other engine types, ask your engine shop what similar guidance it uses.",
+  "pricing": "Not published; contact GE Aerospace",
+  "sourceUrl": "https://terminair.com/story/103529-ge-aerospace-rolls-out-ai-engine-inspection-tool",
+  "url": "https://www.geaerospace.com/commercial/services/engine-maintenance-technologies/blade-inspection-tool"
+}

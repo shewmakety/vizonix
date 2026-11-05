@@ -1,0 +1,17 @@
+{
+  "slug": "assaia-apronai-yyc-cargo",
+  "segment": "aviation",
+  "name": "ApronAI turnaround tracking on the YYC cargo apron (Assaia)",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "Calgary Airports and Assaia",
+  "summary": "Calgary Airports is extending Assaia's ApronAI platform from its passenger gates to Apron 9, one of its dedicated cargo aprons, Inside Logistics reported on November 4, following the airport's October 28 announcement. AI-enabled cameras are installed and the system goes live on November 10. It tracks each freighter turnaround from arrival to departure and logs when unloading, loading and fueling start and end, and the airport, cargo operators and ground handlers all see the same real-time information. Calgary says it chose to go live just before its busiest cargo season to learn where operations run smoothly and where they can improve, for planning 2027. The project was supported by Canada's National Trade Corridors Fund. YYC recorded more than 5,200 cargo landings last year.",
+  "paragraphs": [
+    "Calgary Airports is extending Assaia's ApronAI platform from its passenger gates to Apron 9, one of its dedicated cargo aprons, Inside Logistics reported on November 4, following the airport's October 28 announcement. AI-enabled cameras are installed and the system goes live on November 10. It tracks each freighter turnaround from arrival to departure and logs when unloading, loading and fueling start and end, and the airport, cargo operators and ground handlers all see the same real-time information. Calgary says it chose to go live just before its busiest cargo season to learn where operations run smoothly and where they can improve, for planning 2027. The project was supported by Canada's National Trade Corridors Fund. YYC recorded more than 5,200 cargo landings last year."
+  ],
+  "whyItMatters": "On a turnaround, the minutes lost are usually between steps, such as a loader that arrives late or fueling that starts after unloading instead of during it. Camera data shows exactly where those minutes go, which helps a handler win contracts on proven on-time performance and helps an operator push back on delays that are not its fault. If you handle freighters, ask the airport whether turnaround data like this can be shared with you.",
+  "pricing": "Not published; contact Assaia",
+  "sourceUrl": "https://www.insidelogistics.ca/technology/yyc-deploys-ai-platform-for-cargo-operations/",
+  "url": "https://www.assaia.com/"
+}

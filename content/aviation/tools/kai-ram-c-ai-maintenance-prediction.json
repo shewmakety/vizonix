@@ -1,0 +1,17 @@
+{
+  "slug": "kai-ram-c-ai-maintenance-prediction",
+  "segment": "aviation",
+  "name": "AI maintenance and spare parts prediction project led by KAI (South Korea)",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "Korea Aerospace Industries (KAI), with South Korea's defense and trade ministries",
+  "summary": "South Korea has launched a four-year project worth about $22 million to develop an AI system that predicts maintenance needs for military equipment, Aju Press reported on November 4. The Ministry of National Defense and the Ministry of Trade, Industry and Resources held the launch meeting in Daejeon with about 100 people from KAI, the armed forces and research institutes. KAI will lead the work. The system is built on a framework called RAM-C, which looks at how often equipment breaks, whether it is ready for use, how quickly it can be repaired and what it costs to maintain over its life. By analyzing maintenance records for systems including the FA-50 light combat aircraft and K2 tanks, the AI is meant to tell when equipment needs repairs and how many spare parts should be kept in stock. Officials said it could also give export customers better estimates of long-term maintenance costs.",
+  "paragraphs": [
+    "South Korea has launched a four-year project worth about $22 million to develop an AI system that predicts maintenance needs for military equipment, Aju Press reported on November 4. The Ministry of National Defense and the Ministry of Trade, Industry and Resources held the launch meeting in Daejeon with about 100 people from KAI, the armed forces and research institutes. KAI will lead the work. The system is built on a framework called RAM-C, which looks at how often equipment breaks, whether it is ready for use, how quickly it can be repaired and what it costs to maintain over its life. By analyzing maintenance records for systems including the FA-50 light combat aircraft and K2 tanks, the AI is meant to tell when equipment needs repairs and how many spare parts should be kept in stock. Officials said it could also give export customers better estimates of long-term maintenance costs."
+  ],
+  "whyItMatters": "Most AOG pain comes from not having the part where it is needed, and most spares budgets are set by habit rather than data. The same idea works for a civil fleet: use your own removal and repair history to decide which rotables to hold and where. Start by pulling a year of AOG events and listing which parts caused them, because that list tells you what to stock first.",
+  "pricing": "Not applicable; government research program",
+  "sourceUrl": "https://www.ajupress.com/view/20261104104716536",
+  "url": "https://www.koreaaero.com/"
+}

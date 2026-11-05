@@ -1,0 +1,17 @@
+{
+  "slug": "amac-aerospace-ai-corrosion-detection",
+  "segment": "aviation",
+  "name": "AI-assisted corrosion detection at AMAC Aerospace",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "AMAC Aerospace",
+  "summary": "AIN reported on November 4 that AMAC Aerospace, whose main MRO facility is in Basel, Switzerland, has invested in technology to catch corrosion early on business jets and bizliners. Its inspectors now use AI-based digital imaging that compares the current inspection more accurately with earlier images of the same airframe surface. AMAC also uses eddy current arrays that cover larger areas than single probes, ultrasonic and phased array ultrasonic testing, infrared thermography, X-rays and 3D laser scanning, and it expects to use more robotic inspections in the future. AMAC says the operating environment, such as a base near saltwater, humidity or industrial pollution, predicts corrosion risk better than aircraft age. The article does not name the AI software or give results.",
+  "paragraphs": [
+    "AIN reported on November 4 that AMAC Aerospace, whose main MRO facility is in Basel, Switzerland, has invested in technology to catch corrosion early on business jets and bizliners. Its inspectors now use AI-based digital imaging that compares the current inspection more accurately with earlier images of the same airframe surface. AMAC also uses eddy current arrays that cover larger areas than single probes, ultrasonic and phased array ultrasonic testing, infrared thermography, X-rays and 3D laser scanning, and it expects to use more robotic inspections in the future. AMAC says the operating environment, such as a base near saltwater, humidity or industrial pollution, predicts corrosion risk better than aircraft age. The article does not name the AI software or give results."
+  ],
+  "whyItMatters": "Corrosion found early is a small repair, and corrosion found late can mean a long downtime and a big hit to the aircraft's resale value. AI that compares each inspection with the last one helps spot small changes a tired eye can miss. When you choose a shop for heavy checks, ask whether it keeps images from past inspections of your aircraft and compares them, especially if you are based near the coast.",
+  "pricing": "Part of AMAC MRO services; contact AMAC",
+  "sourceUrl": "https://www.ainonline.com/aviation-news/business-aviation/2026-11-04/amac-applies-new-approaches-tackling-corrosion",
+  "url": "https://www.amacaerospace.com/"
+}

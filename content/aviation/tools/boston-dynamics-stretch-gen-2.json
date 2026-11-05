@@ -1,0 +1,17 @@
+{
+  "slug": "boston-dynamics-stretch-gen-2",
+  "segment": "aviation",
+  "name": "Stretch Gen 2 trailer unloading robot (Boston Dynamics)",
+  "sample": false,
+  "category": "Warehousing",
+  "topic": "warehousing-and-inventory",
+  "company": "Boston Dynamics",
+  "summary": "Boston Dynamics announced Stretch Gen 2 on November 3, a redesign of its mobile robot that unloads boxes from trailers and picks cases, RobotsBeat reported on November 4. The company quotes up to 1,000 cases an hour, depending on box weight and how the load is stacked. The redesign is aimed at keeping the robot working: Boston Dynamics says internal cabling is cut by 81% and replacing a drive module now takes about an hour instead of a full day. It also has stronger connectors, an updated gripper and joints that rotate continuously, and a battery that lasts two shifts and fast charges to 90% in about 75 minutes. These are the maker's figures, and real results depend on the site and the freight.",
+  "paragraphs": [
+    "Boston Dynamics announced Stretch Gen 2 on November 3, a redesign of its mobile robot that unloads boxes from trailers and picks cases, RobotsBeat reported on November 4. The company quotes up to 1,000 cases an hour, depending on box weight and how the load is stacked. The redesign is aimed at keeping the robot working: Boston Dynamics says internal cabling is cut by 81% and replacing a drive module now takes about an hour instead of a full day. It also has stronger connectors, an updated gripper and joints that rotate continuously, and a battery that lasts two shifts and fast charges to 90% in about 75 minutes. These are the maker's figures, and real results depend on the site and the freight."
+  ],
+  "whyItMatters": "Unloading trucks by hand is heavy, injury-prone work that is hard to staff, and a parts distribution center or cargo warehouse that falls behind at the dock falls behind on every order after it. For a buyer, repair time matters as much as speed, because a fast robot that is down for a day leaves freight waiting. Ask any vendor for uptime and repair times from a live customer before you buy.",
+  "pricing": "Not published; contact Boston Dynamics",
+  "sourceUrl": "https://robotsbeat.com/boston-dynamics-stretch-gen2-warehouse-unloading-robot/",
+  "url": "https://bostondynamics.com/products/stretch/"
+}

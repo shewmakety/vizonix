@@ -1,0 +1,17 @@
+{
+  "slug": "private-radar-charlie-ai-scheduling",
+  "segment": "aviation",
+  "name": "Charlie AI scheduling assistant for flight schools (Private-Radar)",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "Private-Radar",
+  "summary": "Flight school management software provider Private-Radar has introduced Charlie, an AI scheduling assistant for flight training organizations, AFM reported on November 4. Schedulers describe their requirements in everyday language, such as 15 to 30 minutes between flights or a 30-minute refueling break after four hours of flying, and Charlie proposes a schedule. It picks which students to schedule based on their course, training group, progress, recent flights and certification status, then chooses the next lesson in the syllabus. If a planned lesson cannot go ahead because an aircraft is unavailable, it looks for another lesson that fits the student's progress. People stay in control: staff review and change the proposal before Charlie creates unpublished bookings, and the scheduler decides when to publish. It builds on Private-Radar's rule-based auto-scheduling.",
+  "paragraphs": [
+    "Flight school management software provider Private-Radar has introduced Charlie, an AI scheduling assistant for flight training organizations, AFM reported on November 4. Schedulers describe their requirements in everyday language, such as 15 to 30 minutes between flights or a 30-minute refueling break after four hours of flying, and Charlie proposes a schedule. It picks which students to schedule based on their course, training group, progress, recent flights and certification status, then chooses the next lesson in the syllabus. If a planned lesson cannot go ahead because an aircraft is unavailable, it looks for another lesson that fits the student's progress. People stay in control: staff review and change the proposal before Charlie creates unpublished bookings, and the scheduler decides when to publish. It builds on Private-Radar's rule-based auto-scheduling."
+  ],
+  "whyItMatters": "The pilot shortage is a training throughput problem, and a lot of training time is lost to scheduling gaps and canceled lessons. A school that keeps aircraft and instructors busier trains more students with the same fleet, which means more revenue and more graduates to hire. If you run or sponsor a training program, measure how many aircraft hours sit unused each week before and after trying a tool like this.",
+  "pricing": "Not published; contact Private-Radar",
+  "sourceUrl": "https://afm.aero/private-radar-launches-ai-scheduling-assistant-for-flight-schools",
+  "url": "https://www.private-radar.com/"
+}
