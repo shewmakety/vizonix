@@ -1,0 +1,211 @@
+{
+  "segment": "aviation",
+  "date": "2026-11-06",
+  "publishedAt": "2026-11-06T05:45:00-05:00",
+  "sample": false,
+  "subject": "Boeing flies AI drones over C-17s for damage checks. Plus 8 places to put AI and robotics to work",
+  "preheader": "Boeing's San Antonio AAI program, Pilatus tests a humanoid inspector, FlightLogger Wingman, Honeywell Ensemble in Latin America, Incheon baggage AI, and an honest note on thin sections.",
+  "lead": {
+    "kicker": "Top story",
+    "title": "Boeing is maturing AI-guided drone inspections on C-17s so maintainers spend less time on lifts and wing walks",
+    "summary": "Boeing Global Services said on November 5 that it is advancing its Advanced Aircraft Inspection (AAI) program on the C-17 Globemaster III at its San Antonio site. The work pairs autonomous drone flight with Boeing's Automated Damage Detection Software (ADDS) to capture exterior images, flag anomalies and leave a digital record maintainers can review faster than with traditional methods. Boeing says the approach can improve technician safety by cutting reliance on manual lift equipment and wing walks, make inspections more consistent and support fleet availability by reducing time the aircraft spends out of service. Core workflows and procedures for training, qualification, quality and day-to-day maintenance operations have been validated. Travis Williams, vice president of Mobility and Surveillance Aircraft Services, said AAI is about turning innovation into operational value and building a repeatable capability that can scale as outcomes are validated. As ADDS improves, Boeing expects better detection of lightning damage and early corrosion. Global Services government and commercial teams are sharing lessons, and Boeing's goal is to make AAI a standard maintenance effort across programs and sites for military and civilian customers.",
+    "whyItMatters": "Exterior inspections are slow, risky and uneven when they depend on a boom lift and a trained eye on the wing. A drone that flies a fixed path and software that flags possible damage can shorten the visit and leave a photo record you can compare next time. You do not need a C-17 fleet to use the idea. Ask any inspection vendor for a timed demo on one of your tails, and measure minutes on the lift versus minutes with the drone before you buy.",
+    "sourceName": "Boeing, November 5, 2026",
+    "sourceUrl": "https://www.boeing.com/features/2026/11/boeing-advances-c-17-inspections-with-ai-drone-technology.html"
+  },
+  "sections": [
+    {
+      "topic": "Recruiting",
+      "intro": "Flight schools and training organizations keep losing hours to compliance spreadsheets. The item below is an AI assistant that answers those questions from the data you already keep.",
+      "tools": [
+        {
+          "name": "Wingman AI assistant for flight school management (FlightLogger)",
+          "slug": "flightlogger-wingman-ai",
+          "company": "FlightLogger",
+          "summary": "FlightLogger introduced Wingman, an AI assistant inside its flight school management platform, at the European Aviation Training Summit in Cascais on November 3-5, AFM reported on November 5. Training managers can ask in plain language about medical certificate, aircraft rating and English Language Proficiency expirations in a period such as the next 90 days, and see which scheduled sessions those expirations would affect. Wingman can also flag bookings that still lack an aircraft or instructor, and find completed lessons missing grades or instructor comments. Answers come from the school's own FlightLogger data as charts and tables. Users only see what their existing permissions allow. FlightLogger also showed Suggested Scheduling, which drafts training schedules for staff approval, and a Maintenance Hub that brings aircraft maintenance information into the same environment. The company says more than 220 flight schools and training organizations in more than 50 countries use the platform under EASA, FAA and other national rules. Wingman is a query and reporting tool; scheduling and compliance decisions stay with authorized staff.",
+          "whyItMatters": "A student who shows up without a current medical or an instructor who is double-booked costs you a slot and a refund conversation. An assistant that surfaces expirations and open bookings before the day starts protects revenue and keeps your reputation with students and partner airlines. If you already run FlightLogger, ask for a Wingman trial on your live data. If you do not, list the three compliance reports you rebuild by hand each week, because those are the questions an assistant should answer first.",
+          "url": "/aviation/tools/flightlogger-wingman-ai",
+          "sourceUrl": "https://afm.aero/flightlogger-introduces-wingman-ai-assistant-for-flight-school-management-at-eats-2026",
+          "vendorUrl": "https://flightlogger.net/",
+          "pricing": "Not published; contact FlightLogger"
+        }
+      ]
+    },
+    {
+      "topic": "Sales and marketing",
+      "tools": [
+        {
+          "name": "Wilbur AI charter assistant on Instagram DMs (PrivateJet.com)",
+          "slug": "privatejet-com-wilbur-instagram",
+          "company": "PrivateJet.com",
+          "summary": "PrivateJet.com, a Miami-based charter broker, expanded its AI assistant Wilbur to Instagram direct messages in a press release on October 29, according to Access Newswire, with further coverage into early November. Users message the broker's Instagram account (@PrivateJet) to explore flight options, compare aircraft, estimate charter costs, ask aviation questions and receive sample quotes. Wilbur draws on more than one million charter quotes from PrivateJet.com's internal data. Michael Loff, director of charter sales, said people want to understand the right aircraft and cost without waiting to speak with someone. Wilbur supports the early stages of the charter process; PrivateJet.com aviation advisors complete bookings when the traveler is ready. Wilbur is also available on PrivateJet.com. The company calls it the first AI private jet broker assistant available through Instagram direct messages.",
+          "whyItMatters": "Charter and FBO inquiries arrive nights and weekends on social apps, and every unanswered DM is a trip that may go to another broker. Meeting the customer where they already chat, with a fast ballpark quote, keeps the conversation warm until a person closes it. Before you copy the idea, decide which quotes an AI may give and which still need a human, and measure how many Instagram or WhatsApp inquiries you lose after hours today.",
+          "url": "/aviation/tools/privatejet-com-wilbur-instagram",
+          "sourceUrl": "https://www.accessnewswire.com/newsroom/en/aerospace-and-defense/privatejet.com-brings-worlds-first-ai-private-jet-broker-assistant-wilbur-to-1243405",
+          "vendorUrl": "https://privatejet.com/wilbur/",
+          "pricing": "Not published; broker membership model separate from Wilbur"
+        }
+      ]
+    },
+    {
+      "topic": "Predictive maintenance",
+      "tools": [
+        {
+          "name": "Ensemble connected engine monitoring on Praetor 500 (Honeywell and Fly Across)",
+          "slug": "honeywell-ensemble-fly-across-praetor",
+          "company": "Honeywell Aerospace and Fly Across",
+          "summary": "Honeywell Aerospace and Fly Across completed Latin America's first installation of Honeywell's Ensemble connected-engine technology on an Embraer Praetor 500 in Mexico, Mexico Business News reported on November 5, with MRO Business Today covering the same milestone on November 6. Fly Across, an authorized channel partner for HTF7000-series engines in Mexico, did the work with Honeywell field service support. The Engine Data Gateway (EDG-100) automates collection and wireless transmission of engine performance data over Wi-Fi when the aircraft is on the ground, so crews no longer need to download logs by hand from a data port. Taylor Alberstadt, Honeywell's vice president of business and general aviation sales, said connected solutions help maintenance teams spot developing issues before they become groundings. Coverage describes continuous monitoring of parameters such as thermal margins, rotational speeds and fuel control. No customer pricing or measured downtime reduction was published for this install.",
+          "whyItMatters": "Manual engine downloads steal mechanic hours and delay the first look at trend data after a trip. Wireless transfer on arrival means the shop can start planning before the crew finishes deplaning. If you fly Honeywell-powered bizjets, ask your MRO whether Ensemble or an equivalent gateway is already approved for your engine, and what the recurring data service costs versus the cost of one avoided AOG day.",
+          "url": "/aviation/tools/honeywell-ensemble-fly-across-praetor",
+          "sourceUrl": "https://mexicobusiness.news/aerospace/news/honeywell-and-fly-across-debut-connected-engine-latin-america",
+          "vendorUrl": "https://aerospace.honeywell.com/",
+          "pricing": "Not published; contact Honeywell or Fly Across"
+        }
+      ]
+    },
+    {
+      "topic": "Maintenance activity optimization",
+      "tools": [
+        {
+          "name": "BHS Smart Monitoring System for baggage handling (Incheon International Airport)",
+          "slug": "incheon-bhs-smart-monitoring-ai",
+          "company": "Incheon International Airport Corp.",
+          "summary": "Incheon International Airport Corp. said its AI-powered Baggage Handling System Smart Monitoring System has been running in Terminal 2 since October 26, The Korea Times reported on November 2. Sensors feed data from baggage sorters, conveyor motors and arrival-hall carousels into machine-learning software that flags parts likely to fail. Results appear on a three-level color scale (green, yellow, red) with the likely cause, so crews can replace parts or intervene before a breakdown. The airport previously repaired most equipment after it had already failed. It expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. Cho Yong-soo, executive director of operations, said the system should cut baggage-equipment management costs and improve passenger convenience. No quantified failure or cost figures were published beyond those expectations.",
+          "whyItMatters": "A stopped sorter turns into delayed bags, overtime and angry passengers, and waiting for the motor to seize is the expensive way to learn. Color-coded early warnings let you schedule the repair on the night shift instead of during the bank. If you run conveyors, lifts or GSE, ask how many unplanned stoppages you had last quarter and whether your OEM offers sensor-based alerts before you fund a custom model.",
+          "url": "/aviation/tools/incheon-bhs-smart-monitoring-ai",
+          "sourceUrl": "https://www.koreatimes.co.kr/southkorea/20261102/incheon-intl-airport-uses-ai-to-predict-baggage-system-failures",
+          "vendorUrl": "https://www.airport.kr/eng/",
+          "pricing": "Not applicable; airport-built system"
+        }
+      ]
+    },
+    {
+      "topic": "Troubleshooting support",
+      "tools": [
+        {
+          "name": "AEON humanoid robot for assembly inspection (Pilatus and Hexagon)",
+          "slug": "pilatus-aeon-humanoid-inspection",
+          "company": "Pilatus Aircraft and Hexagon",
+          "summary": "Pilatus Aircraft is testing AEON, a humanoid robot developed by Hexagon, on its final assembly line in Stans, Switzerland, Defence Industry Europe reported on November 5. It is Pilatus's first humanoid robot trial. In an early test, AEON navigates to an assembly such as a PC-24 fuselage sidewall and checks that a worker fitted the right component in the right place. Pilatus says the robot could eventually run those checks at night on work finished during the day. AEON uses sensors, AI and precision measurement to inspect parts, handle objects and make digital recordings, and it must find assemblies and move through the hangar without endangering people or parts. Kilian Laubli, the Pilatus project manager, said the goal is robots for highly repetitive, unattractive or physically demanding jobs that Pilatus finds hard to staff, not to replace people. He also noted that a regulatory framework is still needed for legal use. No commercial product price or deployment date outside the trial was given.",
+          "whyItMatters": "Wrong-part and wrong-location errors are expensive when they surface at functional test or after delivery. A night inspection pass that photos what was fitted can catch mistakes before the next shift builds on them. This is still a trial on a production line, so treat it as a signal. When a vendor pitches a hangar robot, ask what it checks, how it proves the check, and who signs the finding before it becomes a non-conformance.",
+          "url": "/aviation/tools/pilatus-aeon-humanoid-inspection",
+          "sourceUrl": "https://defence-industry.eu/pilatus-aircraft-tests-aeon-humanoid-robot-to-inspect-aircraft-parts-on-its-final-assembly-line/",
+          "vendorUrl": "https://hexagon.com/",
+          "pricing": "Not applicable; a joint trial"
+        }
+      ]
+    },
+    {
+      "topic": "Warehousing",
+      "coverageNote": "Thin. No new aviation parts-warehouse robot launch surfaced since November 3. The item below is a planned airport humanoid and baggage-robot trial in Thailand, not a parts store product.",
+      "tools": [
+        {
+          "name": "Planned humanoid service robots at Suvarnabhumi Airport (Sky ICT)",
+          "slug": "sky-ict-suvarnabhumi-humanoid-trial",
+          "company": "Sky ICT",
+          "summary": "Sky ICT, a SET-listed aviation technology provider in Thailand, plans to pilot humanoid service robots at Suvarnabhumi Airport toward the end of 2026, ASEAN NOW reported on November 5. Chief executive Sithidej Mayalarp said humanoid robots could give passengers information and directions, and that more conventional robots could move baggage and parcels along airport conveyor systems. The company frames the trial inside a three-stage shift: shared aviation data for prediction, AI for personalized services and preventive maintenance, then broader autonomous airport operations with biometrics and robots. Sky ICT has not said whether the trial will replace staff or change passenger procedures, and no robot maker, count or cost was named. This is a planned pilot, not a live deployment.",
+          "whyItMatters": "Passenger questions and short bag moves eat staff time at peak banks, and a robot that answers directions or feeds a conveyor can free people for exceptions. Because this trial is still ahead, watch for who supplies the robots and what success looks like before you budget one. If you run a terminal or cargo shed, count how many of your peak-hour tasks are pure information or short tote moves, because those are the first robotics candidates.",
+          "url": "/aviation/tools/sky-ict-suvarnabhumi-humanoid-trial",
+          "sourceUrl": "https://aseannow.com/thailand-news/sky-ict-plans-suvarnabhumi-humanoid-robot-trial-r4674/",
+          "vendorUrl": "https://www.skyict.co.th/",
+          "pricing": "Not applicable; a planned pilot"
+        }
+      ]
+    },
+    {
+      "topic": "AOG support: parts, rotables and technicians",
+      "coverageNote": "Thin. No new AOG-specific AI product launch surfaced since November 3. The item below is vendor commentary from November 5 on where industrial AI helps parts and technician bottlenecks.",
+      "tools": [
+        {
+          "name": "Industrial AI for MRO parts and technician productivity, per IFS",
+          "slug": "ifs-industrial-ai-mro-parts-technicians",
+          "company": "IFS",
+          "summary": "In a November 5 interview with MRO Business Today, Rob Mather, vice president of aerospace and defence industries at IFS, said meaningful industrial AI in MRO shows up in maintenance planning and scheduling, technician support tools, demand forecasting, supply chain optimization and supply-chain digital workers. He argued that technician availability and productivity drive throughput, while part availability drives turnaround time on a given visit, so tools that help troubleshooting and knowledge navigation, and tools that forecast demand and place stock, are where returns show up first. He warned that pilots fail when they solve a narrow pet problem or when teams underestimate the cost of hardening a prototype to enterprise grade, and he advised deploying AI already embedded in core business systems with reliable data rather than bolting a chatbot onto weak processes. No new IFS product name, customer win or priced module was announced in the interview.",
+          "whyItMatters": "When an aircraft is AOG, you need either the right technician with the right procedure or the right part in the right place. Vendors who talk about those two bottlenecks, and who can show a reference customer on each, are worth a meeting. Before you buy, write down your top five AOG causes last year and whether each was a people gap or a parts gap, then ask the vendor which of those five their tool has actually moved.",
+          "url": "/aviation/tools/ifs-industrial-ai-mro-parts-technicians",
+          "sourceUrl": "https://mrobusinesstoday.com/bringing-industrial-intelligence-into-the-future-of-mro/",
+          "vendorUrl": "https://www.ifs.com/",
+          "pricing": "Not applicable; industry commentary"
+        }
+      ]
+    },
+    {
+      "topic": "General AI Productivity Tools",
+      "intro": "General-purpose AI for the desk work around an aviation business. These products are not aviation-specific.",
+      "tools": [
+        {
+          "name": "Actionable insights with Gemini in Google Forms",
+          "slug": "gemini-google-forms-actionable-insights",
+          "company": "Google",
+          "summary": "Google's Workspace Updates blog said on November 5 that actionable insights in Google Forms uses Gemini to analyze form responses, spot trends and recommend next steps from the Responses tab. Gemini writes and runs Python against the response data so counts, percentages and comparisons stay grounded in the answers, looks for cross-question patterns, then summarizes takeaways and suggested actions. Rollout on Rapid Release domains started November 2 (up to 15 days); Scheduled Release domains start November 19. It is available on Business Standard and Plus, Enterprise Standard and Plus, Education Plus, Google AI Pro and Ultra, and related education add-ons.",
+          "whyItMatters": "Post-flight surveys, training feedback and vendor RFQs pile up as spreadsheets nobody has time to read. An automatic summary with next steps turns that pile into a short action list for the ops meeting. Turn it on for one live feedback form this week and compare the AI summary with what your team would have said by hand.",
+          "url": "https://workspaceupdates.googleblog.com/2026/11/get-actionable-insights-with-gemini-in-Google-Forms.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/11/get-actionable-insights-with-gemini-in-Google-Forms.html",
+          "vendorUrl": "https://workspace.google.com/products/forms/",
+          "pricing": "Included in eligible Google Workspace and Google AI plans"
+        },
+        {
+          "name": "Gemini Omni 1.2 Flash in Google Vids (up to 15-second clips)",
+          "slug": "gemini-omni-12-flash-google-vids",
+          "company": "Google",
+          "summary": "Google's Workspace Updates blog said on November 5 that Gemini Omni 1.2 Flash is available in Google Vids, with clip lengths up to 15 seconds (slider from 3 to 15), better character and product consistency when using references, and improved speaker variety. Full rollout for Rapid and Scheduled Release domains started November 5 (1-3 days for visibility). It is available across Business and Enterprise editions, Education Plus, personal Google accounts with Google AI Pro and Ultra, nonprofits and related add-ons. AI Expanded Access licenses get higher usage limits.",
+          "whyItMatters": "Short how-to clips for ramp procedures, cabin service or tool use are faster to show than a long SOP, but filming them used to take a production day. A 15-second AI clip is not a substitute for certified training, but it can draft a first cut your trainers then correct. Pick one recurring briefing that always runs long and try a Vids draft before you book a camera crew.",
+          "url": "https://workspaceupdates.googleblog.com/2026/11/gemini-omni-12-flash-now-in-vids-with-15second-generations-and-improved-quality.html",
+          "sourceUrl": "https://workspaceupdates.googleblog.com/2026/11/gemini-omni-12-flash-now-in-vids-with-15second-generations-and-improved-quality.html",
+          "vendorUrl": "https://workspace.google.com/products/vids/",
+          "pricing": "Included in eligible Google Workspace and Google AI plans; usage limits apply"
+        },
+        {
+          "name": "ChatGPT dots available to eligible Enterprise, Edu and Healthcare workspaces",
+          "slug": "chatgpt-dots-enterprise-edu-healthcare",
+          "company": "OpenAI",
+          "summary": "OpenAI's ChatGPT Learn changelog for November 2-6, dated November 4, says eligible ChatGPT Enterprise, Edu and Healthcare workspaces can now enable dots, OpenAI's persistent personal agents. Enterprise admins can review preview access and billing before billing begins on November 18. The same update covers iOS replies to a dot from a notification, faster opens, Gmail deep links, desktop browser and file annotations, more reliable Windows local threads, and GPT-6.1 Terra as one of the models that power dots.",
+          "whyItMatters": "A personal agent that keeps working on a maintenance status pack or a vendor comparison after you close the laptop can clear inbox work before the morning ops call. Billing starts November 18, so decide which roles get a dot and what data they may touch before admins turn the feature on. Start with one shared mailbox workflow, not a company-wide rollout.",
+          "url": "https://learn.chatgpt.com/docs/whats-new/november-2-6-2026",
+          "sourceUrl": "https://learn.chatgpt.com/docs/whats-new/november-2-6-2026",
+          "vendorUrl": "https://chatgpt.com/",
+          "pricing": "ChatGPT Enterprise, Edu or Healthcare; billing for dots begins November 18, 2026"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Autonomous drone flight",
+      "definition": "A drone that flies a planned path using its own guidance, rather than a person flying it stick-by-stick, such as one that circles an aircraft to photograph the exterior."
+    },
+    {
+      "term": "Automated damage detection",
+      "definition": "Software that scans inspection photos or sensor data and flags possible dents, cracks, lightning marks or corrosion for a human to review."
+    },
+    {
+      "term": "Connected engine monitoring",
+      "definition": "Hardware and software that collect engine performance data in flight or on the ground and send it wirelessly so maintainers can spot trends without plugging in a cable."
+    },
+    {
+      "term": "Humanoid robot",
+      "definition": "A robot shaped roughly like a person, with a torso and arms, that can walk or roll through a workspace and use tools or sensors where people normally stand."
+    },
+    {
+      "term": "Machine learning",
+      "definition": "A way of teaching software to spot patterns in data, such as sensor readings that often come before a conveyor motor fails, without writing a fixed rule for every case."
+    },
+    {
+      "term": "Natural-language query",
+      "definition": "Asking a computer a question in ordinary words instead of filling out a report form, such as \"which medicals expire in 90 days?\""
+    }
+  ],
+  "sponsors": {
+    "primary": {
+      "name": "Vizonix",
+      "house": true,
+      "url": "/sponsor",
+      "copy": "This slot is open. Vizonix is a daily morning briefing on AI and robotics for aviation maintenance, parts and operations leaders. Founding sponsors get launch pricing locked for three months.",
+      "cta": "See founding sponsor rates",
+      "ctaUrl": "https://www.vizonix.com/sponsor",
+      "sample": false
+    },
+    "secondary": null,
+    "classified": null
+  }
+}

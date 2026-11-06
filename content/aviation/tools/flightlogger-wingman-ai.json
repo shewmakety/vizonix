@@ -1,0 +1,17 @@
+{
+  "slug": "flightlogger-wingman-ai",
+  "segment": "aviation",
+  "name": "Wingman AI assistant for flight school management (FlightLogger)",
+  "sample": false,
+  "category": "Recruiting",
+  "topic": "recruiting-pilots-and-technicians",
+  "company": "FlightLogger",
+  "summary": "FlightLogger introduced Wingman, an AI assistant inside its flight school management platform, at the European Aviation Training Summit in Cascais on November 3-5, AFM reported on November 5. Training managers can ask in plain language about medical certificate, aircraft rating and English Language Proficiency expirations in a period such as the next 90 days, and see which scheduled sessions those expirations would affect. Wingman can also flag bookings that still lack an aircraft or instructor, and find completed lessons missing grades or instructor comments. Answers come from the school's own FlightLogger data as charts and tables. Users only see what their existing permissions allow. FlightLogger also showed Suggested Scheduling, which drafts training schedules for staff approval, and a Maintenance Hub that brings aircraft maintenance information into the same environment. The company says more than 220 flight schools and training organizations in more than 50 countries use the platform under EASA, FAA and other national rules. Wingman is a query and reporting tool; scheduling and compliance decisions stay with authorized staff.",
+  "paragraphs": [
+    "FlightLogger introduced Wingman, an AI assistant inside its flight school management platform, at the European Aviation Training Summit in Cascais on November 3-5, AFM reported on November 5. Training managers can ask in plain language about medical certificate, aircraft rating and English Language Proficiency expirations in a period such as the next 90 days, and see which scheduled sessions those expirations would affect. Wingman can also flag bookings that still lack an aircraft or instructor, and find completed lessons missing grades or instructor comments. Answers come from the school's own FlightLogger data as charts and tables. Users only see what their existing permissions allow. FlightLogger also showed Suggested Scheduling, which drafts training schedules for staff approval, and a Maintenance Hub that brings aircraft maintenance information into the same environment. The company says more than 220 flight schools and training organizations in more than 50 countries use the platform under EASA, FAA and other national rules. Wingman is a query and reporting tool; scheduling and compliance decisions stay with authorized staff."
+  ],
+  "whyItMatters": "A student who shows up without a current medical or an instructor who is double-booked costs you a slot and a refund conversation. An assistant that surfaces expirations and open bookings before the day starts protects revenue and keeps your reputation with students and partner airlines. If you already run FlightLogger, ask for a Wingman trial on your live data. If you do not, list the three compliance reports you rebuild by hand each week, because those are the questions an assistant should answer first.",
+  "pricing": "Not published; contact FlightLogger",
+  "sourceUrl": "https://afm.aero/flightlogger-introduces-wingman-ai-assistant-for-flight-school-management-at-eats-2026",
+  "url": "https://flightlogger.net/"
+}

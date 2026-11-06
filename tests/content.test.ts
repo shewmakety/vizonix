@@ -62,8 +62,9 @@ describe("segment config and sample content", () => {
 
   it("loads the first real aviation issue and real tool pages", () => {
     const issues = listIssues("aviation");
-    expect(issues).toHaveLength(12);
+    expect(issues).toHaveLength(13);
     expect(issues.map((issue) => issue.date)).toEqual([
+      "2026-11-06",
       "2026-11-04",
       "2026-11-02",
       "2026-10-30",
@@ -79,22 +80,21 @@ describe("segment config and sample content", () => {
     ]);
     expect(issues[0].sample).toBe(false);
     expect(issues[0].subject).toBe(
-      "Arab airlines get an AI agent for lost and delayed bags. Plus 8 places to put AI and robotics to work",
+      "Boeing flies AI drones over C-17s for damage checks. Plus 8 places to put AI and robotics to work",
     );
     expect(issues[0].sections).toHaveLength(8);
     expect(issues[0].sections?.at(-1)?.topic).toBe("General AI Productivity Tools");
     expect(issueTools(issues[0]).map((tool) => tool.slug)).toEqual([
-      "gh-italia-comau-exoskeleton-bologna",
-      "birmingham-airport-babs",
-      "truealtitude-passenger-engagement",
-      "fpt-skywise-vietnam-airlines-ai-lab",
-      "akzonobel-mixit-aerospace",
-      "aerosense-ai-portable-maintenance-assistant",
-      "jungheinrich-eac-212a",
-      "ai-usm-parts-trading-outlook",
-      "copilot-chat-built-in-document-creation",
-      "copilot-chat-fair-use-limits",
-      "google-meet-green-room-policy-notice",
+      "flightlogger-wingman-ai",
+      "privatejet-com-wilbur-instagram",
+      "honeywell-ensemble-fly-across-praetor",
+      "incheon-bhs-smart-monitoring-ai",
+      "pilatus-aeon-humanoid-inspection",
+      "sky-ict-suvarnabhumi-humanoid-trial",
+      "ifs-industrial-ai-mro-parts-technicians",
+      "gemini-google-forms-actionable-insights",
+      "gemini-omni-12-flash-google-vids",
+      "chatgpt-dots-enterprise-edu-healthcare",
     ]);
 
     const first = getIssue("aviation", "2026-10-16");
@@ -114,7 +114,7 @@ describe("segment config and sample content", () => {
     expect(issueTools(first!).map((tool) => tool.slug)).not.toContain("aogline");
 
     const tools = listTools("aviation");
-    expect(tools).toHaveLength(139);
+    expect(tools).toHaveLength(146);
     expect(tools.every((tool) => tool.sample === false)).toBe(true);
     const priced = tools.filter((tool) => tool.topic !== "general-ai" && tool.pricing !== "Contact the vendor");
     expect(priced.map((tool) => tool.slug).sort()).toEqual([
@@ -138,6 +138,7 @@ describe("segment config and sample content", () => {
       "contextere-imaple",
       "fleetcraft-voice-to-log",
       "flightbridge-21x-ai-concierge",
+      "flightlogger-wingman-ai",
       "flyexclusive-contrails-fms",
       "flyjets-jetgpt",
       "fpt-skywise-vietnam-airlines-ai-lab",
@@ -145,6 +146,9 @@ describe("segment config and sample content", () => {
       "gh-italia-comau-exoskeleton-bologna",
       "gpms-foresight-mx",
       "gulfstream-performance-analytics",
+      "honeywell-ensemble-fly-across-praetor",
+      "ifs-industrial-ai-mro-parts-technicians",
+      "incheon-bhs-smart-monitoring-ai",
       "jal-toyota-haneda-autonomous-towing",
       "jungheinrich-deutsche-aircraft-warehouse",
       "jungheinrich-eac-212a",
@@ -156,7 +160,9 @@ describe("segment config and sample content", () => {
       "ncs-changi-iferret",
       "nezasa-tai-guard",
       "oases-ai-assistant",
+      "pilatus-aeon-humanoid-inspection",
       "pratt-whitney-percept",
+      "privatejet-com-wilbur-instagram",
       "privatejet-wilbur",
       "pros-revenue-management-advantage",
       "rolls-royce-optimiser",
@@ -164,6 +170,7 @@ describe("segment config and sample content", () => {
       "sensos-jssi-tracking",
       "sesto-magnus-amr-mro",
       "sita-occam-flightscape",
+      "sky-ict-suvarnabhumi-humanoid-trial",
       "skywise-core-x3",
       "smartkargo-aircam",
       "smartkargo-aiuld",

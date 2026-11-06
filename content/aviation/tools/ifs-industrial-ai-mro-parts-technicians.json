@@ -1,0 +1,17 @@
+{
+  "slug": "ifs-industrial-ai-mro-parts-technicians",
+  "segment": "aviation",
+  "name": "Industrial AI for MRO parts and technician productivity, per IFS",
+  "sample": false,
+  "category": "AOG support: parts, rotables and technicians",
+  "topic": "aog-support",
+  "company": "IFS",
+  "summary": "In a November 5 interview with MRO Business Today, Rob Mather, vice president of aerospace and defence industries at IFS, said meaningful industrial AI in MRO shows up in maintenance planning and scheduling, technician support tools, demand forecasting, supply chain optimization and supply-chain digital workers. He argued that technician availability and productivity drive throughput, while part availability drives turnaround time on a given visit, so tools that help troubleshooting and knowledge navigation, and tools that forecast demand and place stock, are where returns show up first. He warned that pilots fail when they solve a narrow pet problem or when teams underestimate the cost of hardening a prototype to enterprise grade, and he advised deploying AI already embedded in core business systems with reliable data rather than bolting a chatbot onto weak processes. No new IFS product name, customer win or priced module was announced in the interview.",
+  "paragraphs": [
+    "In a November 5 interview with MRO Business Today, Rob Mather, vice president of aerospace and defence industries at IFS, said meaningful industrial AI in MRO shows up in maintenance planning and scheduling, technician support tools, demand forecasting, supply chain optimization and supply-chain digital workers. He argued that technician availability and productivity drive throughput, while part availability drives turnaround time on a given visit, so tools that help troubleshooting and knowledge navigation, and tools that forecast demand and place stock, are where returns show up first. He warned that pilots fail when they solve a narrow pet problem or when teams underestimate the cost of hardening a prototype to enterprise grade, and he advised deploying AI already embedded in core business systems with reliable data rather than bolting a chatbot onto weak processes. No new IFS product name, customer win or priced module was announced in the interview."
+  ],
+  "whyItMatters": "When an aircraft is AOG, you need either the right technician with the right procedure or the right part in the right place. Vendors who talk about those two bottlenecks, and who can show a reference customer on each, are worth a meeting. Before you buy, write down your top five AOG causes last year and whether each was a people gap or a parts gap, then ask the vendor which of those five their tool has actually moved.",
+  "pricing": "Not applicable; industry commentary",
+  "sourceUrl": "https://mrobusinesstoday.com/bringing-industrial-intelligence-into-the-future-of-mro/",
+  "url": "https://www.ifs.com/"
+}
