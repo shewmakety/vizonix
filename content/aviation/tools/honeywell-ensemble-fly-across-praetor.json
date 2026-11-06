@@ -1,0 +1,17 @@
+{
+  "slug": "honeywell-ensemble-fly-across-praetor",
+  "segment": "aviation",
+  "name": "Ensemble connected engine monitoring on Praetor 500 (Honeywell and Fly Across)",
+  "sample": false,
+  "category": "Predictive maintenance",
+  "topic": "predictive-maintenance",
+  "company": "Honeywell Aerospace and Fly Across",
+  "summary": "Honeywell Aerospace and Fly Across completed Latin America's first installation of Honeywell's Ensemble connected-engine technology on an Embraer Praetor 500 in Mexico, Mexico Business News reported on November 5, with MRO Business Today covering the same milestone on November 6. Fly Across, an authorized channel partner for HTF7000-series engines in Mexico, did the work with Honeywell field service support. The Engine Data Gateway (EDG-100) automates collection and wireless transmission of engine performance data over Wi-Fi when the aircraft is on the ground, so crews no longer need to download logs by hand from a data port. Taylor Alberstadt, Honeywell's vice president of business and general aviation sales, said connected solutions help maintenance teams spot developing issues before they become groundings. Coverage describes continuous monitoring of parameters such as thermal margins, rotational speeds and fuel control. No customer pricing or measured downtime reduction was published for this install.",
+  "paragraphs": [
+    "Honeywell Aerospace and Fly Across completed Latin America's first installation of Honeywell's Ensemble connected-engine technology on an Embraer Praetor 500 in Mexico, Mexico Business News reported on November 5, with MRO Business Today covering the same milestone on November 6. Fly Across, an authorized channel partner for HTF7000-series engines in Mexico, did the work with Honeywell field service support. The Engine Data Gateway (EDG-100) automates collection and wireless transmission of engine performance data over Wi-Fi when the aircraft is on the ground, so crews no longer need to download logs by hand from a data port. Taylor Alberstadt, Honeywell's vice president of business and general aviation sales, said connected solutions help maintenance teams spot developing issues before they become groundings. Coverage describes continuous monitoring of parameters such as thermal margins, rotational speeds and fuel control. No customer pricing or measured downtime reduction was published for this install."
+  ],
+  "whyItMatters": "Manual engine downloads steal mechanic hours and delay the first look at trend data after a trip. Wireless transfer on arrival means the shop can start planning before the crew finishes deplaning. If you fly Honeywell-powered bizjets, ask your MRO whether Ensemble or an equivalent gateway is already approved for your engine, and what the recurring data service costs versus the cost of one avoided AOG day.",
+  "pricing": "Not published; contact Honeywell or Fly Across",
+  "sourceUrl": "https://mexicobusiness.news/aerospace/news/honeywell-and-fly-across-debut-connected-engine-latin-america",
+  "url": "https://aerospace.honeywell.com/"
+}

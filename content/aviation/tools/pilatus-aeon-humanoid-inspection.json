@@ -1,0 +1,17 @@
+{
+  "slug": "pilatus-aeon-humanoid-inspection",
+  "segment": "aviation",
+  "name": "AEON humanoid robot for assembly inspection (Pilatus and Hexagon)",
+  "sample": false,
+  "category": "Troubleshooting support",
+  "topic": "troubleshooting",
+  "company": "Pilatus Aircraft and Hexagon",
+  "summary": "Pilatus Aircraft is testing AEON, a humanoid robot developed by Hexagon, on its final assembly line in Stans, Switzerland, Defence Industry Europe reported on November 5. It is Pilatus's first humanoid robot trial. In an early test, AEON navigates to an assembly such as a PC-24 fuselage sidewall and checks that a worker fitted the right component in the right place. Pilatus says the robot could eventually run those checks at night on work finished during the day. AEON uses sensors, AI and precision measurement to inspect parts, handle objects and make digital recordings, and it must find assemblies and move through the hangar without endangering people or parts. Kilian Laubli, the Pilatus project manager, said the goal is robots for highly repetitive, unattractive or physically demanding jobs that Pilatus finds hard to staff, not to replace people. He also noted that a regulatory framework is still needed for legal use. No commercial product price or deployment date outside the trial was given.",
+  "paragraphs": [
+    "Pilatus Aircraft is testing AEON, a humanoid robot developed by Hexagon, on its final assembly line in Stans, Switzerland, Defence Industry Europe reported on November 5. It is Pilatus's first humanoid robot trial. In an early test, AEON navigates to an assembly such as a PC-24 fuselage sidewall and checks that a worker fitted the right component in the right place. Pilatus says the robot could eventually run those checks at night on work finished during the day. AEON uses sensors, AI and precision measurement to inspect parts, handle objects and make digital recordings, and it must find assemblies and move through the hangar without endangering people or parts. Kilian Laubli, the Pilatus project manager, said the goal is robots for highly repetitive, unattractive or physically demanding jobs that Pilatus finds hard to staff, not to replace people. He also noted that a regulatory framework is still needed for legal use. No commercial product price or deployment date outside the trial was given."
+  ],
+  "whyItMatters": "Wrong-part and wrong-location errors are expensive when they surface at functional test or after delivery. A night inspection pass that photos what was fitted can catch mistakes before the next shift builds on them. This is still a trial on a production line, so treat it as a signal. When a vendor pitches a hangar robot, ask what it checks, how it proves the check, and who signs the finding before it becomes a non-conformance.",
+  "pricing": "Not applicable; a joint trial",
+  "sourceUrl": "https://defence-industry.eu/pilatus-aircraft-tests-aeon-humanoid-robot-to-inspect-aircraft-parts-on-its-final-assembly-line/",
+  "url": "https://hexagon.com/"
+}

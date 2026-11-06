@@ -1,0 +1,17 @@
+{
+  "slug": "incheon-bhs-smart-monitoring-ai",
+  "segment": "aviation",
+  "name": "BHS Smart Monitoring System for baggage handling (Incheon International Airport)",
+  "sample": false,
+  "category": "Maintenance activity optimization",
+  "topic": "maintenance-optimization",
+  "company": "Incheon International Airport Corp.",
+  "summary": "Incheon International Airport Corp. said its AI-powered Baggage Handling System Smart Monitoring System has been running in Terminal 2 since October 26, The Korea Times reported on November 2. Sensors feed data from baggage sorters, conveyor motors and arrival-hall carousels into machine-learning software that flags parts likely to fail. Results appear on a three-level color scale (green, yellow, red) with the likely cause, so crews can replace parts or intervene before a breakdown. The airport previously repaired most equipment after it had already failed. It expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. Cho Yong-soo, executive director of operations, said the system should cut baggage-equipment management costs and improve passenger convenience. No quantified failure or cost figures were published beyond those expectations.",
+  "paragraphs": [
+    "Incheon International Airport Corp. said its AI-powered Baggage Handling System Smart Monitoring System has been running in Terminal 2 since October 26, The Korea Times reported on November 2. Sensors feed data from baggage sorters, conveyor motors and arrival-hall carousels into machine-learning software that flags parts likely to fail. Results appear on a three-level color scale (green, yellow, red) with the likely cause, so crews can replace parts or intervene before a breakdown. The airport previously repaired most equipment after it had already failed. It expects fewer unexpected shutdowns, longer equipment life, lower repair costs and fewer delayed bags. Cho Yong-soo, executive director of operations, said the system should cut baggage-equipment management costs and improve passenger convenience. No quantified failure or cost figures were published beyond those expectations."
+  ],
+  "whyItMatters": "A stopped sorter turns into delayed bags, overtime and angry passengers, and waiting for the motor to seize is the expensive way to learn. Color-coded early warnings let you schedule the repair on the night shift instead of during the bank. If you run conveyors, lifts or GSE, ask how many unplanned stoppages you had last quarter and whether your OEM offers sensor-based alerts before you fund a custom model.",
+  "pricing": "Not applicable; airport-built system",
+  "sourceUrl": "https://www.koreatimes.co.kr/southkorea/20261102/incheon-intl-airport-uses-ai-to-predict-baggage-system-failures",
+  "url": "https://www.airport.kr/eng/"
+}
